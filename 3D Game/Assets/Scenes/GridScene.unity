@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -331,10 +331,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GridCellPrefab: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
-  gridSize: {x: 2, y: 2}
+  gridSize: {x: 5, y: 5}
   innerSize: 0
   outerSize: 1
   height: 0
+  resourceAMaterial: {fileID: 2100000, guid: d0600edc3d5482144b8731ea0fb77c28, type: 2}
+  resourceBMaterial: {fileID: 2100000, guid: e65cbc2310171314c9d7885328868540, type: 2}
+  resourceCMaterial: {fileID: 2100000, guid: 0490d7c29ea44c44c9752b5528a8a5de, type: 2}
+  resourceDMaterial: {fileID: 2100000, guid: 829567c2724e8b840a1c3e0caff54e18, type: 2}
+  neutralMaterial: {fileID: 2100000, guid: fe46f26eb30cd0c46bcfdfb99d2f2390, type: 2}
+  negativeMaterial: {fileID: 2100000, guid: 56706c26ffbd12e43a0f8eb3fb1ac988, type: 2}
 --- !u!4 &815794070
 Transform:
   m_ObjectHideFlags: 0
