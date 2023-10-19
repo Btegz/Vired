@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 
 public class GridManager : MonoBehaviour
@@ -10,13 +11,12 @@ public class GridManager : MonoBehaviour
 
     public List<List<GridCell>> Grid;
 
-    [SerializeField] int xSize;
-    [SerializeField] int zSize;
+    [SerializeField] Vector2 gridSize;
 
-    [SerializeField] float CellMargin = 0.025f;
-
-    float xDiff = Mathf.Sign(60);
-
+    [Header ("Tile Presets")]
+    [SerializeField] float innerSize;
+    [SerializeField] float outerSize;
+    [SerializeField] float height;
 
     private void Awake()
     {
@@ -34,8 +34,21 @@ public class GridManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(xDiff);
         GenerateGrid();
+    }
+
+    private void OnValidate()
+    {
+        if (Application.isPlaying)
+        {
+            foreach(GridCell cell in GetComponentsInChildren<GridCell>())
+            {
+                Destroy(cell.gameObject);
+            }
+
+            ;
+            GenerateGrid();
+        }
     }
 
     // Update is called once per frame
@@ -46,21 +59,43 @@ public class GridManager : MonoBehaviour
 
     public void GenerateGrid()
     {
-        Grid = new List<List<GridCell>>();
-        for(int x = 0; x < xSize; x++)
+        for (int x = 0; x < gridSize.x; x++)
         {
-            Grid.Add(new List<GridCell>());
-            for(int z = 0; z < zSize; z++)
+            for(int y = 0; y < gridSize.y; y++)
             {
-                Vector3 targetPosition = new Vector3(x, 0, (x % 2 == 1 ? z - .5f : z));
-
-                targetPosition += targetPosition * CellMargin;
-
-                GridCell newCell = Instantiate(GridCellPrefab,targetPosition,Quaternion.identity, transform);
-                Grid[x].Add(newCell);
-
-                newCell.Setup(new Vector3(x, 0, z));
+                GridCell tile = Instantiate(GridCellPrefab, GetPositionForHexFromCoordinate(new Vector2Int(x,y)),Quaternion.identity, transform);
+                tile.name = $"Hex{x},{y}";
+                tile.innerSize = innerSize;
+                tile.outerSize = outerSize;
+                tile.height = height;
+                tile.DrawMesh();
             }
         }
+    }
+
+    public Vector3 GetPositionForHexFromCoordinate(Vector2Int coordinate)
+    {
+        int column = coordinate.x;
+        int row = coordinate.y;
+        float width;
+        float height;
+        float xpos;
+        float ypos;
+        float offset;
+        float horizontalDistance;
+        float verticalDistance;
+        float size = outerSize;
+
+        width = 2f * size;
+        height = Mathf.Sqrt(3f) * size;
+        horizontalDistance = width * (3f / 4f);
+        verticalDistance = height;
+
+        offset = (column % 2 == 0)? height / 2 : 0;
+
+        xpos = column * horizontalDistance;
+        ypos = row * verticalDistance - offset;
+
+        return new Vector3(xpos,0,ypos);
     }
 }
