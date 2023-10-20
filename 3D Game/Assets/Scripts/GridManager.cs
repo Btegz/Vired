@@ -13,18 +13,18 @@ public class GridManager : MonoBehaviour
 
     [SerializeField] Vector2 gridSize;
 
-    [Header ("Tile Presets")]
+    [Header("Tile Presets")]
     [SerializeField] float innerSize;
     [SerializeField] float outerSize;
     [SerializeField] float height;
 
     [Header("Resource Materials")]
-    [SerializeField]public Material resourceAMaterial;
-    [SerializeField]public Material resourceBMaterial;
-    [SerializeField]public Material resourceCMaterial;
-    [SerializeField]public Material resourceDMaterial;
-    [SerializeField]public Material neutralMaterial;
-    [SerializeField]public Material negativeMaterial;
+    [SerializeField] public Material resourceAMaterial;
+    [SerializeField] public Material resourceBMaterial;
+    [SerializeField] public Material resourceCMaterial;
+    [SerializeField] public Material resourceDMaterial;
+    [SerializeField] public Material neutralMaterial;
+    [SerializeField] public Material negativeMaterial;
 
     List<GridState> gridStates;
 
@@ -34,7 +34,7 @@ public class GridManager : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
             gridStates = new List<GridState>();
@@ -60,7 +60,7 @@ public class GridManager : MonoBehaviour
     {
         if (Application.isPlaying)
         {
-            foreach(GridCell cell in GetComponentsInChildren<GridCell>())
+            foreach (GridCell cell in GetComponentsInChildren<GridCell>())
             {
                 Destroy(cell.gameObject);
             }
@@ -72,7 +72,7 @@ public class GridManager : MonoBehaviour
             {
                 Debug.Log("I FAILED TO GENERATE GRID IN ONVALIDATE");
             }
-            
+
         }
     }
 
@@ -82,10 +82,10 @@ public class GridManager : MonoBehaviour
         for (int x = 0; x < gridSize.x; x++)
         {
             Grid.Insert(x, new List<GridCell>((int)gridSize.y));
-            for(int y = 0; y < gridSize.y; y++)
+            for (int y = 0; y < gridSize.y; y++)
             {
-                GridCell tile = Instantiate(GridCellPrefab, GetPositionForHexFromCoordinate(new Vector2Int(x,y)),Quaternion.identity, transform);
-                tile.Setup(new Vector2Int(x, y), (Ressource)Random.Range(0, 4), gridStates[Random.Range(0,gridStates.Count)]);
+                GridCell tile = Instantiate(GridCellPrefab, GetPositionForHexFromCoordinate(new Vector2Int(x, y)), Quaternion.identity, transform);
+                tile.Setup(new Vector2Int(x, y), (Ressource)Random.Range(0, 4), gridStates[Random.Range(0, gridStates.Count)]);
                 tile.name = $"Hex{x},{y}";
                 tile.innerSize = innerSize;
                 tile.outerSize = outerSize;
@@ -114,12 +114,12 @@ public class GridManager : MonoBehaviour
         horizontalDistance = width * (3f / 4f);
         verticalDistance = height;
 
-        offset = (column % 2 == 0)? height / 2 : 0;
+        offset = (column % 2 == 0) ? height / 2 : 0;
 
         xpos = column * horizontalDistance;
         ypos = row * verticalDistance - offset;
 
-        return new Vector3(xpos,0,ypos);
+        return new Vector3(xpos, 0, ypos);
     }
 
     public GridCell PickRandomTile()
@@ -128,7 +128,7 @@ public class GridManager : MonoBehaviour
         int y;
 
         x = Random.Range(0, Grid.Count);
-        y = Random.Range(0, Random.Range(0,Grid[x].Count));
+        y = Random.Range(0, Random.Range(0, Grid[x].Count));
 
         return Grid[x][y];
     }
