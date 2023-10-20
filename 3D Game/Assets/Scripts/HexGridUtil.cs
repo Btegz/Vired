@@ -327,4 +327,68 @@ public static class HexGridUtil
 
         return result;
     }
+
+    public static Vector3 AxialHexToPixel(Vector2Int hex, float size)
+    {
+        Vector3 result = new Vector3();
+
+        float x = size * ((float)hex.x * 1.5f);
+        float y = size * (((float)hex.x * (Mathf.Sqrt(3f)/2f)) + (Mathf.Sqrt(3)*(float)hex.y));
+
+        result.x = x;
+        result.z = y;
+        //result.z = -x -y;
+        return result;
+    }
+
+    public static List<Vector2Int> GenerateRombusShapedGrid(int qSize,int rSize)
+    {
+        List<Vector2Int> result = new List<Vector2Int>();
+
+        for(int q = 0; q < qSize; q++)
+        {
+            for (int r = 0; r < rSize; r++)
+            {
+                result.Add(new Vector2Int(q, r));
+            }
+        }
+        return result;
+    }
+
+    public static List<Vector2Int> GenerateRectangleShapedGrid(int qSize,int rSize)
+    {
+        List<Vector2Int> result = new List<Vector2Int>();
+
+        int left = qSize / 2 * -1;
+        int right = qSize / 2;
+        int top = rSize / 2 * -1;
+        int bottom = rSize / 2;
+
+        for (int q = left; q<=right; q++)
+        {
+            int qoffset = Mathf.FloorToInt((float)q / 2f);
+            for (int r = top - qoffset;r <= bottom-qoffset; r++)
+            {
+                result.Add(new Vector2Int(q, r));
+            }
+        }
+        return result;
+    }
+
+    public static List<Vector2Int> GenerateHexagonalShapedGrid(int radius)
+    {
+        List<Vector2Int> result = new List<Vector2Int>();
+
+        for (int q = -radius; q <= radius; q++)
+        {
+            int r1 = Mathf.Max(- radius, -q - radius);
+            int r2 = Mathf.Min(radius, -q + radius);
+
+            for(int r = r1; r <= r2; r++)
+            {
+                result.Add(new Vector2Int(q, r));
+            }                    
+        }
+        return result;
+    }
 }
