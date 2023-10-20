@@ -219,7 +219,7 @@ public class GridCell : MonoBehaviour
     /// <returns>Vector3 for vertex of faces, forming the Hexagon.</returns>
     private Vector3 GetPoint(float size, float height, int index)
     {
-        // Triangles that form a regular Hexagon have every angle in 60°. So i multiply index with 60 to get every rotation for a Hexagon.
+        // Triangles that form a regular Hexagon have every angle in 60Â°. So i multiply index with 60 to get every rotation for a Hexagon.
         float angle_deg = 60 * index;
 
         // translate degree of the angle into radius.
