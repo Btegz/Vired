@@ -28,7 +28,7 @@ public class PE_EnemySpawn : PhaseEffect
 
         Enemy newEnemy = Instantiate(enemyPrefab);
         newEnemy.Setup(enemySOs[Random.Range(0, enemySOs.Count)]);
-        GridCell randomLocation = gridManager.PickRandomTile();
+        GridTile randomLocation = gridManager.PickRandomTile();
         newEnemy.transform.parent = randomLocation.transform;
         newEnemy.transform.position = randomLocation.transform.position;
     }

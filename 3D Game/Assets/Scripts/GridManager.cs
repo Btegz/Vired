@@ -7,9 +7,10 @@ public class GridManager : MonoBehaviour
 {
     public static GridManager Instance;
 
-    [SerializeField] GridCell GridCellPrefab;
+    [SerializeField] GridTile GridTilePrefab;
 
-    public List<List<GridCell>> Grid;
+    public Dictionary<Vector2Int,GridTile> Grid;
+
 
     [SerializeField] Vector2 gridSize;
 
@@ -28,7 +29,7 @@ public class GridManager : MonoBehaviour
 
     List<GridState> gridStates;
 
-    //[Header("Resource Materials")]
+    [Header("Enemy Ressources")]
     [SerializeField] public Enemy enemyPrefab;
     [SerializeField] public List<EnemySO> enemySOs;
 
@@ -54,44 +55,79 @@ public class GridManager : MonoBehaviour
     void Start()
     {
         GenerateGrid();
-    }
 
-    private void OnValidate()
-    {
-        if (Application.isPlaying)
+        Debug.Log("Picking two random Tiles");
+        GridTile tileA = PickRandomTile();
+        GridTile tileB = PickRandomTile();
+
+        Vector3Int coordTileA = HexGridUtil.AxialToCubeCoord(tileA.CellCoordinate);
+        Vector3Int coordTileB = HexGridUtil.AxialToCubeCoord(tileB.CellCoordinate);
+
+        Debug.Log("Coordinate of the first random tile is: " + coordTileA);
+        Debug.Log("Coordinate of the second random tile is: " + coordTileB);
+
+        int distance = HexGridUtil.CubeDistance(HexGridUtil.AxialToCubeCoord(tileA.CellCoordinate), HexGridUtil.AxialToCubeCoord(tileB.CellCoordinate));
+        Debug.Log("The Distance of the two random Tiles is: " + distance);
+
+        Debug.Log("NO I ELEVATE EVERY TILE IN A LINE BETWEEN THE TWO RANDOM TILES");
+
+        List<Vector3Int> OnLineCube = HexGridUtil.CubeLineDraw(coordTileA,coordTileB);
+        Debug.Log($"The line contains {OnLineCube.Count} Coordinates");
+
+        List<Vector2Int> OnLine = new List<Vector2Int>();
+
+        foreach(Vector3Int coord in OnLineCube)
         {
-            foreach (GridCell cell in GetComponentsInChildren<GridCell>())
-            {
-                Destroy(cell.gameObject);
-            }
-            try
-            {
-                GenerateGrid();
-            }
-            catch
-            {
-                Debug.Log("I FAILED TO GENERATE GRID IN ONVALIDATE");
-            }
-
+            Debug.Log($"Coordinate: {coord}");
+            OnLine.Add(HexGridUtil.CubeToAxialCoord(coord));
         }
+
+        Debug.Log(OnLine.Count);
+
+        foreach (Vector2Int coord in OnLine)
+        {
+            Grid[coord].transform.position += Vector3.up;
+        }
+
+
     }
+
+    //private void OnValidate()
+    //{
+    //    if (Application.isPlaying)
+    //    {
+    //        foreach (GridTile cell in GetComponentsInChildren<GridTile>())
+    //        {
+    //            Destroy(cell.gameObject);
+    //        }
+    //        try
+    //        {
+    //            GenerateGrid();
+    //        }
+    //        catch
+    //        {
+    //            Debug.Log("I FAILED TO GENERATE GRID IN ONVALIDATE");
+    //        }
+
+    //    }
+    //}
 
     public void GenerateGrid()
     {
-        Grid = new List<List<GridCell>>((int)gridSize.x);
+        Grid = new Dictionary<Vector2Int, GridTile>();
+
         for (int x = 0; x < gridSize.x; x++)
         {
-            Grid.Insert(x, new List<GridCell>((int)gridSize.y));
             for (int y = 0; y < gridSize.y; y++)
             {
-                GridCell tile = Instantiate(GridCellPrefab, GetPositionForHexFromCoordinate(new Vector2Int(x, y)), Quaternion.identity, transform);
+                GridTile tile = Instantiate(GridTilePrefab, GetPositionForHexFromCoordinate(new Vector2Int(x, y)), Quaternion.identity, transform);
                 tile.Setup(new Vector2Int(x, y), (Ressource)Random.Range(0, 4), gridStates[Random.Range(0, gridStates.Count)]);
                 tile.name = $"Hex{x},{y}";
                 tile.innerSize = innerSize;
                 tile.outerSize = outerSize;
                 tile.height = height;
                 tile.DrawMesh();
-                Grid[x].Insert(y, tile);
+                Grid.Add(new Vector2Int(x, y), tile);
             }
         }
     }
@@ -122,14 +158,15 @@ public class GridManager : MonoBehaviour
         return new Vector3(xpos, 0, ypos);
     }
 
-    public GridCell PickRandomTile()
+    public GridTile PickRandomTile()
     {
-        int x;
-        int y;
+        List<GridTile> tileCollection = new List<GridTile>();
 
-        x = Random.Range(0, Grid.Count);
-        y = Random.Range(0, Random.Range(0, Grid[x].Count));
+        foreach(KeyValuePair<Vector2Int,GridTile> kvp in Grid)
+        {
+            tileCollection.Add(kvp.Value);
+        }
 
-        return Grid[x][y];
+        return tileCollection[Random.Range(0,tileCollection.Count)];
     }
 }

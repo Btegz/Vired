@@ -70,7 +70,11 @@ public static class HexGridUtil
     /// <returns>difference of "a" minus "b"</returns>
     public static Vector3Int CubeSubstract(Vector3Int a, Vector3Int b)
     {
-        return new Vector3Int(a.x - b.x, a.y - b.y, a.z - b.z);
+        int resX = a.x-b.x;
+        int resY = a.y - b.y;
+        int resZ = a.z - b.z;
+        Debug.Log($">>> I CubeSubstract {a} from {b} resulting in {resX},{resY},{resZ}");
+        return new Vector3Int(resX,resY,resZ);
     }
 
     /// <summary>
@@ -134,9 +138,11 @@ public static class HexGridUtil
     /// <param name="b"></param>
     /// <param name="t"></param>
     /// <returns></returns>
-    public static float Lerp(int a, int b, float t)
+    public static float Lerp(float a, float b, float t)
     {
-        return a + (b - a) * t;
+        float result = a + (b - a) * t;
+        Debug.Log($">>> I am Lerping between {a} and {b} at step {t} resulting into {result}");
+        return result;
     }
 
     /// <summary>
@@ -162,12 +168,16 @@ public static class HexGridUtil
     /// <returns>A List of Vector3Int of every tile between Coordinate "a" and "b"</returns>
     public static List<Vector3Int> CubeLineDraw(Vector3Int a, Vector3Int b)
     {
+        Debug.Log(">>> I have entered HexGrdUtils CubeLineDraw Function");
         List<Vector3Int> result = new List<Vector3Int>();
         int dist = CubeDistance(a, b);
-        for (int i = 0; i < dist; i++)
+        for (int i = 0; i <= dist; i++)
         {
-            result.Add(CubeRound(CubeLerp(a, b, 1 / dist * i)));
+            float lerpV = (1 / (float)dist) * i;
+            Debug.Log("I am currently Lerping at " + lerpV);
+            result.Add(CubeRound(CubeLerp(a, b, lerpV)));
         }
+        Debug.Log(">>> I now Exit HexGridUtils CubeLineDrawFunction");
         return result;
     }
 
@@ -179,26 +189,36 @@ public static class HexGridUtil
     /// <returns>Rounded Vector3Int</returns>
     public static Vector3Int CubeRound(Vector3 a)
     {
-        float x = Mathf.Round(a.x);
-        float y = Mathf.Round(a.y);
-        float z = Mathf.Round(a.z);
+        int x = Mathf.RoundToInt(a.x);
+        int y = Mathf.RoundToInt(a.y);
+        int z = Mathf.RoundToInt(a.z);
 
         float xDiff = Mathf.Abs(x - a.x);
         float yDiff = Mathf.Abs(y - a.y);
         float zDiff = Mathf.Abs(z - a.z);
 
+        Debug.Log(">>> I am CubeRounding.");
+        Debug.Log($"{a.x} is rounded to {x} with a Difference of {xDiff}");
+        Debug.Log($"{a.y} is rounded to {y} with a Difference of {yDiff}");
+        Debug.Log($"{a.z} is rounded to {z} with a Difference of {zDiff}");
+
         if (xDiff > yDiff && xDiff > zDiff)
         {
             x = -y - z;
+            Debug.Log($"I changed x to {x}.");
         }
         else if (yDiff > zDiff)
         {
             y = -x - z;
+            Debug.Log($"I changed y to {y}.");
         }
         else
         {
             z = -x - y;
+            Debug.Log($"I changed z to {z}.");
         }
+        Debug.Log($"My Result of cubeRound is {x},{y},{z}");
+        Debug.Log(">>> I Exit CubeRounding");
         return new Vector3Int((int)x, (int)y, (int)z);
     }
 

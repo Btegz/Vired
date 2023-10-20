@@ -29,7 +29,7 @@ public struct Face
 /// MonoBehaviour Class to hold Information and provide functions of a hexagonal Cell.
 /// It also generates it's mesh.
 /// </summary>
-public class GridCell : MonoBehaviour
+public class GridTile : MonoBehaviour
 {
     public Vector2Int CellCoordinate;
 
