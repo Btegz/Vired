@@ -62,27 +62,27 @@ public class GridManager : MonoBehaviour
         GenerateGrid();
 
         // Das ist nur spielerei.
-        GridTile tileA = PickRandomTile();
-        GridTile tileB = PickRandomTile();
+        //GridTile tileA = PickRandomTile();
+        //GridTile tileB = PickRandomTile();
 
-        Vector3Int coordTileA = HexGridUtil.AxialToCubeCoord(tileA.AxialCoordinate);
-        Vector3Int coordTileB = HexGridUtil.AxialToCubeCoord(tileB.AxialCoordinate);
+        //Vector3Int coordTileA = HexGridUtil.AxialToCubeCoord(tileA.AxialCoordinate);
+        //Vector3Int coordTileB = HexGridUtil.AxialToCubeCoord(tileB.AxialCoordinate);
 
-        int distance = HexGridUtil.CubeDistance(HexGridUtil.AxialToCubeCoord(tileA.AxialCoordinate), HexGridUtil.AxialToCubeCoord(tileB.AxialCoordinate));
+        //int distance = HexGridUtil.CubeDistance(HexGridUtil.AxialToCubeCoord(tileA.AxialCoordinate), HexGridUtil.AxialToCubeCoord(tileB.AxialCoordinate));
 
-        List<Vector3Int> OnLineCube = HexGridUtil.CubeLineDraw(coordTileA,coordTileB);
+        //List<Vector3Int> OnLineCube = HexGridUtil.CubeLineDraw(coordTileA,coordTileB);
 
-        List<Vector2Int> OnLine = new List<Vector2Int>();
+        //List<Vector2Int> OnLine = new List<Vector2Int>();
 
-        foreach(Vector3Int coord in OnLineCube)
-        {
-            OnLine.Add(HexGridUtil.CubeToAxialCoord(coord));
-        }
+        //foreach(Vector3Int coord in OnLineCube)
+        //{
+        //    OnLine.Add(HexGridUtil.CubeToAxialCoord(coord));
+        //}
 
-        foreach (Vector2Int coord in OnLine)
-        {
-            Grid[coord].transform.position += Vector3.up;
-        }
+        //foreach (Vector2Int coord in OnLine)
+        //{
+        //    Grid[coord].transform.position += Vector3.up;
+        //}
     }
 
     /// <summary>
@@ -120,7 +120,15 @@ public class GridManager : MonoBehaviour
 
         //List<Vector2Int> coords = HexGridUtil.GenerateRombusShapedGrid(gridSize.x, gridSize.y);
         //List<Vector2Int> coords = HexGridUtil.GenerateRectangleShapedGrid(gridSize.x, gridSize.y);
-        List<Vector2Int> coords = HexGridUtil.GenerateHexagonalShapedGrid(gridSize.x);
+        //List<Vector2Int> coords = HexGridUtil.GenerateHexagonalShapedGrid(gridSize.x);
+
+        List<Vector2Int> gridB = HexGridUtil.GenerateRombusShapedGrid(2, 3);
+        List<Vector2Int> gridC = HexGridUtil.GenerateRombusShapedGrid(5, 5);
+        List<Vector2Int> gridA = HexGridUtil.GenerateHexagonalShapedGrid(2);
+
+        List<Vector2Int> coords = HexGridUtil.CombineGridsAlongAxis(gridA, gridB, Random.Range(0, HexGridUtil.cubeDirectionVectors.Length));
+
+        coords = HexGridUtil.CombineGridsAlongAxis(coords, gridC, Random.Range(0,HexGridUtil.cubeDirectionVectors.Length));
 
         foreach (Vector2Int coord in coords)
         {
