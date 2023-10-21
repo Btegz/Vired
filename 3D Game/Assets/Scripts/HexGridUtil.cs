@@ -7,6 +7,7 @@ using UnityEngine;
 /// </summary>
 public static class HexGridUtil
 {
+    // GENERAL PURPOSE ------------------------------------------------------------------------------------------------------------
     /// <summary>
     /// Converts an cubic Coordinate into an Axial Coordinate. 
     /// </summary>
@@ -121,6 +122,8 @@ public static class HexGridUtil
         int resZ = a.z - b.z;
         return new Vector3Int(resX, resY, resZ);
     }
+
+    // INTERACTING BETWEEN COORDS --------------------------------------------------------------------------------------------------------
 
     /// <summary>
     /// Returns a List of every 6 Coordinate Vectors that are ajacent to given Coordinate Vector.
@@ -280,6 +283,8 @@ public static class HexGridUtil
         return result;
     }
 
+    // PATHFINDING ------------------------------------------------------------------------------------------------------------------------
+
     /// <summary>
     /// Searches for every Coordinate, reachable from "startingCoord" within "range".
     /// <br>STILL NEED TO ADD A WAY OF CHECKING FOR BLOCKED TILES</br>
@@ -329,18 +334,23 @@ public static class HexGridUtil
         return visited;
     }
 
+    // ROTATION ----------------------------------------------------------------------------------------------------------------------------
+
     /// <summary>
     /// Rotates a Coordinate around a center. 60° Clockwise.
     /// </summary>
     /// <param name="center"></param>
     /// <param name="coord"></param>
     /// <returns>Rotated Coordinate.</returns>
-    public static Vector3Int Rotate60DegClockwise(Vector3Int center, Vector3Int coord)
+    public static Vector3Int Rotate60DegClockwise(Vector3Int center, Vector3Int coord,int amount)
     {
-        Vector3Int result = CubeSubstract(coord, center);
-
-
-        return new Vector3Int(-result.y, -result.z, -result.z);
+        Vector3Int result = coord;
+        result = CubeSubstract(result, center);
+        for (int i = 0; i< amount; i++)
+        {
+            result = new Vector3Int(-result.y, -result.z, -result.x);
+        }
+        return result;
 
     }
 
@@ -350,15 +360,56 @@ public static class HexGridUtil
     /// <param name="center"></param>
     /// <param name="coord"></param>
     /// <returns>Rotated Coordinate</returns>
-    public static Vector3Int Rotate60DegCounterClockwise(Vector3Int center, Vector3Int coord)
+    public static Vector3Int Rotate60DegCounterClockwise(Vector3Int center, Vector3Int coord, int amount)
     {
-        Vector3Int start = CubeSubstract(coord, center);
-        Vector3Int rotatedResult = new Vector3Int(-start.z, -start.x, -start.y);
-        Vector3Int result = CubeAdd(center, rotatedResult);
-
+        Vector3Int result = coord;
+        for(int i = 0; i< amount; i++)
+        {
+            Vector3Int start = CubeSubstract(result, center);
+            Vector3Int rotatedResult = new Vector3Int(-start.z, -start.x, -start.y);
+            result = CubeAdd(center, rotatedResult);
+        }
         return result;
     }
 
+    /// <summary>
+    /// Rotates a List of Coordinates Clockwise around a given Center
+    /// </summary>
+    /// <param name="center">Center to rotate around</param>
+    /// <param name="range">List of Coordinates</param>
+    /// <returns>Rotated List of Coordiantes</returns>
+    public static List<Vector3Int> RotateRangeClockwise(Vector3Int center, List<Vector3Int> range, int amount)
+    {
+        List<Vector3Int> result = new List<Vector3Int>();
+        foreach (Vector3Int a in range)
+        {
+            result.Add(Rotate60DegClockwise(center, a, amount));
+        }
+        return result;
+    }
+
+    /// <summary>
+    /// Rotates a List of Coordinates Counter-Clockwise around a given Center
+    /// </summary>
+    /// <param name="center">Center to rotate around</param>
+    /// <param name="range">List of Coordinates</param>
+    /// <returns>Rotated List of Coordiantes</returns>
+    public static List<Vector3Int> RotateRangeCounterClockwise(Vector3Int center, List<Vector3Int> range, int amount)
+    {
+        List<Vector3Int> result = new List<Vector3Int>();
+        foreach (Vector3Int a in range)
+        {
+            result.Add(Rotate60DegCounterClockwise(center, a,amount));
+        }
+        return result;
+    }
+
+    /// <summary>
+    /// Converts a Hex Coordinate into a Worldposition with y=0
+    /// </summary>
+    /// <param name="hex">Coordinate</param>
+    /// <param name="size">Size of the Hexagon</param>
+    /// <returns>Worldlocation</returns>
     public static Vector3 AxialHexToPixel(Vector2Int hex, float size)
     {
         Vector3 result = new Vector3();
@@ -372,13 +423,80 @@ public static class HexGridUtil
         return result;
     }
 
+    // COMBINE ----------------------------------------------------------------------------------------------------------------------------
+
+    /// <summary>
+    /// Combines Coordinates of two Cubic Grids into one along the given Axis.
+    /// </summary>
+    /// <param name="gridA">Origin Grid</param>
+    /// <param name="gridB">Grid to be Attached</param>
+    /// <param name="dirIndex">Index of Direction</param>
+    /// <returns>Combines Grid</returns>
+    public static List<Vector3Int> CombineGridsAlongAxis(List<Vector3Int> gridA, List<Vector3Int> gridB, Vector3Int dir,out List<Vector3Int> movedGrid)
+    {
+        List<Vector3Int> combine = gridA;
+
+        List<Vector3Int> movedGridB = gridB;
+
+        while (GridOverlaps(gridA, movedGridB))
+        {
+            movedGridB = CubeAddRange(movedGridB, dir);
+        }
+
+        combine.AddRange(movedGridB);
+        movedGrid = movedGridB;
+        return combine;
+    }
+
+    /// <summary>
+    /// Combines Coordinates of two Axial Coordinate Grids into one along the given Axis.
+    /// </summary>
+    /// <param name="gridA">Origin of Grid</param>
+    /// <param name="gridB">Grid to be Attached</param>
+    /// <param name="dirIndex">Normalized Vector where gridB attaches to gridA</param>
+    /// <returns>combined Grid</returns>
+    public static List<Vector2Int> CombineGridsAlongAxis(List<Vector2Int> gridA, List<Vector2Int> gridB, Vector3Int dir, out List<Vector2Int> movedGrid)
+    {
+        List<Vector3Int> movedPart = new List<Vector3Int>();
+        List<Vector3Int> combine = CombineGridsAlongAxis(AxialToCubeCoord(gridA), AxialToCubeCoord(gridB), dir,out movedPart);
+
+        movedGrid = CubeToAxialCoord(movedPart);
+        return CubeToAxialCoord(combine);
+    }
+
+    /// <summary>
+    /// Checks whether two given Lists of coordinates have duplicates.
+    /// </summary>
+    /// <param name="gridA">List of Coordinates</param>
+    /// <param name="gridB">List of Coordinates</param>
+    /// <returns>true if at least one coordinate is in both Lists</returns>
+    public static bool GridOverlaps(List<Vector3Int> gridA, List<Vector3Int> gridB)
+    {
+        foreach(Vector3Int a in gridA)
+        {
+            if (gridB.Contains(a))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // SHAPES --------------------------------------------------------------------------------------------------------------------------------
+
     public static List<Vector2Int> GenerateRombusShapedGrid(int qSize, int rSize)
     {
         List<Vector2Int> result = new List<Vector2Int>();
 
-        for (int q = 0; q < qSize; q++)
+        int q1 = qSize / 2 * -1;
+        int q2 = qSize / 2;
+        int r1 = rSize / 2 * -1;
+        int r2 = rSize / 2;
+
+
+        for (int q = q1; q <= q2; q++)
         {
-            for (int r = 0; r < rSize; r++)
+            for (int r = r1; r <= r2; r++)
             {
                 result.Add(new Vector2Int(q, r));
             }
@@ -419,79 +537,6 @@ public static class HexGridUtil
             {
                 result.Add(new Vector2Int(q, r));
             }
-        }
-        return result;
-    }
-
-    /// <summary>
-    /// Combines Coordinates of two Cubic Grids into one along the given Axis.
-    /// </summary>
-    /// <param name="gridA">Origin Grid</param>
-    /// <param name="gridB">Grid to be Attached</param>
-    /// <param name="dirIndex">Index of Direction</param>
-    /// <returns>Combines Grid</returns>
-    public static List<Vector3Int> CombineGridsAlongAxis(List<Vector3Int> gridA, List<Vector3Int> gridB, int dirIndex)
-    {
-        List<Vector3Int> combine = gridA;
-
-        List<Vector3Int> movedGridB = gridB;
-
-        while (GridOverlaps(gridA, movedGridB))
-        {
-            movedGridB = CubeAddRange(movedGridB, cubeDirectionVectors[dirIndex]);
-        }
-
-        combine.AddRange(movedGridB);
-
-        return combine;
-    }
-
-    /// <summary>
-    /// Combines Coordinates of two Axial Coordinate Grids into one along the given Axis.
-    /// </summary>
-    /// <param name="gridA">Origin of Grid</param>
-    /// <param name="gridB">Grid to be Attached</param>
-    /// <param name="dirIndex">Normalized Vector where gridB attaches to gridA</param>
-    /// <returns>combined Grid</returns>
-    public static List<Vector2Int> CombineGridsAlongAxis(List<Vector2Int> gridA, List<Vector2Int> gridB, int dirIndex)
-    {
-        List<Vector3Int> gridACube = AxialToCubeCoord(gridA);
-        List<Vector3Int> gridBCube = AxialToCubeCoord(gridB);
-
-
-        List<Vector3Int> combine = CombineGridsAlongAxis(AxialToCubeCoord(gridA), AxialToCubeCoord(gridB), dirIndex);
-
-        return CubeToAxialCoord(combine);
-    }
-
-    public static bool GridOverlaps(List<Vector3Int> gridA, List<Vector3Int> gridB)
-    {
-        foreach(Vector3Int a in gridA)
-        {
-            if (gridB.Contains(a))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static List<Vector3Int> RotateRangeClockwise(Vector3Int center, List<Vector3Int> range)
-    {
-        List<Vector3Int> result = new List<Vector3Int>();
-        foreach (Vector3Int a in range)
-        {
-            result.Add(Rotate60DegClockwise(center, a));
-        }
-        return result;
-    }
-
-    public static List<Vector3Int> RotateRangeCounterClockwise(Vector3Int center, List<Vector3Int> range)
-    {
-        List<Vector3Int> result = new List<Vector3Int>();
-        foreach (Vector3Int a in range)
-        {
-            result.Add(Rotate60DegCounterClockwise(center, a));
         }
         return result;
     }

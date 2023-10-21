@@ -15,16 +15,19 @@ public class GridManager : MonoBehaviour
     // Vector2Int holds the coordinate and GridTile is the GameObject in the Coordinate.
     // It is a Vector2Int instead of Vector3Int because this makes accessing the tiles much easier.
     // If you want the cubic Coordinate you cann access HexGridUtil.AxialToCubeCoord.
-    public Dictionary<Vector2Int,GridTile> Grid;
+    public Dictionary<Vector2Int, GridTile> Grid;
 
     // Supposed to handle the q and r dimensions of the grid when gereating the shape.
-    [SerializeField] Vector2Int gridSize; 
+    [SerializeField] Vector2Int gridSize;
     List<GridState> gridStates;
 
     [Header("Tile Presets")]
     [SerializeField, Tooltip("should be smaller then outerSize. If Hex should be filled this will be 0.")] float innerSize;
     [SerializeField, Tooltip("The Size of a Hex tile. Size represents the radius and not the diameter of the Hex. If outerSize is 1, the Hex will have a width of 2.")] float outerSize;
     [SerializeField, Tooltip("The y Position of the tile")] float height;
+
+    [Header("Shape Presets")]
+    [SerializeField] List<HS_World> RessourceShapes;
 
     [Header("Resource Materials")]
     public Material resourceAMaterial;
@@ -118,18 +121,10 @@ public class GridManager : MonoBehaviour
     {
         Grid = new Dictionary<Vector2Int, GridTile>();
 
-        //List<Vector2Int> coords = HexGridUtil.GenerateRombusShapedGrid(gridSize.x, gridSize.y);
-        //List<Vector2Int> coords = HexGridUtil.GenerateRectangleShapedGrid(gridSize.x, gridSize.y);
-        //List<Vector2Int> coords = HexGridUtil.GenerateHexagonalShapedGrid(gridSize.x);
+        // a Standard Hexgonal Grid for the Start
+        List<Vector2Int> coords = HexGridUtil.GenerateHexagonalShapedGrid(1);
 
-        List<Vector2Int> gridB = HexGridUtil.GenerateRombusShapedGrid(2, 3);
-        List<Vector2Int> gridC = HexGridUtil.GenerateRombusShapedGrid(5, 5);
-        List<Vector2Int> gridA = HexGridUtil.GenerateHexagonalShapedGrid(2);
-
-        List<Vector2Int> coords = HexGridUtil.CombineGridsAlongAxis(gridA, gridB, Random.Range(0, HexGridUtil.cubeDirectionVectors.Length));
-
-        coords = HexGridUtil.CombineGridsAlongAxis(coords, gridC, Random.Range(0,HexGridUtil.cubeDirectionVectors.Length));
-
+        // The Startgrid is Instantiated and filled with random States
         foreach (Vector2Int coord in coords)
         {
             GridTile tile = Instantiate(GridTilePrefab, HexGridUtil.AxialHexToPixel(coord, outerSize), Quaternion.identity, transform);
@@ -141,6 +136,51 @@ public class GridManager : MonoBehaviour
             tile.DrawMesh();
             Grid.Add(coord, tile);
         }
+
+        // Every RessourceShape is Generated and combined with the basegrid.
+        for (int i = 0; i < 3; i++)
+        {
+            foreach (HS_World hsw in RessourceShapes)
+            {
+                List<Vector2Int> shape = hsw.Coordinates;
+                shape = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeClockwise(Vector3Int.zero, HexGridUtil.AxialToCubeCoord(shape), Random.Range(0,6)));
+                coords = HexGridUtil.CombineGridsAlongAxis(coords, shape, HexGridUtil.cubeDirectionVectors[Random.Range(0, HexGridUtil.cubeDirectionVectors.Length)], out shape);
+                foreach (Vector2Int coord in shape)
+                {
+                    GridTile tile = Instantiate(GridTilePrefab, HexGridUtil.AxialHexToPixel(coord, outerSize), Quaternion.identity, transform);
+                    tile.Setup(coord, hsw.MyRessource, gridStates[0]);
+                    tile.name = $"{hsw.MyRessource} Hex ({coord.x},{coord.y})";
+                    tile.innerSize = innerSize;
+                    tile.outerSize = outerSize;
+                    tile.height = height;
+                    tile.DrawMesh();
+                    Grid.Add(coord, tile);
+                }
+                coords.AddRange(shape);
+            }
+        }
+
+        //List<Vector2Int> gridB = HexGridUtil.GenerateRombusShapedGrid(2, 2);
+        //List<Vector2Int> baseGrid = HexGridUtil.GenerateHexagonalShapedGrid(1);
+
+        //Vector3Int[] diagonalDirections = HexGridUtil.cubeDiagonalDirectionVectors;
+        //Vector3Int[] neighborDirections = HexGridUtil.cubeDirectionVectors;
+
+        //List<Vector2Int> coords = baseGrid;
+
+        //for (int i = 0; i < neighborDirections.Length; i+=1)
+        //{
+        //    coords = HexGridUtil.CombineGridsAlongAxis(coords, gridB, neighborDirections[i]);
+        //    gridB = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeCounterClockwise(Vector3Int.zero, HexGridUtil.AxialToCubeCoord(gridB)));
+        //}
+        //gridB = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeCounterClockwise(Vector3Int.zero, HexGridUtil.AxialToCubeCoord(gridB)));
+        //for (int i=0; i<diagonalDirections.Length; i++)
+        //{
+        //    coords = HexGridUtil.CombineGridsAlongAxis(coords, gridB, diagonalDirections[i]);
+        //    gridB = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeCounterClockwise(Vector3Int.zero, HexGridUtil.AxialToCubeCoord(gridB)));
+        //}
+
+
     }
 
 
@@ -152,11 +192,11 @@ public class GridManager : MonoBehaviour
     {
         List<GridTile> tileCollection = new List<GridTile>();
 
-        foreach(KeyValuePair<Vector2Int,GridTile> kvp in Grid)
+        foreach (KeyValuePair<Vector2Int, GridTile> kvp in Grid)
         {
             tileCollection.Add(kvp.Value);
         }
 
-        return tileCollection[Random.Range(0,tileCollection.Count)];
+        return tileCollection[Random.Range(0, tileCollection.Count)];
     }
 }
