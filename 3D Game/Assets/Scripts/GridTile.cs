@@ -25,20 +25,20 @@ public struct Face
         this.uvs = uvs;
     }
 }
+
 /// <summary>
 /// MonoBehaviour Class to hold Information and provide functions of a hexagonal Cell.
 /// It also generates it's mesh.
 /// </summary>
 public class GridTile : MonoBehaviour
 {
-    public Vector2Int CellCoordinate;
+    public Vector2Int AxialCoordinate;
 
-    [Header("Tile Parameters")]
     [HideInInspector] public float innerSize = 0;
     [HideInInspector] public float outerSize = 1;
     [HideInInspector] public float height = 0;
     Mesh mesh;
-    public MeshFilter meshFilter;
+    MeshFilter meshFilter;
     MeshRenderer meshRenderer;
     List<Face> faces;
 
@@ -67,14 +67,14 @@ public class GridTile : MonoBehaviour
     }
 
     /// <summary>
-    /// Hallo welt
+    /// Sets up the Tile. Should allway be called when instantiating the Tile.
     /// </summary>
-    /// <param name="cellCoordinate">das ist hallo</param>
-    /// <param name="resource">hier findet man welt</param>
-    /// <param name="gridstate"></param>
+    /// <param name="cellCoordinate">Axial Coordinate in the the Grid.</param>
+    /// <param name="resource">Type of Ressource for the Tile.</param>
+    /// <param name="gridstate">The Gridstate to start with.</param>
     public void Setup(Vector2Int cellCoordinate, Ressource resource, GridState gridstate)
     {
-        this.CellCoordinate = cellCoordinate;
+        this.AxialCoordinate = cellCoordinate;
         this.ressource = resource;
         this.currentGridState = gridstate;
         gridStateString = this.currentGridState.ToString();
@@ -107,6 +107,10 @@ public class GridTile : MonoBehaviour
 
     // STATE MASHINE STUFF ----------------------------------------------------------------------------------------------------------
 
+    /// <summary>
+    /// Just changes the current State of this Tile.
+    /// </summary>
+    /// <param name="newState">State to change into.</param>
     public void ChangeCurrentState(GridState newState)
     {
         currentGridState.ExitState(this);
@@ -116,6 +120,9 @@ public class GridTile : MonoBehaviour
 
     // UTILITY STUFF ----------------------------------------------------------------------------------------------------------------
 
+    /// <summary>
+    /// Spawns an Enemy on this Tile.
+    /// </summary>
     public void SpawnEnemy()
     {
         GridManager gridManagerInstance = GridManager.Instance;

@@ -3,31 +3,36 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using UnityEngine;
 
+/// <summary>
+/// Singleton for the Grid
+/// </summary>
 public class GridManager : MonoBehaviour
 {
     public static GridManager Instance;
 
     [SerializeField] GridTile GridTilePrefab;
 
+    // Vector2Int holds the coordinate and GridTile is the GameObject in the Coordinate.
+    // It is a Vector2Int instead of Vector3Int because this makes accessing the tiles much easier.
+    // If you want the cubic Coordinate you cann access HexGridUtil.AxialToCubeCoord.
     public Dictionary<Vector2Int,GridTile> Grid;
 
-
-    [SerializeField] Vector2Int gridSize;
+    // Supposed to handle the q and r dimensions of the grid when gereating the shape.
+    [SerializeField] Vector2Int gridSize; 
+    List<GridState> gridStates;
 
     [Header("Tile Presets")]
-    [SerializeField] float innerSize;
-    [SerializeField] float outerSize;
-    [SerializeField] float height;
+    [SerializeField, Tooltip("should be smaller then outerSize. If Hex should be filled this will be 0.")] float innerSize;
+    [SerializeField, Tooltip("The Size of a Hex tile. Size represents the radius and not the diameter of the Hex. If outerSize is 1, the Hex will have a width of 2.")] float outerSize;
+    [SerializeField, Tooltip("The y Position of the tile")] float height;
 
     [Header("Resource Materials")]
-    [SerializeField] public Material resourceAMaterial;
-    [SerializeField] public Material resourceBMaterial;
-    [SerializeField] public Material resourceCMaterial;
-    [SerializeField] public Material resourceDMaterial;
-    [SerializeField] public Material neutralMaterial;
-    [SerializeField] public Material negativeMaterial;
-
-    List<GridState> gridStates;
+    public Material resourceAMaterial;
+    public Material resourceBMaterial;
+    public Material resourceCMaterial;
+    public Material resourceDMaterial;
+    public Material neutralMaterial;
+    public Material negativeMaterial;
 
     [Header("Enemy Ressources")]
     [SerializeField] public Enemy enemyPrefab;
@@ -56,42 +61,33 @@ public class GridManager : MonoBehaviour
     {
         GenerateGrid();
 
-        //Debug.Log("Picking two random Tiles");
-        //GridTile tileA = PickRandomTile();
-        //GridTile tileB = PickRandomTile();
+        // Das ist nur spielerei.
+        GridTile tileA = PickRandomTile();
+        GridTile tileB = PickRandomTile();
 
-        //Vector3Int coordTileA = HexGridUtil.AxialToCubeCoord(tileA.CellCoordinate);
-        //Vector3Int coordTileB = HexGridUtil.AxialToCubeCoord(tileB.CellCoordinate);
+        Vector3Int coordTileA = HexGridUtil.AxialToCubeCoord(tileA.AxialCoordinate);
+        Vector3Int coordTileB = HexGridUtil.AxialToCubeCoord(tileB.AxialCoordinate);
 
-        //Debug.Log("Coordinate of the first random tile is: " + coordTileA);
-        //Debug.Log("Coordinate of the second random tile is: " + coordTileB);
+        int distance = HexGridUtil.CubeDistance(HexGridUtil.AxialToCubeCoord(tileA.AxialCoordinate), HexGridUtil.AxialToCubeCoord(tileB.AxialCoordinate));
 
-        //int distance = HexGridUtil.CubeDistance(HexGridUtil.AxialToCubeCoord(tileA.CellCoordinate), HexGridUtil.AxialToCubeCoord(tileB.CellCoordinate));
-        //Debug.Log("The Distance of the two random Tiles is: " + distance);
+        List<Vector3Int> OnLineCube = HexGridUtil.CubeLineDraw(coordTileA,coordTileB);
 
-        //Debug.Log("NO I ELEVATE EVERY TILE IN A LINE BETWEEN THE TWO RANDOM TILES");
+        List<Vector2Int> OnLine = new List<Vector2Int>();
 
-        //List<Vector3Int> OnLineCube = HexGridUtil.CubeLineDraw(coordTileA,coordTileB);
-        //Debug.Log($"The line contains {OnLineCube.Count} Coordinates");
+        foreach(Vector3Int coord in OnLineCube)
+        {
+            OnLine.Add(HexGridUtil.CubeToAxialCoord(coord));
+        }
 
-        //List<Vector2Int> OnLine = new List<Vector2Int>();
-
-        //foreach(Vector3Int coord in OnLineCube)
-        //{
-        //    Debug.Log($"Coordinate: {coord}");
-        //    OnLine.Add(HexGridUtil.CubeToAxialCoord(coord));
-        //}
-
-        //Debug.Log(OnLine.Count);
-
-        //foreach (Vector2Int coord in OnLine)
-        //{
-        //    Grid[coord].transform.position += Vector3.up;
-        //}
-
-
+        foreach (Vector2Int coord in OnLine)
+        {
+            Grid[coord].transform.position += Vector3.up;
+        }
     }
 
+    /// <summary>
+    /// Will need to delete soon. It Generates another Grid whenever something chhanges in Playmode.
+    /// </summary>
     private void OnValidate()
     {
         if (Application.isPlaying)
@@ -106,30 +102,21 @@ public class GridManager : MonoBehaviour
             }
             catch
             {
-                Debug.Log("I FAILED TO GENERATE GRID IN ONVALIDATE");
+                foreach (GridTile cell in GetComponentsInChildren<GridTile>())
+                {
+                    Destroy(cell.gameObject);
+                }
             }
 
         }
     }
 
+    /// <summary>
+    /// Generates a Grid
+    /// </summary>
     public void GenerateGrid()
     {
         Grid = new Dictionary<Vector2Int, GridTile>();
-
-        //for (int x = 0; x < gridSize.x; x++)
-        //{
-        //    for (int y = 0; y < gridSize.y; y++)
-        //    {
-        //        GridTile tile = Instantiate(GridTilePrefab, GetPositionForHexFromCoordinate(new Vector2Int(x, y)), Quaternion.identity, transform);
-        //        tile.Setup(new Vector2Int(x, y), (Ressource)Random.Range(0, 4), gridStates[Random.Range(0, gridStates.Count)]);
-        //        tile.name = $"Hex{x},{y}";
-        //        tile.innerSize = innerSize;
-        //        tile.outerSize = outerSize;
-        //        tile.height = height;
-        //        tile.DrawMesh();
-        //        Grid.Add(new Vector2Int(x, y), tile);
-        //    }
-        //}
 
         //List<Vector2Int> coords = HexGridUtil.GenerateRombusShapedGrid(gridSize.x, gridSize.y);
         //List<Vector2Int> coords = HexGridUtil.GenerateRectangleShapedGrid(gridSize.x, gridSize.y);
@@ -138,7 +125,7 @@ public class GridManager : MonoBehaviour
         foreach (Vector2Int coord in coords)
         {
             GridTile tile = Instantiate(GridTilePrefab, HexGridUtil.AxialHexToPixel(coord, outerSize), Quaternion.identity, transform);
-            tile.Setup(coord, (Ressource)Random.Range(0, 4), gridStates[Random.Range(0, 3)]);
+            tile.Setup(coord, (Ressource)Random.Range(0, 4), gridStates[Random.Range(0, gridStates.Count)]);
             tile.name = $"Hex{coord.x},{coord.y}";
             tile.innerSize = innerSize;
             tile.outerSize = outerSize;
@@ -146,49 +133,13 @@ public class GridManager : MonoBehaviour
             tile.DrawMesh();
             Grid.Add(coord, tile);
         }
-
-        //for(int q = 0; q < gridSize.x; q++)
-        //{
-        //    for(int r = 0; r < gridSize.y; r++)
-        //    {
-        //        GridTile tile = Instantiate(GridTilePrefab,HexGridUtil.AxialHexToPixel(new Vector2Int(q,r),outerSize), Quaternion.identity, transform);
-        //        tile.Setup(new Vector2Int(q, r), (Ressource)Random.Range(0, 4), gridStates[Random.Range(0, 3)]);
-        //        tile.name = $"Hex{q},{r}";
-        //        tile.innerSize = innerSize;
-        //        tile.outerSize = outerSize;
-        //        tile.height = height;
-        //        tile.DrawMesh();
-        //        Grid.Add(new Vector2Int(q,r) , tile);
-        //    }
-        //}
     }
 
-    public Vector3 GetPositionForHexFromCoordinate(Vector2Int coordinate)
-    {
-        int column = coordinate.x;
-        int row = coordinate.y;
-        float width;
-        float height;
-        float xpos;
-        float ypos;
-        float offset;
-        float horizontalDistance;
-        float verticalDistance;
-        float size = outerSize;
 
-        width = 2f * size;
-        height = Mathf.Sqrt(3f) * size;
-        horizontalDistance = width * (3f / 4f);
-        verticalDistance = height;
-
-        offset = (column % 2 == 0) ? height / 2 : 0;
-
-        xpos = column * horizontalDistance;
-        ypos = row * verticalDistance - offset;
-
-        return new Vector3(xpos, 0, ypos);
-    }
-
+    /// <summary>
+    /// Picks a random tile from the Grid
+    /// </summary>
+    /// <returns>random Tile from grid.</returns>
     public GridTile PickRandomTile()
     {
         List<GridTile> tileCollection = new List<GridTile>();

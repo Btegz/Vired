@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Phase Effect responsible to Spawn Enemies
+/// </summary>
 [CreateAssetMenu]
 public class PE_EnemySpawn : PhaseEffect
 {
