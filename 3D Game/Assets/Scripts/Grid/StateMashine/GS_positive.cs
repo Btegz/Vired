@@ -17,7 +17,7 @@ public class GS_positive : GridState
 
     public override void ExitState(GridTile parent)
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 
     public override void PlayerEnters(GridTile parent)

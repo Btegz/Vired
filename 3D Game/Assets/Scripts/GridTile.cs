@@ -39,7 +39,7 @@ public class GridTile : MonoBehaviour
     [HideInInspector] public float height = 0;
     Mesh mesh;
     MeshFilter meshFilter;
-    MeshRenderer meshRenderer;
+    public MeshRenderer meshRenderer;
     List<Face> faces;
 
     [Header("Tile Statestuff")]

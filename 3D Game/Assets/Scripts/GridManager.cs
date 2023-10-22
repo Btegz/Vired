@@ -19,7 +19,7 @@ public class GridManager : MonoBehaviour
 
     // Supposed to handle the q and r dimensions of the grid when gereating the shape.
     [SerializeField] Vector2Int gridSize;
-    List<GridState> gridStates;
+    public Dictionary<string,GridState> gridStates;
 
     [Header("Tile Presets")]
     [SerializeField, Tooltip("should be smaller then outerSize. If Hex should be filled this will be 0.")] float innerSize;
@@ -41,17 +41,22 @@ public class GridManager : MonoBehaviour
     [SerializeField] public Enemy enemyPrefab;
     [SerializeField] public List<EnemySO> enemySOs;
 
+    [Header("Phases")]
+    [SerializeField] public int TurnCounter;
+    [SerializeField] Phase currentPhase;
+    [SerializeField] List<Phase> phases;
+
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            gridStates = new List<GridState>();
-            gridStates.Add(new GS_positive());
-            gridStates.Add(new GS_neutral());
-            gridStates.Add(new GS_negative());
-            gridStates.Add(new GS_Enemy());
-            gridStates.Add(new GS_Boss());
+            gridStates = new Dictionary<string, GridState>();
+            gridStates.Add("positive",new GS_positive());
+            gridStates.Add("neutral", new GS_neutral());
+            gridStates.Add("negative",new GS_negative());
+            gridStates.Add("enemy",new GS_Enemy());
+            gridStates.Add("boss",new GS_Boss());
         }
         else
         {
@@ -91,28 +96,28 @@ public class GridManager : MonoBehaviour
     /// <summary>
     /// Will need to delete soon. It Generates another Grid whenever something chhanges in Playmode.
     /// </summary>
-    private void OnValidate()
-    {
-        if (Application.isPlaying)
-        {
-            foreach (GridTile cell in GetComponentsInChildren<GridTile>())
-            {
-                Destroy(cell.gameObject);
-            }
-            try
-            {
-                GenerateGrid();
-            }
-            catch
-            {
-                foreach (GridTile cell in GetComponentsInChildren<GridTile>())
-                {
-                    Destroy(cell.gameObject);
-                }
-            }
+    //private void OnValidate()
+    //{
+    //    if (Application.isPlaying)
+    //    {
+    //        foreach (GridTile cell in GetComponentsInChildren<GridTile>())
+    //        {
+    //            Destroy(cell.gameObject);
+    //        }
+    //        try
+    //        {
+    //            GenerateGrid();
+    //        }
+    //        catch
+    //        {
+    //            foreach (GridTile cell in GetComponentsInChildren<GridTile>())
+    //            {
+    //                Destroy(cell.gameObject);
+    //            }
+    //        }
 
-        }
-    }
+    //    }
+    //}
 
     /// <summary>
     /// Generates a Grid
@@ -128,7 +133,7 @@ public class GridManager : MonoBehaviour
         foreach (Vector2Int coord in coords)
         {
             GridTile tile = Instantiate(GridTilePrefab, HexGridUtil.AxialHexToPixel(coord, outerSize), Quaternion.identity, transform);
-            tile.Setup(coord, (Ressource)Random.Range(0, 4), gridStates[Random.Range(0, gridStates.Count)]);
+            tile.Setup(coord, (Ressource)Random.Range(0, 4), /*gridStates[Random.Range(0, gridStates.Count)]*/gridStates["enemy"]);
             tile.name = $"Hex{coord.x},{coord.y}";
             tile.innerSize = innerSize;
             tile.outerSize = outerSize;
@@ -148,7 +153,7 @@ public class GridManager : MonoBehaviour
                 foreach (Vector2Int coord in shape)
                 {
                     GridTile tile = Instantiate(GridTilePrefab, HexGridUtil.AxialHexToPixel(coord, outerSize), Quaternion.identity, transform);
-                    tile.Setup(coord, hsw.MyRessource, gridStates[0]);
+                    tile.Setup(coord, hsw.MyRessource, gridStates["positive"]);
                     tile.name = $"{hsw.MyRessource} Hex ({coord.x},{coord.y})";
                     tile.innerSize = innerSize;
                     tile.outerSize = outerSize;
@@ -183,6 +188,11 @@ public class GridManager : MonoBehaviour
 
     }
 
+    public void TriggerPhase()
+    {
+        currentPhase.TriggerPhaseEffects(TurnCounter,this);
+    }
+
 
     /// <summary>
     /// Picks a random tile from the Grid
@@ -198,5 +208,18 @@ public class GridManager : MonoBehaviour
         }
 
         return tileCollection[Random.Range(0, tileCollection.Count)];
+    }
+
+    public List<GridTile> GetTilesWithState(string state)
+    {
+        List<GridTile> enemies = new List<GridTile>();
+        foreach(KeyValuePair<Vector2Int,GridTile> kvp in Grid)
+        {
+            if(kvp.Value.currentGridState.Equals(gridStates[state]))
+            {
+                enemies.Add(kvp.Value);
+            }
+        }
+        return enemies;
     }
 }

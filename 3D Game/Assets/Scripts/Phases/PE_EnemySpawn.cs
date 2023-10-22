@@ -24,15 +24,27 @@ public class PE_EnemySpawn : PhaseEffect
         set { enemyPrefab = value; }
     }
 
+    [SerializeField] private int amount;
 
-    public override void triggerPhaseEffect(GridManager gridManager)
+    public int MyAmount
     {
-        //throw new System.NotImplementedException("i still need to handle Enemies Spawning.");
+        get { return amount; }
+        set { amount = value; }
+    }
 
-        Enemy newEnemy = Instantiate(enemyPrefab);
-        newEnemy.Setup(enemySOs[Random.Range(0, enemySOs.Count)]);
-        GridTile randomLocation = gridManager.PickRandomTile();
-        newEnemy.transform.parent = randomLocation.transform;
-        newEnemy.transform.position = randomLocation.transform.position;
+    public override void TriggerPhaseEffect(int turnCounter, GridManager gridManager)
+    {
+        if(turnCounter % everyXRounds == 0)
+        {
+            for(int i = 0; i< amount; i++)
+            {
+                Enemy newEnemy = Instantiate(enemyPrefab);
+                newEnemy.Setup(enemySOs[Random.Range(0, enemySOs.Count)]);
+                GridTile randomLocation = gridManager.PickRandomTile();
+                randomLocation.ChangeCurrentState(new GS_Enemy());
+                newEnemy.transform.parent = randomLocation.transform;
+                newEnemy.transform.position = randomLocation.transform.position;
+            }
+        }
     }
 }

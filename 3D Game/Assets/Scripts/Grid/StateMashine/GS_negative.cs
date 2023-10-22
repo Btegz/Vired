@@ -12,7 +12,7 @@ public class GS_negative : GridState
 
     public override void EnterState(GridTile parent)
     {
-        throw new System.NotImplementedException();
+        parent.meshRenderer.material = GridManager.Instance.negativeMaterial;
     }
 
     public override void ExitState(GridTile parent)

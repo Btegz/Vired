@@ -31,7 +31,7 @@ public class Phase : ScriptableObject
         {
             if(phaseEffect.everyXRounds % TurnCount == 0)
             {
-                phaseEffect.triggerPhaseEffect(gridManager);
+                phaseEffect.TriggerPhaseEffect(TurnCount,gridManager);
             }
         }
     }
