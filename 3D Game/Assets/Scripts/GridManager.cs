@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Singleton for the Grid
@@ -11,6 +13,8 @@ public class GridManager : MonoBehaviour
     public static GridManager Instance;
 
     [SerializeField] GridTile GridTilePrefab;
+
+    [SerializeField] public GridScriptableObject gridSO;
 
     // Vector2Int holds the coordinate and GridTile is the GameObject in the Coordinate.
     // It is a Vector2Int instead of Vector3Int because this makes accessing the tiles much easier.
@@ -46,17 +50,14 @@ public class GridManager : MonoBehaviour
     [SerializeField] Phase currentPhase;
     [SerializeField] List<Phase> phases;
 
+    [Header("UI")]
+    [SerializeField] Image negativeBarFill;
+
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            gridStates = new Dictionary<string, GridState>();
-            gridStates.Add("positive",new GS_positive());
-            gridStates.Add("neutral", new GS_neutral());
-            gridStates.Add("negative",new GS_negative());
-            gridStates.Add("enemy",new GS_Enemy());
-            gridStates.Add("boss",new GS_Boss());
         }
         else
         {
@@ -67,7 +68,20 @@ public class GridManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GenerateGrid();
+        TransferGridSOData(); 
+        List<GridTile> negativeTiles = GetTilesWithState("negative");
+        negativeTiles.AddRange(GetTilesWithState("enemy"));
+        negativeTiles.AddRange(GetTilesWithState("boss"));
+        if (negativeTiles.Count > 0)
+        {
+            negativeBarFill.fillAmount = negativeTiles.Count / Grid.Count;
+        }
+        else
+        {
+            negativeBarFill.fillAmount = 0;
+        }
+        
+        //GenerateGrid();
 
         // Das ist nur spielerei.
         //GridTile tileA = PickRandomTile();
@@ -91,6 +105,11 @@ public class GridManager : MonoBehaviour
         //{
         //    Grid[coord].transform.position += Vector3.up;
         //}
+    }
+
+    private void Update()
+    {
+
     }
 
     /// <summary>
@@ -119,11 +138,24 @@ public class GridManager : MonoBehaviour
     //    }
     //}
 
+    public void TransferGridSOData()
+    {
+        Grid = gridSO.Grid;
+    }
+
     /// <summary>
     /// Generates a Grid
     /// </summary>
     public void GenerateGrid()
     {
+        gridStates = new Dictionary<string, GridState>();
+        gridStates.Add("positive", new GS_positive());
+        gridStates.Add("neutral", new GS_neutral());
+        gridStates.Add("negative", new GS_negative());
+        gridStates.Add("enemy", new GS_Enemy());
+        gridStates.Add("boss", new GS_Boss());
+
+
         Grid = new Dictionary<Vector2Int, GridTile>();
 
         // a Standard Hexgonal Grid for the Start
@@ -133,7 +165,7 @@ public class GridManager : MonoBehaviour
         foreach (Vector2Int coord in coords)
         {
             GridTile tile = Instantiate(GridTilePrefab, HexGridUtil.AxialHexToPixel(coord, outerSize), Quaternion.identity, transform);
-            tile.Setup(coord, (Ressource)Random.Range(0, 4), /*gridStates[Random.Range(0, gridStates.Count)]*/gridStates["enemy"]);
+            tile.Setup(coord, (Ressource)Random.Range(0, 4), gridStates["enemy"]);
             tile.name = $"Hex{coord.x},{coord.y}";
             tile.innerSize = innerSize;
             tile.outerSize = outerSize;

@@ -47,25 +47,28 @@ public class GridTile : MonoBehaviour
     public string gridStateString;
     public Ressource ressource;
 
+    [Header("Resource Materials")]
+    public Material resourceAMaterial;
+    public Material resourceBMaterial;
+    public Material resourceCMaterial;
+    public Material resourceDMaterial;
+    public Material neutralMaterial;
+    public Material negativeMaterial;
+
 
     private void Awake()
     {
-        meshCollider = GetComponent<MeshCollider>();
-        meshFilter = GetComponent<MeshFilter>();
-        meshRenderer = GetComponent<MeshRenderer>();
-        mesh = new Mesh();
-        mesh.name = "Hex";
-        meshFilter.mesh = mesh;
-        DrawMesh();
+
+
     }
 
-    private void OnValidate()
-    {
-        if (Application.isPlaying)
-        {
-            DrawMesh();
-        }
-    }
+    //private void OnValidate()
+    //{
+    //    if (Application.isPlaying)
+    //    {
+    //        DrawMesh();
+    //    }
+    //}
 
     /// <summary>
     /// Sets up the Tile. Should allway be called when instantiating the Tile.
@@ -75,6 +78,13 @@ public class GridTile : MonoBehaviour
     /// <param name="gridstate">The Gridstate to start with.</param>
     public void Setup(Vector2Int cellCoordinate, Ressource resource, GridState gridstate)
     {
+        meshCollider = GetComponent<MeshCollider>();
+        meshFilter = GetComponent<MeshFilter>();
+        meshRenderer = GetComponent<MeshRenderer>();
+        mesh = new Mesh();
+        mesh.name = "Hex";
+        meshFilter.mesh = mesh;
+
         this.AxialCoordinate = cellCoordinate;
         this.ressource = resource;
         this.currentGridState = gridstate;
@@ -85,25 +95,57 @@ public class GridTile : MonoBehaviour
                 switch (ressource)
                 {
                     case Ressource.ressourceA:
-                        meshRenderer.material = GridManager.Instance.resourceAMaterial;
+                        meshRenderer.material = resourceAMaterial;
                         break;
                     case Ressource.ressourceB:
-                        meshRenderer.material = GridManager.Instance.resourceBMaterial;
+                        meshRenderer.material = resourceBMaterial;
                         break;
                     case Ressource.ressourceC:
-                        meshRenderer.material = GridManager.Instance.resourceCMaterial;
+                        meshRenderer.material = resourceCMaterial;
                         break;
                     case Ressource.resscoureD:
-                        meshRenderer.material = GridManager.Instance.resourceDMaterial;
+                        meshRenderer.material = resourceDMaterial;
                         break;
                 }
                 break;
-            case GS_neutral: meshRenderer.material = GridManager.Instance.neutralMaterial; break;
-            case GS_negative: meshRenderer.material = GridManager.Instance.negativeMaterial; break;
-            case GS_Enemy: meshRenderer.material = GridManager.Instance.negativeMaterial; SpawnEnemy(); break;
-            case GS_Boss: meshRenderer.material = GridManager.Instance.negativeMaterial; SpawnEnemy(); break;
+            case GS_neutral: meshRenderer.material = neutralMaterial; break;
+            case GS_negative: meshRenderer.material = negativeMaterial; break;
+            case GS_Enemy: meshRenderer.material = negativeMaterial; SpawnEnemy(); break;
+            case GS_Boss: meshRenderer.material = negativeMaterial; SpawnEnemy(); break;
         }
-        
+
+        DrawMesh();
+    }
+
+    public void Setup(Vector2Int cellCoordinate, Ressource resource)
+    {
+        meshCollider = GetComponent<MeshCollider>();
+        meshFilter = GetComponent<MeshFilter>();
+        meshRenderer = GetComponent<MeshRenderer>();
+        mesh = new Mesh();
+        mesh.name = "Hex";
+        meshFilter.mesh = mesh;
+
+        AxialCoordinate = cellCoordinate;
+        this.ressource = resource;
+        //gridStateString = this.currentGridState.ToString();
+        switch (ressource)
+        {
+            case Ressource.ressourceA:
+                meshRenderer.material = resourceAMaterial;
+                break;
+            case Ressource.ressourceB:
+                meshRenderer.material = resourceBMaterial;
+                break;
+            case Ressource.ressourceC:
+                meshRenderer.material = resourceCMaterial;
+                break;
+            case Ressource.resscoureD:
+                meshRenderer.material = resourceDMaterial;
+                break;
+        }
+
+        DrawMesh();
     }
 
     // STATE MASHINE STUFF ----------------------------------------------------------------------------------------------------------
