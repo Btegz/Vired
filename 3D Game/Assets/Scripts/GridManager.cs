@@ -184,8 +184,6 @@ public class GridManager : MonoBehaviour
         //    coords = HexGridUtil.CombineGridsAlongAxis(coords, gridB, diagonalDirections[i]);
         //    gridB = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeCounterClockwise(Vector3Int.zero, HexGridUtil.AxialToCubeCoord(gridB)));
         //}
-
-
     }
 
     public void TriggerPhase()

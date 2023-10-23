@@ -11,7 +11,6 @@ public struct Face
     public List<int> triangles;
     public List<Vector2> uvs;
 
-
     /// <summary>
     /// This constructor creates a face with given vertices, triangles and uvs
     /// </summary>
@@ -40,6 +39,7 @@ public class GridTile : MonoBehaviour
     Mesh mesh;
     MeshFilter meshFilter;
     public MeshRenderer meshRenderer;
+    MeshCollider meshCollider;
     List<Face> faces;
 
     [Header("Tile Statestuff")]
@@ -50,6 +50,7 @@ public class GridTile : MonoBehaviour
 
     private void Awake()
     {
+        meshCollider = GetComponent<MeshCollider>();
         meshFilter = GetComponent<MeshFilter>();
         meshRenderer = GetComponent<MeshRenderer>();
         mesh = new Mesh();
@@ -141,6 +142,7 @@ public class GridTile : MonoBehaviour
     {
         DrawFaces();
         CombineFaces();
+        meshCollider.sharedMesh = mesh;
     }
 
     /// <summary>

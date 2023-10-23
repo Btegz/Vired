@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2868087575095003584}
   - component: {fileID: 8058411163812965884}
   - component: {fileID: 4670653473229717276}
+  - component: {fileID: 4399077779113277783}
   m_Layer: 0
   m_Name: GridTile
   m_TagString: Untagged
@@ -96,4 +97,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed05b6cef42ebf74c8b020992c64ec30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CellCoordinate: {x: 0, y: 0, z: 0}
+  AxialCoordinate: {x: 0, y: 0}
+  innerSize: 0
+  outerSize: 1
+  height: 0
+  meshRenderer: {fileID: 0}
+  gridStateString: 
+  ressource: 0
+--- !u!64 &4399077779113277783
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64059069326644369}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
