@@ -31,6 +31,7 @@ public struct Face
 /// </summary>
 public class GridTile : MonoBehaviour
 {
+    public GridTileSO gridTileSO;
     public Vector2Int AxialCoordinate;
 
     [HideInInspector] public float innerSize = 0;
@@ -44,17 +45,7 @@ public class GridTile : MonoBehaviour
 
     [Header("Tile Statestuff")]
     public GridState currentGridState;
-    public string gridStateString;
     public Ressource ressource;
-
-    [Header("Resource Materials")]
-    public Material resourceAMaterial;
-    public Material resourceBMaterial;
-    public Material resourceCMaterial;
-    public Material resourceDMaterial;
-    public Material neutralMaterial;
-    public Material negativeMaterial;
-
 
     private void Awake()
     {
@@ -62,22 +53,15 @@ public class GridTile : MonoBehaviour
 
     }
 
-    //private void OnValidate()
-    //{
-    //    if (Application.isPlaying)
-    //    {
-    //        DrawMesh();
-    //    }
-    //}
-
     /// <summary>
     /// Sets up the Tile. Should allway be called when instantiating the Tile.
     /// </summary>
     /// <param name="cellCoordinate">Axial Coordinate in the the Grid.</param>
     /// <param name="resource">Type of Ressource for the Tile.</param>
     /// <param name="gridstate">The Gridstate to start with.</param>
-    public void Setup(Vector2Int cellCoordinate, Ressource resource, GridState gridstate)
+    public void Setup(Vector2Int cellCoordinate, GridTileSO gridTileSO, GridState gridstate)
     {
+        this.gridTileSO = gridTileSO;
         meshCollider = GetComponent<MeshCollider>();
         meshFilter = GetComponent<MeshFilter>();
         meshRenderer = GetComponent<MeshRenderer>();
@@ -86,39 +70,39 @@ public class GridTile : MonoBehaviour
         meshFilter.mesh = mesh;
 
         this.AxialCoordinate = cellCoordinate;
-        this.ressource = resource;
+        this.ressource = gridTileSO.ressource;
         this.currentGridState = gridstate;
-        gridStateString = this.currentGridState.ToString();
         switch (gridstate)
         {
             case GS_positive:
                 switch (ressource)
                 {
                     case Ressource.ressourceA:
-                        meshRenderer.material = resourceAMaterial;
+                        meshRenderer.material = gridTileSO.resourceAMaterial;
                         break;
                     case Ressource.ressourceB:
-                        meshRenderer.material = resourceBMaterial;
-                        break;
-                    case Ressource.ressourceC:
-                        meshRenderer.material = resourceCMaterial;
-                        break;
-                    case Ressource.resscoureD:
-                        meshRenderer.material = resourceDMaterial;
+                        meshRenderer.material = gridTileSO.resourceBMaterial;
+                        break;                  
+                    case Ressource.ressourceC:  
+                        meshRenderer.material = gridTileSO.resourceCMaterial;
+                        break;                  
+                    case Ressource.resscoureD:  
+                        meshRenderer.material = gridTileSO.resourceDMaterial;
                         break;
                 }
                 break;
-            case GS_neutral: meshRenderer.material = neutralMaterial; break;
-            case GS_negative: meshRenderer.material = negativeMaterial; break;
-            case GS_Enemy: meshRenderer.material = negativeMaterial; SpawnEnemy(); break;
-            case GS_Boss: meshRenderer.material = negativeMaterial; SpawnEnemy(); break;
+            case GS_neutral: meshRenderer.material = gridTileSO.neutralMaterial; break;
+            case GS_negative: meshRenderer.material = gridTileSO.negativeMaterial; break;
+            case GS_Enemy: meshRenderer.material = gridTileSO.negativeMaterial; SpawnEnemy(); break;
+            case GS_Boss: meshRenderer.material = gridTileSO.negativeMaterial; SpawnEnemy(); break;
         }
 
         DrawMesh();
     }
 
-    public void Setup(Vector2Int cellCoordinate, Ressource resource)
+    public void Setup(Vector2Int cellCoordinate, GridTileSO gridTileSO)
     {
+        this.gridTileSO = gridTileSO;
         meshCollider = GetComponent<MeshCollider>();
         meshFilter = GetComponent<MeshFilter>();
         meshRenderer = GetComponent<MeshRenderer>();
@@ -127,21 +111,21 @@ public class GridTile : MonoBehaviour
         meshFilter.mesh = mesh;
 
         AxialCoordinate = cellCoordinate;
-        this.ressource = resource;
+        this.ressource = gridTileSO.ressource;
         //gridStateString = this.currentGridState.ToString();
         switch (ressource)
         {
             case Ressource.ressourceA:
-                meshRenderer.material = resourceAMaterial;
+                meshRenderer.material = gridTileSO.resourceAMaterial;
                 break;
             case Ressource.ressourceB:
-                meshRenderer.material = resourceBMaterial;
+                meshRenderer.material = gridTileSO.resourceBMaterial;
                 break;
             case Ressource.ressourceC:
-                meshRenderer.material = resourceCMaterial;
+                meshRenderer.material = gridTileSO.resourceCMaterial;
                 break;
             case Ressource.resscoureD:
-                meshRenderer.material = resourceDMaterial;
+                meshRenderer.material = gridTileSO.resourceDMaterial;
                 break;
         }
 

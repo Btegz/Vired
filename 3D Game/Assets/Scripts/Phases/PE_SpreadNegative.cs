@@ -7,10 +7,9 @@ public class PE_SpreadNegative : PhaseEffect
 {
     public override void TriggerPhaseEffect(int turnCounter, GridManager gridManager)
     {
-        Debug.Log("lemme spread some negativity");
         if (turnCounter % everyXRounds == 0)
         {
-            List<GridTile> enemieTiles = gridManager.GetTilesWithState("enemy");
+            List<GridTile> enemieTiles = gridManager.GetTilesWithState(gridManager.gS_Enemy);
             foreach (GridTile tile in enemieTiles)
             {
                 Vector3Int coordinate = HexGridUtil.AxialToCubeCoord(tile.AxialCoordinate);
@@ -18,13 +17,12 @@ public class PE_SpreadNegative : PhaseEffect
                 for (int i = 1;i<10 ; i++)
                 {
                     List<Vector3Int> range = HexGridUtil.CoordinatesReachable(coordinate, i);
-                    Debug.Log($"I found {range.Count} tiles within range {i}.");
                     foreach (Vector3Int neighbor in range)
                     {
                         Vector2Int neighborAxial = HexGridUtil.CubeToAxialCoord(neighbor);
                         if (gridManager.Grid.ContainsKey(neighborAxial))
                         {
-                            if (gridManager.Grid[neighborAxial].currentGridState.Equals(gridManager.gridStates["positive"]) || gridManager.Grid[neighborAxial].currentGridState.Equals(gridManager.gridStates["neutral"]))
+                            if (gridManager.Grid[neighborAxial].currentGridState.Equals(gridManager.gS_Positive) || gridManager.Grid[neighborAxial].currentGridState.Equals(gridManager.gS_Neutral))
                             {
                                 possibleTiles.Add(neighbor);
                             }

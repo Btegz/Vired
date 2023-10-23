@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Abstract Class for the states of the Statemashine of the Tile.
 /// </summary>
-public abstract class GridState
+public abstract class GridState : ScriptableObject
 {
     /// <summary>
     /// Called when entering the State
@@ -28,4 +28,6 @@ public abstract class GridState
     /// </summary>
     /// <param name="parent">Provide The Tile for Reference.</param>
     public abstract void PlayerEnters(GridTile parent);
+
+    public abstract int StateValue();
 }

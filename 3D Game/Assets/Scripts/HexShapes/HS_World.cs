@@ -5,12 +5,12 @@ using UnityEngine;
 [CreateAssetMenu]
 public class HS_World : HexShape
 {
-    [SerializeField] private Ressource myRessource;
+    [SerializeField] private GridTileSO GridTileSO;
 
-    public Ressource MyRessource
+    public GridTileSO MyGridTileSO
     {
-        get { return myRessource; }
-        set { myRessource = value; }
+        get { return GridTileSO; }
+        set { GridTileSO = value; }
     }
 
 }

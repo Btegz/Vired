@@ -9,7 +9,7 @@ public class PE_SpreadPositive : PhaseEffect
     {
         if(turnCounter % everyXRounds == 0)
         {
-            List<GridTile> neutralTiles = gridManager.GetTilesWithState("neutral");
+            List<GridTile> neutralTiles = gridManager.GetTilesWithState(gridManager.gS_Neutral);
             foreach(GridTile tile in neutralTiles)
             {
                 tile.ChangeCurrentState(new GS_positive());

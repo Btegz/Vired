@@ -45,21 +45,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GridTilePrefab: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
+  gridSO: {fileID: 0}
   gridSize: {x: 5, y: 5}
+  gridStates:
+  - {fileID: 11400000, guid: d4b71c1d31cdb0a4fae33f2336fdbfa4, type: 2}
+  - {fileID: 11400000, guid: 883b6fc77d9b4744abacc3f9d54a77b3, type: 2}
+  - {fileID: 11400000, guid: 77ad9876c9ce60b4191ce44835e4631d, type: 2}
+  - {fileID: 11400000, guid: 6baa9e9818a2d4443819438b6579788a, type: 2}
+  gS_Positive: {fileID: 11400000, guid: d4b71c1d31cdb0a4fae33f2336fdbfa4, type: 2}
+  gS_Neutral: {fileID: 11400000, guid: 883b6fc77d9b4744abacc3f9d54a77b3, type: 2}
+  gS_Negative: {fileID: 11400000, guid: 77ad9876c9ce60b4191ce44835e4631d, type: 2}
+  gS_Enemy: {fileID: 11400000, guid: 6baa9e9818a2d4443819438b6579788a, type: 2}
+  gS_Boss: {fileID: 11400000, guid: 9f8330aefe2318843bad86f99d876839, type: 2}
   innerSize: 0.5
   outerSize: 1
   height: 0
+  gridTileSOs:
+  - {fileID: 11400000, guid: d1edd0ab5ec3502438e69d7cd7133dea, type: 2}
+  - {fileID: 11400000, guid: 48660cdec8a35654daba4ad4a2231ea0, type: 2}
+  - {fileID: 11400000, guid: 907aa218535b575428c801f34b535135, type: 2}
+  - {fileID: 11400000, guid: b8fb3485ce81b7441a3fbbb1fd0ecb28, type: 2}
   RessourceShapes:
   - {fileID: 11400000, guid: f3aa9c468dbc4bd429fe33957dd024a2, type: 2}
   - {fileID: 11400000, guid: f4d4fa9137607484aab99afde74b78fc, type: 2}
   - {fileID: 11400000, guid: a7244dd35c7c4584ead7a387ddb2339a, type: 2}
   - {fileID: 11400000, guid: c50908c4a29b8dc41971853a993f5797, type: 2}
-  resourceAMaterial: {fileID: 2100000, guid: d0600edc3d5482144b8731ea0fb77c28, type: 2}
-  resourceBMaterial: {fileID: 2100000, guid: e65cbc2310171314c9d7885328868540, type: 2}
-  resourceCMaterial: {fileID: 2100000, guid: 0490d7c29ea44c44c9752b5528a8a5de, type: 2}
-  resourceDMaterial: {fileID: 2100000, guid: 829567c2724e8b840a1c3e0caff54e18, type: 2}
-  neutralMaterial: {fileID: 2100000, guid: fe46f26eb30cd0c46bcfdfb99d2f2390, type: 2}
-  negativeMaterial: {fileID: 2100000, guid: 56706c26ffbd12e43a0f8eb3fb1ac988, type: 2}
   enemyPrefab: {fileID: 2148683299467376766, guid: 46ce70d7f7b651c4d85ca32bf76de3f9, type: 3}
   enemySOs:
   - {fileID: 11400000, guid: 624febcbbbfddfa4b9507611ba2f9bd1, type: 2}
@@ -67,3 +77,4 @@ MonoBehaviour:
   currentPhase: {fileID: 11400000, guid: 8c459dee471d3cb4c9ff117d3bbc02a7, type: 2}
   phases:
   - {fileID: 11400000, guid: 8c459dee471d3cb4c9ff117d3bbc02a7, type: 2}
+  negativeBarFill: {fileID: 0}

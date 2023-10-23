@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using UnityEditor;
 using UnityEngine;
@@ -14,32 +15,28 @@ public class GridManager : MonoBehaviour
 
     [SerializeField] GridTile GridTilePrefab;
 
-    [SerializeField] public GridScriptableObject gridSO;
-
     // Vector2Int holds the coordinate and GridTile is the GameObject in the Coordinate.
     // It is a Vector2Int instead of Vector3Int because this makes accessing the tiles much easier.
     // If you want the cubic Coordinate you cann access HexGridUtil.AxialToCubeCoord.
-    public Dictionary<Vector2Int, GridTile> Grid;
+    [SerializeField]public Dictionary<Vector2Int, GridTile> Grid;
 
     // Supposed to handle the q and r dimensions of the grid when gereating the shape.
-    [SerializeField] Vector2Int gridSize;
-    public Dictionary<string,GridState> gridStates;
+    public GS_positive gS_Positive;
+    public GS_neutral gS_Neutral;
+    public GS_negative gS_Negative;
+    public GS_Enemy gS_Enemy;
+    public GS_Boss gS_Boss;
+
+    
 
     [Header("Tile Presets")]
     [SerializeField, Tooltip("should be smaller then outerSize. If Hex should be filled this will be 0.")] float innerSize;
     [SerializeField, Tooltip("The Size of a Hex tile. Size represents the radius and not the diameter of the Hex. If outerSize is 1, the Hex will have a width of 2.")] float outerSize;
     [SerializeField, Tooltip("The y Position of the tile")] float height;
+    [SerializeField] List<GridTileSO> gridTileSOs;
 
     [Header("Shape Presets")]
     [SerializeField] List<HS_World> RessourceShapes;
-
-    [Header("Resource Materials")]
-    public Material resourceAMaterial;
-    public Material resourceBMaterial;
-    public Material resourceCMaterial;
-    public Material resourceDMaterial;
-    public Material neutralMaterial;
-    public Material negativeMaterial;
 
     [Header("Enemy Ressources")]
     [SerializeField] public Enemy enemyPrefab;
@@ -69,9 +66,9 @@ public class GridManager : MonoBehaviour
     void Start()
     {
         TransferGridSOData(); 
-        List<GridTile> negativeTiles = GetTilesWithState("negative");
-        negativeTiles.AddRange(GetTilesWithState("enemy"));
-        negativeTiles.AddRange(GetTilesWithState("boss"));
+        List<GridTile> negativeTiles = GetTilesWithState(gS_Negative);
+        negativeTiles.AddRange(GetTilesWithState(gS_Enemy));
+        negativeTiles.AddRange(GetTilesWithState(gS_Boss));
         if (negativeTiles.Count > 0)
         {
             negativeBarFill.fillAmount = negativeTiles.Count / Grid.Count;
@@ -109,7 +106,17 @@ public class GridManager : MonoBehaviour
 
     private void Update()
     {
-
+        List<GridTile> negativeTiles = GetTilesWithState(gS_Negative);
+        negativeTiles.AddRange(GetTilesWithState(gS_Enemy));
+        negativeTiles.AddRange(GetTilesWithState(gS_Boss));
+        if (negativeTiles.Count > 0)
+        {
+            negativeBarFill.fillAmount = (float)negativeTiles.Count / (float)Grid.Count;
+        }
+        else
+        {
+            negativeBarFill.fillAmount = 0;
+        }
     }
 
     /// <summary>
@@ -140,7 +147,12 @@ public class GridManager : MonoBehaviour
 
     public void TransferGridSOData()
     {
-        Grid = gridSO.Grid;
+        Grid = new Dictionary<Vector2Int, GridTile>();
+        GridTile[] gridTiles = GetComponentsInChildren<GridTile>();
+        foreach(GridTile tile in gridTiles)
+        {
+            Grid.Add(tile.AxialCoordinate, tile);
+        }
     }
 
     /// <summary>
@@ -148,12 +160,12 @@ public class GridManager : MonoBehaviour
     /// </summary>
     public void GenerateGrid()
     {
-        gridStates = new Dictionary<string, GridState>();
-        gridStates.Add("positive", new GS_positive());
-        gridStates.Add("neutral", new GS_neutral());
-        gridStates.Add("negative", new GS_negative());
-        gridStates.Add("enemy", new GS_Enemy());
-        gridStates.Add("boss", new GS_Boss());
+        //gridStates = new Dictionary<string, GridState>();
+        //gridStates.Add("positive", new GS_positive());
+        //gridStates.Add("neutral", new GS_neutral());
+        //gridStates.Add("negative", new GS_negative());
+        //gridStates.Add("enemy", new GS_Enemy());
+        //gridStates.Add("boss", new GS_Boss());
 
 
         Grid = new Dictionary<Vector2Int, GridTile>();
@@ -165,7 +177,7 @@ public class GridManager : MonoBehaviour
         foreach (Vector2Int coord in coords)
         {
             GridTile tile = Instantiate(GridTilePrefab, HexGridUtil.AxialHexToPixel(coord, outerSize), Quaternion.identity, transform);
-            tile.Setup(coord, (Ressource)Random.Range(0, 4), gridStates["enemy"]);
+            tile.Setup(coord, gridTileSOs[Random.Range(0, gridTileSOs.Count)], gS_Enemy);
             tile.name = $"Hex{coord.x},{coord.y}";
             tile.innerSize = innerSize;
             tile.outerSize = outerSize;
@@ -185,8 +197,8 @@ public class GridManager : MonoBehaviour
                 foreach (Vector2Int coord in shape)
                 {
                     GridTile tile = Instantiate(GridTilePrefab, HexGridUtil.AxialHexToPixel(coord, outerSize), Quaternion.identity, transform);
-                    tile.Setup(coord, hsw.MyRessource, gridStates["positive"]);
-                    tile.name = $"{hsw.MyRessource} Hex ({coord.x},{coord.y})";
+                    tile.Setup(coord, hsw.MyGridTileSO, hsw.MyGridTileSO.initialGridState);
+                    tile.name = $"{hsw.MyGridTileSO.ressource} Hex ({coord.x},{coord.y})";
                     tile.innerSize = innerSize;
                     tile.outerSize = outerSize;
                     tile.height = height;
@@ -240,12 +252,13 @@ public class GridManager : MonoBehaviour
         return tileCollection[Random.Range(0, tileCollection.Count)];
     }
 
-    public List<GridTile> GetTilesWithState(string state)
+    public List<GridTile> GetTilesWithState(GridState state)
     {
         List<GridTile> enemies = new List<GridTile>();
         foreach(KeyValuePair<Vector2Int,GridTile> kvp in Grid)
         {
-            if(kvp.Value.currentGridState.Equals(gridStates[state]))
+            Debug.Log(kvp.Value.currentGridState);
+            if(kvp.Value.currentGridState.StateValue() == state.StateValue())
             {
                 enemies.Add(kvp.Value);
             }

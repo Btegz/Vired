@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName ="GS_Neutral",menuName ="GridStates/GS_Neutral")]
 public class GS_neutral : GridState
 {
 
@@ -23,5 +24,10 @@ public class GS_neutral : GridState
     public override void PlayerEnters(GridTile parent)
     {
         // do nothing
+    }
+
+    public override int StateValue()
+    {
+        return 0;
     }
 }

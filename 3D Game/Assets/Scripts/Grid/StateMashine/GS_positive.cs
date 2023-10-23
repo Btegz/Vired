@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName ="GS_Positive",menuName ="GridStates/GS_Positive")]
 public class GS_positive : GridState
 {
 
@@ -23,5 +24,10 @@ public class GS_positive : GridState
     public override void PlayerEnters(GridTile parent)
     {
         // Give player a Ressource
+    }
+
+    public override int StateValue()
+    {
+        return 1;
     }
 }
