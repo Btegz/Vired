@@ -12,7 +12,7 @@ public class GS_Enemy : GridState
 
     public override void EnterState(GridTile parent)
     {
-        throw new System.NotImplementedException();
+        parent.meshRenderer.material = parent.gridTileSO.negativeMaterial;
     }
 
     public override void ExitState(GridTile parent)
@@ -22,7 +22,7 @@ public class GS_Enemy : GridState
 
     public override void PlayerEnters(GridTile parent)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("ITS TIME YOU PAY");
     }
 
     public override int StateValue()

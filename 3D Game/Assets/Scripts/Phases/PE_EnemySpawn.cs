@@ -34,6 +34,7 @@ public class PE_EnemySpawn : PhaseEffect
 
     public override void TriggerPhaseEffect(int turnCounter, GridManager gridManager)
     {
+        Debug.Log($"To Spawn Enemies TurnCounter: {turnCounter}, everyXRounds: {everyXRounds}, turnCounter%everyXRounds = {turnCounter % everyXRounds}");
         if(turnCounter % everyXRounds == 0)
         {
             for(int i = 0; i< amount; i++)
@@ -41,7 +42,11 @@ public class PE_EnemySpawn : PhaseEffect
                 Enemy newEnemy = Instantiate(enemyPrefab);
                 newEnemy.Setup(enemySOs[Random.Range(0, enemySOs.Count)]);
                 GridTile randomLocation = gridManager.PickRandomTile();
-                randomLocation.ChangeCurrentState(new GS_Enemy());
+                while (randomLocation.currentGridState == gridManager.gS_Enemy || randomLocation.currentGridState == gridManager.gS_Boss || randomLocation.AxialCoordinate == HexGridUtil.CubeToAxialCoord(PlayerManager.Instance.playerPosition))
+                {
+                    randomLocation = gridManager.PickRandomTile();
+                }
+                randomLocation.ChangeCurrentState(gridManager.gS_Enemy);
                 newEnemy.transform.parent = randomLocation.transform;
                 newEnemy.transform.position = randomLocation.transform.position;
             }

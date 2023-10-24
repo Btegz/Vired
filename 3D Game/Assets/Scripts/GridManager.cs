@@ -65,6 +65,7 @@ public class GridManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        EventManager.OnEndTurnEvent += EndTurn;
         TransferGridSOData(); 
         List<GridTile> negativeTiles = GetTilesWithState(gS_Negative);
         negativeTiles.AddRange(GetTilesWithState(gS_Enemy));
@@ -228,6 +229,11 @@ public class GridManager : MonoBehaviour
         //    coords = HexGridUtil.CombineGridsAlongAxis(coords, gridB, diagonalDirections[i]);
         //    gridB = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeCounterClockwise(Vector3Int.zero, HexGridUtil.AxialToCubeCoord(gridB)));
         //}
+    }
+
+    public void EndTurn()
+    {
+        TurnCounter++;
     }
 
     public void TriggerPhase()

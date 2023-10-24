@@ -7,9 +7,11 @@ public class PE_SpreadNegative : PhaseEffect
 {
     public override void TriggerPhaseEffect(int turnCounter, GridManager gridManager)
     {
+        Debug.Log($"To Spread Negative TurnCounter: {turnCounter}, everyXRounds: {everyXRounds}, turnCounter%everyXRounds = {turnCounter % everyXRounds}");
         if (turnCounter % everyXRounds == 0)
         {
             List<GridTile> enemieTiles = gridManager.GetTilesWithState(gridManager.gS_Enemy);
+            Debug.Log("I FOUND" + enemieTiles.Count + " enemies");
             foreach (GridTile tile in enemieTiles)
             {
                 Vector3Int coordinate = HexGridUtil.AxialToCubeCoord(tile.AxialCoordinate);

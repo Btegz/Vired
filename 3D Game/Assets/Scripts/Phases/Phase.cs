@@ -8,8 +8,8 @@ using UnityEngine;
 [CreateAssetMenu]
 public class Phase : ScriptableObject
 {
-    
-    [SerializeField,Tooltip("Drag and drop PhaseEffects in here. Remeber, order matters top to bottom.")] private List<PhaseEffect> phaseEffects;
+
+    [SerializeField, Tooltip("Drag and drop PhaseEffects in here. Remeber, order matters top to bottom.")] private List<PhaseEffect> phaseEffects;
 
     /// <summary>
     /// List of PhaseEffects to be triggered.
@@ -27,12 +27,9 @@ public class Phase : ScriptableObject
     /// <param name="gridManager">provides important reference to the effects.</param>
     public void TriggerPhaseEffects(int TurnCount, GridManager gridManager)
     {
-        foreach(PhaseEffect phaseEffect in phaseEffects)
+        foreach (PhaseEffect phaseEffect in phaseEffects)
         {
-            if(phaseEffect.everyXRounds % TurnCount == 0)
-            {
-                phaseEffect.TriggerPhaseEffect(TurnCount,gridManager);
-            }
+            phaseEffect.TriggerPhaseEffect(TurnCount, gridManager);
         }
     }
 }

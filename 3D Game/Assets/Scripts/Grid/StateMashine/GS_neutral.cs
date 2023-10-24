@@ -13,12 +13,12 @@ public class GS_neutral : GridState
 
     public override void EnterState(GridTile parent)
     {
-        throw new System.NotImplementedException();
+        parent.meshRenderer.material = parent.gridTileSO.neutralMaterial;
     }
 
     public override void ExitState(GridTile parent)
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 
     public override void PlayerEnters(GridTile parent)
