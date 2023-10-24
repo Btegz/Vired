@@ -71,11 +71,11 @@ public class GridManager : MonoBehaviour
         negativeTiles.AddRange(GetTilesWithState(gS_Boss));
         if (negativeTiles.Count > 0)
         {
-            negativeBarFill.fillAmount = negativeTiles.Count / Grid.Count;
+  //          negativeBarFill.fillAmount = negativeTiles.Count / Grid.Count;
         }
         else
         {
-            negativeBarFill.fillAmount = 0;
+//            negativeBarFill.fillAmount = 0;
         }
         
         //GenerateGrid();
@@ -111,11 +111,11 @@ public class GridManager : MonoBehaviour
         negativeTiles.AddRange(GetTilesWithState(gS_Boss));
         if (negativeTiles.Count > 0)
         {
-            negativeBarFill.fillAmount = (float)negativeTiles.Count / (float)Grid.Count;
+       //     negativeBarFill.fillAmount = (float)negativeTiles.Count / (float)Grid.Count;
         }
         else
         {
-            negativeBarFill.fillAmount = 0;
+//            negativeBarFill.fillAmount = 0;
         }
     }
 
@@ -257,7 +257,7 @@ public class GridManager : MonoBehaviour
         List<GridTile> enemies = new List<GridTile>();
         foreach(KeyValuePair<Vector2Int,GridTile> kvp in Grid)
         {
-            Debug.Log(kvp.Value.currentGridState);
+//            Debug.Log(kvp.Value.currentGridState);
             if(kvp.Value.currentGridState.StateValue() == state.StateValue())
             {
                 enemies.Add(kvp.Value);

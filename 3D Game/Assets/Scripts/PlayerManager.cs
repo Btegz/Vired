@@ -11,36 +11,51 @@ using UnityEngine.InputSystem;
 
 public class PlayerManager : MonoBehaviour
 {
-    private int moves = 4;
+    private int movementAction = 4;
     private Vector3 mouse_pos;
     public GameObject player;
     public Camera cam;
     public Vector2Int collisionPoint;
     private Vector3 Point;
-    private Vector3 playerPosition;
-    
-    
+    private Vector3Int playerPosition;
+    private Vector3Int selectedPoint;
+
+
+    void Start()
+    {
+        playerPosition = Vector3Int.zero;
+        player.transform.position = playerPosition;
+        
+    }
 
     private void Update()
     {
+        mouse_pos = Mouse.current.position.ReadValue();
         
             if (Mouse.current.leftButton.wasPressedThisFrame)
 
             {
-                mouse_pos = Mouse.current.position.ReadValue();
-                MouseCursorPosition();
-                StartCoroutine(Move());
+                if (movementAction > 0)
+                {
+
+                    MouseCursorPosition();
+                    HexGridUtil.CubeNeighbors(playerPosition);
+                    List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(playerPosition);
+
+                    if (neighbors.Contains(selectedPoint))
+                    {
+                       
+                    
+
+                    StartCoroutine(Move());
+                }
+            }
             }
 
 
 
 
     }
-
-
-
-
-
 
     private void MouseCursorPosition( )
     {
@@ -49,7 +64,8 @@ public class PlayerManager : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            collisionPoint = hit.collider.GetComponent<GridTile>().AxialCoordinate;  
+            collisionPoint = hit.collider.GetComponent<GridTile>().AxialCoordinate;
+            selectedPoint = HexGridUtil.AxialToCubeCoord(collisionPoint);
         }
      
 
@@ -67,7 +83,10 @@ public class PlayerManager : MonoBehaviour
          GridTile target = GridManager.Instance.Grid[collisionPoint];
          player.transform.position = target.transform.position;
          target.currentGridState.PlayerEnters(target);
-         yield return null; 
+         movementAction--;
+         playerPosition = HexGridUtil.AxialToCubeCoord(target.AxialCoordinate);
+          Debug.Log("test");
+          yield return null; 
 
      }
 
