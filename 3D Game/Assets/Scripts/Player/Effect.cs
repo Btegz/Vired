@@ -5,5 +5,6 @@ public enum Effect
 {
     Positive,
     Negative,
-    Movement
+    Movement,
+    Neutral
 }

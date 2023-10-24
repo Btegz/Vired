@@ -13,7 +13,23 @@ public class EditorAbilityMesh
         List<Ability> abilityAssets = new List<Ability>()
         {
             AssetDatabase.LoadAssetAtPath<Ability>("Assets/Scripts/Player/AbilitiesScriptableObjects/A_Positiv.asset"),
+            AssetDatabase.LoadAssetAtPath<Ability>("Assets/Scripts/Player/AbilitiesScriptableObjects/A_Mega.asset"),
             AssetDatabase.LoadAssetAtPath<Ability>("Assets/Scripts/Player/AbilitiesScriptableObjects/A_Schaden.asset"),
+            
+            AssetDatabase.LoadAssetAtPath<Ability>("Assets/Scripts/Player/AbilitiesScriptableObjects/B_Positiv.asset"),
+            AssetDatabase.LoadAssetAtPath<Ability>("Assets/Scripts/Player/AbilitiesScriptableObjects/B_Mega.asset"),
+            AssetDatabase.LoadAssetAtPath<Ability>("Assets/Scripts/Player/AbilitiesScriptableObjects/B_Schaden.asset"),
+            
+            AssetDatabase.LoadAssetAtPath<Ability>("Assets/Scripts/Player/AbilitiesScriptableObjects/C_Positiv.asset"),
+            AssetDatabase.LoadAssetAtPath<Ability>("Assets/Scripts/Player/AbilitiesScriptableObjects/C_Mega.asset"),
+            AssetDatabase.LoadAssetAtPath<Ability>("Assets/Scripts/Player/AbilitiesScriptableObjects/C_Schaden.asset"),
+            
+            AssetDatabase.LoadAssetAtPath<Ability>("Assets/Scripts/Player/AbilitiesScriptableObjects/D_Positiv.asset"),
+            AssetDatabase.LoadAssetAtPath<Ability>("Assets/Scripts/Player/AbilitiesScriptableObjects/D_Mega.asset"),
+            AssetDatabase.LoadAssetAtPath<Ability>("Assets/Scripts/Player/AbilitiesScriptableObjects/D_Schaden.asset"),
+            
+            AssetDatabase.LoadAssetAtPath<Ability>("Assets/Scripts/Player/AbilitiesScriptableObjects/Movement.asset"),
+        
         };
         
         foreach (Ability a in abilityAssets)
@@ -57,7 +73,7 @@ public class EditorAbilityMesh
             Mesh mesh = new Mesh();
             mesh.CombineMeshes(combine,false);
             a.previewShape = mesh;
-            AssetDatabase.CreateAsset(a.previewShape, $"Assets/{Random.Range(0, 99999)}xyz.mesh");
+            AssetDatabase.CreateAsset(a.previewShape, $"Assets/Meshes/{a.Name}.mesh");
             foreach (GridTile gr in GridTileList)
             {
                 GameObject.DestroyImmediate(gr.gameObject);

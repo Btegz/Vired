@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9bebad030a501414d81175a164339faa, type: 3}
-  m_Name: A_Positiv
+  m_Name: Movement
   m_EditorClassIdentifier: 
   myCoordinates:
-  - {x: 1, y: 0}
-  - {x: 0, y: 1}
-  - {x: 1, y: 1}
-  - {x: 0, y: 2}
-  - {x: 1, y: 2}
+  - {x: 1, y: -1}
+  - {x: 2, y: -2}
+  - {x: 3, y: -3}
+  - {x: 4, y: -4}
   Effects: 
-  Name: A_Positiv
-  previewShape: {fileID: 4300000, guid: f4e3a9cdc1e21f14aa21360090cf1072, type: 2}
+  Name: Movement
+  previewShape: {fileID: 0}

@@ -7,7 +7,7 @@ public class Ability : HexShape
 {
     public List<Effect> Effects;
 
-    public string name;
+    public string Name;
 
     public Mesh previewShape; 
 
