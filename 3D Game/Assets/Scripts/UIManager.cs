@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         EndTurnButton.onClick.AddListener(EventManager.OnEndTurn);
+        EndTurnButton.onClick.AddListener(GridManager.Instance.TriggerPhase);
     }
 
     // Update is called once per frame
