@@ -33,4 +33,14 @@ public class Enemy : MonoBehaviour
         transform.DOPunchScale(Vector3.one*Random.Range(0.5f,1), 1f);
     }
 
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        if (currentHealth <= 0)
+        {
+            GetComponentInParent<GridTile>().ChangeCurrentState(GridManager.Instance.gS_Negative);
+            Destroy(gameObject);
+        }
+    }
+
 }
