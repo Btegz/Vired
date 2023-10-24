@@ -7,15 +7,10 @@ using UnityEngine;
 public class Abilities: MonoBehaviour
 {
     private string name;
+    public GridTile gridTile;
 
     public Ability ability;
-
     
-
-    void Update()
-    {
-        
-    }
 
     public void AttachedToPlayer()
     {
@@ -28,30 +23,52 @@ public class Abilities: MonoBehaviour
     }
     
     
-    public void UsingEffect(Effect ef)
+    public void UsingEffect(Effect effect)
     {
-        switch (ef)
-        {
-            case Effect.Positive:
-                //Feld Zustand positiv 
-                //-100
         
+        switch(effect)
+        {
+        case Effect.Positive:
+            switch (gridTile.currentGridState)
+            {
+                case GS_positive: 
+                    gridTile.ChangeCurrentState(GridManager.Instance.gS_Positive); 
+                    break;
+                 //   NotImplementedException;
+                case GS_negative:
+                    gridTile.ChangeCurrentState(GridManager.Instance.gS_Neutral); 
+                    break;
+                    
+                case GS_neutral:
+                    gridTile.ChangeCurrentState(GridManager.Instance.gS_Positive); 
+                    break;
+              
+                //upgrade Feld um eins (Negativ zu neutral zu positiv)
+            }
+
+            break;
+
             
-            case Effect.Negative:
-                // Feld Zustand negativ 
-                // -100
+
+        case Effect.Negative:
+                // Schade einem Enemy 
+        // Schadet man neutralen Feldern?
          
             
+            case  Effect.Neutral:
+                // nichts 
+                
+
+
             case Effect.Movement:
                 break;
-            // Player Movement 
+            // while ?
+            // bewege Player auf dieses Feld (Feld = Landefeld??)
         }
         
         
     }
-    
-    // Effekt 
-    // Form 
+
     // Kosten 
     // Ressource (Schere/Stein/Papier System)
 }
