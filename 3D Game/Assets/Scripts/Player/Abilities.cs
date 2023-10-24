@@ -4,26 +4,28 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public abstract class Abilities
+public class Abilities: MonoBehaviour
 {
     private string name;
 
     public Ability ability;
 
-
-    private Dictionary<Vector3, Enum> _bSchaden = new Dictionary<Vector3, Enum>()
-    {
-        //beispiel... hier müssen die Koordinaten noch angepasst werden, sind im Moment nicht in abhängigkeit der Playerposition
-        { new Vector3(0,0), Effect.Negative },
-        { new Vector3(0, 1 ), Effect.Negative },
-        { new Vector3(1, 2 ), Effect.Negative },
-    };
     
+
     void Update()
     {
         
     }
-    
+
+    public void AttachedToPlayer()
+    {
+        
+    }
+
+    public void Rotation()
+    {
+        
+    }
     
     
     public void UsingEffect(Effect ef)

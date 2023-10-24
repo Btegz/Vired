@@ -164,11 +164,17 @@ public class GridTile : MonoBehaviour
     /// <summary>
     /// Function DrawMesh is called, to generate the Mesh of this GridCell.
     /// </summary>
-    public void DrawMesh()
+    public Mesh DrawMesh()
     {
+        mesh = new Mesh();
         DrawFaces();
         CombineFaces();
-        meshCollider.sharedMesh = mesh;
+        if (Application.isPlaying)
+        {
+            meshCollider.sharedMesh = mesh;
+        }
+
+        return mesh;
     }
 
     /// <summary>

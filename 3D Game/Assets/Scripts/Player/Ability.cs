@@ -7,6 +7,8 @@ public class Ability : HexShape
 {
     public List<Effect> Effects;
 
+    public Mesh previewShape; 
+
 
     public Dictionary<Vector2Int, Effect> AbilityEffectDict;
 
