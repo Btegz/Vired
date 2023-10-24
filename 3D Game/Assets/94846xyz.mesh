@@ -6,19 +6,39 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 38609xyz
+  m_Name: 94846xyz
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
     firstByte: 0
-    indexCount: 108
+    indexCount: 36
     topology: 0
     baseVertex: 0
     firstVertex: 0
-    vertexCount: 72
+    vertexCount: 24
     localAABB:
       m_Center: {x: 1.5, y: 0, z: 0.86602545}
-      m_Extent: {x: 2.5, y: 0, z: 1.7320509}
+      m_Extent: {x: 1, y: 0, z: 0.86602545}
+  - serializedVersion: 2
+    firstByte: 72
+    indexCount: 36
+    topology: 0
+    baseVertex: 0
+    firstVertex: 24
+    vertexCount: 24
+    localAABB:
+      m_Center: {x: 3, y: 0, z: 1.7320509}
+      m_Extent: {x: 1, y: 0, z: 0.8660255}
+  - serializedVersion: 2
+    firstByte: 144
+    indexCount: 36
+    topology: 0
+    baseVertex: 0
+    firstVertex: 48
+    vertexCount: 24
+    localAABB:
+      m_Center: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 1, y: 0, z: 0.86602545}
   m_Shapes:
     vertices: []
     shapes: []

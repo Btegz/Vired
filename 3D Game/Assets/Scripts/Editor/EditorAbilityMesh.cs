@@ -55,7 +55,7 @@ public class EditorAbilityMesh
                 i++;
             }
             Mesh mesh = new Mesh();
-            mesh.CombineMeshes(combine);
+            mesh.CombineMeshes(combine,false);
             a.previewShape = mesh;
             AssetDatabase.CreateAsset(a.previewShape, $"Assets/{Random.Range(0, 99999)}xyz.mesh");
             foreach (GridTile gr in GridTileList)
