@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class AbilityObjScript : MonoBehaviour
 {
     public Ability ability;
-
+    public GridTile gridTile;
     public List<Vector2Int> AbilityShapeLocation;
+    
 
     MeshFilter meshFilter;
     MeshRenderer meshRenderer;
@@ -17,18 +20,21 @@ public class AbilityObjScript : MonoBehaviour
     [SerializeField] Material movementMaterial;
 
     [SerializeField] InputActionAsset inputAction;
-    [SerializeField] InputActionReference rotationInputAction;
-
+    [SerializeField] InputActionReference rotationInputActionReference;
+    [SerializeField] InputActionReference castAbiltyInputActionReference;
+    
     Camera cam;
+    
+
 
     public void ShowMesh(Ability ability,Vector3Int SpawnPoint, Vector3Int playerPos)
     {
         this.ability = ability;
         AbilityShapeLocation = ability.Coordinates;
         Debug.Log(AbilityShapeLocation[0]);
-        AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.CubeAddRange(HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), playerPos));
-
-
+        //AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.CubeAddRange(HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), playerPos));
+        List<Vector3Int> CubeAbilityShapeLocation = HexGridUtil.CubeAddRange(HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), playerPos);
+        Debug.Log(CubeAbilityShapeLocation[0]);
 
 
 
@@ -66,18 +72,25 @@ public class AbilityObjScript : MonoBehaviour
         {
             dumm.Add(i);
         }
+       // Debug.Log($"PlayerPos: {playerPos}, SpawnPoint: {SpawnPoint}, AbilityShapeLoc[0]:{AbilityShapeLocation[0]}");
 
-        AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeClockwise(playerPos, HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), dumm.IndexOf(selectedDirection)));
+        AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.CubeAddRange(HexGridUtil.RotateRangeClockwise(playerPos, HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), dumm.IndexOf(selectedDirection)), playerPos));
+        CubeAbilityShapeLocation = HexGridUtil.RotateRangeClockwise(playerPos, CubeAbilityShapeLocation, dumm.IndexOf(selectedDirection));
 
-        Debug.Log($"PlayerPos: {playerPos}, SpawnPoint: {SpawnPoint}, AbilityShapeLoc[0]:{AbilityShapeLocation[0]}");
+        
+
+       // Debug.Log($"PlayerPos: {playerPos}, SpawnPoint: {SpawnPoint}, AbilityShapeLoc[0]:{AbilityShapeLocation[0]}");
+
 
         transform.rotation *= Quaternion.Euler(0, dumm.IndexOf(selectedDirection) * 60, 0);
 
 
-
+        AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(CubeAbilityShapeLocation);
 
         SetPositionToGridCoord(HexGridUtil.CubeToAxialCoord(playerPos));
         //transform.position =  GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(SpawnPoint)].transform.position;
+
+        castAbiltyInputActionReference.action.performed += CastAbility;
     }
 
     public void SetPositionToGridCoord(Vector2Int coord)
@@ -90,7 +103,7 @@ public class AbilityObjScript : MonoBehaviour
     {
         cam = Camera.main;
         inputAction.Enable();
-        rotationInputAction.action.performed += rotateAbility;
+        rotationInputActionReference.action.performed += rotateAbility;
 
         //just for attemps
         //ShowMesh(ability);
@@ -120,31 +133,140 @@ public class AbilityObjScript : MonoBehaviour
 
     public void rotateAbility(InputAction.CallbackContext action)
     {
+        
         float rotation = action.ReadValue<float>();
         if (rotation > 0)
         {
-            rotateClockwise();
+            switch (ability.rotato)
+            {
+                case RotationMode.PlayerCenter:
+                    rotateClockwisePlayerCenter();
+                    break; 
+                
+                case RotationMode.SelectedPointCenter:
+                    rotateClockwise();
+                    break; 
+            }
         }
         if (rotation < 0)
         {
-            rotateCounterClockwise();
+            switch (ability.rotato)
+            {
+                case RotationMode.PlayerCenter:
+                    rotateCounterClockwisePlayerCenter();
+                    break; 
+                
+                case RotationMode.SelectedPointCenter:
+                    rotateCounterClockwise();
+                    break; 
+            }
+            
         }
     }
 
     public void rotateClockwise()
     {
-        transform.rotation *= Quaternion.Euler(0, 60, 0);
+        transform.RotateAround(GridManager.Instance.Grid[AbilityShapeLocation[0]].transform.position,new Vector3(0,1,0), 60);
+        AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeClockwise(HexGridUtil.AxialToCubeCoord(AbilityShapeLocation[0]), HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), 1));
 
     }
-
+    
     public void rotateCounterClockwise()
     {
-        transform.rotation *= Quaternion.Euler(0, -60, 0);
+       transform.RotateAround(GridManager.Instance.Grid[AbilityShapeLocation[0]].transform.position,new Vector3(0,-1,0), 60);
+        AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeCounterClockwise(HexGridUtil.AxialToCubeCoord(AbilityShapeLocation[0]), HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), 1));
+
+    }
+
+    public void rotateClockwisePlayerCenter()
+    {
+        transform.rotation *= Quaternion.Euler(0,60,0);
+        AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeClockwise(PlayerManager.Instance.playerPosition, HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), 1));
+    }
+
+    public void rotateCounterClockwisePlayerCenter()
+    {
+        transform.rotation *= Quaternion.Euler(0,-60,0);
+        AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeCounterClockwise(PlayerManager.Instance.playerPosition, HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), 1));
+
+        
+    }
+    public void UsingEffect(Effect effect)
+    {
+        switch (effect)
+        {
+            case Effect.Positive:
+                switch (gridTile.currentGridState)
+                {
+                    case GS_positive:
+                        gridTile.ChangeCurrentState(GridManager.Instance.gS_Positive);
+                        break;
+                    case GS_negative:
+                        gridTile.ChangeCurrentState(GridManager.Instance.gS_Neutral);
+                        break;
+
+                    case GS_neutral:
+                        gridTile.ChangeCurrentState(GridManager.Instance.gS_Positive);
+                        break;
+
+                }
+                break;
+            case Effect.Negative:
+                if (gridTile.currentGridState.StateValue() <= -1)
+                {
+                    gridTile.GetComponentInChildren<Enemy>().TakeDamage(1);
+                }
+                break;
+            
+            case Effect.Movement:
+                PlayerManager.Instance.playerPosition = HexGridUtil.AxialToCubeCoord(gridTile.AxialCoordinate);
+                PlayerManager.Instance.player.transform.position = gridTile.transform.position;
+                gridTile.ChangeCurrentState(GridManager.Instance.gS_Neutral);
+                break;
+            
+        }
     }
 
 
-    public void CastAbility()
+    public void CastAbility(InputAction.CallbackContext action)
     {
+        for(int i=0; i< AbilityShapeLocation.Count; i++)
+        {
+            if (GridManager.Instance.Grid.ContainsKey(AbilityShapeLocation[i]))
+            {
+                gridTile = GridManager.Instance.Grid[AbilityShapeLocation[i]]; 
+                UsingEffect(ability.Effects[i]);
+            }
+        }
+        Payment();
+        castAbiltyInputActionReference.action.performed -= CastAbility;
+        Destroy(gameObject);
         PlayerManager.Instance.AbilityCasted();
     }
+
+    public void Payment()
+    {
+        foreach (Ressource r in ability.costs)
+        {
+            switch (r)
+            {
+                case Ressource.ressourceA:
+                    PlayerManager.Instance.RessourceAInventory--;
+                    break;
+                
+                case Ressource.ressourceB:
+                    PlayerManager.Instance.RessourceBInventory--;
+                    break;
+                
+                case Ressource.ressourceC:
+                    PlayerManager.Instance.RessourceCInventory--;
+                    break;
+                
+                case Ressource.resscoureD:
+                    PlayerManager.Instance.RessourceDInventory--;
+                    break;
+            }
+        }
+    }
+    
 }

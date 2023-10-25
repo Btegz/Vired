@@ -91,7 +91,7 @@ public static class HexGridUtil
     /// <returns>Summ of Vectors "a" and "b"</returns>
     public static Vector3Int CubeAdd(Vector3Int a, Vector3Int b)
     {
-        return new Vector3Int(a.x + b.x, a.y + b.y, a.z + b.z);
+        return new Vector3Int(a.x + b.x,  a.y + b.y,a.z + b.z);
     }
 
     /// <summary>
@@ -343,7 +343,7 @@ public static class HexGridUtil
     // ROTATION ----------------------------------------------------------------------------------------------------------------------------
 
     /// <summary>
-    /// Rotates a Coordinate around a center. 60° Clockwise.
+    /// Rotates a Coordinate around a center. 60ï¿½ Clockwise.
     /// </summary>
     /// <param name="center"></param>
     /// <param name="coord"></param>
@@ -354,27 +354,32 @@ public static class HexGridUtil
         result = CubeSubstract(result, center);
         for (int i = 0; i < amount; i++)
         {
-            result = new Vector3Int(-result.y, -result.z, -result.x);
-        }
+            result = new Vector3Int(-result.z, -result.x, -result.y);
+        }        
+        result = CubeAdd(center, result);
+
         return result;
 
     }
 
     /// <summary>
-    /// Rotates a Coordinate around a Center. 60° Counter-Clockwise.
+    /// Rotates a Coordinate around a Center. 60ï¿½ Counter-Clockwise.
     /// </summary>
     /// <param name="center"></param>
     /// <param name="coord"></param>
     /// <returns>Rotated Coordinate</returns>
     public static Vector3Int Rotate60DegCounterClockwise(Vector3Int center, Vector3Int coord, int amount)
     {
-        Vector3Int result = coord;
+        Vector3Int result = coord;            
+        Vector3Int start = CubeSubstract(result, center);
+
         for (int i = 0; i < amount; i++)
         {
-            Vector3Int start = CubeSubstract(result, center);
-            Vector3Int rotatedResult = new Vector3Int(-start.z, -start.x, -start.y);
-            result = CubeAdd(center, rotatedResult);
+            result = new Vector3Int(-start.y, -start.z, -start.x);
+            
         }
+        result = CubeAdd(center, result);
+
         return result;
     }
 

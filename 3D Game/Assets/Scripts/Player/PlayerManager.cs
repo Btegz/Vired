@@ -91,7 +91,6 @@ public class PlayerManager : MonoBehaviour
         }
 
 
-        //    Vector3 normCursor = Vector3.Normalize(Cursor);
 
 
 
@@ -127,12 +126,49 @@ public class PlayerManager : MonoBehaviour
         Ability chosenAbility = abilitInventory[index];
         AbilityObjScript AbilityPreview = Instantiate(abilityObj);
         AbilityPreview.ShowMesh(chosenAbility, selectedPoint,playerPos);
+        
     }
 
     public void AbilityClicked(int index)
     {
-        abilityActivated = true;
-        StartCoroutine(ChooseAbilityLocation(index));
+        Ressource resCost = abilitInventory[index].costs[0]; 
+        switch (resCost)
+        {
+            case Ressource.ressourceA:
+                if (abilitInventory[index].costs.Count >= RessourceAInventory)
+                {
+                    return;
+                }
+                break;
+                
+            case Ressource.ressourceB:
+                if (abilitInventory[index].costs.Count >= RessourceBInventory)
+                {
+                    return;
+                }
+                break;
+                
+            case Ressource.ressourceC:
+                if (abilitInventory[index].costs.Count >= RessourceCInventory)
+                {
+                    return;
+                }
+                break;
+                
+            case Ressource.resscoureD:
+                if (abilitInventory[index].costs.Count >= RessourceDInventory)
+                {
+                    return;
+                }
+                break;
+        }
+        if (abilityActivated == false)
+        {
+            abilityActivated = true;
+            StartCoroutine(ChooseAbilityLocation(index)); 
+        }
+        
+   
     }
 
 

@@ -129,8 +129,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ability: {fileID: 0}
+  gridTile: {fileID: 0}
+  AbilityShapeLocation: []
   positiveMaterial: {fileID: 2100000, guid: 55820a618952b7946942c431b7956e73, type: 2}
   negativeMaterial: {fileID: 2100000, guid: c835804cedbd2294c89bb9d12ebf7518, type: 2}
   movementMaterial: {fileID: 2100000, guid: 0b5583f9dfcdb994c916364a941298e0, type: 2}
   inputAction: {fileID: -944628639613478452, guid: 26454fd94e486c84595f431522cf20cf, type: 3}
-  rotationInputAction: {fileID: -1988426677014968543, guid: 26454fd94e486c84595f431522cf20cf, type: 3}
+  rotationInputActionReference: {fileID: -1988426677014968543, guid: 26454fd94e486c84595f431522cf20cf, type: 3}
+  castAbiltyInputActionReference: {fileID: -4236082940864756874, guid: 26454fd94e486c84595f431522cf20cf, type: 3}

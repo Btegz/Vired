@@ -78,6 +78,34 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "Cast",
+            "id": "aaea121a-b525-40aa-b00e-6c1c485fab1e",
+            "actions": [
+                {
+                    "name": "CastAbility",
+                    "type": "Button",
+                    "id": "77a06be2-c72d-471a-a2f4-e85db8cdda5f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "dcad6129-a0ea-47a1-b91d-be1b032b2852",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CastAbility",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
