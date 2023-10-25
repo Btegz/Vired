@@ -13,15 +13,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "Rotation",
-                    "type": "Button",
-                    "id": "49ab4272-2621-496c-a2c8-7a9604ff5f81",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press(behavior=1)",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -35,37 +26,54 @@
                     "action": "MousePosition",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
+                }
+            ]
+        },
+        {
+            "name": "Rotation",
+            "id": "f552f897-4c42-4349-bfba-3b291403e4ee",
+            "actions": [
                 {
-                    "name": "RotationButton",
-                    "id": "f05bd572-b91c-4fbe-8557-b913bb292ab1",
+                    "name": "AbilityRotation",
+                    "type": "Button",
+                    "id": "1c701511-2f9f-4ad7-ab25-ddc24ad1bb43",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "1D Axis",
+                    "id": "f7d08d20-d66a-440b-8a96-554ea4d52689",
                     "path": "1DAxis",
-                    "interactions": "Press(behavior=1)",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
-                    "action": "Rotation",
+                    "action": "AbilityRotation",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Negative",
-                    "id": "3cac3793-956e-4048-8d4f-140e47b45992",
+                    "name": "negative",
+                    "id": "477e3a36-3ecc-41d3-911e-aa9d3c37790b",
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Rotation",
+                    "action": "AbilityRotation",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Positive",
-                    "id": "15fbba92-5803-46be-9540-633edf826516",
+                    "name": "positive",
+                    "id": "9b92f9a2-a0a6-4e5d-a097-920fe7d9de82",
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Rotation",
+                    "action": "AbilityRotation",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }

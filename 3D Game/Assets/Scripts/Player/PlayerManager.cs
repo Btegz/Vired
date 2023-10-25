@@ -13,6 +13,10 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance;
 
+    public AbilityObjScript abilityObj;
+
+    public List<Ability> abilitInventory;
+
     private int movementAction = 4;
     private Vector3 mouse_pos;
     public GameObject player;
@@ -27,9 +31,11 @@ public class PlayerManager : MonoBehaviour
     public int RessourceCInventory;
     public int RessourceDInventory;
 
+    bool abilityActivated = false;
+
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
         }
@@ -58,28 +64,19 @@ public class PlayerManager : MonoBehaviour
         mouse_pos = Mouse.current.position.ReadValue();
 
         if (Mouse.current.leftButton.wasPressedThisFrame)
-
         {
-            if (movementAction > 0)
+            if (movementAction > 0 || abilityActivated)
             {
-
                 MouseCursorPosition();
                 HexGridUtil.CubeNeighbors(playerPosition);
                 List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(playerPosition);
 
-                if (neighbors.Contains(selectedPoint))
+                if (neighbors.Contains(selectedPoint) && !abilityActivated)
                 {
-
-
-
                     StartCoroutine(Move());
                 }
             }
         }
-
-
-
-
     }
 
     private void MouseCursorPosition()
@@ -125,4 +122,42 @@ public class PlayerManager : MonoBehaviour
         movementAction = 4;
     }
 
+    public void ChooseAbilityWithIndex(int index, Vector3Int selectedPoint, Vector3Int playerPos)
+    {
+        Ability chosenAbility = abilitInventory[index];
+        AbilityObjScript AbilityPreview = Instantiate(abilityObj);
+        AbilityPreview.ShowMesh(chosenAbility, selectedPoint,playerPos);
+    }
+
+    public void AbilityClicked(int index)
+    {
+        abilityActivated = true;
+        StartCoroutine(ChooseAbilityLocation(index));
+    }
+
+
+    public IEnumerator ChooseAbilityLocation(int AbilityIndex)
+    {
+        List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(playerPosition);
+
+        selectedPoint = playerPosition;
+
+        while (true)
+        {
+            if (neighbors.Contains(selectedPoint))
+            {
+                ChooseAbilityWithIndex(AbilityIndex, selectedPoint,playerPosition);
+                break;
+            }
+            yield return null;
+        }
+
+        yield return null;
+    }
+
+
+    public void AbilityCasted()
+    {
+        abilityActivated = false;
+    }
 }

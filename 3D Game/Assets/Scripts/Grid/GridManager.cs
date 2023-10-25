@@ -256,6 +256,8 @@ public class GridManager : MonoBehaviour
         }
 
         return tileCollection[Random.Range(0, tileCollection.Count)];
+
+        GetTilesWithState(gS_Boss);
     }
 
     public List<GridTile> GetTilesWithState(GridState state)
@@ -264,7 +266,7 @@ public class GridManager : MonoBehaviour
         foreach(KeyValuePair<Vector2Int,GridTile> kvp in Grid)
         {
 //            Debug.Log(kvp.Value.currentGridState);
-            if(kvp.Value.currentGridState.StateValue() == state.StateValue())
+            if (kvp.Value.currentGridState.StateValue() == state.StateValue())
             {
                 enemies.Add(kvp.Value);
             }

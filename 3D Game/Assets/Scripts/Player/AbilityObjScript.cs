@@ -7,6 +7,8 @@ public class AbilityObjScript : MonoBehaviour
 {
     public Ability ability;
 
+    public List<Vector2Int> AbilityShapeLocation;
+
     MeshFilter meshFilter;
     MeshRenderer meshRenderer;
 
@@ -17,12 +19,21 @@ public class AbilityObjScript : MonoBehaviour
     [SerializeField] InputActionAsset inputAction;
     [SerializeField] InputActionReference rotationInputAction;
 
+    Camera cam;
 
-    public void ShowMesh(Ability ability)
+    public void ShowMesh(Ability ability,Vector3Int SpawnPoint, Vector3Int playerPos)
     {
         this.ability = ability;
-        meshFilter = GetComponent<MeshFilter>();
-        meshRenderer = GetComponent<MeshRenderer>();
+        AbilityShapeLocation = ability.Coordinates;
+        Debug.Log(AbilityShapeLocation[0]);
+        AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.CubeAddRange(HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), playerPos));
+
+
+
+
+
+        meshFilter = GetComponentInChildren<MeshFilter>();
+        meshRenderer = GetComponentInChildren<MeshRenderer>();
         meshFilter.mesh = ability.previewShape;
         Material[] materials = new Material[ability.Effects.Count];
         for(int i = 0; i< ability.Effects.Count; i++)
@@ -41,6 +52,32 @@ public class AbilityObjScript : MonoBehaviour
             }
         }
         meshRenderer.materials = materials;
+
+        // selected point nachbarfelder in cubeVector
+
+        // neighbor Vector 
+
+        Vector3Int selectedDirection = HexGridUtil.CubeSubstract(SpawnPoint, playerPos);
+
+        Vector3Int[] lol = HexGridUtil.cubeDirectionVectors;
+
+        List<Vector3Int> dumm = new List<Vector3Int>();
+        foreach(Vector3Int i in lol)
+        {
+            dumm.Add(i);
+        }
+
+        AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeClockwise(playerPos, HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), dumm.IndexOf(selectedDirection)));
+
+        Debug.Log($"PlayerPos: {playerPos}, SpawnPoint: {SpawnPoint}, AbilityShapeLoc[0]:{AbilityShapeLocation[0]}");
+
+        transform.rotation *= Quaternion.Euler(0, dumm.IndexOf(selectedDirection) * 60, 0);
+
+
+
+
+        SetPositionToGridCoord(HexGridUtil.CubeToAxialCoord(playerPos));
+        //transform.position =  GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(SpawnPoint)].transform.position;
     }
 
     public void SetPositionToGridCoord(Vector2Int coord)
@@ -51,33 +88,42 @@ public class AbilityObjScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        cam = Camera.main;
         inputAction.Enable();
-        rotationInputAction.action.performed += rotateClockwise;
-        
+        rotationInputAction.action.performed += rotateAbility;
+
+        //just for attemps
+        //ShowMesh(ability);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if (rotationInputAction.action.triggered)
+        //Vector2 mouse_pos = Mouse.current.position.ReadValue();
+        //Debug.Log(mouse_pos); 
+        
+        //Ray ray = cam.ScreenPointToRay(mouse_pos);
+        //RaycastHit hit;
+
+        //if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         //{
-        //    float rotation = rotationInputAction.action.ReadValue<float>();
-        //    if (rotation > 0)
+        //    //GridTile tile;
+        //    //hit.collider.TryGetComponent<GridTile>(out tile);
+
+        //    Vector2Int gridCoord = hit.collider.GetComponent<GridTile>().AxialCoordinate;
+        //    if(gridCoord != null)
         //    {
-        //    }
-        //    if (rotation < 0)
-        //    {
-        //        rotateCounterClockwise();
+        //        SetPositionToGridCoord(gridCoord);
         //    }
         //}
     }
 
-    public void rotateClockwise(InputAction.CallbackContext action)
+    public void rotateAbility(InputAction.CallbackContext action)
     {
         float rotation = action.ReadValue<float>();
         if (rotation > 0)
         {
-            Debug.Log("I SHould rotate Clockwise");
+            rotateClockwise();
         }
         if (rotation < 0)
         {
@@ -85,11 +131,20 @@ public class AbilityObjScript : MonoBehaviour
         }
     }
 
+    public void rotateClockwise()
+    {
+        transform.rotation *= Quaternion.Euler(0, 60, 0);
+
+    }
+
     public void rotateCounterClockwise()
     {
-        Debug.Log("I SHould rotate Counterclockwise");
+        transform.rotation *= Quaternion.Euler(0, -60, 0);
     }
 
 
-
+    public void CastAbility()
+    {
+        PlayerManager.Instance.AbilityCasted();
+    }
 }
