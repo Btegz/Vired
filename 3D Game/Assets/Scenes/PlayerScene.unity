@@ -3244,6 +3244,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8ba97cfb814a1e4ba94432894cbad6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abilityObj: {fileID: 0}
+  abilitInventory: []
   player: {fileID: 1921491945}
   cam: {fileID: 652675123}
   collisionPoint: {x: 0, y: 0}
@@ -45691,7 +45693,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5288fbbdb6291204f8225dea0ab5c62c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ability: {fileID: 11400000, guid: 9afc229dc7117014394261caf075fbbd, type: 2}
 --- !u!4 &1642190022
 Transform:
   m_ObjectHideFlags: 0
