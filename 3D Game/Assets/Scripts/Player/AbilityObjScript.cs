@@ -24,17 +24,20 @@ public class AbilityObjScript : MonoBehaviour
     [SerializeField] InputActionReference castAbiltyInputActionReference;
     
     Camera cam;
-    
 
+    private void OnDestroy()
+    {
+        castAbiltyInputActionReference.action.performed -= CastAbility;
+    }
 
     public void ShowMesh(Ability ability,Vector3Int SpawnPoint, Vector3Int playerPos)
     {
         this.ability = ability;
         AbilityShapeLocation = ability.Coordinates;
-        Debug.Log(AbilityShapeLocation[0]);
+        //Debug.Log(AbilityShapeLocation[0]);
         //AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.CubeAddRange(HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), playerPos));
         List<Vector3Int> CubeAbilityShapeLocation = HexGridUtil.CubeAddRange(HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), playerPos);
-        Debug.Log(CubeAbilityShapeLocation[0]);
+        //Debug.Log(CubeAbilityShapeLocation[0]);
 
 
 
@@ -242,6 +245,7 @@ public class AbilityObjScript : MonoBehaviour
         castAbiltyInputActionReference.action.performed -= CastAbility;
         Destroy(gameObject);
         PlayerManager.Instance.AbilityCasted();
+        EventManager.OnAbilityCast();
     }
 
     public void Payment()

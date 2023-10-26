@@ -11,4 +11,12 @@ public class EventManager
     {
         OnEndTurnEvent?.Invoke();
     }
+
+    public delegate void AbilityCast();
+    public static event AbilityCast OnAbilityCastEvent;
+
+    public static void OnAbilityCast()
+    {
+        OnAbilityCastEvent?.Invoke();
+    }
 }

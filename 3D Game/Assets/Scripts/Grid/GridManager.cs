@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 /// <summary>
@@ -65,19 +66,10 @@ public class GridManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentPhase = phases[0];
+        currentPhase.myPhaseTransition.InitPhaseTransitionCheck();
         EventManager.OnEndTurnEvent += EndTurn;
-        TransferGridSOData(); 
-        List<GridTile> negativeTiles = GetTilesWithState(gS_Negative);
-        negativeTiles.AddRange(GetTilesWithState(gS_Enemy));
-        negativeTiles.AddRange(GetTilesWithState(gS_Boss));
-        if (negativeTiles.Count > 0)
-        {
-  //          negativeBarFill.fillAmount = negativeTiles.Count / Grid.Count;
-        }
-        else
-        {
-//            negativeBarFill.fillAmount = 0;
-        }
+        TransferGridSOData();
         
         //GenerateGrid();
 
@@ -105,46 +97,10 @@ public class GridManager : MonoBehaviour
         //}
     }
 
-    private void Update()
+    public void GameWon()
     {
-        List<GridTile> negativeTiles = GetTilesWithState(gS_Negative);
-        negativeTiles.AddRange(GetTilesWithState(gS_Enemy));
-        negativeTiles.AddRange(GetTilesWithState(gS_Boss));
-        if (negativeTiles.Count > 0)
-        {
-       //     negativeBarFill.fillAmount = (float)negativeTiles.Count / (float)Grid.Count;
-        }
-        else
-        {
-//            negativeBarFill.fillAmount = 0;
-        }
+        SceneManager.LoadScene("GameWonScene");
     }
-
-    /// <summary>
-    /// Will need to delete soon. It Generates another Grid whenever something chhanges in Playmode.
-    /// </summary>
-    //private void OnValidate()
-    //{
-    //    if (Application.isPlaying)
-    //    {
-    //        foreach (GridTile cell in GetComponentsInChildren<GridTile>())
-    //        {
-    //            Destroy(cell.gameObject);
-    //        }
-    //        try
-    //        {
-    //            GenerateGrid();
-    //        }
-    //        catch
-    //        {
-    //            foreach (GridTile cell in GetComponentsInChildren<GridTile>())
-    //            {
-    //                Destroy(cell.gameObject);
-    //            }
-    //        }
-
-    //    }
-    //}
 
     public void TransferGridSOData()
     {
@@ -161,14 +117,6 @@ public class GridManager : MonoBehaviour
     /// </summary>
     public void GenerateGrid()
     {
-        //gridStates = new Dictionary<string, GridState>();
-        //gridStates.Add("positive", new GS_positive());
-        //gridStates.Add("neutral", new GS_neutral());
-        //gridStates.Add("negative", new GS_negative());
-        //gridStates.Add("enemy", new GS_Enemy());
-        //gridStates.Add("boss", new GS_Boss());
-
-
         Grid = new Dictionary<Vector2Int, GridTile>();
 
         // a Standard Hexgonal Grid for the Start
@@ -209,26 +157,6 @@ public class GridManager : MonoBehaviour
                 coords.AddRange(shape);
             }
         }
-
-        //List<Vector2Int> gridB = HexGridUtil.GenerateRombusShapedGrid(2, 2);
-        //List<Vector2Int> baseGrid = HexGridUtil.GenerateHexagonalShapedGrid(1);
-
-        //Vector3Int[] diagonalDirections = HexGridUtil.cubeDiagonalDirectionVectors;
-        //Vector3Int[] neighborDirections = HexGridUtil.cubeDirectionVectors;
-
-        //List<Vector2Int> coords = baseGrid;
-
-        //for (int i = 0; i < neighborDirections.Length; i+=1)
-        //{
-        //    coords = HexGridUtil.CombineGridsAlongAxis(coords, gridB, neighborDirections[i]);
-        //    gridB = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeCounterClockwise(Vector3Int.zero, HexGridUtil.AxialToCubeCoord(gridB)));
-        //}
-        //gridB = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeCounterClockwise(Vector3Int.zero, HexGridUtil.AxialToCubeCoord(gridB)));
-        //for (int i=0; i<diagonalDirections.Length; i++)
-        //{
-        //    coords = HexGridUtil.CombineGridsAlongAxis(coords, gridB, diagonalDirections[i]);
-        //    gridB = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeCounterClockwise(Vector3Int.zero, HexGridUtil.AxialToCubeCoord(gridB)));
-        //}
     }
 
     public void EndTurn()
@@ -256,8 +184,6 @@ public class GridManager : MonoBehaviour
         }
 
         return tileCollection[Random.Range(0, tileCollection.Count)];
-
-        GetTilesWithState(gS_Boss);
     }
 
     public List<GridTile> GetTilesWithState(GridState state)
@@ -265,12 +191,22 @@ public class GridManager : MonoBehaviour
         List<GridTile> enemies = new List<GridTile>();
         foreach(KeyValuePair<Vector2Int,GridTile> kvp in Grid)
         {
-//            Debug.Log(kvp.Value.currentGridState);
             if (kvp.Value.currentGridState.StateValue() == state.StateValue())
             {
                 enemies.Add(kvp.Value);
             }
         }
         return enemies;
+    }
+
+    public void PhaseTransition()
+    {
+        phases.RemoveAt(0);
+        if(phases.Count <= 0 ) 
+        {
+            GameWon();
+        }
+        currentPhase = phases[0];
+        currentPhase.myPhaseTransition.InitPhaseTransitionCheck();
     }
 }

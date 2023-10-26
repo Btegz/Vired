@@ -34,7 +34,6 @@ public class PE_EnemySpawn : PhaseEffect
 
     public override void TriggerPhaseEffect(int turnCounter, GridManager gridManager)
     {
-        Debug.Log($"To Spawn Enemies TurnCounter: {turnCounter}, everyXRounds: {everyXRounds}, turnCounter%everyXRounds = {turnCounter % everyXRounds}");
         if(turnCounter % everyXRounds == 0)
         {
             for(int i = 0; i< amount; i++)

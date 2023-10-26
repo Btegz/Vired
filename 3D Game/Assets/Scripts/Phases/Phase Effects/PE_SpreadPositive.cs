@@ -7,7 +7,6 @@ public class PE_SpreadPositive : PhaseEffect
 {
     public override void TriggerPhaseEffect(int turnCounter, GridManager gridManager)
     {
-        Debug.Log($"To Spread Positive TurnCounter: {turnCounter}, everyXRounds: {everyXRounds}, turnCounter%everyXRounds = {turnCounter % everyXRounds}");
         if (turnCounter % everyXRounds == 0)
         {
             List<GridTile> neutralTiles = gridManager.GetTilesWithState(gridManager.gS_Neutral);

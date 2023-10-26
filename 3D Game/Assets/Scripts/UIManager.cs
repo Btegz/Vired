@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 
 public class UIManager : MonoBehaviour
@@ -38,6 +39,10 @@ public class UIManager : MonoBehaviour
             if (negativeTiles.Count > 0)
             {
                 negativeFillBar.fillAmount = (float)negativeTiles.Count / (((float)GridManager.Instance.Grid.Count *2) /3);
+                if(negativeFillBar.fillAmount >= 1)
+                {
+                    GameOver();
+                }
             }
 
         }
@@ -66,5 +71,10 @@ public class UIManager : MonoBehaviour
         AbilitiesInventoryButton.onClick.RemoveListener(HideAbilityInventory);
         AbilitiesInventory.GetComponent<RectTransform>().DOMoveY(50, 1);
         AbilitiesInventoryButton.onClick.AddListener(ExpandAbilityInventory);
+    }
+
+    public void GameOver()
+    {
+        SceneManager.LoadScene("GameOverScene");
     }
 }

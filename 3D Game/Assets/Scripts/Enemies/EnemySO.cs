@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class EnemySO : ScriptableObject
 {
-    [SerializeField] private string name;
+    [SerializeField] private string Name;
 
     public string myName
     {

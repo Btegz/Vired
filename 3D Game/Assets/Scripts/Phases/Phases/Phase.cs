@@ -32,4 +32,12 @@ public class Phase : ScriptableObject
             phaseEffect.TriggerPhaseEffect(TurnCount, gridManager);
         }
     }
+
+    [SerializeField, Tooltip("Represents Condition to be met for phase to complete and next phase to trigger.")] private PhaseTransition PhaseTransition;
+
+    public PhaseTransition myPhaseTransition 
+    { 
+        get { return PhaseTransition; } 
+        set { PhaseTransition = value; } 
+    }
 }
