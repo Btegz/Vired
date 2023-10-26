@@ -12,13 +12,7 @@ public class EditorGridGeneration
     [MenuItem("Utilities/Generate Grid Assets")]
     public static void GenerateDefaultEmptyGrid()
     {
-        // find GridPrefab
-        // Instantiate Grid prefab and execute method Generate Grid with a rectangular shape and everything with randmo ressources and in GS_neutral
-
-
         GameObject gridManagerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/GridManager.prefab");
-        //GridScriptableObject gridSO = ScriptableObject.CreateInstance<GridScriptableObject>();
-        //gridSO.name = "GeneratedGridSO";
 
         GameObject GridTilePrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/GridTile.prefab");
 
@@ -46,17 +40,6 @@ public class EditorGridGeneration
             Grid.Add(coord, newTile);
 
         }
-        //gridManager.GetComponent<GridManager>().Grid = Grid;
-        //Dictionary < Vector2Int, GridTileSO > gridSOGrid = new Dictionary<Vector2Int, GridTileSO>();
-        //foreach (KeyValuePair<Vector2Int,GridTile> kvp in Grid)
-        //{
-        //    gridSOGrid.Add(kvp.Key, kvp.Value.gridTileSO);
-        //}
-        //gridSO.Grid = gridSOGrid;
-        
-
-        //AssetDatabase.CreateAsset(gridSO, "Assets/Scripts/" + gridSO.name + ".asset");
-
 
         AssetDatabase.Refresh();
         AssetDatabase.SaveAssets();
