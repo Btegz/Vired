@@ -41,7 +41,7 @@ public class PE_EnemySpawn : PhaseEffect
                 Enemy newEnemy = Instantiate(enemyPrefab);
                 newEnemy.Setup(enemySOs[Random.Range(0, enemySOs.Count)]);
                 GridTile randomLocation = gridManager.PickRandomTile();
-                while (randomLocation.currentGridState == gridManager.gS_Enemy || randomLocation.currentGridState == gridManager.gS_Boss || randomLocation.AxialCoordinate == HexGridUtil.CubeToAxialCoord(PlayerManager.Instance.playerPosition))
+                while (randomLocation.currentGridState == gridManager.gS_Enemy || randomLocation.currentGridState == gridManager.gS_Boss || randomLocation.AxialCoordinate == PlayerManager.Instance.playerPosition)
                 {
                     randomLocation = gridManager.PickRandomTile();
                 }

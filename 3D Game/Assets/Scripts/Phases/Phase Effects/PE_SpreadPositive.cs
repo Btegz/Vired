@@ -12,7 +12,7 @@ public class PE_SpreadPositive : PhaseEffect
             List<GridTile> neutralTiles = gridManager.GetTilesWithState(gridManager.gS_Neutral);
             foreach (GridTile tile in neutralTiles)
             {
-                if (tile.AxialCoordinate != HexGridUtil.CubeToAxialCoord(PlayerManager.Instance.playerPosition))
+                if (tile.AxialCoordinate != PlayerManager.Instance.playerPosition)
                 {
                     tile.ChangeCurrentState(gridManager.gS_Positive);
                 }

@@ -184,13 +184,13 @@ public class AbilityObjScript : MonoBehaviour
     public void rotateClockwisePlayerCenter()
     {
         transform.rotation *= Quaternion.Euler(0,60,0);
-        AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeClockwise(PlayerManager.Instance.playerPosition, HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), 1));
+        AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeClockwise(HexGridUtil.AxialToCubeCoord(PlayerManager.Instance.playerPosition), HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), 1));
     }
 
     public void rotateCounterClockwisePlayerCenter()
     {
         transform.rotation *= Quaternion.Euler(0,-60,0);
-        AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeCounterClockwise(PlayerManager.Instance.playerPosition, HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), 1));
+        AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeCounterClockwise(HexGridUtil.AxialToCubeCoord(PlayerManager.Instance.playerPosition), HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), 1));
 
         
     }
@@ -222,7 +222,7 @@ public class AbilityObjScript : MonoBehaviour
                 break;
             
             case Effect.Movement:
-                PlayerManager.Instance.playerPosition = HexGridUtil.AxialToCubeCoord(gridTile.AxialCoordinate);
+                PlayerManager.Instance.playerPosition = gridTile.AxialCoordinate;
                 PlayerManager.Instance.player.transform.position = gridTile.transform.position;
                 gridTile.ChangeCurrentState(GridManager.Instance.gS_Neutral);
                 break;

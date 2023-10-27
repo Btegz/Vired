@@ -21,9 +21,10 @@ public class PlayerManager : MonoBehaviour
     private Vector3 mouse_pos;
     public GameObject player;
     public Camera cam;
+    public Vector2Int PlayerSpawnPoint;
     public Vector2Int collisionPoint;
     private Vector3 Point;
-    public Vector3Int playerPosition;
+    public Vector2Int playerPosition;
     private Vector3Int selectedPoint;
 
     public int RessourceAInventory;
@@ -47,8 +48,8 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
-        playerPosition = Vector3Int.zero;
-        player.transform.position = playerPosition;
+        playerPosition = PlayerSpawnPoint;
+        player.transform.position = GridManager.Instance.Grid[PlayerSpawnPoint].transform.position;
         EventManager.OnEndTurnEvent += resetMovementPoints;
 
     }
@@ -68,8 +69,8 @@ public class PlayerManager : MonoBehaviour
             if (movementAction > 0 || abilityActivated)
             {
                 MouseCursorPosition();
-                HexGridUtil.CubeNeighbors(playerPosition);
-                List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(playerPosition);
+                HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(playerPosition));
+                List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(playerPosition));
 
                 if (neighbors.Contains(selectedPoint) && !abilityActivated)
                 {
@@ -105,7 +106,7 @@ public class PlayerManager : MonoBehaviour
         player.transform.position = target.transform.position;
         target.currentGridState.PlayerEnters(target);
         movementAction--;
-        playerPosition = HexGridUtil.AxialToCubeCoord(target.AxialCoordinate);
+        playerPosition = target.AxialCoordinate;
 
         yield return null;
 
@@ -125,13 +126,13 @@ public class PlayerManager : MonoBehaviour
     {
         Ability chosenAbility = abilitInventory[index];
         AbilityObjScript AbilityPreview = Instantiate(abilityObj);
-        AbilityPreview.ShowMesh(chosenAbility, selectedPoint,playerPos);
-        
+        AbilityPreview.ShowMesh(chosenAbility, selectedPoint, playerPos);
+
     }
 
     public void AbilityClicked(int index)
     {
-        Ressource resCost = abilitInventory[index].costs[0]; 
+        Ressource resCost = abilitInventory[index].costs[0];
         switch (resCost)
         {
             case Ressource.ressourceA:
@@ -140,21 +141,21 @@ public class PlayerManager : MonoBehaviour
                     return;
                 }
                 break;
-                
+
             case Ressource.ressourceB:
                 if (abilitInventory[index].costs.Count >= RessourceBInventory)
                 {
                     return;
                 }
                 break;
-                
+
             case Ressource.ressourceC:
                 if (abilitInventory[index].costs.Count >= RessourceCInventory)
                 {
                     return;
                 }
                 break;
-                
+
             case Ressource.resscoureD:
                 if (abilitInventory[index].costs.Count >= RessourceDInventory)
                 {
@@ -165,24 +166,24 @@ public class PlayerManager : MonoBehaviour
         if (abilityActivated == false)
         {
             abilityActivated = true;
-            StartCoroutine(ChooseAbilityLocation(index)); 
+            StartCoroutine(ChooseAbilityLocation(index));
         }
-        
-   
+
+
     }
 
 
     public IEnumerator ChooseAbilityLocation(int AbilityIndex)
     {
-        List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(playerPosition);
+        List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(playerPosition));
 
-        selectedPoint = playerPosition;
+        selectedPoint = HexGridUtil.AxialToCubeCoord(playerPosition);
 
         while (true)
         {
             if (neighbors.Contains(selectedPoint))
             {
-                ChooseAbilityWithIndex(AbilityIndex, selectedPoint,playerPosition);
+                ChooseAbilityWithIndex(AbilityIndex, selectedPoint, HexGridUtil.AxialToCubeCoord(playerPosition));
                 break;
             }
             yield return null;
