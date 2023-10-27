@@ -13,6 +13,8 @@ public enum RotationMode
 
 public class Ability : HexShape
 {
+
+
     public List<Effect> Effects;
     
     public string Name;
@@ -21,9 +23,9 @@ public class Ability : HexShape
     public RotationMode rotato;
 
     [FormerlySerializedAs("Kosten")] public List<Ressource> costs;
-    
-    
 
+
+    [SerializeField] public Sprite AbilityUISprite;
 
     public Dictionary<Vector2Int, Effect> AbilityEffectDict;
 
