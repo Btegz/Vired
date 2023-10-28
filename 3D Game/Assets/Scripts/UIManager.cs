@@ -18,7 +18,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text ressourceCText;
     [SerializeField] TMP_Text ressourceDText;
 
-    [SerializeField] GameObject AbilitiesInventory; 
+    [SerializeField] GameObject AbilitiesInventory;
+
+    [SerializeField] List<Button> abilityButtons;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +28,23 @@ public class UIManager : MonoBehaviour
         EndTurnButton.onClick.AddListener(EventManager.OnEndTurn);
         EndTurnButton.onClick.AddListener(GridManager.Instance.TriggerPhase);
         AbilitiesInventoryButton.onClick.AddListener(ExpandAbilityInventory);
+    }
+
+    private void OnEnable()
+    {
+        Debug.Log("I AN ENABLED");
+        List<Ability> abilityInv = PlayerManager.Instance.abilitInventory;
+        for (int i = 0; i < abilityButtons.Count; i++)
+        {
+            if (i < abilityInv.Count )
+            {
+                abilityButtons[i].GetComponent<Image>().sprite = abilityInv[i].AbilityUISprite;
+            }
+            else
+            {
+                abilityButtons[i].image.sprite = null;
+            }
+        }
     }
 
     // Update is called once per frame
@@ -38,8 +57,8 @@ public class UIManager : MonoBehaviour
             negativeTiles.AddRange(GridManager.Instance.GetTilesWithState(GridManager.Instance.gS_Boss));
             if (negativeTiles.Count > 0)
             {
-                negativeFillBar.fillAmount = (float)negativeTiles.Count / (((float)GridManager.Instance.Grid.Count *2) /3);
-                if(negativeFillBar.fillAmount >= 1)
+                negativeFillBar.fillAmount = (float)negativeTiles.Count / (((float)GridManager.Instance.Grid.Count * 2) / 3);
+                if (negativeFillBar.fillAmount >= 1)
                 {
                     GameOver();
                 }

@@ -19,4 +19,12 @@ public class EventManager
     {
         OnAbilityCastEvent?.Invoke();
     }
+
+    public delegate void ConfirmButtonDelegate();
+    public static event ConfirmButtonDelegate OnConfirmButtonEvent;
+
+    public static void OnConfirmButton()
+    {
+        OnConfirmButtonEvent?.Invoke();
+    }
 }
