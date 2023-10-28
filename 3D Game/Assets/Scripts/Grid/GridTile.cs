@@ -47,10 +47,36 @@ public class GridTile : MonoBehaviour
     public GridState currentGridState;
     public Ressource ressource;
 
-    private void Awake()
+    private void Start()
     {
-
-
+        switch (currentGridState)
+        {
+            case GS_positive:
+                switch (gridTileSO.ressource)
+                {
+                    case Ressource.ressourceA:
+                        meshRenderer.material = gridTileSO.resourceAMaterial;
+                        ressource = Ressource.ressourceA;
+                        break;
+                    case Ressource.ressourceB:
+                        meshRenderer.material = gridTileSO.resourceBMaterial;
+                        ressource = Ressource.ressourceB;
+                        break;
+                    case Ressource.ressourceC:
+                        meshRenderer.material = gridTileSO.resourceCMaterial;
+                        ressource = Ressource.ressourceC;
+                        break;
+                    case Ressource.resscoureD:
+                        meshRenderer.material = gridTileSO.resourceDMaterial;
+                        ressource = Ressource.resscoureD;
+                        break;
+                }
+                break;
+            case GS_neutral: meshRenderer.material = gridTileSO.neutralMaterial; break;
+            case GS_negative: meshRenderer.material = gridTileSO.negativeMaterial; break;
+            case GS_Enemy: meshRenderer.material = gridTileSO.negativeMaterial; SpawnEnemy(); break;
+            case GS_Boss: meshRenderer.material = gridTileSO.negativeMaterial; SpawnEnemy(); break;
+        }
     }
 
     /// <summary>
@@ -79,15 +105,19 @@ public class GridTile : MonoBehaviour
                 {
                     case Ressource.ressourceA:
                         meshRenderer.material = gridTileSO.resourceAMaterial;
+                        ressource = Ressource.ressourceA;
                         break;
                     case Ressource.ressourceB:
                         meshRenderer.material = gridTileSO.resourceBMaterial;
+                        ressource = Ressource.ressourceB;
                         break;                  
                     case Ressource.ressourceC:  
                         meshRenderer.material = gridTileSO.resourceCMaterial;
+                        ressource = Ressource.ressourceC;
                         break;                  
                     case Ressource.resscoureD:  
                         meshRenderer.material = gridTileSO.resourceDMaterial;
+                        ressource = Ressource.resscoureD;
                         break;
                 }
                 break;

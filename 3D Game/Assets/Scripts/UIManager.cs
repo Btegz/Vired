@@ -32,7 +32,6 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("I AN ENABLED");
         List<Ability> abilityInv = PlayerManager.Instance.abilitInventory;
         for (int i = 0; i < abilityButtons.Count; i++)
         {
