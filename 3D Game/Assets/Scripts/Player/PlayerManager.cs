@@ -103,8 +103,11 @@ public class PlayerManager : MonoBehaviour
     {
         GridTile target = GridManager.Instance.Grid[collisionPoint];
 
+        ParticleSystem landingCloud = player.GetComponentInChildren<ParticleSystem>();
+
         //player.transform.DOMove(target.transform.position, 0.5f);
         player.transform.DOJump(target.transform.position, 2, 1, .25f).OnComplete(() => target.currentGridState.PlayerEnters(target));
+        player.transform.DOPunchScale(Vector3.one*.1f,.25f).OnComplete(landingCloud.Play);
         //player.transform.position = target.transform.position;
 
         //target.currentGridState.PlayerEnters(target);
