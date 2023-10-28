@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 /// <summary>
 /// Abstract Class for the states of the Statemashine of the Tile.
 /// </summary>
 public abstract class GridState : ScriptableObject
 {
+    public float TweenScale;
+
+
     /// <summary>
     /// Called when entering the State
     /// </summary>

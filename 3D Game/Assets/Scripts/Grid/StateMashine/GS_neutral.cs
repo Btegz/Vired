@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class GS_neutral : GridState
     public override void EnterState(GridTile parent)
     {
         parent.meshRenderer.material = parent.gridTileSO.neutralMaterial;
+        parent.transform.DOPunchRotation(Vector3.one * TweenScale, .5f);
     }
 
     public override void ExitState(GridTile parent)

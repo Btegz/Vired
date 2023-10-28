@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,7 @@ public class GS_positive : GridState
             case Ressource.resscoureD:
                 parent.meshRenderer.material = parent.gridTileSO.resourceDMaterial; break;
         }
+        parent.transform.DOPunchRotation(Vector3.one * TweenScale, .5f);
     }
 
     public override void ExitState(GridTile parent)

@@ -7,7 +7,7 @@ using UnityEngine;
 using System.Windows;
 using Unity.VisualScripting;
 using UnityEngine.InputSystem;
-
+using DG.Tweening;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -101,10 +101,13 @@ public class PlayerManager : MonoBehaviour
     //     return GetComponent<Collider>();
     IEnumerator Move()
     {
-
         GridTile target = GridManager.Instance.Grid[collisionPoint];
-        player.transform.position = target.transform.position;
-        target.currentGridState.PlayerEnters(target);
+
+        //player.transform.DOMove(target.transform.position, 0.5f);
+        player.transform.DOJump(target.transform.position, 2, 1, .25f).OnComplete(() => target.currentGridState.PlayerEnters(target));
+        //player.transform.position = target.transform.position;
+
+        //target.currentGridState.PlayerEnters(target);
         movementAction--;
         playerPosition = target.AxialCoordinate;
 

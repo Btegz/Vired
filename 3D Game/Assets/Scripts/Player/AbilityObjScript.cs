@@ -196,7 +196,7 @@ public class AbilityObjScript : MonoBehaviour
                 }
                 break;
             case Effect.Negative:
-                if (gridTile.currentGridState.StateValue() <= -1)
+                if (gridTile.currentGridState.StateValue() < -1)
                 {
                     gridTile.GetComponentInChildren<Enemy>().TakeDamage(1);
                 }
@@ -231,28 +231,24 @@ public class AbilityObjScript : MonoBehaviour
 
     public void Payment()
     {
-        foreach (Ressource r in ability.costs)
-        {
-            Debug.Log("paying 1 ressource");
-            switch (r)
+            switch (ability.costs[0])
             {
                 case Ressource.ressourceA:
-                    PlayerManager.Instance.RessourceAInventory--;
+                    PlayerManager.Instance.RessourceAInventory-= ability.costs.Count;
                     break;
                 
                 case Ressource.ressourceB:
-                    PlayerManager.Instance.RessourceBInventory--;
+                    PlayerManager.Instance.RessourceBInventory -= ability.costs.Count;
                     break;
                 
                 case Ressource.ressourceC:
-                    PlayerManager.Instance.RessourceCInventory--;
+                    PlayerManager.Instance.RessourceCInventory -= ability.costs.Count;
                     break;
                 
                 case Ressource.resscoureD:
-                    PlayerManager.Instance.RessourceDInventory--;
+                    PlayerManager.Instance.RessourceDInventory -= ability.costs.Count;
                     break;
             }
-        }
     }
     
 }
