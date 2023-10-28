@@ -34,12 +34,7 @@ public class AbilityObjScript : MonoBehaviour
     {
         this.ability = ability;
         AbilityShapeLocation = ability.Coordinates;
-        //Debug.Log(AbilityShapeLocation[0]);
-        //AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.CubeAddRange(HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), playerPos));
         List<Vector3Int> CubeAbilityShapeLocation = HexGridUtil.CubeAddRange(HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), playerPos);
-        //Debug.Log(CubeAbilityShapeLocation[0]);
-
-
 
         meshFilter = GetComponentInChildren<MeshFilter>();
         meshRenderer = GetComponentInChildren<MeshRenderer>();
@@ -62,10 +57,6 @@ public class AbilityObjScript : MonoBehaviour
         }
         meshRenderer.materials = materials;
 
-        // selected point nachbarfelder in cubeVector
-
-        // neighbor Vector 
-
         Vector3Int selectedDirection = HexGridUtil.CubeSubstract(SpawnPoint, playerPos);
 
         Vector3Int[] lol = HexGridUtil.cubeDirectionVectors;
@@ -75,15 +66,9 @@ public class AbilityObjScript : MonoBehaviour
         {
             dumm.Add(i);
         }
-       // Debug.Log($"PlayerPos: {playerPos}, SpawnPoint: {SpawnPoint}, AbilityShapeLoc[0]:{AbilityShapeLocation[0]}");
 
         AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.CubeAddRange(HexGridUtil.RotateRangeClockwise(playerPos, HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), dumm.IndexOf(selectedDirection)), playerPos));
         CubeAbilityShapeLocation = HexGridUtil.RotateRangeClockwise(playerPos, CubeAbilityShapeLocation, dumm.IndexOf(selectedDirection));
-
-        
-
-       // Debug.Log($"PlayerPos: {playerPos}, SpawnPoint: {SpawnPoint}, AbilityShapeLoc[0]:{AbilityShapeLocation[0]}");
-
 
         transform.rotation *= Quaternion.Euler(0, dumm.IndexOf(selectedDirection) * 60, 0);
 
@@ -91,7 +76,6 @@ public class AbilityObjScript : MonoBehaviour
         AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(CubeAbilityShapeLocation);
 
         SetPositionToGridCoord(HexGridUtil.CubeToAxialCoord(playerPos));
-        //transform.position =  GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(SpawnPoint)].transform.position;
 
         castAbiltyInputActionReference.action.performed += CastAbility;
     }
@@ -107,9 +91,6 @@ public class AbilityObjScript : MonoBehaviour
         cam = Camera.main;
         inputAction.Enable();
         rotationInputActionReference.action.performed += rotateAbility;
-
-        //just for attemps
-        //ShowMesh(ability);
     }
 
     // Update is called once per frame
@@ -252,6 +233,7 @@ public class AbilityObjScript : MonoBehaviour
     {
         foreach (Ressource r in ability.costs)
         {
+            Debug.Log("paying 1 ressource");
             switch (r)
             {
                 case Ressource.ressourceA:
