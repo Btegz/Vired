@@ -10,7 +10,7 @@ public class AbilityObjScript : MonoBehaviour
     public Ability ability;
     public GridTile gridTile;
     public List<Vector2Int> AbilityShapeLocation;
-    
+
 
     MeshFilter meshFilter;
     MeshRenderer meshRenderer;
@@ -22,15 +22,18 @@ public class AbilityObjScript : MonoBehaviour
     [SerializeField] InputActionAsset inputAction;
     [SerializeField] InputActionReference rotationInputActionReference;
     [SerializeField] InputActionReference castAbiltyInputActionReference;
-    
+    [SerializeField] InputActionReference CancelAbilityInputActionReference;
+
+
     Camera cam;
 
     private void OnDestroy()
     {
         castAbiltyInputActionReference.action.performed -= CastAbility;
+        CancelAbilityInputActionReference.action.performed -= KillYourSelf;
     }
 
-    public void ShowMesh(Ability ability,Vector3Int SpawnPoint, Vector3Int playerPos)
+    public void ShowMesh(Ability ability, Vector3Int SpawnPoint, Vector3Int playerPos)
     {
         this.ability = ability;
         AbilityShapeLocation = ability.Coordinates;
@@ -40,7 +43,7 @@ public class AbilityObjScript : MonoBehaviour
         meshRenderer = GetComponentInChildren<MeshRenderer>();
         meshFilter.mesh = ability.previewShape;
         Material[] materials = new Material[ability.Effects.Count];
-        for(int i = 0; i< ability.Effects.Count; i++)
+        for (int i = 0; i < ability.Effects.Count; i++)
         {
             switch (ability.Effects[i])
             {
@@ -62,7 +65,7 @@ public class AbilityObjScript : MonoBehaviour
         Vector3Int[] lol = HexGridUtil.cubeDirectionVectors;
 
         List<Vector3Int> dumm = new List<Vector3Int>();
-        foreach(Vector3Int i in lol)
+        foreach (Vector3Int i in lol)
         {
             dumm.Add(i);
         }
@@ -90,7 +93,9 @@ public class AbilityObjScript : MonoBehaviour
     {
         cam = Camera.main;
         inputAction.Enable();
-        rotationInputActionReference.action.performed += rotateAbility;
+        rotationInputActionReference.action.performed += rotateAbility; 
+        CancelAbilityInputActionReference.action.performed += KillYourSelf;
+
     }
 
     // Update is called once per frame
@@ -98,7 +103,7 @@ public class AbilityObjScript : MonoBehaviour
     {
         //Vector2 mouse_pos = Mouse.current.position.ReadValue();
         //Debug.Log(mouse_pos); 
-        
+
         //Ray ray = cam.ScreenPointToRay(mouse_pos);
         //RaycastHit hit;
 
@@ -117,7 +122,7 @@ public class AbilityObjScript : MonoBehaviour
 
     public void rotateAbility(InputAction.CallbackContext action)
     {
-        
+
         float rotation = action.ReadValue<float>();
         if (rotation > 0)
         {
@@ -125,11 +130,11 @@ public class AbilityObjScript : MonoBehaviour
             {
                 case RotationMode.PlayerCenter:
                     rotateClockwisePlayerCenter();
-                    break; 
-                
+                    break;
+
                 case RotationMode.SelectedPointCenter:
                     rotateClockwise();
-                    break; 
+                    break;
             }
         }
         if (rotation < 0)
@@ -138,42 +143,42 @@ public class AbilityObjScript : MonoBehaviour
             {
                 case RotationMode.PlayerCenter:
                     rotateCounterClockwisePlayerCenter();
-                    break; 
-                
+                    break;
+
                 case RotationMode.SelectedPointCenter:
                     rotateCounterClockwise();
-                    break; 
+                    break;
             }
-            
+
         }
     }
 
     public void rotateClockwise()
     {
-        transform.RotateAround(GridManager.Instance.Grid[AbilityShapeLocation[0]].transform.position,new Vector3(0,1,0), 60);
+        transform.RotateAround(GridManager.Instance.Grid[AbilityShapeLocation[0]].transform.position, new Vector3(0, 1, 0), 60);
         AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeClockwise(HexGridUtil.AxialToCubeCoord(AbilityShapeLocation[0]), HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), 1));
 
     }
-    
+
     public void rotateCounterClockwise()
     {
-       transform.RotateAround(GridManager.Instance.Grid[AbilityShapeLocation[0]].transform.position,new Vector3(0,-1,0), 60);
+        transform.RotateAround(GridManager.Instance.Grid[AbilityShapeLocation[0]].transform.position, new Vector3(0, -1, 0), 60);
         AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeCounterClockwise(HexGridUtil.AxialToCubeCoord(AbilityShapeLocation[0]), HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), 1));
 
     }
 
     public void rotateClockwisePlayerCenter()
     {
-        transform.rotation *= Quaternion.Euler(0,60,0);
+        transform.rotation *= Quaternion.Euler(0, 60, 0);
         AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeClockwise(HexGridUtil.AxialToCubeCoord(PlayerManager.Instance.playerPosition), HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), 1));
     }
 
     public void rotateCounterClockwisePlayerCenter()
     {
-        transform.rotation *= Quaternion.Euler(0,-60,0);
+        transform.rotation *= Quaternion.Euler(0, -60, 0);
         AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeCounterClockwise(HexGridUtil.AxialToCubeCoord(PlayerManager.Instance.playerPosition), HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), 1));
 
-        
+
     }
     public void UsingEffect(Effect effect)
     {
@@ -201,54 +206,59 @@ public class AbilityObjScript : MonoBehaviour
                     gridTile.GetComponentInChildren<Enemy>().TakeDamage(1);
                 }
                 break;
-            
+
             case Effect.Movement:
                 PlayerManager.Instance.playerPosition = gridTile.AxialCoordinate;
                 PlayerManager.Instance.player.transform.position = gridTile.transform.position;
                 gridTile.ChangeCurrentState(GridManager.Instance.gS_Neutral);
                 break;
-            
+
         }
     }
 
 
     public void CastAbility(InputAction.CallbackContext action)
     {
-        for(int i=0; i< AbilityShapeLocation.Count; i++)
+        for (int i = 0; i < AbilityShapeLocation.Count; i++)
         {
             if (GridManager.Instance.Grid.ContainsKey(AbilityShapeLocation[i]))
             {
-                gridTile = GridManager.Instance.Grid[AbilityShapeLocation[i]]; 
+                gridTile = GridManager.Instance.Grid[AbilityShapeLocation[i]];
                 UsingEffect(ability.Effects[i]);
             }
         }
         Payment();
         castAbiltyInputActionReference.action.performed -= CastAbility;
-        Destroy(gameObject);
         PlayerManager.Instance.AbilityCasted();
         EventManager.OnAbilityCast();
+        Destroy(gameObject);
     }
 
     public void Payment()
     {
-            switch (ability.costs[0])
-            {
-                case Ressource.ressourceA:
-                    PlayerManager.Instance.RessourceAInventory-= ability.costs.Count;
-                    break;
-                
-                case Ressource.ressourceB:
-                    PlayerManager.Instance.RessourceBInventory -= ability.costs.Count;
-                    break;
-                
-                case Ressource.ressourceC:
-                    PlayerManager.Instance.RessourceCInventory -= ability.costs.Count;
-                    break;
-                
-                case Ressource.resscoureD:
-                    PlayerManager.Instance.RessourceDInventory -= ability.costs.Count;
-                    break;
-            }
+        switch (ability.costs[0])
+        {
+            case Ressource.ressourceA:
+                PlayerManager.Instance.RessourceAInventory -= ability.costs.Count;
+                break;
+
+            case Ressource.ressourceB:
+                PlayerManager.Instance.RessourceBInventory -= ability.costs.Count;
+                break;
+
+            case Ressource.ressourceC:
+                PlayerManager.Instance.RessourceCInventory -= ability.costs.Count;
+                break;
+
+            case Ressource.resscoureD:
+                PlayerManager.Instance.RessourceDInventory -= ability.costs.Count;
+                break;
+        }
     }
-    
+
+    public void KillYourSelf(InputAction.CallbackContext actionCallBackContext)
+    {
+        Destroy(gameObject);
+    }
+
 }

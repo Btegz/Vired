@@ -34,6 +34,8 @@ public class PlayerManager : MonoBehaviour
 
     bool abilityActivated = false;
 
+    [SerializeField] InputActionReference cancelAbilityInputActionReference;
+
     private void Awake()
     {
         if (Instance == null)
@@ -62,67 +64,79 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
+        // takes mouse positition
         mouse_pos = Mouse.current.position.ReadValue();
 
+        // enters if Left Mouse Button was clicked
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
+            // checks whether movement points are available or if a Ability is activated
             if (movementAction > 0 || abilityActivated)
             {
-                MouseCursorPosition();
-                HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(playerPosition));
-                List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(playerPosition));
+                // saves the Grid Tile Location that was clicked
+                Vector2Int clickedTile;
 
-                if (neighbors.Contains(selectedPoint) && !abilityActivated)
+                // enters if a tile was clicked
+                if (MouseCursorPosition(out clickedTile))
                 {
-                    StartCoroutine(Move());
+                    // Searches for the Nieghbors of playerposition
+                    List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(playerPosition));
+
+                    // enters if Players Neighbors contains the clicked Tile
+                    if (neighbors.Contains(HexGridUtil.AxialToCubeCoord(clickedTile)) && !abilityActivated)
+                    {
+                        // Moves Player to clicked Tile
+                        StartCoroutine(Move(clickedTile));
+                    }
                 }
             }
         }
     }
 
-    private void MouseCursorPosition()
+    /// <summary>
+    /// Used to determin the GridTile the Mouse is on right now
+    /// </summary>
+    /// <param name="clickedTile">Grid Tile Coordinate</param>
+    /// <returns>true if Mouse Position is on a GridTile</returns>
+    private bool MouseCursorPosition(out Vector2Int clickedTile)
     {
         Ray ray = cam.ScreenPointToRay(mouse_pos);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            collisionPoint = hit.collider.GetComponent<GridTile>().AxialCoordinate;
-            selectedPoint = HexGridUtil.AxialToCubeCoord(collisionPoint);
+            clickedTile = hit.collider.GetComponent<GridTile>().AxialCoordinate;
+            return true;
         }
-
-
-
-
-
-
+        else
+        {
+            clickedTile = Vector2Int.zero;
+            return false;
+        }
     }
 
-    //     return GetComponent<Collider>();
-    IEnumerator Move()
+    /// <summary>
+    /// Coroutine to Move Player to a Coordinate
+    /// </summary>
+    /// <param name="moveTo">Coordinate to move player to</param>
+    /// <returns></returns>
+    IEnumerator Move(Vector2Int moveTo)
     {
-        GridTile target = GridManager.Instance.Grid[collisionPoint];
+        GridTile target = GridManager.Instance.Grid[moveTo];
 
         ParticleSystem landingCloud = player.GetComponentInChildren<ParticleSystem>();
-
-        //player.transform.DOMove(target.transform.position, 0.5f);
         player.transform.DOJump(target.transform.position, 2, 1, .25f).OnComplete(() => target.currentGridState.PlayerEnters(target));
-        player.transform.DOPunchScale(Vector3.one*.1f,.25f).OnComplete(landingCloud.Play);
-        //player.transform.position = target.transform.position;
-
-        //target.currentGridState.PlayerEnters(target);
+        player.transform.DOPunchScale(Vector3.one * .1f, .25f).OnComplete(landingCloud.Play);
         movementAction--;
-        playerPosition = target.AxialCoordinate;
+        playerPosition = moveTo;
 
         yield return null;
 
     }
 
-    // hexgridutils neighbors - Liste aus Koordinaten 
-    // if Liste contains axial Koordinate dann StartCoroutine()
-    // minus movement points
-    // while/ if 
-
+    /// <summary>
+    /// Used to reset Movementpoints of the Player
+    /// </summary>
     public void resetMovementPoints()
     {
         movementAction = 4;
@@ -135,10 +149,18 @@ public class PlayerManager : MonoBehaviour
         AbilityPreview.ShowMesh(chosenAbility, selectedPoint, playerPos);
     }
 
+    /// <summary>
+    /// Called in OnClick of an AbilityButton.
+    /// determins whether player has enough Ressources for the Ability
+    /// </summary>
+    /// <param name="index">index of the Ability Clicked</param>
     public void AbilityClicked(int index)
     {
-        
+        //saves the cost of the chosen Ability
         Ressource resCost = abilitInventory[index].costs[0];
+
+        //switches over the different ressources and checks whether player has anough ressources of fitting Type
+        //the function returns if Player does not have enough Ressources for the Ability
         switch (resCost)
         {
             case Ressource.ressourceA:
@@ -169,38 +191,73 @@ public class PlayerManager : MonoBehaviour
                 }
                 break;
         }
+
+        // sets the "abilityAcitvated" bool to true, so player cant move anymore after choosing a Ability
         if (abilityActivated == false)
         {
+            Debug.Log("I HAVE A CHOSEN ABILITY AND I START LISTENING TO CANCEL INPUT ACTION");
             abilityActivated = true;
             StartCoroutine(ChooseAbilityLocation(index));
         }
-
-
     }
 
-
+    /// <summary>
+    /// Coroutine to Wait for Player to choose the Abilities Location after it was chosen
+    /// </summary>
+    /// <param name="AbilityIndex"></param>
+    /// <returns></returns>
     public IEnumerator ChooseAbilityLocation(int AbilityIndex)
     {
+        cancelAbilityInputActionReference.action.performed += CancelAbilityChoice;
+
+        // collects player Neighbors as viable tiles
         List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(playerPosition));
 
-        selectedPoint = HexGridUtil.AxialToCubeCoord(playerPosition);
+        //selectedPoint = HexGridUtil.AxialToCubeCoord(playerPosition);
 
-        while (true)
+        Vector2Int clickedTile;
+
+        while (abilityActivated)
         {
-            if (neighbors.Contains(selectedPoint))
+            if(Mouse.current.rightButton.wasPressedThisFrame)
             {
-                ChooseAbilityWithIndex(AbilityIndex, selectedPoint, HexGridUtil.AxialToCubeCoord(playerPosition));
-                break;
+                CancelAbilityChoice();
+            }
+            // enters if Left Mouse Button was clicked
+            if (Mouse.current.leftButton.wasPressedThisFrame)
+            {
+                if (MouseCursorPosition(out clickedTile))
+                {
+                    if (neighbors.Contains(HexGridUtil.AxialToCubeCoord(clickedTile)))
+                    {
+                        ChooseAbilityWithIndex(AbilityIndex, HexGridUtil.AxialToCubeCoord(clickedTile), HexGridUtil.AxialToCubeCoord(playerPosition));
+                        break;
+                    }
+                    yield return null;
+                }
             }
             yield return null;
         }
-
         yield return null;
     }
 
 
     public void AbilityCasted()
     {
+        cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice;
         abilityActivated = false;
+    }
+
+    public void CancelAbilityChoice(InputAction.CallbackContext actionCallBackContext)
+    {
+        Debug.Log("I AM CANCELING ABILITY CHOICE");
+        abilityActivated = false;
+        cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice;
+    }
+    public void CancelAbilityChoice()
+    {
+        Debug.Log("I AM CANCELING ABILITY CHOICE");
+        abilityActivated = false;
+        cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice;
     }
 }
