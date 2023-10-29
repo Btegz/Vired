@@ -34,6 +34,8 @@ public class PlayerManager : MonoBehaviour
 
     bool abilityActivated = false;
 
+    [SerializeField] ParticleSystem AbilityCastParticleSystem;
+
     [SerializeField] InputActionReference cancelAbilityInputActionReference;
 
     private void Awake()
@@ -195,7 +197,6 @@ public class PlayerManager : MonoBehaviour
         // sets the "abilityAcitvated" bool to true, so player cant move anymore after choosing a Ability
         if (abilityActivated == false)
         {
-            Debug.Log("I HAVE A CHOSEN ABILITY AND I START LISTENING TO CANCEL INPUT ACTION");
             abilityActivated = true;
             StartCoroutine(ChooseAbilityLocation(index));
         }
@@ -250,13 +251,11 @@ public class PlayerManager : MonoBehaviour
 
     public void CancelAbilityChoice(InputAction.CallbackContext actionCallBackContext)
     {
-        Debug.Log("I AM CANCELING ABILITY CHOICE");
         abilityActivated = false;
         cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice;
     }
     public void CancelAbilityChoice()
     {
-        Debug.Log("I AM CANCELING ABILITY CHOICE");
         abilityActivated = false;
         cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice;
     }

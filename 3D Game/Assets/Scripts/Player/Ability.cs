@@ -41,4 +41,13 @@ public class Ability : HexShape
 
         return neww;
     }
+
+    [SerializeField] private ParticleSystem MyCastParticleSystem;
+
+    public ParticleSystem CastParticleSystem
+    {
+        get { return CastParticleSystem; }
+        set { CastParticleSystem = value; }
+    }
+
 }

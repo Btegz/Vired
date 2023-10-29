@@ -231,6 +231,7 @@ public class AbilityObjScript : MonoBehaviour
         castAbiltyInputActionReference.action.performed -= CastAbility;
         PlayerManager.Instance.AbilityCasted();
         EventManager.OnAbilityCast();
+
         Destroy(gameObject);
     }
 
