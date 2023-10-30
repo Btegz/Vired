@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class PE_SpreadNegative : PhaseEffect
 {
+    [SerializeField] private List<Spreadbehaviours> SpreadbehavioursList;
     public override void TriggerPhaseEffect(int turnCounter, GridManager gridManager)
     {
         if (turnCounter % everyXRounds == 0)
@@ -13,7 +14,17 @@ public class PE_SpreadNegative : PhaseEffect
             foreach (GridTile tile in enemieTiles)
             {
                 Vector3Int coordinate = HexGridUtil.AxialToCubeCoord(tile.AxialCoordinate);
-                List<Vector3Int> possibleTiles = new List<Vector3Int>();
+
+                for (int i = 0; i < SpreadbehavioursList.Count; i++)
+                {
+                    if (SpreadbehavioursList[i].TargetTile(coordinate, out Vector3Int target))
+                    {
+                        gridManager.Grid[HexGridUtil.CubeToAxialCoord(target)].ChangeCurrentState(gridManager.gS_Negative);
+                        break;
+                    }
+                }
+               
+                /*List<Vector3Int> possibleTiles = new List<Vector3Int>();
                 for (int i = 1;i<10 ; i++)
                 {
                     List<Vector3Int> range = HexGridUtil.CoordinatesReachable(coordinate, i);
@@ -37,7 +48,7 @@ public class PE_SpreadNegative : PhaseEffect
                 {
                     int randomIndex = Random.Range(0, possibleTiles.Count);
                     gridManager.Grid[HexGridUtil.CubeToAxialCoord(possibleTiles[randomIndex])].ChangeCurrentState(GridManager.Instance.gS_Negative);
-                }
+                }*/
             }
         }
     }
