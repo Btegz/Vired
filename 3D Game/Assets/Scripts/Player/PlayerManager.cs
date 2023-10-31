@@ -87,13 +87,21 @@ public class PlayerManager : MonoBehaviour
                     // enters if Players Neighbors contains the clicked Tile
                     if (neighbors.Contains(HexGridUtil.AxialToCubeCoord(clickedTile)) && !abilityActivated)
                     {
+                        
+                            if (GridManager.Instance.Grid[clickedTile].currentGridState ==
+                                GridManager.Instance.gS_Positive ||
+                                GridManager.Instance.Grid[clickedTile].currentGridState ==
+                                GridManager.Instance.gS_Neutral)
+                            
+                               StartCoroutine(Move(clickedTile));
+                       }
                         // Moves Player to clicked Tile
-                        StartCoroutine(Move(clickedTile));
+                        
                     }
                 }
             }
         }
-    }
+    
 
     /// <summary>
     /// Used to determin the GridTile the Mouse is on right now
