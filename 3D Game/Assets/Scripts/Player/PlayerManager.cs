@@ -8,6 +8,7 @@ using System.Windows;
 using Unity.VisualScripting;
 using UnityEngine.InputSystem;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -94,8 +95,24 @@ public class PlayerManager : MonoBehaviour
                                 GridManager.Instance.gS_Neutral)
                             
                                StartCoroutine(Move(clickedTile));
+                            
                        }
-                        // Moves Player to clicked Tile
+// Ability createn possible? Dann nicht verlieren 
+// Keine Ressourcen keine Abiliy möglich dann verlieren 
+
+                    foreach (Vector3Int neighbor in neighbors)
+                    {
+                        if (GridManager.Instance.Grid[clickedTile].currentGridState ==
+                            GridManager.Instance.gS_Positive ||
+                            GridManager.Instance.Grid[clickedTile].currentGridState ==
+                            GridManager.Instance.gS_Neutral)
+                            break;
+                        else
+                        {
+                            SceneManager.LoadScene("GameOverScene");
+                        }
+                    }
+                        
                         
                     }
                 }
