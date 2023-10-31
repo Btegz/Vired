@@ -202,9 +202,10 @@ public class GridManager : MonoBehaviour
     public void PhaseTransition()
     {
         phases.RemoveAt(0);
-        if(phases.Count <= 0 ) 
+        if (phases.Count <= 0)
         {
             GameWon();
+            return;
         }
         currentPhase = phases[0];
         currentPhase.myPhaseTransition.InitPhaseTransitionCheck();

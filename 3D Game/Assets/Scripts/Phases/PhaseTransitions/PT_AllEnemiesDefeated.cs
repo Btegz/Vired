@@ -7,7 +7,7 @@ public class PT_AllEnemiesDefeated : PhaseTransition
 {
     public override void ConditionFullfilledCheck()
     {
-        if (GridManager.Instance.GetTilesWithState(GridManager.Instance.gS_Boss).Count == 0 || GridManager.Instance.GetTilesWithState(GridManager.Instance.gS_Enemy).Count == 0)
+        if (GridManager.Instance.GetTilesWithState(GridManager.Instance.gS_Boss).Count == 0 && GridManager.Instance.GetTilesWithState(GridManager.Instance.gS_Enemy).Count == 0)
         {
             EventManager.OnAbilityCastEvent -= ConditionFullfilledCheck;
             EventManager.OnEndTurnEvent -= ConditionFullfilledCheck;

@@ -182,11 +182,14 @@ public class GridTile : MonoBehaviour
     /// </summary>
     public void SpawnEnemy()
     {
-        GridManager gridManagerInstance = GridManager.Instance;
-        Enemy newEnemy = Instantiate(gridManagerInstance.enemyPrefab);
-        newEnemy.Setup(gridManagerInstance.enemySOs[Random.Range(0, gridManagerInstance.enemySOs.Count)]);
-        newEnemy.transform.parent = transform;
-        newEnemy.transform.position = transform.position;
+        if(GetComponentInChildren<Enemy>() == null)
+        {
+            GridManager gridManagerInstance = GridManager.Instance;
+            Enemy newEnemy = Instantiate(gridManagerInstance.enemyPrefab);
+            newEnemy.Setup(gridManagerInstance.enemySOs[Random.Range(0, gridManagerInstance.enemySOs.Count)]);
+            newEnemy.transform.parent = transform;
+            newEnemy.transform.position = transform.position;
+        }
     }
 
     // MESH TILE STUFF --------------------------------------------------------------------------------------------------------------
