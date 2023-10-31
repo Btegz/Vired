@@ -92,8 +92,15 @@ public class PlayerManager : MonoBehaviour
                                 GridManager.Instance.gS_Positive ||
                                 GridManager.Instance.Grid[clickedTile].currentGridState ==
                                 GridManager.Instance.gS_Neutral)
+                        {
+                            StartCoroutine(Move(clickedTile));
+                        }
+                        else
+                        {
+                            player.transform.DOPunchRotation(Vector3.up*100, 0.25f);
+                        }
                             
-                               StartCoroutine(Move(clickedTile));
+                               
                        }
                         // Moves Player to clicked Tile
                         
