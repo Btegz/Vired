@@ -17,6 +17,7 @@ public class EventManager
 
     public static void OnAbilityCast()
     {
+        Debug.Log("Ability Casted");
         OnAbilityCastEvent?.Invoke();
     }
 

@@ -49,7 +49,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] List<Phase> phases;
 
     [Header("UI")]
-    [SerializeField] Image negativeBarFill;
+    [SerializeField] public Canvas MainCanvas;
 
     private void Awake()
     {
@@ -68,6 +68,7 @@ public class GridManager : MonoBehaviour
     {
         currentPhase = phases[0];
         currentPhase.myPhaseTransition.InitPhaseTransitionCheck();
+        TriggerPhase();
         EventManager.OnEndTurnEvent += EndTurn;
         TransferGridSOData();
         
@@ -201,6 +202,7 @@ public class GridManager : MonoBehaviour
 
     public void PhaseTransition()
     {
+        Debug.Log("I AM TRIGGERED A PHASE TRANSITION");
         phases.RemoveAt(0);
         if (phases.Count <= 0)
         {
@@ -209,5 +211,6 @@ public class GridManager : MonoBehaviour
         }
         currentPhase = phases[0];
         currentPhase.myPhaseTransition.InitPhaseTransitionCheck();
+        TriggerPhase();
     }
 }
