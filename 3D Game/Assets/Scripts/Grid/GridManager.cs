@@ -70,7 +70,7 @@ public class GridManager : MonoBehaviour
         currentPhase.myPhaseTransition.InitPhaseTransitionCheck();
         EventManager.OnEndTurnEvent += EndTurn;
         TransferGridSOData();
-        
+
         //GenerateGrid();
 
         // Das ist nur spielerei.
@@ -95,6 +95,19 @@ public class GridManager : MonoBehaviour
         //{
         //    Grid[coord].transform.position += Vector3.up;
         //}
+
+        //List<Vector3Int> path = HexGridUtil.BreadthFIrstPathfinding(new Vector3Int(-2, -4, 6), new Vector3Int(0, -2,2),HexGridUtil.AxialToCubeCoord(Grid.Keys.ToList<Vector2Int>()));
+        //foreach(Vector3Int p in path)
+        //{
+        //    Vector2Int pp = HexGridUtil.CubeToAxialCoord(p);
+
+        //    Grid[pp].gameObject.transform.position += Vector3.up * 3;
+        //}
+
+
+
+
+
     }
 
     public void GameWon()
