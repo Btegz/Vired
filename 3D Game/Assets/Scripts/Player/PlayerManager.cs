@@ -34,6 +34,7 @@ public class PlayerManager : MonoBehaviour
     public int RessourceDInventory;
 
     bool abilityActivated = false;
+    private bool abilityUsable = true;
 
     [SerializeField] ParticleSystem AbilityCastParticleSystem;
 
@@ -70,45 +71,64 @@ public class PlayerManager : MonoBehaviour
         // Searches for the Nieghbors of playerposition
         List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(playerPosition));
 
-        // Ability createn possible? Dann nicht verlieren 
-        // Keine Ressourcen keine Abiliy möglich dann verlieren 
-
-        foreach (Vector3Int neighbor in neighbors)
-        {
-            if (GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].currentGridState ==
-                GridManager.Instance.gS_Positive ||
-                GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].currentGridState ==
-                GridManager.Instance.gS_Neutral)
+        // Lose Condition: surrounded by enemies/ no ressources 
+        for (int i = 0; i < abilitInventory.Count; i++)
+        {   
+            //check ob Ability bezahlbar ist 
+            if (InventoryCheck(i))
+            {
+                abilityUsable = true;
                 break;
+            }
 
             else
             {
-                SceneManager.LoadScene("GameOverScene");
-                player.transform.DOPunchRotation(Vector3.up * 100, 0.25f);
+                abilityUsable = false;
             }
-
-            // enters if Left Mouse Button was clicked
-            if (Mouse.current.leftButton.wasPressedThisFrame)
+        }
+        
+        // wenn Ability nicht bezahlbar ist check Nachbarn
+        if (abilityUsable == false)
+        {
+            foreach (Vector3Int neighbor in neighbors)
             {
-                // checks whether movement points are available or if a Ability is activated
-                if (movementAction > 0 || abilityActivated)
+                //  checks player neighbors for neutral/ positive grids
+                if (GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].currentGridState ==
+                    GridManager.Instance.gS_Positive ||
+                    GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].currentGridState ==
+                    GridManager.Instance.gS_Neutral)
+                    break;
+
+                // no positive/ neutral neighbors = GameOverScene
+                else
                 {
-                    // saves the Grid Tile Location that was clicked
-                    Vector2Int clickedTile;
+                    SceneManager.LoadScene("GameOverScene");
+                    player.transform.DOPunchRotation(Vector3.up * 100, 0.25f);
+                }
+            }
+        }
 
-                    // enters if a tile was clicked
-                    if (MouseCursorPosition(out clickedTile))
+        // enters if Left Mouse Button was clicked
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            // checks whether movement points are available or if a Ability is activated
+            if (movementAction > 0 || abilityActivated)
+            {
+                // saves the Grid Tile Location that was clicked
+                Vector2Int clickedTile;
+
+                // enters if a tile was clicked
+                if (MouseCursorPosition(out clickedTile))
+                {
+                    // enters if Players Neighbors contains the clicked Tile
+                    if (neighbors.Contains(HexGridUtil.AxialToCubeCoord(clickedTile)) && !abilityActivated)
                     {
-                        // enters if Players Neighbors contains the clicked Tile
-                        if (neighbors.Contains(HexGridUtil.AxialToCubeCoord(clickedTile)) && !abilityActivated)
-                        {
-                            if (GridManager.Instance.Grid[clickedTile].currentGridState ==
-                                GridManager.Instance.gS_Positive ||
-                                GridManager.Instance.Grid[clickedTile].currentGridState ==
-                                GridManager.Instance.gS_Neutral)
+                        if (GridManager.Instance.Grid[clickedTile].currentGridState ==
+                            GridManager.Instance.gS_Positive ||
+                            GridManager.Instance.Grid[clickedTile].currentGridState ==
+                            GridManager.Instance.gS_Neutral)
 
-                                StartCoroutine(Move(clickedTile));
-                        }
+                            StartCoroutine(Move(clickedTile));
                     }
                 }
             }
@@ -179,6 +199,16 @@ public class PlayerManager : MonoBehaviour
     /// <param name="index">index of the Ability Clicked</param>
     public void AbilityClicked(int index)
     {
+        // sets the "abilityAcitvated" bool to true, so player cant move anymore after choosing a Ability
+        if (abilityActivated == false && InventoryCheck(index))
+        {
+            abilityActivated = true;
+            StartCoroutine(ChooseAbilityLocation(index));
+        }
+    }
+
+    public bool InventoryCheck(int index)
+    {
         //saves the cost of the chosen Ability
         Ressource resCost = abilitInventory[index].costs[0];
 
@@ -189,15 +219,16 @@ public class PlayerManager : MonoBehaviour
             case Ressource.ressourceA:
                 if (abilitInventory[index].costs.Count > RessourceAInventory)
                 {
-                    return;
+                    return false;
                 }
 
                 break;
 
+
             case Ressource.ressourceB:
                 if (abilitInventory[index].costs.Count > RessourceBInventory)
                 {
-                    return;
+                    return false;
                 }
 
                 break;
@@ -205,7 +236,7 @@ public class PlayerManager : MonoBehaviour
             case Ressource.ressourceC:
                 if (abilitInventory[index].costs.Count > RessourceCInventory)
                 {
-                    return;
+                    return false;
                 }
 
                 break;
@@ -213,18 +244,13 @@ public class PlayerManager : MonoBehaviour
             case Ressource.resscoureD:
                 if (abilitInventory[index].costs.Count > RessourceDInventory)
                 {
-                    return;
+                    return false;
                 }
 
                 break;
         }
 
-        // sets the "abilityAcitvated" bool to true, so player cant move anymore after choosing a Ability
-        if (abilityActivated == false)
-        {
-            abilityActivated = true;
-            StartCoroutine(ChooseAbilityLocation(index));
-        }
+        return true;
     }
 
     /// <summary>
