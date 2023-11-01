@@ -73,7 +73,7 @@ public class PlayerManager : MonoBehaviour
 
         // Lose Condition: surrounded by enemies/ no ressources 
         for (int i = 0; i < abilitInventory.Count; i++)
-        {   
+        {
             //check ob Ability bezahlbar ist 
             if (InventoryCheck(i))
             {
@@ -86,24 +86,30 @@ public class PlayerManager : MonoBehaviour
                 abilityUsable = false;
             }
         }
-        
+
         // wenn Ability nicht bezahlbar ist check Nachbarn
         if (abilityUsable == false)
         {
             foreach (Vector3Int neighbor in neighbors)
             {
-                //  checks player neighbors for neutral/ positive grids
-                if (GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].currentGridState ==
-                    GridManager.Instance.gS_Positive ||
-                    GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].currentGridState ==
-                    GridManager.Instance.gS_Neutral)
-                    break;
+                try
+                {   
+                    //  checks player neighbors for neutral/ positive grids
+                    if (GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].currentGridState ==
+                        GridManager.Instance.gS_Positive ||
+                        GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].currentGridState ==
+                        GridManager.Instance.gS_Neutral)
+                        break;
 
-                // no positive/ neutral neighbors = GameOverScene
-                else
+                    // no positive/ neutral neighbors = GameOverScene
+                    else
+                    {
+                        SceneManager.LoadScene("GameOverScene");
+                        player.transform.DOPunchRotation(Vector3.up * 100, 0.25f);
+                    }
+                }
+                catch (Exception e)
                 {
-                    SceneManager.LoadScene("GameOverScene");
-                    player.transform.DOPunchRotation(Vector3.up * 100, 0.25f);
                 }
             }
         }
