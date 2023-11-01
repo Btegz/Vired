@@ -56,72 +56,65 @@ public class PlayerManager : MonoBehaviour
         playerPosition = PlayerSpawnPoint;
         player.transform.position = GridManager.Instance.Grid[PlayerSpawnPoint].transform.position;
         EventManager.OnEndTurnEvent += resetMovementPoints;
-
     }
 
     private void OnDestroy()
     {
         EventManager.OnEndTurnEvent -= resetMovementPoints;
-
     }
 
     private void Update()
     {
         // takes mouse positition
         mouse_pos = Mouse.current.position.ReadValue();
+        // Searches for the Nieghbors of playerposition
+        List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(playerPosition));
 
-        // enters if Left Mouse Button was clicked
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        // Ability createn possible? Dann nicht verlieren 
+        // Keine Ressourcen keine Abiliy möglich dann verlieren 
+
+        foreach (Vector3Int neighbor in neighbors)
         {
-            // checks whether movement points are available or if a Ability is activated
-            if (movementAction > 0 || abilityActivated)
+            if (GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].currentGridState ==
+                GridManager.Instance.gS_Positive ||
+                GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].currentGridState ==
+                GridManager.Instance.gS_Neutral)
+                break;
+
+            else
             {
-                // saves the Grid Tile Location that was clicked
-                Vector2Int clickedTile;
+                SceneManager.LoadScene("GameOverScene");
+                player.transform.DOPunchRotation(Vector3.up * 100, 0.25f);
+            }
 
-                // enters if a tile was clicked
-                if (MouseCursorPosition(out clickedTile))
+            // enters if Left Mouse Button was clicked
+            if (Mouse.current.leftButton.wasPressedThisFrame)
+            {
+                // checks whether movement points are available or if a Ability is activated
+                if (movementAction > 0 || abilityActivated)
                 {
-                    // Searches for the Nieghbors of playerposition
-                    List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(playerPosition));
+                    // saves the Grid Tile Location that was clicked
+                    Vector2Int clickedTile;
 
-                    // enters if Players Neighbors contains the clicked Tile
-                    if (neighbors.Contains(HexGridUtil.AxialToCubeCoord(clickedTile)) && !abilityActivated)
+                    // enters if a tile was clicked
+                    if (MouseCursorPosition(out clickedTile))
                     {
-                        
+                        // enters if Players Neighbors contains the clicked Tile
+                        if (neighbors.Contains(HexGridUtil.AxialToCubeCoord(clickedTile)) && !abilityActivated)
+                        {
                             if (GridManager.Instance.Grid[clickedTile].currentGridState ==
                                 GridManager.Instance.gS_Positive ||
                                 GridManager.Instance.Grid[clickedTile].currentGridState ==
                                 GridManager.Instance.gS_Neutral)
-                            
-                               StartCoroutine(Move(clickedTile));
-                            
-                       }
-// Ability createn possible? Dann nicht verlieren 
-// Keine Ressourcen keine Abiliy möglich dann verlieren 
 
-                    foreach (Vector3Int neighbor in neighbors)
-                    {
-                        if (GridManager.Instance.Grid[clickedTile].currentGridState ==
-                            GridManager.Instance.gS_Positive ||
-                            GridManager.Instance.Grid[clickedTile].currentGridState ==
-                            GridManager.Instance.gS_Neutral)
-                            break;
-                        
-                        else
-                        {
-                            SceneManager.LoadScene("GameOverScene");
-                            player.transform.DOPunchRotation(Vector3.up * 100, 0.25f);
-
+                                StartCoroutine(Move(clickedTile));
                         }
-                    }
-                        
-                        
                     }
                 }
             }
         }
-    
+    }
+
 
     /// <summary>
     /// Used to determin the GridTile the Mouse is on right now
@@ -155,13 +148,13 @@ public class PlayerManager : MonoBehaviour
         GridTile target = GridManager.Instance.Grid[moveTo];
 
         ParticleSystem landingCloud = player.GetComponentInChildren<ParticleSystem>();
-        player.transform.DOJump(target.transform.position, 2, 1, .25f).OnComplete(() => target.currentGridState.PlayerEnters(target));
+        player.transform.DOJump(target.transform.position, 2, 1, .25f)
+            .OnComplete(() => target.currentGridState.PlayerEnters(target));
         player.transform.DOPunchScale(Vector3.one * .1f, .25f).OnComplete(landingCloud.Play);
         movementAction--;
         playerPosition = moveTo;
 
         yield return null;
-
     }
 
     /// <summary>
@@ -198,6 +191,7 @@ public class PlayerManager : MonoBehaviour
                 {
                     return;
                 }
+
                 break;
 
             case Ressource.ressourceB:
@@ -205,6 +199,7 @@ public class PlayerManager : MonoBehaviour
                 {
                     return;
                 }
+
                 break;
 
             case Ressource.ressourceC:
@@ -212,6 +207,7 @@ public class PlayerManager : MonoBehaviour
                 {
                     return;
                 }
+
                 break;
 
             case Ressource.resscoureD:
@@ -219,6 +215,7 @@ public class PlayerManager : MonoBehaviour
                 {
                     return;
                 }
+
                 break;
         }
 
@@ -248,10 +245,11 @@ public class PlayerManager : MonoBehaviour
 
         while (abilityActivated)
         {
-            if(Mouse.current.rightButton.wasPressedThisFrame)
+            if (Mouse.current.rightButton.wasPressedThisFrame)
             {
                 CancelAbilityChoice();
             }
+
             // enters if Left Mouse Button was clicked
             if (Mouse.current.leftButton.wasPressedThisFrame)
             {
@@ -259,14 +257,18 @@ public class PlayerManager : MonoBehaviour
                 {
                     if (neighbors.Contains(HexGridUtil.AxialToCubeCoord(clickedTile)))
                     {
-                        ChooseAbilityWithIndex(AbilityIndex, HexGridUtil.AxialToCubeCoord(clickedTile), HexGridUtil.AxialToCubeCoord(playerPosition));
+                        ChooseAbilityWithIndex(AbilityIndex, HexGridUtil.AxialToCubeCoord(clickedTile),
+                            HexGridUtil.AxialToCubeCoord(playerPosition));
                         break;
                     }
+
                     yield return null;
                 }
             }
+
             yield return null;
         }
+
         yield return null;
     }
 
@@ -282,6 +284,7 @@ public class PlayerManager : MonoBehaviour
         abilityActivated = false;
         cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice;
     }
+
     public void CancelAbilityChoice()
     {
         abilityActivated = false;
