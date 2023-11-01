@@ -38,7 +38,6 @@ public class Enemy : MonoBehaviour
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
-            Debug.Log("I AM DEAD FROM A CAST");
             GetComponentInParent<GridTile>().ChangeCurrentState(GridManager.Instance.gS_Negative);
             Destroy(gameObject);
         }

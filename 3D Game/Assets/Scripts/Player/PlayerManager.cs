@@ -8,6 +8,7 @@ using System.Windows;
 using Unity.VisualScripting;
 using UnityEngine.InputSystem;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -55,7 +56,6 @@ public class PlayerManager : MonoBehaviour
         playerPosition = PlayerSpawnPoint;
         player.transform.position = GridManager.Instance.Grid[PlayerSpawnPoint].transform.position;
         EventManager.OnEndTurnEvent += resetMovementPoints;
-        abilitInventory = new List<Ability>();
 
     }
 
@@ -93,17 +93,26 @@ public class PlayerManager : MonoBehaviour
                                 GridManager.Instance.gS_Positive ||
                                 GridManager.Instance.Grid[clickedTile].currentGridState ==
                                 GridManager.Instance.gS_Neutral)
-                        {
-                            StartCoroutine(Move(clickedTile));
-                        }
+                            
+                               StartCoroutine(Move(clickedTile));
+                            
+                       }
+// Ability createn possible? Dann nicht verlieren 
+// Keine Ressourcen keine Abiliy möglich dann verlieren 
+
+                    foreach (Vector3Int neighbor in neighbors)
+                    {
+                        if (GridManager.Instance.Grid[clickedTile].currentGridState ==
+                            GridManager.Instance.gS_Positive ||
+                            GridManager.Instance.Grid[clickedTile].currentGridState ==
+                            GridManager.Instance.gS_Neutral)
+                            break;
                         else
                         {
-                            player.transform.DOPunchRotation(Vector3.up*100, 0.25f);
+                            SceneManager.LoadScene("GameOverScene");
                         }
-                            
-                               
-                       }
-                        // Moves Player to clicked Tile
+                    }
+                        
                         
                     }
                 }

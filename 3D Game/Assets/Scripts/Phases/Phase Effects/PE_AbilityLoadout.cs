@@ -11,7 +11,6 @@ public class PE_AbilityLoadout : PhaseEffect
 
     public override void TriggerPhaseEffect(int turnCounter, GridManager grid)
     {
-        grid.MainCanvas.gameObject.SetActive(false);
         AbilityLoadout abl = Instantiate(abilityLoadoutPrefab);
         abl.amountToChoose = AmountToChoose;
     }

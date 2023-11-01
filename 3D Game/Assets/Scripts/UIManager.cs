@@ -32,26 +32,18 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        try
+        List<Ability> abilityInv = PlayerManager.Instance.abilitInventory;
+        for (int i = 0; i < abilityButtons.Count; i++)
         {
-            List<Ability> abilityInv = PlayerManager.Instance.abilitInventory;
-            for (int i = 0; i < abilityButtons.Count; i++)
+            if (i < abilityInv.Count )
             {
-                if (i < abilityInv.Count)
-                {
-                    abilityButtons[i].GetComponent<Image>().sprite = abilityInv[i].AbilityUISprite;
-                }
-                else
-                {
-                    abilityButtons[i].image.sprite = null;
-                }
+                abilityButtons[i].GetComponent<Image>().sprite = abilityInv[i].AbilityUISprite;
+            }
+            else
+            {
+                abilityButtons[i].image.sprite = null;
             }
         }
-        catch
-        {
-
-        }
-        
     }
 
     // Update is called once per frame
@@ -102,23 +94,5 @@ public class UIManager : MonoBehaviour
     public void GameOver()
     {
         SceneManager.LoadScene("GameOverScene");
-    }
-
-    public void EnableCanvas()
-    {
-        RectTransform[] children = GetComponentsInChildren<RectTransform>();
-        foreach(RectTransform rt in children)
-        {
-            rt.gameObject.SetActive(true);
-        }
-    }
-
-    public void DisableCanvas()
-    {
-        RectTransform[] children = GetComponentsInChildren<RectTransform>();
-        foreach (RectTransform rt in children)
-        {
-            rt.gameObject.SetActive(false);
-        }
     }
 }

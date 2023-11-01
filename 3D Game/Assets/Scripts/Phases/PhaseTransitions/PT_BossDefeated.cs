@@ -7,7 +7,6 @@ public class PT_BossDefeated : PhaseTransition
 {
     public override void ConditionFullfilledCheck()
     {
-        Debug.Log("Checking if boss is defeated aan d BOsses alive: "+ GridManager.Instance.GetTilesWithState(GridManager.Instance.gS_Boss).Count);
         if (GridManager.Instance.GetTilesWithState(GridManager.Instance.gS_Boss).Count == 0)
         {
             EventManager.OnAbilityCastEvent -= ConditionFullfilledCheck;
