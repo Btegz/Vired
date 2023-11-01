@@ -107,9 +107,12 @@ public class PlayerManager : MonoBehaviour
                             GridManager.Instance.Grid[clickedTile].currentGridState ==
                             GridManager.Instance.gS_Neutral)
                             break;
+                        
                         else
                         {
                             SceneManager.LoadScene("GameOverScene");
+                            player.transform.DOPunchRotation(Vector3.up * 100, 0.25f);
+
                         }
                     }
                         
