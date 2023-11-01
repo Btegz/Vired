@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEditor;
@@ -8,29 +9,19 @@ public class EditorAbilityMesh
 {
     [MenuItem("Utilities/Generate Ability Mesh")]
     
+    
     public static void GenerateDefaultMesh()
     {
-        List<Ability> abilityAssets = new List<Ability>()
-        {
-            AssetDatabase.LoadAssetAtPath<Ability>("Assets/Scripts/Player/AbilitiesScriptableObjects/A_Positiv.asset"),
-            AssetDatabase.LoadAssetAtPath<Ability>("Assets/Scripts/Player/AbilitiesScriptableObjects/A_Mega.asset"),
-            AssetDatabase.LoadAssetAtPath<Ability>("Assets/Scripts/Player/AbilitiesScriptableObjects/A_Schaden.asset"),
-            
-            AssetDatabase.LoadAssetAtPath<Ability>("Assets/Scripts/Player/AbilitiesScriptableObjects/B_Positiv.asset"),
-            AssetDatabase.LoadAssetAtPath<Ability>("Assets/Scripts/Player/AbilitiesScriptableObjects/B_Mega.asset"),
-            AssetDatabase.LoadAssetAtPath<Ability>("Assets/Scripts/Player/AbilitiesScriptableObjects/B_Schaden.asset"),
-            
-            AssetDatabase.LoadAssetAtPath<Ability>("Assets/Scripts/Player/AbilitiesScriptableObjects/C_Positiv.asset"),
-            AssetDatabase.LoadAssetAtPath<Ability>("Assets/Scripts/Player/AbilitiesScriptableObjects/C_Mega.asset"),
-            AssetDatabase.LoadAssetAtPath<Ability>("Assets/Scripts/Player/AbilitiesScriptableObjects/C_Schaden.asset"),
-            
-            AssetDatabase.LoadAssetAtPath<Ability>("Assets/Scripts/Player/AbilitiesScriptableObjects/D_Positiv.asset"),
-            AssetDatabase.LoadAssetAtPath<Ability>("Assets/Scripts/Player/AbilitiesScriptableObjects/D_Mega.asset"),
-            AssetDatabase.LoadAssetAtPath<Ability>("Assets/Scripts/Player/AbilitiesScriptableObjects/D_Schaden.asset"),
-            
-            AssetDatabase.LoadAssetAtPath<Ability>("Assets/Scripts/Player/AbilitiesScriptableObjects/Movement.asset"),
+
+        string[] abiltieNames = Directory.GetFiles("Assets/Scripts/Player/AbilitiesScriptableObjects/", "*.asset");
+        List<Ability> abilityAssets = new List<Ability>();
         
-        };
+        
+
+        foreach (string abilities in abiltieNames)
+        { 
+            abilityAssets.Add(AssetDatabase.LoadAssetAtPath<Ability>(abilities));
+        }
         
         foreach (Ability a in abilityAssets)
         {
