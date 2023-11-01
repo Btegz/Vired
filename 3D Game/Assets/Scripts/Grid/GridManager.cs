@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// Singleton for the Grid
@@ -49,7 +51,8 @@ public class GridManager : MonoBehaviour
     [SerializeField] List<Phase> phases;
 
     [Header("UI")]
-    [SerializeField] Image negativeBarFill;
+    [SerializeField] public Canvas mainCanvas;
+
 
     private void Awake()
     {
@@ -68,6 +71,7 @@ public class GridManager : MonoBehaviour
     {
         currentPhase = phases[0];
         currentPhase.myPhaseTransition.InitPhaseTransitionCheck();
+        TriggerPhase();
         EventManager.OnEndTurnEvent += EndTurn;
         TransferGridSOData();
 
@@ -103,12 +107,9 @@ public class GridManager : MonoBehaviour
 
         //    Grid[pp].gameObject.transform.position += Vector3.up * 3;
         //}
-
-
-
-
-
+        
     }
+    
 
     public void GameWon()
     {

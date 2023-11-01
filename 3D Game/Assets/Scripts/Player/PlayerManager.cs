@@ -70,7 +70,7 @@ public class PlayerManager : MonoBehaviour
         mouse_pos = Mouse.current.position.ReadValue();
         // Searches for the Nieghbors of playerposition
         List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(playerPosition));
-
+        
         // Lose Condition: surrounded by enemies/ no ressources 
         for (int i = 0; i < abilitInventory.Count; i++)
         {

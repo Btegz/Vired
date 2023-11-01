@@ -23,7 +23,6 @@ public class AbilityLoadout : MonoBehaviour
 
     [SerializeField] Button ConfirmButton;
 
-    [SerializeField] Canvas mainGameCanvas;
 
     // Start is called before the first frame update
     void Start()
@@ -77,7 +76,6 @@ public class AbilityLoadout : MonoBehaviour
     public void AbilityLoadoutConfirmed()
     {
         PlayerManager.Instance.abilitInventory.AddRange(ChosenAbilityList);
-        mainGameCanvas.gameObject.SetActive(true);
         EventManager.OnConfirmButton();
         Destroy(gameObject);
     }

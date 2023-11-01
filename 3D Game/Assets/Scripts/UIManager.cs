@@ -95,4 +95,22 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene("GameOverScene");
     }
+
+    public void EnableCanvas()
+    {
+        RectTransform[] children = GetComponentsInChildren<RectTransform>();
+        foreach (RectTransform i in children)
+        {
+            i.gameObject.SetActive(true);
+        }
+    }
+    
+    public void DisableCanvas()
+    {
+        RectTransform[] children = GetComponentsInChildren<RectTransform>();
+        foreach (RectTransform i in children)
+        {
+            i.gameObject.SetActive(false);
+        }
+    }
 }
