@@ -552,4 +552,41 @@ public static class HexGridUtil
         return result;
     }
 
+    public static List<Vector3Int> BreadthFIrstPathfinding(Vector3Int start, Vector3Int goal, List<Vector3Int> Grid)
+    {
+        List<Vector3Int> path = new List<Vector3Int>();
+
+        Queue<Vector3Int> frontier = new Queue<Vector3Int>();
+        List<Vector3Int> reached = new List<Vector3Int>();
+
+        Dictionary<Vector3Int, Vector3Int> cameFrom = new Dictionary<Vector3Int, Vector3Int>();
+
+        frontier.Enqueue(start);
+        reached.Add(start);
+
+        while (!frontier.Contains(goal))
+        {
+            Vector3Int current = frontier.Dequeue();
+            foreach(Vector3Int n in CubeNeighbors(current))
+            {
+                if (!cameFrom.ContainsKey(n) && Grid.Contains(n))
+                {
+                    frontier.Enqueue(n);
+                    cameFrom.Add(n,current);
+                }
+            }
+        }
+
+        Vector3Int newCurrent = goal;
+        while(newCurrent != start)
+        {
+            Debug.Log("Current: " + newCurrent);
+            path.Add(newCurrent);
+            newCurrent = cameFrom[newCurrent];
+        }
+        path.Add(start);
+        path.Reverse();
+        return path;
+    }
+
 }
