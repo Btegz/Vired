@@ -8,6 +8,8 @@ using UnityEngine;
 [CreateAssetMenu]
 public class PE_EnemySpawn : PhaseEffect
 {
+    [SerializeField] public List<Spreadbehaviours> SpreadBehaviours;
+
     [SerializeField] private List<EnemySO> enemySOs;
 
     public List<EnemySO> myEnemySoList
@@ -34,21 +36,36 @@ public class PE_EnemySpawn : PhaseEffect
 
     public override void TriggerPhaseEffect(int turnCounter, GridManager gridManager)
     {
-        if(turnCounter % everyXRounds == 0)
+        //if(turnCounter % everyXRounds == 0)
+        //{
+        //    for(int i = 0; i< amount; i++)
+        //    {
+        //        Enemy newEnemy = Instantiate(enemyPrefab);
+        //        newEnemy.Setup(enemySOs[Random.Range(0, enemySOs.Count)]);
+        //        GridTile randomLocation = gridManager.PickRandomTile();
+        //        while (randomLocation.currentGridState == gridManager.gS_Enemy || randomLocation.currentGridState == gridManager.gS_Boss || randomLocation.AxialCoordinate == PlayerManager.Instance.playerPosition)
+        //        {
+        //            randomLocation = gridManager.PickRandomTile();
+        //        }
+        //        randomLocation.ChangeCurrentState(gridManager.gS_Enemy);
+        //        newEnemy.transform.parent = randomLocation.transform;
+        //        newEnemy.transform.position = randomLocation.transform.position;
+        //    }
+        //}
+
+        for (int i = 0; i < SpreadBehaviours.Count; i++)
         {
-            for(int i = 0; i< amount; i++)
+            Vector3Int target;
+            if (SpreadBehaviours[i].TargetTile(Vector3Int.zero,out target))
             {
-                Enemy newEnemy = Instantiate(enemyPrefab);
-                newEnemy.Setup(enemySOs[Random.Range(0, enemySOs.Count)]);
-                GridTile randomLocation = gridManager.PickRandomTile();
-                while (randomLocation.currentGridState == gridManager.gS_Enemy || randomLocation.currentGridState == gridManager.gS_Boss || randomLocation.AxialCoordinate == PlayerManager.Instance.playerPosition)
-                {
-                    randomLocation = gridManager.PickRandomTile();
-                }
-                randomLocation.ChangeCurrentState(gridManager.gS_Enemy);
-                newEnemy.transform.parent = randomLocation.transform;
-                newEnemy.transform.position = randomLocation.transform.position;
+                Enemy enemy = Instantiate(enemyPrefab);
+                enemy.Setup(enemySOs[Random.Range(0, enemySOs.Count)]);
+                GridTile targetLocation = GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)];
+                targetLocation.ChangeCurrentState(gridManager.gS_Enemy);
+                enemy.transform.parent = targetLocation.transform;
+                enemy.transform.position = targetLocation.transform.position;
             }
         }
+
     }
 }

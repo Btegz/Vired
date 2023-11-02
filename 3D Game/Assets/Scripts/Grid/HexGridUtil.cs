@@ -92,7 +92,7 @@ public static class HexGridUtil
     /// <returns>Summ of Vectors "a" and "b"</returns>
     public static Vector3Int CubeAdd(Vector3Int a, Vector3Int b)
     {
-        return new Vector3Int(a.x + b.x,  a.y + b.y,a.z + b.z);
+        return new Vector3Int(a.x + b.x, a.y + b.y, a.z + b.z);
     }
 
     /// <summary>
@@ -356,7 +356,7 @@ public static class HexGridUtil
         for (int i = 0; i < amount; i++)
         {
             result = new Vector3Int(-result.z, -result.x, -result.y);
-        }        
+        }
         result = CubeAdd(center, result);
 
         return result;
@@ -371,13 +371,13 @@ public static class HexGridUtil
     /// <returns>Rotated Coordinate</returns>
     public static Vector3Int Rotate60DegCounterClockwise(Vector3Int center, Vector3Int coord, int amount)
     {
-        Vector3Int result = coord;            
+        Vector3Int result = coord;
         Vector3Int start = CubeSubstract(result, center);
 
         for (int i = 0; i < amount; i++)
         {
             result = new Vector3Int(-start.y, -start.z, -start.x);
-            
+
         }
         result = CubeAdd(center, result);
 
@@ -570,22 +570,22 @@ public static class HexGridUtil
         {
             Vector3Int current = frontier.Dequeue();
 
-            if(current == goal)
+            if (current == goal)
             {
                 break;
             }
-            foreach(Vector3Int n in CubeNeighbors(current))
+            foreach (Vector3Int n in CubeNeighbors(current))
             {
                 if (!cameFrom.ContainsKey(n) && Grid.Contains(n))
                 {
                     frontier.Enqueue(n);
-                    cameFrom.Add(n,current);
+                    cameFrom.Add(n, current);
                 }
             }
         }
 
         Vector3Int newCurrent = goal;
-        while(newCurrent != start)
+        while (newCurrent != start)
         {
             path.Add(newCurrent);
             newCurrent = cameFrom[newCurrent];
@@ -602,7 +602,7 @@ public static class HexGridUtil
         Dictionary<Vector3Int, int> frontier = new Dictionary<Vector3Int, int>();
         List<Vector3Int> reached = new List<Vector3Int>();
         Dictionary<Vector3Int, Vector3Int> cameFrom = new Dictionary<Vector3Int, Vector3Int>();
-        frontier.Add(start,0);
+        frontier.Add(start, 0);
         reached.Add(start);
 
         while (!frontier.ContainsKey(goal))
@@ -611,9 +611,9 @@ public static class HexGridUtil
 
             // Priority Queue
             Vector3Int cheapestCurrent = new Vector3Int();
-            foreach(KeyValuePair<Vector3Int,int> kvp in frontier)
+            foreach (KeyValuePair<Vector3Int, int> kvp in frontier)
             {
-                
+
                 if (kvp.Value < minCost)
                 {
                     minCost = kvp.Value;
@@ -639,11 +639,89 @@ public static class HexGridUtil
             }
         }
 
-        
+
 
         Vector3Int newCurrent = goal;
         while (newCurrent != start)
         {
+            path.Add(newCurrent);
+            newCurrent = cameFrom[newCurrent];
+        }
+        path.Add(start);
+        path.Reverse();
+
+        return path;
+    }
+
+    public static List<Vector3Int> CostHeuristicPathFind(Vector3Int start, Vector3Int goal, Dictionary<Vector2Int, GridTile> gridWithCost, out int pathCost)
+    {
+        List<Vector3Int> path = new List<Vector3Int>();
+
+        Dictionary<Vector3Int, int> frontier = new Dictionary<Vector3Int, int>();
+        List<Vector3Int> reached = new List<Vector3Int>();
+        Dictionary<Vector3Int, Vector3Int> cameFrom = new Dictionary<Vector3Int, Vector3Int>();
+        frontier.Add(start, 0);
+        reached.Add(start);
+
+        Dictionary<Vector3Int, int> CostSoFar = new Dictionary<Vector3Int, int>();
+        CostSoFar.Add(start, 0);
+
+        int iteration = 0;
+
+        while (!frontier.ContainsKey(goal))
+        {
+            int minCost = int.MaxValue;
+
+            // Priority Queue
+            Vector3Int cheapestCurrent = new Vector3Int();
+            foreach (KeyValuePair<Vector3Int, int> kvp in frontier)
+            {
+
+                if (kvp.Value < minCost)
+                {
+                    minCost = kvp.Value;
+                    cheapestCurrent = kvp.Key;
+                }
+            }
+
+            frontier.Remove(cheapestCurrent);
+            Vector3Int current = cheapestCurrent;
+
+            if (current == goal)
+            {
+                break;
+            }
+
+
+            foreach (Vector3Int n in CubeNeighbors(current))
+            {
+                Vector2Int next = CubeToAxialCoord(n);
+                if (gridWithCost.ContainsKey(next))
+                {
+                    int nexcostsofar = CostSoFar[current];
+                    int newnewgridCost = gridWithCost[next].currentGridState.NegativeSpreadCost;
+                    int newCost = nexcostsofar + newnewgridCost;
+
+
+
+                    if (!cameFrom.ContainsKey(n) && gridWithCost.ContainsKey(next) || newCost < CostSoFar[n])
+                    {
+                        //CostSoFar.Add(n, newCost);
+                        CostSoFar[n] = newCost;
+                        int priority = newCost;
+                        frontier.Add(n, priority);
+                        cameFrom.Add(n, current);
+                    }
+                }
+            }
+        }
+
+
+        pathCost = 0;
+        Vector3Int newCurrent = goal;
+        while (newCurrent != start)
+        {
+            pathCost += CostSoFar[newCurrent];
             path.Add(newCurrent);
             newCurrent = cameFrom[newCurrent];
         }
