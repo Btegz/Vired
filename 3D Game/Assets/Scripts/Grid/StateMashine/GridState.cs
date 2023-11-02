@@ -10,6 +10,8 @@ public abstract class GridState : ScriptableObject
 {
     public float TweenScale;
 
+    [SerializeField] public int NegativeSpreadCost;
+
 
     /// <summary>
     /// Called when entering the State

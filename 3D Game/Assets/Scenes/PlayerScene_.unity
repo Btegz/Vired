@@ -871,6 +871,25 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: d0600edc3d5482144b8731ea0fb77c28, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
+--- !u!1 &74638799 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8254572460369654823, guid: 46ce70d7f7b651c4d85ca32bf76de3f9, type: 3}
+  m_PrefabInstance: {fileID: 438877737}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &74638801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 74638799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e358582cacc8867449f787d0154c3002, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  location: {x: 0, y: 0}
+  BossReachableTiles: []
 --- !u!43 &89392792
 Mesh:
   m_ObjectHideFlags: 0
@@ -2610,7 +2629,7 @@ PrefabInstance:
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: currentGridState
       value: 
-      objectReference: {fileID: 11400000, guid: 77ad9876c9ce60b4191ce44835e4631d, type: 2}
+      objectReference: {fileID: 11400000, guid: d4b71c1d31cdb0a4fae33f2336fdbfa4, type: 2}
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: AxialCoordinate.x
       value: -6
@@ -3658,7 +3677,7 @@ PrefabInstance:
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: currentGridState
       value: 
-      objectReference: {fileID: 11400000, guid: 77ad9876c9ce60b4191ce44835e4631d, type: 2}
+      objectReference: {fileID: 11400000, guid: d4b71c1d31cdb0a4fae33f2336fdbfa4, type: 2}
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: AxialCoordinate.x
       value: -5
@@ -3747,7 +3766,7 @@ PrefabInstance:
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: currentGridState
       value: 
-      objectReference: {fileID: 11400000, guid: 77ad9876c9ce60b4191ce44835e4631d, type: 2}
+      objectReference: {fileID: 11400000, guid: d4b71c1d31cdb0a4fae33f2336fdbfa4, type: 2}
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: AxialCoordinate.x
       value: -2
@@ -6483,7 +6502,7 @@ PrefabInstance:
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: currentGridState
       value: 
-      objectReference: {fileID: 11400000, guid: 77ad9876c9ce60b4191ce44835e4631d, type: 2}
+      objectReference: {fileID: 11400000, guid: d4b71c1d31cdb0a4fae33f2336fdbfa4, type: 2}
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: AxialCoordinate.x
       value: -3
@@ -9774,7 +9793,7 @@ PrefabInstance:
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: currentGridState
       value: 
-      objectReference: {fileID: 11400000, guid: 77ad9876c9ce60b4191ce44835e4631d, type: 2}
+      objectReference: {fileID: 11400000, guid: d4b71c1d31cdb0a4fae33f2336fdbfa4, type: 2}
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: AxialCoordinate.x
       value: -4
@@ -11202,7 +11221,7 @@ PrefabInstance:
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: currentGridState
       value: 
-      objectReference: {fileID: 11400000, guid: 77ad9876c9ce60b4191ce44835e4631d, type: 2}
+      objectReference: {fileID: 11400000, guid: d4b71c1d31cdb0a4fae33f2336fdbfa4, type: 2}
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: AxialCoordinate.x
       value: -4
@@ -11482,6 +11501,10 @@ PrefabInstance:
       propertyPath: currentPhase
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6993991225135169736, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
+      propertyPath: gS_BossNegative
+      value: 
+      objectReference: {fileID: 11400000, guid: c718cad9d8e6ba542b6e1ee719ab955e, type: 2}
     - target: {fileID: 6993991225135169736, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
       propertyPath: negativeBarFill
       value: 
@@ -14935,7 +14958,7 @@ PrefabInstance:
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: currentGridState
       value: 
-      objectReference: {fileID: 11400000, guid: 77ad9876c9ce60b4191ce44835e4631d, type: 2}
+      objectReference: {fileID: 11400000, guid: d4b71c1d31cdb0a4fae33f2336fdbfa4, type: 2}
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: AxialCoordinate.x
       value: -3
@@ -15936,7 +15959,7 @@ PrefabInstance:
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: currentGridState
       value: 
-      objectReference: {fileID: 11400000, guid: 77ad9876c9ce60b4191ce44835e4631d, type: 2}
+      objectReference: {fileID: 11400000, guid: d4b71c1d31cdb0a4fae33f2336fdbfa4, type: 2}
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: AxialCoordinate.x
       value: -5
@@ -16810,7 +16833,7 @@ PrefabInstance:
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: currentGridState
       value: 
-      objectReference: {fileID: 11400000, guid: 77ad9876c9ce60b4191ce44835e4631d, type: 2}
+      objectReference: {fileID: 11400000, guid: d4b71c1d31cdb0a4fae33f2336fdbfa4, type: 2}
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: AxialCoordinate.x
       value: -3
@@ -17432,7 +17455,7 @@ PrefabInstance:
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: currentGridState
       value: 
-      objectReference: {fileID: 11400000, guid: 77ad9876c9ce60b4191ce44835e4631d, type: 2}
+      objectReference: {fileID: 11400000, guid: d4b71c1d31cdb0a4fae33f2336fdbfa4, type: 2}
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: AxialCoordinate.x
       value: -5
@@ -21006,7 +21029,7 @@ PrefabInstance:
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: currentGridState
       value: 
-      objectReference: {fileID: 11400000, guid: 77ad9876c9ce60b4191ce44835e4631d, type: 2}
+      objectReference: {fileID: 11400000, guid: d4b71c1d31cdb0a4fae33f2336fdbfa4, type: 2}
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: AxialCoordinate.x
       value: -4
@@ -21460,7 +21483,7 @@ PrefabInstance:
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: currentGridState
       value: 
-      objectReference: {fileID: 11400000, guid: 77ad9876c9ce60b4191ce44835e4631d, type: 2}
+      objectReference: {fileID: 11400000, guid: d4b71c1d31cdb0a4fae33f2336fdbfa4, type: 2}
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: AxialCoordinate.x
       value: -2
@@ -22326,7 +22349,7 @@ PrefabInstance:
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: currentGridState
       value: 
-      objectReference: {fileID: 11400000, guid: 77ad9876c9ce60b4191ce44835e4631d, type: 2}
+      objectReference: {fileID: 11400000, guid: d4b71c1d31cdb0a4fae33f2336fdbfa4, type: 2}
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: AxialCoordinate.x
       value: -4
