@@ -55,4 +55,5 @@ public class EnemySO : ScriptableObject
         get { return material; }
         set { material = value; }
     }
+
 }

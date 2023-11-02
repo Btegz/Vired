@@ -29,6 +29,7 @@ public class GridManager : MonoBehaviour
     public GS_negative gS_Negative;
     public GS_Enemy gS_Enemy;
     public GS_Boss gS_Boss;
+    public GS_BossNegative gS_BossNegative;
 
     
 
