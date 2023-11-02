@@ -618,7 +618,7 @@ public static class HexGridUtil
             Vector3Int cheapestCurrent = new Vector3Int();
             foreach(KeyValuePair<Vector3Int,int> kvp in frontier)
             {
-                iteration++;
+                
                 if (kvp.Value < minCost)
                 {
                     minCost = kvp.Value;
@@ -644,7 +644,7 @@ public static class HexGridUtil
             }
         }
 
-        Debug.Log("Greedy first: " + iteration);
+        
 
         Vector3Int newCurrent = goal;
         while (newCurrent != start)
