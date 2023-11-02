@@ -20,6 +20,7 @@ public class Boss : MonoBehaviour
         
 
             BossReachableTiles =  HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(location), 4);
+        BossReachableTiles.Remove(HexGridUtil.AxialToCubeCoord(location));
         foreach(Vector3Int neighbor in BossReachableTiles)
         {   
             if (GridManager.Instance.Grid.ContainsKey(HexGridUtil.CubeToAxialCoord (neighbor)))

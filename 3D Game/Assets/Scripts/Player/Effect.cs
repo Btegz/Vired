@@ -4,7 +4,11 @@ using UnityEngine;
 public enum Effect
 {
     Positive,
-    Negative,
+    Negative100,
+    Negative200,
+    Negative300,
+    Negative400,
+    Negative500,
     Movement,
     Neutral
 }

@@ -50,11 +50,13 @@ public class AbilityObjScript : MonoBehaviour
                 case Effect.Positive:
                     materials[i] = positiveMaterial;
                     break;
-                case Effect.Negative:
-                    materials[i] = negativeMaterial;
-                    break;
+
                 case Effect.Movement:
                     materials[i] = movementMaterial;
+                    break;
+               
+                default:
+                    materials[i] = negativeMaterial;
                     break;
             }
         }
@@ -193,6 +195,9 @@ public class AbilityObjScript : MonoBehaviour
                     case GS_negative:
                         gridTile.ChangeCurrentState(GridManager.Instance.gS_Neutral);
                         break;
+                    case GS_BossNegative:
+                        gridTile.ChangeCurrentState(GridManager.Instance.gS_Neutral);
+                        break;
 
                     case GS_neutral:
                         gridTile.ChangeCurrentState(GridManager.Instance.gS_Positive);
@@ -200,10 +205,39 @@ public class AbilityObjScript : MonoBehaviour
 
                 }
                 break;
-            case Effect.Negative:
+            case Effect.Negative100:
                 if (gridTile.currentGridState.StateValue() < -1)
                 {
                     gridTile.GetComponentInChildren<Enemy>().TakeDamage(1);
+                }
+                break;
+
+            case Effect.Negative200:
+                if (gridTile.currentGridState.StateValue() < -1)
+                {
+                    gridTile.GetComponentInChildren<Enemy>().TakeDamage(2);
+                }
+                break;
+
+            case Effect.Negative300:
+                if (gridTile.currentGridState.StateValue() < -1)
+                {
+                    gridTile.GetComponentInChildren<Enemy>().TakeDamage(3);
+                }
+                break;
+
+            case Effect.Negative400:
+                if (gridTile.currentGridState.StateValue() < -1)
+                {
+                    gridTile.GetComponentInChildren<Enemy>().TakeDamage(4);
+                }
+                break;
+
+            case Effect.Negative500:
+                Debug.Log("Dealing 5 damage");
+                if (gridTile.currentGridState.StateValue() < -1)
+                {
+                    gridTile.GetComponentInChildren<Enemy>().TakeDamage(5);
                 }
                 break;
 
