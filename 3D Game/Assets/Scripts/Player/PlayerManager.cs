@@ -18,6 +18,11 @@ public class PlayerManager : MonoBehaviour
 
     public List<Ability> abilitInventory;
 
+    [SerializeField] List<GameObject> MovePoints;
+
+    //MovePointsDoTween MovePointsDoTween;
+
+
     private int movementAction = 4;
     private Vector3 mouse_pos;
     public GameObject player;
@@ -178,6 +183,11 @@ public class PlayerManager : MonoBehaviour
             .OnComplete(() => target.currentGridState.PlayerEnters(target));
         player.transform.DOPunchScale(Vector3.one * .1f, .25f).OnComplete(landingCloud.Play);
         movementAction--;
+
+        MovePoints[movementAction].GetComponent<MovePointsDoTween>().Away();
+        //MovePoints[movementAction].SetActive(false);
+
+
         playerPosition = moveTo;
 
         yield return null;
