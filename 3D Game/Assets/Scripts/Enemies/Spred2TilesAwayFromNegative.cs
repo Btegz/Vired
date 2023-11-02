@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class Spred2TilesAwayFromNegative : Spreadbehaviours
 {
-    public override bool TargetTile(Vector3Int enemyPosition, out Vector3Int target)
+    public override bool TargetTile(Vector3Int enemyPosition, out Vector3Int target, Vector2Int playerPosition)
     {
         Dictionary<Vector2Int, GridTile> grid = GridManager.Instance.Grid;
 
@@ -13,7 +13,7 @@ public class Spred2TilesAwayFromNegative : Spreadbehaviours
 
         foreach (KeyValuePair<Vector2Int, GridTile> kvp in grid)
         {
-            if (kvp.Value.currentGridState == GridManager.Instance.gS_Negative || kvp.Value.currentGridState == GridManager.Instance.gS_Enemy || kvp.Value.currentGridState == GridManager.Instance.gS_Boss)
+            if (kvp.Value.currentGridState == GridManager.Instance.gS_Negative || kvp.Value.currentGridState == GridManager.Instance.gS_Enemy || kvp.Value.currentGridState == GridManager.Instance.gS_Boss || kvp.Value.currentGridState == GridManager.Instance.gS_BossNegative)
             {
                 continue;
             }
@@ -27,7 +27,7 @@ public class Spred2TilesAwayFromNegative : Spreadbehaviours
                 {
 
 
-                    if (grid[axTile].currentGridState == GridManager.Instance.gS_Negative || grid[axTile].currentGridState == GridManager.Instance.gS_Enemy || grid[axTile].currentGridState == GridManager.Instance.gS_Boss)
+                    if (grid[axTile].currentGridState == GridManager.Instance.gS_Negative || grid[axTile].currentGridState == GridManager.Instance.gS_Enemy || grid[axTile].currentGridState == GridManager.Instance.gS_Boss || grid[axTile].currentGridState == GridManager.Instance.gS_BossNegative)
                     {
                         stillvalid = false;
                         break; // ends the loop
@@ -39,6 +39,7 @@ public class Spred2TilesAwayFromNegative : Spreadbehaviours
                 continue;
             }
 
+            if(kvp.Key != playerPosition)
             possibleTiles.Add(HexGridUtil.AxialToCubeCoord(kvp.Key));
         }
 

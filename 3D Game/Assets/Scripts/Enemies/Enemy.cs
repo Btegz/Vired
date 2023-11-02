@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] int currentHealth;
     [SerializeField] int maxHealth;
 
-    [SerializeField] Ressource ressource;
+    [SerializeField] public Ressource ressource;
 
     private void Awake()
     {

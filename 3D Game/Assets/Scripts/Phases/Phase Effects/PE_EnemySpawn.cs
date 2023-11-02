@@ -56,7 +56,7 @@ public class PE_EnemySpawn : PhaseEffect
         for (int i = 0; i < SpreadBehaviours.Count; i++)
         {
             Vector3Int target;
-            if (SpreadBehaviours[i].TargetTile(Vector3Int.zero,out target))
+            if (SpreadBehaviours[i].TargetTile(Vector3Int.zero,out target, PlayerManager.Instance.playerPosition))
             {
                 Enemy enemy = Instantiate(enemyPrefab);
                 enemy.Setup(enemySOs[Random.Range(0, enemySOs.Count)]);

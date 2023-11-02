@@ -17,7 +17,7 @@ public class PE_SpreadNegative : PhaseEffect
 
                 for (int i = 0; i < SpreadbehavioursList.Count; i++)
                 {
-                    if (SpreadbehavioursList[i].TargetTile(coordinate, out Vector3Int target))
+                    if (SpreadbehavioursList[i].TargetTile(coordinate, out Vector3Int target, PlayerManager.Instance.playerPosition))
                     {
                         gridManager.Grid[HexGridUtil.CubeToAxialCoord(target)].ChangeCurrentState(gridManager.gS_Negative);
                         break;

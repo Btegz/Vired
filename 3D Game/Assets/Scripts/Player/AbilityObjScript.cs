@@ -208,36 +208,59 @@ public class AbilityObjScript : MonoBehaviour
             case Effect.Negative100:
                 if (gridTile.currentGridState.StateValue() < -1)
                 {
-                    gridTile.GetComponentInChildren<Enemy>().TakeDamage(1);
+                    Enemy currentEnemy = gridTile.GetComponentInChildren<Enemy>();
+                    if (ability.costs[0] == currentEnemy.ressource)
+                    currentEnemy.TakeDamage(2);
+                    else
+                        currentEnemy.TakeDamage(1);
+
                 }
                 break;
 
             case Effect.Negative200:
                 if (gridTile.currentGridState.StateValue() < -1)
                 {
-                    gridTile.GetComponentInChildren<Enemy>().TakeDamage(2);
+                    Enemy currentEnemy = gridTile.GetComponentInChildren<Enemy>();
+                    if (ability.costs[0] == currentEnemy.ressource)
+                        currentEnemy.TakeDamage(3);
+
+                    else
+                        currentEnemy.TakeDamage(2);
                 }
                 break;
 
             case Effect.Negative300:
                 if (gridTile.currentGridState.StateValue() < -1)
                 {
-                    gridTile.GetComponentInChildren<Enemy>().TakeDamage(3);
+                    Enemy currentEnemy = gridTile.GetComponentInChildren<Enemy>();
+                    if (ability.costs[0] == currentEnemy.ressource)
+                        currentEnemy.TakeDamage(3);
+
+                    else
+                        currentEnemy.TakeDamage(4);
                 }
                 break;
 
             case Effect.Negative400:
                 if (gridTile.currentGridState.StateValue() < -1)
                 {
-                    gridTile.GetComponentInChildren<Enemy>().TakeDamage(4);
+                    Enemy currentEnemy = gridTile.GetComponentInChildren<Enemy>();
+                    if (ability.costs[0] == currentEnemy.ressource)
+                    currentEnemy.TakeDamage(5);
+                    else
+                        currentEnemy.TakeDamage(4);
                 }
                 break;
 
             case Effect.Negative500:
-                Debug.Log("Dealing 5 damage");
                 if (gridTile.currentGridState.StateValue() < -1)
                 {
-                    gridTile.GetComponentInChildren<Enemy>().TakeDamage(5);
+                    Enemy currentEnemy = gridTile.GetComponentInChildren<Enemy>();
+                    if (ability.costs[0] == currentEnemy.ressource)
+                    currentEnemy.TakeDamage(6);
+
+                    else
+                        currentEnemy.TakeDamage(5);
                 }
                 break;
 

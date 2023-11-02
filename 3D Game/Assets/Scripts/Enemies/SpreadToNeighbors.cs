@@ -8,19 +8,22 @@ using Random = UnityEngine.Random;
 public class SpreadToNeighbors : Spreadbehaviours
 {
 
-    public override bool TargetTile(Vector3Int enemyPosition, out Vector3Int target)
+    public override bool TargetTile(Vector3Int enemyPosition, out Vector3Int target, Vector2Int playerPosition)
     {
         List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(enemyPosition);
         List<Vector2Int> possibleTargets = new List<Vector2Int>();
+        playerPosition = PlayerManager.Instance.playerPosition;
 
         foreach (Vector3Int neighbor in neighbors)
-        {
+        {   
+            
             Vector2Int axialNeighbor =HexGridUtil.CubeToAxialCoord(neighbor);
             try
             { 
                 if (GridManager.Instance.Grid[axialNeighbor].currentGridState == GridManager.Instance.gS_Neutral ||
                   GridManager.Instance.Grid[axialNeighbor].currentGridState == GridManager.Instance.gS_Positive)
-                {
+                {   
+                    if(axialNeighbor != playerPosition)
                     possibleTargets.Add(axialNeighbor);
                 }
             }

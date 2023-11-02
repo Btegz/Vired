@@ -5,11 +5,14 @@ using UnityEngine;
 [CreateAssetMenu]
 public class SpreadToClosestEnemy : Spreadbehaviours
 {
-    public override bool TargetTile(Vector3Int enemyPosition, out Vector3Int target)
+    public override bool TargetTile(Vector3Int enemyPosition, out Vector3Int target, Vector2Int playerPosition)
     {
         // We get every Enemie's Coordiante
         List<GridTile> EnemyTiles = GridManager.Instance.GetTilesWithState(GridManager.Instance.gS_Enemy);
         List<Vector3Int> EnemyCoordinates = new List<Vector3Int>();
+
+     
+
         foreach(GridTile gt in EnemyTiles)
         {
             EnemyCoordinates.Add(HexGridUtil.AxialToCubeCoord(gt.AxialCoordinate));
@@ -48,8 +51,11 @@ public class SpreadToClosestEnemy : Spreadbehaviours
         {
             if (GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(pathNode)].currentGridState == GridManager.Instance.gS_Neutral || GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(pathNode)].currentGridState == GridManager.Instance.gS_Positive)
             {
-                target = pathNode;
-                return true;
+                if (pathNode != HexGridUtil.AxialToCubeCoord(playerPosition))
+                {
+                    target = pathNode;
+                    return true;
+                }
             }
         }
         target = Vector3Int.zero;
