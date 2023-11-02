@@ -43,15 +43,15 @@ public class CameraRotation : MonoBehaviour
 
     private void Update()
     {
-        Vector3 dir = new Vector3(0, 0, 1);
+        Vector3 dir = new Vector3(0, 1, 1);
 
         if (mouseScrollY > 0)
         {
-            gameObject.transform.GetChild(0).transform.position += dir * mouseScrollY * Time.deltaTime;
+            gameObject.transform.GetChild(0).transform.localPosition += dir * mouseScrollY * Time.deltaTime;
         }
         if (mouseScrollY < 0)
-            gameObject.transform.GetChild(0).transform.position += dir * mouseScrollY * Time.deltaTime;
-
+            gameObject.transform.GetChild(0).transform.localPosition += dir * mouseScrollY * Time.deltaTime;
+        //delta der Kamera und des Zentrums und hierlang bewegen
             
     }
     IEnumerator Rotato()

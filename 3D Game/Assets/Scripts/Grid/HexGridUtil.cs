@@ -565,7 +565,6 @@ public static class HexGridUtil
         frontier.Enqueue(start);
         reached.Add(start);
 
-        int iteration = 0;
 
         while (!frontier.Contains(goal))
         {
@@ -577,7 +576,6 @@ public static class HexGridUtil
             }
             foreach(Vector3Int n in CubeNeighbors(current))
             {
-                iteration++;
                 if (!cameFrom.ContainsKey(n) && Grid.Contains(n))
                 {
                     frontier.Enqueue(n);
@@ -585,7 +583,6 @@ public static class HexGridUtil
                 }
             }
         }
-        Debug.Log("Breadth first: " + iteration);
 
         Vector3Int newCurrent = goal;
         while(newCurrent != start)
@@ -607,8 +604,6 @@ public static class HexGridUtil
         Dictionary<Vector3Int, Vector3Int> cameFrom = new Dictionary<Vector3Int, Vector3Int>();
         frontier.Add(start,0);
         reached.Add(start);
-
-        int iteration = 0;
 
         while (!frontier.ContainsKey(goal))
         {

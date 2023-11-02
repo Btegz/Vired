@@ -7658,7 +7658,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 919866852}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 20, y: 0, z: 0}
 --- !u!114 &654068422 stripped
 MonoBehaviour:
@@ -7970,7 +7970,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 919866852}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &719438735
 BoxCollider:
@@ -10555,8 +10555,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 719438734}
   - {fileID: 652675124}
+  - {fileID: 719438734}
   - {fileID: 2111333017}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -10574,7 +10574,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotatoAction: {fileID: -1155452060369335062, guid: 26454fd94e486c84595f431522cf20cf, type: 3}
+  zoomAction: {fileID: -6776810313273384712, guid: 26454fd94e486c84595f431522cf20cf, type: 3}
   speed: 500
+  mouseScrollY: 0
 --- !u!43 &921827982
 Mesh:
   m_ObjectHideFlags: 0
