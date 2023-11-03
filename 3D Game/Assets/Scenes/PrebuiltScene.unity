@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2487,6 +2487,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: d0600edc3d5482144b8731ea0fb77c28, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
+--- !u!1 &210655906 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3994477943698752709, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+  m_PrefabInstance: {fileID: 1013245897}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &220795130
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2610,7 +2615,7 @@ PrefabInstance:
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: currentGridState
       value: 
-      objectReference: {fileID: 11400000, guid: 77ad9876c9ce60b4191ce44835e4631d, type: 2}
+      objectReference: {fileID: 11400000, guid: d4b71c1d31cdb0a4fae33f2336fdbfa4, type: 2}
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: AxialCoordinate.x
       value: -6
@@ -3658,7 +3663,7 @@ PrefabInstance:
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: currentGridState
       value: 
-      objectReference: {fileID: 11400000, guid: 77ad9876c9ce60b4191ce44835e4631d, type: 2}
+      objectReference: {fileID: 11400000, guid: d4b71c1d31cdb0a4fae33f2336fdbfa4, type: 2}
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: AxialCoordinate.x
       value: -5
@@ -4934,6 +4939,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &418109651 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3755195926075778337, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+  m_PrefabInstance: {fileID: 1013245897}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &434673066
 Mesh:
   m_ObjectHideFlags: 0
@@ -6483,7 +6493,7 @@ PrefabInstance:
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: currentGridState
       value: 
-      objectReference: {fileID: 11400000, guid: 77ad9876c9ce60b4191ce44835e4631d, type: 2}
+      objectReference: {fileID: 11400000, guid: d4b71c1d31cdb0a4fae33f2336fdbfa4, type: 2}
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: AxialCoordinate.x
       value: -3
@@ -11054,7 +11064,7 @@ PrefabInstance:
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: currentGridState
       value: 
-      objectReference: {fileID: 11400000, guid: 77ad9876c9ce60b4191ce44835e4631d, type: 2}
+      objectReference: {fileID: 11400000, guid: d4b71c1d31cdb0a4fae33f2336fdbfa4, type: 2}
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: AxialCoordinate.x
       value: -4
@@ -11334,6 +11344,10 @@ PrefabInstance:
       propertyPath: currentPhase
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6993991225135169736, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
+      propertyPath: gS_BossNegative
+      value: 
+      objectReference: {fileID: 11400000, guid: c718cad9d8e6ba542b6e1ee719ab955e, type: 2}
     - target: {fileID: 6993991225135169736, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
       propertyPath: negativeBarFill
       value: 
@@ -14783,7 +14797,7 @@ PrefabInstance:
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: currentGridState
       value: 
-      objectReference: {fileID: 11400000, guid: 77ad9876c9ce60b4191ce44835e4631d, type: 2}
+      objectReference: {fileID: 11400000, guid: d4b71c1d31cdb0a4fae33f2336fdbfa4, type: 2}
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: AxialCoordinate.x
       value: -3
@@ -15570,6 +15584,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1248143008 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7766636002038032911, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+  m_PrefabInstance: {fileID: 1013245897}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1252428531 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7721379056589199530, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
@@ -15784,7 +15803,7 @@ PrefabInstance:
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: currentGridState
       value: 
-      objectReference: {fileID: 11400000, guid: 77ad9876c9ce60b4191ce44835e4631d, type: 2}
+      objectReference: {fileID: 11400000, guid: d4b71c1d31cdb0a4fae33f2336fdbfa4, type: 2}
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: AxialCoordinate.x
       value: -5
@@ -17280,7 +17299,7 @@ PrefabInstance:
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: currentGridState
       value: 
-      objectReference: {fileID: 11400000, guid: 77ad9876c9ce60b4191ce44835e4631d, type: 2}
+      objectReference: {fileID: 11400000, guid: d4b71c1d31cdb0a4fae33f2336fdbfa4, type: 2}
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: AxialCoordinate.x
       value: -5
@@ -20854,7 +20873,7 @@ PrefabInstance:
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: currentGridState
       value: 
-      objectReference: {fileID: 11400000, guid: 77ad9876c9ce60b4191ce44835e4631d, type: 2}
+      objectReference: {fileID: 11400000, guid: d4b71c1d31cdb0a4fae33f2336fdbfa4, type: 2}
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: AxialCoordinate.x
       value: -4
@@ -21308,7 +21327,7 @@ PrefabInstance:
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: currentGridState
       value: 
-      objectReference: {fileID: 11400000, guid: 77ad9876c9ce60b4191ce44835e4631d, type: 2}
+      objectReference: {fileID: 11400000, guid: d4b71c1d31cdb0a4fae33f2336fdbfa4, type: 2}
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: AxialCoordinate.x
       value: -2
@@ -22174,7 +22193,7 @@ PrefabInstance:
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: currentGridState
       value: 
-      objectReference: {fileID: 11400000, guid: 77ad9876c9ce60b4191ce44835e4631d, type: 2}
+      objectReference: {fileID: 11400000, guid: d4b71c1d31cdb0a4fae33f2336fdbfa4, type: 2}
     - target: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
       propertyPath: AxialCoordinate.x
       value: -4
@@ -22428,6 +22447,11 @@ PrefabInstance:
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 8058411163812965884, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
   m_PrefabInstance: {fileID: 1701964919}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1932236776 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4893431847849536756, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+  m_PrefabInstance: {fileID: 1013245897}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1933163798
 PrefabInstance:
@@ -23412,6 +23436,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityObj: {fileID: 8527911146813857575, guid: a3e553756b59e4d46b657791d81a0ea3, type: 3}
   abilitInventory: []
+  MovePoints:
+  - {fileID: 1248143008}
+  - {fileID: 210655906}
+  - {fileID: 1932236776}
+  - {fileID: 418109651}
   player: {fileID: 279237420}
   cam: {fileID: 652675123}
   PlayerSpawnPoint: {x: 2, y: -7}

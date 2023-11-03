@@ -1490,6 +1490,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 829567c2724e8b840a1c3e0caff54e18, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
+--- !u!1 &149689343 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7766636002038032911, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+  m_PrefabInstance: {fileID: 1013245897}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &164080250
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9852,6 +9857,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 56706c26ffbd12e43a0f8eb3fb1ac988, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
+--- !u!1 &813588030 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4893431847849536756, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+  m_PrefabInstance: {fileID: 1013245897}
+  m_PrefabAsset: {fileID: 0}
 --- !u!23 &815122578 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 8058411163812965884, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
@@ -12514,6 +12524,11 @@ PrefabInstance:
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 8058411163812965884, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
   m_PrefabInstance: {fileID: 1137090755}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1001394157 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3994477943698752709, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+  m_PrefabInstance: {fileID: 1013245897}
   m_PrefabAsset: {fileID: 0}
 --- !u!43 &1003156560
 Mesh:
@@ -21706,6 +21721,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1825301632 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3755195926075778337, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+  m_PrefabInstance: {fileID: 1013245897}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1827819385
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23587,7 +23607,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityObj: {fileID: 8527911146813857575, guid: a3e553756b59e4d46b657791d81a0ea3, type: 3}
   abilitInventory: []
-  MovePoints: []
+  MovePoints:
+  - {fileID: 149689343}
+  - {fileID: 1001394157}
+  - {fileID: 813588030}
+  - {fileID: 1825301632}
   player: {fileID: 279237420}
   cam: {fileID: 652675123}
   PlayerSpawnPoint: {x: 2, y: -7}

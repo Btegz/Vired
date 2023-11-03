@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 56706c26ffbd12e43a0f8eb3fb1ac988, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac40004989043c74bac78dc94d695d48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySO: {fileID: 0}
-  currentHealth: 0
-  maxHealth: 0
-  ressource: 0
+  enemySO: {fileID: 11400000, guid: 835522eebbfc13c4e922c45e683ba113, type: 2}
+  currentHealth: 4
+  maxHealth: 4
+  ressource: 1
