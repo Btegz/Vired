@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,12 +11,19 @@ public class CameraRotation : MonoBehaviour
     [SerializeField] InputActionReference zoomAction;
 
     [SerializeField] float speed = 500;
-
+    [SerializeField] Camera cam;
+    
     private Coroutine rotationCoroutine;
     private Coroutine zoomCoroutine;
 
+    private Vector3 camPosition;
+    
+
     public float mouseScrollY;
     // Start is called before the first frame update
+    void Start()
+    {
+    }
     void Awake()
     {
         rotatoAction.action.Enable();
@@ -24,10 +32,6 @@ public class CameraRotation : MonoBehaviour
 
         zoomAction.action.Enable();
         zoomAction.action.performed += x => mouseScrollY = x.ReadValue<float>();
-
-
-
-
     }
 
     void StopRotato(InputAction.CallbackContext obj)
@@ -43,14 +47,20 @@ public class CameraRotation : MonoBehaviour
 
     private void Update()
     {
-        Vector3 dir = new Vector3(0, 1, 1);
+    
+        camPosition = gameObject.transform.GetChild(0).transform.localPosition;
 
-        if (mouseScrollY > 0)
+        /*if (mouseScrollY > 0)
         {
-            gameObject.transform.GetChild(0).transform.localPosition += dir * mouseScrollY * Time.deltaTime;
-        }
-        if (mouseScrollY < 0)
-            gameObject.transform.GetChild(0).transform.localPosition += dir * mouseScrollY * Time.deltaTime;
+            Debug.Log((camPosition));
+            gameObject.transform.GetChild(0).transform.localPosition =
+                Vector3.Lerp(camPosition,Vector3.zero, mouseScrollY * Time.deltaTime );
+        }*/
+        
+      
+        
+       //if (mouseScrollY < 0)
+          
         //delta der Kamera und des Zentrums und hierlang bewegen
             
     }
