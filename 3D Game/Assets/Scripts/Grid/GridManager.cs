@@ -120,69 +120,78 @@ public class GridManager : MonoBehaviour
 
     public void TransferGridSOData()
     {
-        if(Grid != null)
+        Grid = new Dictionary<Vector2Int, GridTile>();
+
+        if (mapSettings == null)
         {
-            foreach (KeyValuePair<Vector2Int, GridTile> kvp in Grid)
+            GridTile[] gridTiles = GetComponentsInChildren<GridTile>();
+            foreach (GridTile tile in gridTiles)
             {
-                Destroy(kvp.Value.gameObject);
+                Grid.Add(tile.AxialCoordinate, tile);
             }
         }
-        
-
-        Grid = new Dictionary<Vector2Int, GridTile>();
-        //GridTile[] gridTiles = GetComponentsInChildren<GridTile>();
-        //foreach (GridTile tile in gridTiles)
-        //{
-        //    Grid.Add(tile.AxialCoordinate, tile);
-        //}
-        Vector2Int gridSize = mapSettings.NoiseDataSize;
-        Dictionary<Vector2Int, float> gridNoise1 = mapSettings.NoiseData(mapSettings.NoiseType1);
-        Dictionary<Vector2Int, float> gridNoise2 = mapSettings.NoiseData(mapSettings.NoiseType2);
-        for (int x = 0; x < gridSize.x; x++)
+        else
         {
-            for (int y = 0; y < gridSize.y; y++)
+
+            if (Grid != null)
             {
-                float noise1 = Mathf.Abs(gridNoise1[new Vector2Int(x, y)]);
-                float noise2 = Mathf.Abs(gridNoise2[new Vector2Int(x, y)]);
-                Vector2Int coordinate = new Vector2Int(x, y);
-                //Debug.Log($"noise1: {noise1}, noise2: {noise2} at {coordinate}");
-                Ressource res;
-                if (noise1 > 0.5f && noise2 >= 0.5f)
+                foreach (KeyValuePair<Vector2Int, GridTile> kvp in Grid)
                 {
-                    Debug.Log("i am blue because both these values are greater 0.5: " + noise1 + " and " + noise2);
-                    res = Ressource.ressourceA;
-                    // ressource a
+                    Destroy(kvp.Value.gameObject);
                 }
-                else if (noise1 > .5f && noise2 < .5f)
-                {
-                    res = Ressource.ressourceB;
-                    // ressource b
-                }
-                else if(noise1 <= .5f && noise2 >= .5f)
-                {
-                    res = Ressource.ressourceC;
-                    // ressource c
-                }
-                else if(noise1 <= .5f && noise2 < .5f)
-                {
-                    res = Ressource.resscoureD;
-                    //ressource d
-                }
-                else
-                {
-                    res = Ressource.ressourceA;
-                }
-
-                GridTile newTile = Instantiate(GridTilePrefab);
-                newTile.Setup(coordinate,res);
-
-                newTile.transform.parent = transform;
-                newTile.transform.position = HexGridUtil.AxialHexToPixel(coordinate, 1);
-
-                Grid.Add(coordinate, newTile);
             }
 
 
+
+            Vector2Int gridSize = mapSettings.NoiseDataSize;
+            Dictionary<Vector2Int, float> gridNoise1 = mapSettings.NoiseData(mapSettings.NoiseType1);
+            Dictionary<Vector2Int, float> gridNoise2 = mapSettings.NoiseData(mapSettings.NoiseType2);
+            for (int x = 0; x < gridSize.x; x++)
+            {
+                for (int y = 0; y < gridSize.y; y++)
+                {
+                    float noise1 = Mathf.Abs(gridNoise1[new Vector2Int(x, y)]);
+                    float noise2 = Mathf.Abs(gridNoise2[new Vector2Int(x, y)]);
+                    Vector2Int coordinate = new Vector2Int(x, y);
+                    //Debug.Log($"noise1: {noise1}, noise2: {noise2} at {coordinate}");
+                    Ressource res;
+                    if (noise1 > 0.5f && noise2 >= 0.5f)
+                    {
+                        Debug.Log("i am blue because both these values are greater 0.5: " + noise1 + " and " + noise2);
+                        res = Ressource.ressourceA;
+                        // ressource a
+                    }
+                    else if (noise1 > .5f && noise2 < .5f)
+                    {
+                        res = Ressource.ressourceB;
+                        // ressource b
+                    }
+                    else if (noise1 <= .5f && noise2 >= .5f)
+                    {
+                        res = Ressource.ressourceC;
+                        // ressource c
+                    }
+                    else if (noise1 <= .5f && noise2 < .5f)
+                    {
+                        res = Ressource.resscoureD;
+                        //ressource d
+                    }
+                    else
+                    {
+                        res = Ressource.ressourceA;
+                    }
+
+                    GridTile newTile = Instantiate(GridTilePrefab);
+                    newTile.Setup(coordinate, res);
+
+                    newTile.transform.parent = transform;
+                    newTile.transform.position = HexGridUtil.AxialHexToPixel(coordinate, 1);
+
+                    Grid.Add(coordinate, newTile);
+                }
+
+
+            }
         }
     }
 
