@@ -10604,9 +10604,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotatoAction: {fileID: -1155452060369335062, guid: 26454fd94e486c84595f431522cf20cf, type: 3}
   zoomAction: {fileID: -6776810313273384712, guid: 26454fd94e486c84595f431522cf20cf, type: 3}
-  speed: 500
+  movementAction: {fileID: 4958632821665724103, guid: 26454fd94e486c84595f431522cf20cf, type: 3}
   cam: {fileID: 652675123}
-  mouseScrollY: 0
+  rotationSpeed: 500
+  movementSpeed: 50
+  speedAdaption: 0.2
+  endPosition: {x: 0, y: 0, z: 0}
 --- !u!43 &921827982
 Mesh:
   m_ObjectHideFlags: 0
