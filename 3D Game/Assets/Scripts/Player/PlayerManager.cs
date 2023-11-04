@@ -110,13 +110,20 @@ public class PlayerManager : MonoBehaviour
                     else
                     {
                         SceneManager.LoadScene("GameOverScene");
-                        player.transform.DOPunchRotation(Vector3.up * 100, 0.25f);
+                        player.transform.DOPunchRotation(new Vector3(10f, 2f), 1f);
                     }
                 }
                 catch (Exception e)
                 {
                 }
             }
+        }
+
+        if (movementAction == 0 && Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            Debug.Log("ich schüttle mich");
+            player.transform.DOPunchRotation(new Vector3(10f, 2f), 1f);
+          
         }
 
         // enters if Left Mouse Button was clicked
@@ -184,6 +191,9 @@ public class PlayerManager : MonoBehaviour
         player.transform.DOPunchScale(Vector3.one * .1f, .25f).OnComplete(landingCloud.Play);
         movementAction--;
 
+        
+            
+
         MovePoints[movementAction].GetComponent<MovePointsDoTween>().Away();
         //MovePoints[movementAction].SetActive(false);
 
@@ -199,6 +209,15 @@ public class PlayerManager : MonoBehaviour
     public void resetMovementPoints()
     {
         movementAction = 4;
+
+        foreach (GameObject mp in MovePoints)
+        {
+            mp.GetComponent<MovePointsDoTween>().SpriteReset();
+        }
+        //MovePoints[0].GetComponent<MovePointsDoTween>().SpriteReset();
+        //MovePoints[1].GetComponent<MovePointsDoTween>().SpriteReset();
+        //MovePoints[2].GetComponent<MovePointsDoTween>().SpriteReset();
+        //MovePoints[3].GetComponent<MovePointsDoTween>().SpriteReset();
     }
 
     public void ChooseAbilityWithIndex(int index, Vector3Int selectedPoint, Vector3Int playerPos)
