@@ -9,8 +9,7 @@ public class MovePointsDoTween : MonoBehaviour
 
     public RectTransform rectTransform;
     public Sprite usedMovepoints;
-    public Sprite Movepoints;
- 
+    public Sprite movepoints; 
 
 
     // Start is called before the first frame update
@@ -37,5 +36,13 @@ public class MovePointsDoTween : MonoBehaviour
         //image.sprite = Movepoints;
         //usedMovepoints.SetActive(true);
 
+    }
+
+    public void SpriteReset()
+    {
+        rectTransform.DOPunchPosition(new Vector2(20f, 0f), 1f).SetEase(Ease.OutElastic);
+
+        Image image = GetComponent<Image>();
+        image.sprite = movepoints;
     }
 }

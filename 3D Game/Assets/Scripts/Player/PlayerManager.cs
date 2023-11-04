@@ -199,6 +199,15 @@ public class PlayerManager : MonoBehaviour
     public void resetMovementPoints()
     {
         movementAction = 4;
+
+        foreach (GameObject mp in MovePoints)
+        {
+            mp.GetComponent<MovePointsDoTween>().SpriteReset();
+        }
+        //MovePoints[0].GetComponent<MovePointsDoTween>().SpriteReset();
+        //MovePoints[1].GetComponent<MovePointsDoTween>().SpriteReset();
+        //MovePoints[2].GetComponent<MovePointsDoTween>().SpriteReset();
+        //MovePoints[3].GetComponent<MovePointsDoTween>().SpriteReset();
     }
 
     public void ChooseAbilityWithIndex(int index, Vector3Int selectedPoint, Vector3Int playerPos)
