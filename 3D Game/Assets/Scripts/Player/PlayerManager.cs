@@ -110,13 +110,20 @@ public class PlayerManager : MonoBehaviour
                     else
                     {
                         SceneManager.LoadScene("GameOverScene");
-                        player.transform.DOPunchRotation(Vector3.up * 100, 0.25f);
+                        player.transform.DOPunchRotation(new Vector3(10f, 2f), 1f);
                     }
                 }
                 catch (Exception e)
                 {
                 }
             }
+        }
+
+        if (movementAction == 0 && Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            Debug.Log("ich schüttle mich");
+            player.transform.DOPunchRotation(new Vector3(10f, 2f), 1f);
+          
         }
 
         // enters if Left Mouse Button was clicked
@@ -183,6 +190,9 @@ public class PlayerManager : MonoBehaviour
             .OnComplete(() => target.currentGridState.PlayerEnters(target));
         player.transform.DOPunchScale(Vector3.one * .1f, .25f).OnComplete(landingCloud.Play);
         movementAction--;
+
+        
+            
 
         MovePoints[movementAction].GetComponent<MovePointsDoTween>().Away();
         //MovePoints[movementAction].SetActive(false);
