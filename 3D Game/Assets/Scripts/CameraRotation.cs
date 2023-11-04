@@ -17,12 +17,14 @@ public class CameraRotation : MonoBehaviour
     private Coroutine zoomCoroutine;
 
     private Vector3 camPosition;
+    private Vector3 startingPosition;
     
 
     public float mouseScrollY;
     // Start is called before the first frame update
     void Start()
     {
+        startingPosition = gameObject.transform.GetChild(0).transform.localPosition;
     }
     void Awake()
     {
@@ -50,24 +52,24 @@ public class CameraRotation : MonoBehaviour
     
         camPosition = gameObject.transform.GetChild(0).transform.localPosition;
 
-        /*if (mouseScrollY > 0)
-        {
-            Debug.Log((camPosition));
+        if (mouseScrollY > 0 )
+        {  
             gameObject.transform.GetChild(0).transform.localPosition =
                 Vector3.Lerp(camPosition,Vector3.zero, mouseScrollY * Time.deltaTime );
-        }*/
+        }
         
-      
-        
-       //if (mouseScrollY < 0)
-          
-        //delta der Kamera und des Zentrums und hierlang bewegen
-            
+        if (mouseScrollY < 0)
+        {
+            Debug.Log(startingPosition);
+            Debug.Log((mouseScrollY * Time.deltaTime));
+            gameObject.transform.GetChild(0).transform.localPosition =
+                Vector3.Lerp(startingPosition,camPosition, ((mouseScrollY * Time.deltaTime )+1));
+        }
     }
     IEnumerator Rotato()
     {
         Vector2 previousMousePosition = Pointer.current.position.ReadValue();
-
+        
         while (true)
         {
             Vector2 currentMousePosition = Pointer.current.position.ReadValue();
@@ -76,12 +78,7 @@ public class CameraRotation : MonoBehaviour
             previousMousePosition = currentMousePosition;
             yield return null;
         }
-
-
         //Movement x und z Position des Parents 
-        // Zoom Camera lokale Z Position 
-
-
     }
 
     IEnumerator Movement()
