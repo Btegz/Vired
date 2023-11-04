@@ -32,18 +32,27 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        List<Ability> abilityInv = PlayerManager.Instance.abilitInventory;
-        for (int i = 0; i < abilityButtons.Count; i++)
+        try
         {
-            if (i < abilityInv.Count )
+            List<Ability> abilityInv = PlayerManager.Instance.abilitInventory;
+
+            for (int i = 0; i < abilityButtons.Count; i++)
             {
-                abilityButtons[i].GetComponent<Image>().sprite = abilityInv[i].AbilityUISprite;
-            }
-            else
-            {
-                abilityButtons[i].image.sprite = null;
+                if (i < abilityInv.Count)
+                {
+                    abilityButtons[i].GetComponent<Image>().sprite = abilityInv[i].AbilityUISprite;
+                }
+                else
+                {
+                    abilityButtons[i].image.sprite = null;
+                }
             }
         }
+        catch
+        {
+        }
+
+
     }
 
     // Update is called once per frame
@@ -104,7 +113,7 @@ public class UIManager : MonoBehaviour
             i.gameObject.SetActive(true);
         }
     }
-    
+
     public void DisableCanvas()
     {
         RectTransform[] children = GetComponentsInChildren<RectTransform>();

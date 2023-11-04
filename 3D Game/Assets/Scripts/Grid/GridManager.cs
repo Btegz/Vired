@@ -21,7 +21,7 @@ public class GridManager : MonoBehaviour
     // Vector2Int holds the coordinate and GridTile is the GameObject in the Coordinate.
     // It is a Vector2Int instead of Vector3Int because this makes accessing the tiles much easier.
     // If you want the cubic Coordinate you cann access HexGridUtil.AxialToCubeCoord.
-    [SerializeField]public Dictionary<Vector2Int, GridTile> Grid;
+    [SerializeField] public Dictionary<Vector2Int, GridTile> Grid;
 
     // Supposed to handle the q and r dimensions of the grid when gereating the shape.
     public GS_positive gS_Positive;
@@ -31,7 +31,8 @@ public class GridManager : MonoBehaviour
     public GS_Boss gS_Boss;
     public GS_BossNegative gS_BossNegative;
 
-    
+    [Header("Map")]
+    [SerializeField] MapSettings mapSettings;
 
     [Header("Tile Presets")]
     [SerializeField, Tooltip("should be smaller then outerSize. If Hex should be filled this will be 0.")] float innerSize;
@@ -108,9 +109,9 @@ public class GridManager : MonoBehaviour
 
         //    Grid[pp].gameObject.transform.position += Vector3.up * 3;
         //}
-        
+
     }
-    
+
 
     public void GameWon()
     {
@@ -119,11 +120,69 @@ public class GridManager : MonoBehaviour
 
     public void TransferGridSOData()
     {
-        Grid = new Dictionary<Vector2Int, GridTile>();
-        GridTile[] gridTiles = GetComponentsInChildren<GridTile>();
-        foreach(GridTile tile in gridTiles)
+        if(Grid != null)
         {
-            Grid.Add(tile.AxialCoordinate, tile);
+            foreach (KeyValuePair<Vector2Int, GridTile> kvp in Grid)
+            {
+                Destroy(kvp.Value.gameObject);
+            }
+        }
+        
+
+        Grid = new Dictionary<Vector2Int, GridTile>();
+        //GridTile[] gridTiles = GetComponentsInChildren<GridTile>();
+        //foreach (GridTile tile in gridTiles)
+        //{
+        //    Grid.Add(tile.AxialCoordinate, tile);
+        //}
+        Vector2Int gridSize = mapSettings.NoiseDataSize;
+        Dictionary<Vector2Int, float> gridNoise1 = mapSettings.NoiseData(mapSettings.NoiseType1);
+        Dictionary<Vector2Int, float> gridNoise2 = mapSettings.NoiseData(mapSettings.NoiseType2);
+        for (int x = 0; x < gridSize.x; x++)
+        {
+            for (int y = 0; y < gridSize.y; y++)
+            {
+                float noise1 = Mathf.Abs(gridNoise1[new Vector2Int(x, y)]);
+                float noise2 = Mathf.Abs(gridNoise2[new Vector2Int(x, y)]);
+                Vector2Int coordinate = new Vector2Int(x, y);
+                //Debug.Log($"noise1: {noise1}, noise2: {noise2} at {coordinate}");
+                Ressource res;
+                if (noise1 > 0.5f && noise2 >= 0.5f)
+                {
+                    Debug.Log("i am blue because both these values are greater 0.5: " + noise1 + " and " + noise2);
+                    res = Ressource.ressourceA;
+                    // ressource a
+                }
+                else if (noise1 > .5f && noise2 < .5f)
+                {
+                    res = Ressource.ressourceB;
+                    // ressource b
+                }
+                else if(noise1 <= .5f && noise2 >= .5f)
+                {
+                    res = Ressource.ressourceC;
+                    // ressource c
+                }
+                else if(noise1 <= .5f && noise2 < .5f)
+                {
+                    res = Ressource.resscoureD;
+                    //ressource d
+                }
+                else
+                {
+                    res = Ressource.ressourceA;
+                }
+
+                GridTile newTile = Instantiate(GridTilePrefab);
+                newTile.Setup(coordinate,res);
+
+                newTile.transform.parent = transform;
+                newTile.transform.position = HexGridUtil.AxialHexToPixel(coordinate, 1);
+
+                Grid.Add(coordinate, newTile);
+            }
+
+
         }
     }
 
@@ -156,7 +215,7 @@ public class GridManager : MonoBehaviour
             foreach (HS_World hsw in RessourceShapes)
             {
                 List<Vector2Int> shape = hsw.Coordinates;
-                shape = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeClockwise(Vector3Int.zero, HexGridUtil.AxialToCubeCoord(shape), Random.Range(0,6)));
+                shape = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeClockwise(Vector3Int.zero, HexGridUtil.AxialToCubeCoord(shape), Random.Range(0, 6)));
                 coords = HexGridUtil.CombineGridsAlongAxis(coords, shape, HexGridUtil.cubeDirectionVectors[Random.Range(0, HexGridUtil.cubeDirectionVectors.Length)], out shape);
                 foreach (Vector2Int coord in shape)
                 {
@@ -181,7 +240,7 @@ public class GridManager : MonoBehaviour
 
     public void TriggerPhase()
     {
-        currentPhase.TriggerPhaseEffects(TurnCounter,this);
+        currentPhase.TriggerPhaseEffects(TurnCounter, this);
     }
 
 
@@ -204,7 +263,7 @@ public class GridManager : MonoBehaviour
     public List<GridTile> GetTilesWithState(GridState state)
     {
         List<GridTile> enemies = new List<GridTile>();
-        foreach(KeyValuePair<Vector2Int,GridTile> kvp in Grid)
+        foreach (KeyValuePair<Vector2Int, GridTile> kvp in Grid)
         {
             if (kvp.Value.currentGridState.StateValue() == state.StateValue())
             {

@@ -52,7 +52,7 @@ public class GridTile : MonoBehaviour
         switch (currentGridState)
         {
             case GS_positive:
-                switch (gridTileSO.ressource)
+                switch (ressource)
                 {
                     case Ressource.ressourceA:
                         meshRenderer.material = gridTileSO.resourceAMaterial;
@@ -92,8 +92,7 @@ public class GridTile : MonoBehaviour
         meshFilter = GetComponent<MeshFilter>();
         meshRenderer = GetComponent<MeshRenderer>();
         mesh = new Mesh();
-        mesh.name = "Hex";
-        meshFilter.mesh = mesh;
+        mesh.name = $"Hex{cellCoordinate.x},{cellCoordinate.y}";
 
         this.AxialCoordinate = cellCoordinate;
         this.ressource = gridTileSO.ressource;
@@ -127,7 +126,9 @@ public class GridTile : MonoBehaviour
             case GS_Boss: meshRenderer.material = gridTileSO.negativeMaterial; SpawnEnemy(); break;
         }
 
-        DrawMesh();
+        meshFilter.mesh = DrawMesh();
+
+
     }
 
     public void Setup(Vector2Int cellCoordinate, GridTileSO gridTileSO)
@@ -160,6 +161,22 @@ public class GridTile : MonoBehaviour
         }
 
         DrawMesh();
+    }
+
+    public void Setup(Vector2Int coordinate, Ressource ressource)
+    {
+        meshCollider = GetComponent<MeshCollider>();
+        meshFilter = GetComponent<MeshFilter>();
+        meshRenderer = GetComponent<MeshRenderer>();
+        mesh = new Mesh();
+        mesh.name = $"Hex{coordinate.x},{coordinate.y}";
+
+        AxialCoordinate = coordinate;
+        this.ressource = ressource;
+        currentGridState = GridManager.Instance.gS_Positive;
+
+        meshFilter.mesh = DrawMesh();
+
     }
 
     // STATE MASHINE STUFF ----------------------------------------------------------------------------------------------------------
