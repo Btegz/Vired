@@ -120,7 +120,7 @@ public class PlayerManager : MonoBehaviour
                 }
                 if (lost)
                 {
-                    SceneManager.LoadScene("GameOverScene");
+                    //SceneManager.LoadScene("GameOverScene");
                 }
             }
 

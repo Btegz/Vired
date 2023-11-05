@@ -59,8 +59,8 @@ public class PE_EnemySpawn : PhaseEffect
             if (SpreadBehaviours[i].TargetTile(Vector3Int.zero,out target, PlayerManager.Instance.playerPosition))
             {
                 Enemy enemy = Instantiate(enemyPrefab);
-                enemy.Setup(enemySOs[Random.Range(0, enemySOs.Count)]);
                 GridTile targetLocation = GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)];
+                enemy.Setup(enemySOs[Random.Range(0, enemySOs.Count)],targetLocation);
                 targetLocation.ChangeCurrentState(gridManager.gS_Enemy);
                 enemy.transform.parent = targetLocation.transform;
                 enemy.transform.position = targetLocation.transform.position;

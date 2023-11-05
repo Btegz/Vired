@@ -17,13 +17,13 @@ public class Enemy : MonoBehaviour
         
     }
 
-    public void Setup(EnemySO enemySO)
+    public void Setup(EnemySO enemySO,GridTile tile)
     {
         this.enemySO = enemySO;
 
         currentHealth = enemySO.myCurrentHealth;
         maxHealth = enemySO.mymaxHealth;
-        ressource = enemySO.myRessource;
+        ressource = tile.ressource;
 
         MeshFilter meshFilter = GetComponent<MeshFilter>();
         meshFilter.mesh = enemySO.myMesh;

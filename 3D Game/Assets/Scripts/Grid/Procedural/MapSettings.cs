@@ -33,27 +33,11 @@ public class MapSettings : ScriptableObject
         set { noiseType2 = value; }
     }
 
-    [SerializeField] private float frequency; 
+    [SerializeField][Range(0.001f,1f)]  private float frequency; 
     public float Frequency
     {
         get { return frequency; }
         set { frequency = value; }
-    }
-
-    [SerializeField] Vector2 noiseThresholds;
-
-    public Vector2 NoiseThresholds
-    {
-        get { return noiseThresholds; }
-        set { noiseThresholds = value; }
-    }
-
-    [SerializeField] float distanceThreshold;
-
-    public float DistanceThreshold
-    {
-        get { return distanceThreshold; }
-        set { distanceThreshold = value; }
     }
 
 
@@ -82,14 +66,6 @@ public class MapSettings : ScriptableObject
 
     [Header("World-Shape Noise Settings")]
 
-    [SerializeField] private Vector2Int m_noiseDataSize;
-
-    public Vector2Int M_NoiseDataSize
-    {
-        get { return m_noiseDataSize; }
-        set { m_noiseDataSize = value; }
-    }
-
     [SerializeField] private FastNoiseLite.NoiseType m_noiseType1;
 
     public FastNoiseLite.NoiseType M_NoiseType1
@@ -98,15 +74,7 @@ public class MapSettings : ScriptableObject
         set { m_noiseType1 = value; }
     }
 
-    [SerializeField] private FastNoiseLite.NoiseType m_noiseType2;
-
-    public FastNoiseLite.NoiseType M_NoiseType2
-    {
-        get { return m_noiseType2; }
-        set { m_noiseType2 = value; }
-    }
-
-    [SerializeField] private float m_frequency;
+    [SerializeField][Range(0.001f, 1f)] private float m_frequency;
 
     public float M_Frequency
     {
@@ -122,7 +90,7 @@ public class MapSettings : ScriptableObject
         set { m_noiseThresholds = value; }
     }
 
-    [SerializeField] float m_distanceThreshold;
+    [SerializeField][Range(0.5f,10f)] float m_distanceThreshold;
 
     public float M_DistanceThreshold
     {

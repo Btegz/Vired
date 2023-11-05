@@ -203,7 +203,7 @@ public class GridTile : MonoBehaviour
         {
             GridManager gridManagerInstance = GridManager.Instance;
             Enemy newEnemy = Instantiate(gridManagerInstance.enemyPrefab);
-            newEnemy.Setup(gridManagerInstance.enemySOs[Random.Range(0, gridManagerInstance.enemySOs.Count)]);
+            newEnemy.Setup(gridManagerInstance.enemySOs[Random.Range(0, gridManagerInstance.enemySOs.Count)],this);
             newEnemy.transform.parent = transform;
             newEnemy.transform.position = transform.position;
         }
