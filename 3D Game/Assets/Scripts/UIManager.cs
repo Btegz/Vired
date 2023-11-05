@@ -88,7 +88,7 @@ public class UIManager : MonoBehaviour
     {
         AbilitiesInventoryButton.onClick.RemoveListener(ExpandAbilityInventory);
 
-        AbilitiesInventory.GetComponent<RectTransform>().DOMoveY(280, 1);
+        AbilitiesInventory.GetComponent<RectTransform>().DOAnchorPosY(230, 1);
         AbilitiesInventoryButton.onClick.AddListener(HideAbilityInventory);
 
     }
