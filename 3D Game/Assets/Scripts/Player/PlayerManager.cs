@@ -95,6 +95,7 @@ public class PlayerManager : MonoBehaviour
         // wenn Ability nicht bezahlbar ist check Nachbarn
         if (abilityUsable == false)
         {
+            bool lost = true;
             foreach (Vector3Int neighbor in neighbors)
             {
                 try
@@ -104,18 +105,17 @@ public class PlayerManager : MonoBehaviour
                         GridManager.Instance.gS_Positive ||
                         GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].currentGridState ==
                         GridManager.Instance.gS_Neutral)
-                        break;
-
-                    // no positive/ neutral neighbors = GameOverScene
-                    else
                     {
-                        SceneManager.LoadScene("GameOverScene");
-                        player.transform.DOPunchRotation(new Vector3(10f, 2f), 1f);
+                        lost = false; break;
                     }
                 }
                 catch (Exception e)
                 {
                 }
+            }
+            if (lost)
+            {
+                SceneManager.LoadScene("GameOverScene");
             }
         }
 

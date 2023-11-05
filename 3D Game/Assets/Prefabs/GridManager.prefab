@@ -50,6 +50,8 @@ MonoBehaviour:
   gS_Negative: {fileID: 11400000, guid: 77ad9876c9ce60b4191ce44835e4631d, type: 2}
   gS_Enemy: {fileID: 11400000, guid: 6baa9e9818a2d4443819438b6579788a, type: 2}
   gS_Boss: {fileID: 11400000, guid: 9f8330aefe2318843bad86f99d876839, type: 2}
+  gS_BossNegative: {fileID: 11400000, guid: c718cad9d8e6ba542b6e1ee719ab955e, type: 2}
+  mapSettings: {fileID: 0}
   innerSize: 0.5
   outerSize: 1
   height: 0
@@ -67,8 +69,10 @@ MonoBehaviour:
   enemySOs:
   - {fileID: 11400000, guid: 624febcbbbfddfa4b9507611ba2f9bd1, type: 2}
   TurnCounter: 1
-  currentPhase: {fileID: 11400000, guid: 8c459dee471d3cb4c9ff117d3bbc02a7, type: 2}
+  currentPhase: {fileID: 0}
   phases:
+  - {fileID: 11400000, guid: 7009bdc355cc7684ea63bc92d6a1b537, type: 2}
   - {fileID: 11400000, guid: 8c459dee471d3cb4c9ff117d3bbc02a7, type: 2}
+  - {fileID: 11400000, guid: c9cf539afa54efa488b254a0f86a630c, type: 2}
   - {fileID: 11400000, guid: e91e6de84199b6641a2229fb69d4ab04, type: 2}
-  negativeBarFill: {fileID: 0}
+  mainCanvas: {fileID: 0}

@@ -30,6 +30,7 @@ public class AbilityObjScript : MonoBehaviour
     {
         castAbiltyInputActionReference.action.performed -= CastAbility;
         CancelAbilityInputActionReference.action.performed -= KillYourSelf;
+        rotationInputActionReference.action.performed -= rotateAbility;
     }
 
     public void ShowMesh(Ability ability, Vector3Int SpawnPoint, Vector3Int playerPos)
