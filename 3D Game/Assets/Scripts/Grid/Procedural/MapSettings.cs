@@ -34,6 +34,22 @@ public class MapSettings : ScriptableObject
 
     [SerializeField] private float Frequency;
 
+    [SerializeField] Vector2 noiseThresholds;
+
+    public Vector2 NoiseThresholds
+    {
+        get { return noiseThresholds; }
+        set { noiseThresholds = value; }
+    }
+
+    [SerializeField] float distanceThreshold;
+
+    public float DistanceThreshold
+    {
+        get { return distanceThreshold; }
+        set { distanceThreshold = value; }
+    }
+
 
     public Dictionary<Vector2Int, float> NoiseData(FastNoiseLite.NoiseType noiseType)
     {
@@ -41,15 +57,21 @@ public class MapSettings : ScriptableObject
         noise.SetFrequency(Frequency);
         noise.SetSeed(Random.Range(1000, 2000));
         Dictionary<Vector2Int, float> result = new Dictionary<Vector2Int, float>();
-        for (int x = 0; x < NoiseDataSize.x; x++)
+
+        List<Vector2Int> coordinates = HexGridUtil.GenerateRectangleShapedGrid(noiseDataSize.x, noiseDataSize.y);
+        foreach (Vector2Int c in coordinates)
         {
-            for (int y = 0; y < NoiseDataSize.y; y++)
-            {
-                result.Add(new Vector2Int(x, y), noise.GetNoise(x, y));
-            }
+            result.Add(c, noise.GetNoise(c.x, c.y));
         }
+
+        //for (int x = 0; x < NoiseDataSize.x; x++)
+        //{
+        //    for (int y = 0; y < NoiseDataSize.y; y++)
+        //    {
+        //        result.Add(new Vector2Int(x, y), noise.GetNoise(x, y));
+        //    }
+        //}
         return result;
     }
-
 
 }

@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8206b7937082734cad26d2f44a68075, type: 3}
   m_Name: MapSettings
   m_EditorClassIdentifier: 
-  noiseDataSize: {x: 35, y: 35}
-  noiseType1: 3
-  noiseType2: 3
-  Frequency: 0.6
+  noiseDataSize: {x: 30, y: 30}
+  noiseType1: 0
+  noiseType2: 0
+  Frequency: 0.08
+  noiseThresholds: {x: 0, y: 0.7}
+  distanceThreshold: 12

@@ -120,10 +120,11 @@ public class GridManager : MonoBehaviour
 
     public void TransferGridSOData()
     {
-        Grid = new Dictionary<Vector2Int, GridTile>();
+
 
         if (mapSettings == null)
         {
+            Grid = new Dictionary<Vector2Int, GridTile>();
             GridTile[] gridTiles = GetComponentsInChildren<GridTile>();
             foreach (GridTile tile in gridTiles)
             {
@@ -132,65 +133,74 @@ public class GridManager : MonoBehaviour
         }
         else
         {
-
-            if (Grid != null)
+            GridTile[] gridTiles = GetComponentsInChildren<GridTile>();
+            foreach (GridTile tile in gridTiles)
             {
-                foreach (KeyValuePair<Vector2Int, GridTile> kvp in Grid)
-                {
-                    Destroy(kvp.Value.gameObject);
-                }
+                Destroy(tile.gameObject);
             }
 
-
+            Grid = new Dictionary<Vector2Int, GridTile>();
 
             Vector2Int gridSize = mapSettings.NoiseDataSize;
             Dictionary<Vector2Int, float> gridNoise1 = mapSettings.NoiseData(mapSettings.NoiseType1);
             Dictionary<Vector2Int, float> gridNoise2 = mapSettings.NoiseData(mapSettings.NoiseType2);
-            for (int x = 0; x < gridSize.x; x++)
+
+            foreach (KeyValuePair<Vector2Int, float> kvp in gridNoise1)
             {
-                for (int y = 0; y < gridSize.y; y++)
+                Debug.Log(kvp.Value);
+                float noise1 = kvp.Value;
+                float noise2 = gridNoise2[kvp.Key];
+
+                if (noise1 > mapSettings.NoiseThresholds.y && noise2 > mapSettings.NoiseThresholds.y)
                 {
-                    float noise1 = Mathf.Abs(gridNoise1[new Vector2Int(x, y)]);
-                    float noise2 = Mathf.Abs(gridNoise2[new Vector2Int(x, y)]);
-                    Vector2Int coordinate = new Vector2Int(x, y);
-                    //Debug.Log($"noise1: {noise1}, noise2: {noise2} at {coordinate}");
-                    Ressource res;
-                    if (noise1 > 0.5f && noise2 >= 0.5f)
-                    {
-                        Debug.Log("i am blue because both these values are greater 0.5: " + noise1 + " and " + noise2);
-                        res = Ressource.ressourceA;
-                        // ressource a
-                    }
-                    else if (noise1 > .5f && noise2 < .5f)
-                    {
-                        res = Ressource.ressourceB;
-                        // ressource b
-                    }
-                    else if (noise1 <= .5f && noise2 >= .5f)
-                    {
-                        res = Ressource.ressourceC;
-                        // ressource c
-                    }
-                    else if (noise1 <= .5f && noise2 < .5f)
-                    {
-                        res = Ressource.resscoureD;
-                        //ressource d
-                    }
-                    else
-                    {
-                        res = Ressource.ressourceA;
-                    }
+                    continue;
+                }
+                else if (noise1 < mapSettings.NoiseThresholds.x && noise2 < mapSettings.NoiseThresholds.x)
+                {
+                    continue;
+                }
+                Vector2Int coordinate = kvp.Key;
+                float distance = HexGridUtil.CubeDistance(HexGridUtil.AxialToCubeCoord(coordinate), Vector3Int.zero);
 
-                    GridTile newTile = Instantiate(GridTilePrefab);
-                    newTile.Setup(coordinate, res);
-
-                    newTile.transform.parent = transform;
-                    newTile.transform.position = HexGridUtil.AxialHexToPixel(coordinate, 1);
-
-                    Grid.Add(coordinate, newTile);
+                if((Mathf.Abs(noise1)+ Mathf.Abs(noise2))*distance >= mapSettings.DistanceThreshold)
+                {
+                    continue;
                 }
 
+                //Debug.Log($"noise1: {noise1}, noise2: {noise2} at {coordinate}");
+                Ressource res;
+                if (noise1 > 0f && noise2 >= 0f)
+                {
+                    res = Ressource.ressourceA;
+                    // ressource a
+                }
+                else if (noise1 > 0f && noise2 < 0f)
+                {
+                    res = Ressource.ressourceB;
+                    // ressource b
+                }
+                else if (noise1 <= 0f && noise2 >= 0f)
+                {
+                    res = Ressource.ressourceC;
+                    // ressource c
+                }
+                else if (noise1 <= 0f && noise2 < 0f)
+                {
+                    res = Ressource.resscoureD;
+                    //ressource d
+                }
+                else
+                {
+                    res = Ressource.ressourceA;
+                }
 
+                GridTile newTile = Instantiate(GridTilePrefab);
+                newTile.Setup(coordinate, res);
+
+                newTile.transform.parent = transform;
+                newTile.transform.position = HexGridUtil.AxialHexToPixel(coordinate, 1);
+
+                Grid.Add(coordinate, newTile);
             }
         }
     }
