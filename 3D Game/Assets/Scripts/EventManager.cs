@@ -27,4 +27,12 @@ public class EventManager
     {
         OnConfirmButtonEvent?.Invoke();
     }
+
+    public delegate void AbilityButtonDelegate(int index);
+    public static event AbilityButtonDelegate OnAbilityButtonEvent;
+
+    public static void OnAbilityButtonClicked(int index)
+    {
+        OnAbilityButtonEvent?.Invoke(index);
+    }
 }

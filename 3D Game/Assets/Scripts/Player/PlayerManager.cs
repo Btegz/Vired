@@ -62,6 +62,7 @@ public class PlayerManager : MonoBehaviour
         playerPosition = PlayerSpawnPoint;
         player.transform.position = GridManager.Instance.Grid[PlayerSpawnPoint].transform.position;
         EventManager.OnEndTurnEvent += resetMovementPoints;
+        EventManager.OnAbilityButtonEvent += AbilityClicked;
     }
 
     private void OnDestroy()
