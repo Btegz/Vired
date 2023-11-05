@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Cryptography;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -141,28 +142,29 @@ public class GridManager : MonoBehaviour
 
             Grid = new Dictionary<Vector2Int, GridTile>();
 
-            Vector2Int gridSize = mapSettings.NoiseDataSize;
-            Dictionary<Vector2Int, float> gridNoise1 = mapSettings.NoiseData(mapSettings.NoiseType1);
-            Dictionary<Vector2Int, float> gridNoise2 = mapSettings.NoiseData(mapSettings.NoiseType2);
+            Dictionary<Vector2Int,Ressource> coordRessourceDict = new Dictionary<Vector2Int, Ressource>();
+            Dictionary<Vector2Int, float> mapNoise = mapSettings.NoiseData(mapSettings.M_NoiseType1,mapSettings.M_Frequency);
+            Dictionary<Vector2Int, float> gridNoise1 = mapSettings.NoiseData(mapSettings.NoiseType1,mapSettings.Frequency);
+            Dictionary<Vector2Int, float> gridNoise2 = mapSettings.NoiseData(mapSettings.NoiseType2, mapSettings.Frequency);
 
             foreach (KeyValuePair<Vector2Int, float> kvp in gridNoise1)
             {
-                Debug.Log(kvp.Value);
                 float noise1 = kvp.Value;
                 float noise2 = gridNoise2[kvp.Key];
+                float mapNoise1 = mapNoise[kvp.Key];
 
-                if (noise1 > mapSettings.NoiseThresholds.y && noise2 > mapSettings.NoiseThresholds.y)
+                if (/*noise1 > mapSettings.NoiseThresholds.y && noise2 > mapSettings.NoiseThresholds.y*/mapNoise1 > mapSettings.M_NoiseThresholds.y)
                 {
                     continue;
                 }
-                else if (noise1 < mapSettings.NoiseThresholds.x && noise2 < mapSettings.NoiseThresholds.x)
+                else if (/*noise1 < mapSettings.NoiseThresholds.x && noise2 < mapSettings.NoiseThresholds.x*/mapNoise1 < mapSettings.M_NoiseThresholds.x)
                 {
                     continue;
                 }
                 Vector2Int coordinate = kvp.Key;
                 float distance = HexGridUtil.CubeDistance(HexGridUtil.AxialToCubeCoord(coordinate), Vector3Int.zero);
 
-                if((Mathf.Abs(noise1)+ Mathf.Abs(noise2))*distance >= mapSettings.DistanceThreshold)
+                if (/*(Mathf.Abs(noise1) + Mathf.Abs(noise2))*/Mathf.Abs(mapNoise1) * distance >= mapSettings.M_DistanceThreshold)
                 {
                     continue;
                 }
@@ -193,14 +195,19 @@ public class GridManager : MonoBehaviour
                 {
                     res = Ressource.ressourceA;
                 }
+                coordRessourceDict.Add(coordinate,res);
+            }
 
+            List<Vector2Int> reachableCoords = HexGridUtil.CubeToAxialCoord(HexGridUtil.CoordinatesReachable(Vector3Int.zero, mapSettings.NoiseDataSize.x, HexGridUtil.AxialToCubeCoord(coordRessourceDict.Keys.ToList<Vector2Int>())));
+
+            foreach(Vector2Int coordinates in reachableCoords)
+            {
                 GridTile newTile = Instantiate(GridTilePrefab);
-                newTile.Setup(coordinate, res);
-
+                newTile.Setup(coordinates, coordRessourceDict[coordinates]);
                 newTile.transform.parent = transform;
-                newTile.transform.position = HexGridUtil.AxialHexToPixel(coordinate, 1);
+                newTile.transform.position = HexGridUtil.AxialHexToPixel(coordinates, 1);
 
-                Grid.Add(coordinate, newTile);
+                Grid.Add(coordinates, newTile);
             }
         }
     }

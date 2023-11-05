@@ -297,7 +297,7 @@ public static class HexGridUtil
     /// <param name="startCoord">start of the search</param>
     /// <param name="range">how far do you want to go?</param>
     /// <returns>List of coordinates reachable from center within range that are not blocked</returns>
-    public static List<Vector3Int> CoordinatesReachable(Vector3Int startCoord, int range)
+    public static List<Vector3Int> CoordinatesReachable(Vector3Int startCoord, int range,List<Vector3Int> grid)
     {
         // List of coordinates "visited" by the search
         List<Vector3Int> visited = new List<Vector3Int>
@@ -326,7 +326,7 @@ public static class HexGridUtil
                 foreach (Vector3Int neighbor in CubeNeighbors(hex))
                 {
                     // check, whether we have it visited already and whether it is blocked.
-                    if (!visited.Contains(neighbor) /*&& IS NOT BLOCKED*/)
+                    if (!visited.Contains(neighbor) && grid.Contains(neighbor))
                     {
                         //Add it to visited, since it is reachable
                         visited.Add(neighbor);

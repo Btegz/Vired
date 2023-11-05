@@ -8,6 +8,7 @@ public class MapSettings : ScriptableObject
 {
     FastNoiseLite noise = new FastNoiseLite();
 
+    [Header("Ressource Noise Settings")]
     [SerializeField] private Vector2Int noiseDataSize;
 
     public Vector2Int NoiseDataSize
@@ -32,7 +33,12 @@ public class MapSettings : ScriptableObject
         set { noiseType2 = value; }
     }
 
-    [SerializeField] private float Frequency;
+    [SerializeField] private float frequency; 
+    public float Frequency
+    {
+        get { return frequency; }
+        set { frequency = value; }
+    }
 
     [SerializeField] Vector2 noiseThresholds;
 
@@ -51,10 +57,10 @@ public class MapSettings : ScriptableObject
     }
 
 
-    public Dictionary<Vector2Int, float> NoiseData(FastNoiseLite.NoiseType noiseType)
+    public Dictionary<Vector2Int, float> NoiseData(FastNoiseLite.NoiseType noiseType,float frequency)
     {
         noise.SetNoiseType(noiseType);
-        noise.SetFrequency(Frequency);
+        noise.SetFrequency(frequency);
         noise.SetSeed(Random.Range(1000, 2000));
         Dictionary<Vector2Int, float> result = new Dictionary<Vector2Int, float>();
 
@@ -72,6 +78,56 @@ public class MapSettings : ScriptableObject
         //    }
         //}
         return result;
+    }
+
+    [Header("World-Shape Noise Settings")]
+
+    [SerializeField] private Vector2Int m_noiseDataSize;
+
+    public Vector2Int M_NoiseDataSize
+    {
+        get { return m_noiseDataSize; }
+        set { m_noiseDataSize = value; }
+    }
+
+    [SerializeField] private FastNoiseLite.NoiseType m_noiseType1;
+
+    public FastNoiseLite.NoiseType M_NoiseType1
+    {
+        get { return m_noiseType1; }
+        set { m_noiseType1 = value; }
+    }
+
+    [SerializeField] private FastNoiseLite.NoiseType m_noiseType2;
+
+    public FastNoiseLite.NoiseType M_NoiseType2
+    {
+        get { return m_noiseType2; }
+        set { m_noiseType2 = value; }
+    }
+
+    [SerializeField] private float m_frequency;
+
+    public float M_Frequency
+    {
+        get { return m_frequency; }
+        set { m_frequency = value; }
+    }
+
+    [SerializeField] Vector2 m_noiseThresholds;
+
+    public Vector2 M_NoiseThresholds
+    {
+        get { return m_noiseThresholds; }
+        set { m_noiseThresholds = value; }
+    }
+
+    [SerializeField] float m_distanceThreshold;
+
+    public float M_DistanceThreshold
+    {
+        get { return m_distanceThreshold; }
+        set { m_distanceThreshold = value; }
     }
 
 }
