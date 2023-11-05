@@ -1345,6 +1345,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7721379057968283833, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 11.593018
+      objectReference: {fileID: 0}
     - target: {fileID: 7721379058129484394, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0
@@ -1604,6 +1608,7 @@ MonoBehaviour:
   - {fileID: 1001394157}
   - {fileID: 813588030}
   - {fileID: 1825301632}
+  movementPointsPerTurn: 4
   player: {fileID: 279237420}
   cam: {fileID: 652675123}
   PlayerSpawnPoint: {x: 0, y: 0}
@@ -1613,7 +1618,6 @@ MonoBehaviour:
   RessourceBInventory: 0
   RessourceCInventory: 0
   RessourceDInventory: 0
-  AbilityCastParticleSystem: {fileID: 7319323730482922668, guid: aaf4640fd26069f419b170346c490e61, type: 3}
   cancelAbilityInputActionReference: {fileID: 2201862511427077551, guid: 26454fd94e486c84595f431522cf20cf, type: 3}
 --- !u!4 &2032763746
 Transform:

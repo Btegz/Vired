@@ -23,15 +23,14 @@ public class PlayerManager : MonoBehaviour
     //MovePointsDoTween MovePointsDoTween;
 
 
+    [SerializeField] int movementPointsPerTurn;
     private int movementAction = 4;
     private Vector3 mouse_pos;
     public GameObject player;
     public Camera cam;
     public Vector2Int PlayerSpawnPoint;
     public Vector2Int collisionPoint;
-    private Vector3 Point;
     public Vector2Int playerPosition;
-    private Vector3Int selectedPoint;
 
     public int RessourceAInventory;
     public int RessourceBInventory;
@@ -41,7 +40,7 @@ public class PlayerManager : MonoBehaviour
     bool abilityActivated = false;
     private bool abilityUsable = true;
 
-    [SerializeField] ParticleSystem AbilityCastParticleSystem;
+    //[SerializeField] ParticleSystem AbilityCastParticleSystem;
 
     [SerializeField] InputActionReference cancelAbilityInputActionReference;
 
@@ -209,7 +208,7 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     public void resetMovementPoints()
     {
-        movementAction = 4;
+        movementAction = movementPointsPerTurn;
 
         foreach (GameObject mp in MovePoints)
         {

@@ -64,7 +64,7 @@ public class AbilityLoadout : MonoBehaviour
     {
         if (ChosenAbilityList.Count < amountToChoose)
         {
-            abilityLoadoutButton.transform.parent = ChosenAbilitiesLayout.transform;
+            abilityLoadoutButton.transform.SetParent(ChosenAbilitiesLayout.transform);
             ChosenAbilityList.Add(abilityLoadoutButton.ability);
             if (ChosenAbilityList.Count == amountToChoose)
             {
