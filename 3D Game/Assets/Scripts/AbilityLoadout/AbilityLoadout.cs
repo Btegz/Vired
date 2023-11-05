@@ -27,6 +27,19 @@ public class AbilityLoadout : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PlayerManager.Instance.AbilityLoadoutActive = true;
+        if(PlayerManager.Instance.abilitInventory.Count > 0)
+        {
+            ChosenAbilityList = PlayerManager.Instance.abilitInventory;
+            foreach (Ability ability in ChosenAbilityList)
+            {
+                abilityCollection.Remove(ability);
+                AbilityLoadoutButton button = Instantiate(abloadoutButton, ChosenAbilitiesLayout.transform);
+                button.Setup(ability, this);
+                button.GetComponent<Button>().enabled = false;
+            }
+        }
+
         AbilityLoadoutButton instance;
         foreach (Ability ability in abilityCollection)
         {
@@ -54,17 +67,12 @@ public class AbilityLoadout : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void AddAbilityChoice(AbilityLoadoutButton abilityLoadoutButton)
     {
         if (ChosenAbilityList.Count < amountToChoose)
         {
             abilityLoadoutButton.transform.SetParent(ChosenAbilitiesLayout.transform);
+            abilityLoadoutButton.GetComponent<Button>().enabled = false;
             ChosenAbilityList.Add(abilityLoadoutButton.ability);
             if (ChosenAbilityList.Count == amountToChoose)
             {
@@ -75,6 +83,7 @@ public class AbilityLoadout : MonoBehaviour
 
     public void AbilityLoadoutConfirmed()
     {
+        PlayerManager.Instance.AbilityLoadoutActive = false;
         PlayerManager.Instance.abilitInventory.AddRange(ChosenAbilityList);
         EventManager.OnConfirmButton();
         Destroy(gameObject);

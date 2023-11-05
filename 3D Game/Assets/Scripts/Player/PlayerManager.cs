@@ -40,6 +40,8 @@ public class PlayerManager : MonoBehaviour
     bool abilityActivated = false;
     private bool abilityUsable = true;
 
+    public bool AbilityLoadoutActive;
+
     //[SerializeField] ParticleSystem AbilityCastParticleSystem;
 
     [SerializeField] InputActionReference cancelAbilityInputActionReference;
@@ -71,82 +73,86 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        // takes mouse positition
-        mouse_pos = Mouse.current.position.ReadValue();
-        // Searches for the Nieghbors of playerposition
-        List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(playerPosition));
-        
-        // Lose Condition: surrounded by enemies/ no ressources 
-        for (int i = 0; i < abilitInventory.Count; i++)
+        if (!AbilityLoadoutActive)
         {
-            //check ob Ability bezahlbar ist 
-            if (InventoryCheck(i))
+
+            // takes mouse positition
+            mouse_pos = Mouse.current.position.ReadValue();
+            // Searches for the Nieghbors of playerposition
+            List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(playerPosition));
+
+            // Lose Condition: surrounded by enemies/ no ressources 
+            for (int i = 0; i < abilitInventory.Count; i++)
             {
-                abilityUsable = true;
-                break;
+                //check ob Ability bezahlbar ist 
+                if (InventoryCheck(i))
+                {
+                    abilityUsable = true;
+                    break;
+                }
+
+                else
+                {
+                    abilityUsable = false;
+                }
             }
 
-            else
+            // wenn Ability nicht bezahlbar ist check Nachbarn
+            if (abilityUsable == false)
             {
-                abilityUsable = false;
-            }
-        }
-
-        // wenn Ability nicht bezahlbar ist check Nachbarn
-        if (abilityUsable == false)
-        {
-            bool lost = true;
-            foreach (Vector3Int neighbor in neighbors)
-            {
-                try
-                {   
-                    //  checks player neighbors for neutral/ positive grids
-                    if (GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].currentGridState ==
-                        GridManager.Instance.gS_Positive ||
-                        GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].currentGridState ==
-                        GridManager.Instance.gS_Neutral)
+                bool lost = true;
+                foreach (Vector3Int neighbor in neighbors)
+                {
+                    try
                     {
-                        lost = false; break;
+                        //  checks player neighbors for neutral/ positive grids
+                        if (GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].currentGridState ==
+                            GridManager.Instance.gS_Positive ||
+                            GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].currentGridState ==
+                            GridManager.Instance.gS_Neutral)
+                        {
+                            lost = false; break;
+                        }
+                    }
+                    catch (Exception e)
+                    {
                     }
                 }
-                catch (Exception e)
+                if (lost)
                 {
+                    SceneManager.LoadScene("GameOverScene");
                 }
             }
-            if (lost)
+
+            if (movementAction == 0 && Mouse.current.leftButton.wasPressedThisFrame)
             {
-                SceneManager.LoadScene("GameOverScene");
+                Debug.Log("ich schüttle mich");
+                player.transform.DOPunchRotation(new Vector3(10f, 2f), 1f);
+
             }
-        }
 
-        if (movementAction == 0 && Mouse.current.leftButton.wasPressedThisFrame)
-        {
-            Debug.Log("ich schüttle mich");
-            player.transform.DOPunchRotation(new Vector3(10f, 2f), 1f);
-          
-        }
-
-        // enters if Left Mouse Button was clicked
-        if (Mouse.current.leftButton.wasPressedThisFrame)
-        {
-            // checks whether movement points are available or if a Ability is activated
-            if (movementAction > 0 || abilityActivated)
+            // enters if Left Mouse Button was clicked
+            if (Mouse.current.leftButton.wasPressedThisFrame)
             {
-                // saves the Grid Tile Location that was clicked
-                Vector2Int clickedTile;
-
-                // enters if a tile was clicked
-                if (MouseCursorPosition(out clickedTile))
+                // checks whether movement points are available or if a Ability is activated
+                if (movementAction > 0 || abilityActivated)
                 {
-                    // enters if Players Neighbors contains the clicked Tile
-                    if (neighbors.Contains(HexGridUtil.AxialToCubeCoord(clickedTile)) && !abilityActivated)
-                    {
-                        if (GridManager.Instance.Grid[clickedTile].currentGridState ==
-                            GridManager.Instance.gS_Positive ||
-                            GridManager.Instance.Grid[clickedTile].currentGridState ==
-                            GridManager.Instance.gS_Neutral)
+                    // saves the Grid Tile Location that was clicked
+                    Vector2Int clickedTile;
 
-                            StartCoroutine(Move(clickedTile));
+                    // enters if a tile was clicked
+                    if (MouseCursorPosition(out clickedTile))
+                    {
+                        // enters if Players Neighbors contains the clicked Tile
+                        if (neighbors.Contains(HexGridUtil.AxialToCubeCoord(clickedTile)) && !abilityActivated)
+                        {
+                            if (GridManager.Instance.Grid[clickedTile].currentGridState ==
+                                GridManager.Instance.gS_Positive ||
+                                GridManager.Instance.Grid[clickedTile].currentGridState ==
+                                GridManager.Instance.gS_Neutral)
+
+                                StartCoroutine(Move(clickedTile));
+                        }
                     }
                 }
             }
@@ -191,8 +197,8 @@ public class PlayerManager : MonoBehaviour
         player.transform.DOPunchScale(Vector3.one * .1f, .25f).OnComplete(landingCloud.Play);
         movementAction--;
 
-        
-            
+
+
 
         MovePoints[movementAction].GetComponent<MovePointsDoTween>().Away();
         //MovePoints[movementAction].SetActive(false);
