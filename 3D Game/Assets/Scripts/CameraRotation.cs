@@ -13,12 +13,15 @@ public class CameraRotation : MonoBehaviour
     [SerializeField] Camera cam;
 
     [SerializeField] float rotationSpeed = 500;
-    [SerializeField] float movementSpeed = 50;
+    [SerializeField] float maxMovementSpeed = 50;
+    [SerializeField] private float minMovementSpeed = 5f;
     [SerializeField] private float speedAdaption = 0.2f;
+   
     
     [SerializeField] Vector3 endPosition;
 
     private float mouseScrollY;
+    private float startMovementSpeed;
      
     private Coroutine rotationCoroutine;
     private Coroutine movementCoroutine;
@@ -47,6 +50,7 @@ public class CameraRotation : MonoBehaviour
     void Start()
     {
         startingPosition = gameObject.transform.GetChild(0).transform.localPosition;
+        startMovementSpeed = maxMovementSpeed;
     }
     
     void StopRotato(InputAction.CallbackContext obj)
@@ -78,7 +82,7 @@ public class CameraRotation : MonoBehaviour
         if (mouseScrollY > 0 )
         {  
             gameObject.transform.GetChild(0).transform.localPosition = Vector3.Lerp(camPosition, endPosition, mouseScrollY * Time.deltaTime );
-            movementSpeed = (movementSpeed * (1 - speedAdaption))+1;        
+            maxMovementSpeed = Mathf.Lerp(maxMovementSpeed, 5, mouseScrollY * Time.deltaTime);
         }
       
         /// Zoom -
@@ -86,8 +90,7 @@ public class CameraRotation : MonoBehaviour
         if (mouseScrollY < 0)
         {
             gameObject.transform.GetChild(0).transform.localPosition = Vector3.Lerp(startingPosition,camPosition, ((mouseScrollY * Time.deltaTime )+1));
-            movementSpeed = (movementSpeed * (1 + speedAdaption))+1;
-        }
+            maxMovementSpeed = Mathf.Lerp(startMovementSpeed,maxMovementSpeed, ((mouseScrollY * Time.deltaTime)+1));        }
     }
     
     /// <summary>
@@ -117,7 +120,7 @@ public class CameraRotation : MonoBehaviour
         while (true)
         {
             Vector3 currentMousePosition = Pointer.current.position.ReadValue();
-            gameObject.transform.GetChild(0).transform.localPosition += new Vector3((-(currentMousePosition - previousMousePosition).x / Screen.width) * movementSpeed, transform.localPosition.y,((-(currentMousePosition - previousMousePosition).y / Screen.width) * movementSpeed));
+            gameObject.transform.GetChild(0).transform.localPosition += new Vector3((-(currentMousePosition - previousMousePosition).x / Screen.width) * maxMovementSpeed, transform.localPosition.y,((-(currentMousePosition - previousMousePosition).y / Screen.width) * maxMovementSpeed));
             previousMousePosition = currentMousePosition;
             yield return null;
         }
