@@ -22,6 +22,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] List<Button> abilityButtons;
 
+    [SerializeField] Sprite emptyAbilitySlotSprite;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,7 +46,7 @@ public class UIManager : MonoBehaviour
                 }
                 else
                 {
-                    abilityButtons[i].image.sprite = null;
+                    abilityButtons[i].image.sprite = emptyAbilitySlotSprite;
                 }
             }
         }
@@ -88,7 +90,7 @@ public class UIManager : MonoBehaviour
     {
         AbilitiesInventoryButton.onClick.RemoveListener(ExpandAbilityInventory);
 
-        AbilitiesInventory.GetComponent<RectTransform>().DOAnchorPosY(230, 1);
+        AbilitiesInventory.GetComponent<RectTransform>().DOAnchorPosY(280, 1);
         AbilitiesInventoryButton.onClick.AddListener(HideAbilityInventory);
 
     }

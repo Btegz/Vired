@@ -47,6 +47,7 @@ public class GridManager : MonoBehaviour
     [Header("Enemy Ressources")]
     [SerializeField] public Enemy enemyPrefab;
     [SerializeField] public List<EnemySO> enemySOs;
+    [SerializeField] public EnemySO BossEnemySO;
     [SerializeField] public Enemy BossPrefab;
 
     [Header("Phases")]
@@ -230,6 +231,7 @@ public class GridManager : MonoBehaviour
             }
         }
         Enemy Boss = Instantiate(BossPrefab);
+        Boss.Setup(BossEnemySO, Grid[maxX]);
         Boss.transform.parent = Grid[maxX].transform;
         Boss.transform.position = Grid[maxX].transform.position;
         Grid[maxX].ChangeCurrentState(gS_Boss);
