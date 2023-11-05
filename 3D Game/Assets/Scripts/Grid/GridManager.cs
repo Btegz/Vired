@@ -47,6 +47,7 @@ public class GridManager : MonoBehaviour
     [Header("Enemy Ressources")]
     [SerializeField] public Enemy enemyPrefab;
     [SerializeField] public List<EnemySO> enemySOs;
+    [SerializeField] public Enemy BossPrefab;
 
     [Header("Phases")]
     [SerializeField] public int TurnCounter;
@@ -142,9 +143,9 @@ public class GridManager : MonoBehaviour
 
             Grid = new Dictionary<Vector2Int, GridTile>();
 
-            Dictionary<Vector2Int,Ressource> coordRessourceDict = new Dictionary<Vector2Int, Ressource>();
-            Dictionary<Vector2Int, float> mapNoise = mapSettings.NoiseData(mapSettings.M_NoiseType1,mapSettings.M_Frequency);
-            Dictionary<Vector2Int, float> gridNoise1 = mapSettings.NoiseData(mapSettings.NoiseType1,mapSettings.Frequency);
+            Dictionary<Vector2Int, Ressource> coordRessourceDict = new Dictionary<Vector2Int, Ressource>();
+            Dictionary<Vector2Int, float> mapNoise = mapSettings.NoiseData(mapSettings.M_NoiseType1, mapSettings.M_Frequency);
+            Dictionary<Vector2Int, float> gridNoise1 = mapSettings.NoiseData(mapSettings.NoiseType1, mapSettings.Frequency);
             Dictionary<Vector2Int, float> gridNoise2 = mapSettings.NoiseData(mapSettings.NoiseType2, mapSettings.Frequency);
 
             foreach (KeyValuePair<Vector2Int, float> kvp in gridNoise1)
@@ -195,12 +196,12 @@ public class GridManager : MonoBehaviour
                 {
                     res = Ressource.ressourceA;
                 }
-                coordRessourceDict.Add(coordinate,res);
+                coordRessourceDict.Add(coordinate, res);
             }
 
             List<Vector2Int> reachableCoords = HexGridUtil.CubeToAxialCoord(HexGridUtil.CoordinatesReachable(Vector3Int.zero, mapSettings.NoiseDataSize.x, HexGridUtil.AxialToCubeCoord(coordRessourceDict.Keys.ToList<Vector2Int>())));
 
-            foreach(Vector2Int coordinates in reachableCoords)
+            foreach (Vector2Int coordinates in reachableCoords)
             {
                 GridTile newTile = Instantiate(GridTilePrefab);
                 newTile.Setup(coordinates, coordRessourceDict[coordinates]);
@@ -210,6 +211,30 @@ public class GridManager : MonoBehaviour
                 Grid.Add(coordinates, newTile);
             }
         }
+        SpawnBossAndPlayer();
+    }
+
+    private void SpawnBossAndPlayer()
+    {
+        Vector2Int maxX = new Vector2Int();
+        Vector2Int minX = new Vector2Int();
+        foreach (KeyValuePair<Vector2Int, GridTile> kvp in Grid)
+        {
+            if (kvp.Key.x > maxX.x)
+            {
+                maxX = kvp.Key;
+            }
+            if (kvp.Key.x < minX.x)
+            {
+                minX = kvp.Key;
+            }
+        }
+        Enemy Boss = Instantiate(BossPrefab);
+        Boss.transform.parent = Grid[maxX].transform;
+        Boss.transform.position = Grid[maxX].transform.position;
+        Grid[maxX].ChangeCurrentState(gS_Boss);
+
+        PlayerManager.Instance.PlayerSpawnPoint = minX;
     }
 
     /// <summary>
