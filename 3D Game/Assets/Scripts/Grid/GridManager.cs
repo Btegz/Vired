@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Cryptography;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -120,10 +121,11 @@ public class GridManager : MonoBehaviour
 
     public void TransferGridSOData()
     {
-        Grid = new Dictionary<Vector2Int, GridTile>();
+
 
         if (mapSettings == null)
         {
+            Grid = new Dictionary<Vector2Int, GridTile>();
             GridTile[] gridTiles = GetComponentsInChildren<GridTile>();
             foreach (GridTile tile in gridTiles)
             {
@@ -132,65 +134,80 @@ public class GridManager : MonoBehaviour
         }
         else
         {
-
-            if (Grid != null)
+            GridTile[] gridTiles = GetComponentsInChildren<GridTile>();
+            foreach (GridTile tile in gridTiles)
             {
-                foreach (KeyValuePair<Vector2Int, GridTile> kvp in Grid)
-                {
-                    Destroy(kvp.Value.gameObject);
-                }
+                Destroy(tile.gameObject);
             }
 
+            Grid = new Dictionary<Vector2Int, GridTile>();
 
+            Dictionary<Vector2Int,Ressource> coordRessourceDict = new Dictionary<Vector2Int, Ressource>();
+            Dictionary<Vector2Int, float> mapNoise = mapSettings.NoiseData(mapSettings.M_NoiseType1,mapSettings.M_Frequency);
+            Dictionary<Vector2Int, float> gridNoise1 = mapSettings.NoiseData(mapSettings.NoiseType1,mapSettings.Frequency);
+            Dictionary<Vector2Int, float> gridNoise2 = mapSettings.NoiseData(mapSettings.NoiseType2, mapSettings.Frequency);
 
-            Vector2Int gridSize = mapSettings.NoiseDataSize;
-            Dictionary<Vector2Int, float> gridNoise1 = mapSettings.NoiseData(mapSettings.NoiseType1);
-            Dictionary<Vector2Int, float> gridNoise2 = mapSettings.NoiseData(mapSettings.NoiseType2);
-            for (int x = 0; x < gridSize.x; x++)
+            foreach (KeyValuePair<Vector2Int, float> kvp in gridNoise1)
             {
-                for (int y = 0; y < gridSize.y; y++)
+                float noise1 = kvp.Value;
+                float noise2 = gridNoise2[kvp.Key];
+                float mapNoise1 = mapNoise[kvp.Key];
+
+                if (/*noise1 > mapSettings.NoiseThresholds.y && noise2 > mapSettings.NoiseThresholds.y*/mapNoise1 > mapSettings.M_NoiseThresholds.y)
                 {
-                    float noise1 = Mathf.Abs(gridNoise1[new Vector2Int(x, y)]);
-                    float noise2 = Mathf.Abs(gridNoise2[new Vector2Int(x, y)]);
-                    Vector2Int coordinate = new Vector2Int(x, y);
-                    //Debug.Log($"noise1: {noise1}, noise2: {noise2} at {coordinate}");
-                    Ressource res;
-                    if (noise1 > 0.5f && noise2 >= 0.5f)
-                    {
-                        Debug.Log("i am blue because both these values are greater 0.5: " + noise1 + " and " + noise2);
-                        res = Ressource.ressourceA;
-                        // ressource a
-                    }
-                    else if (noise1 > .5f && noise2 < .5f)
-                    {
-                        res = Ressource.ressourceB;
-                        // ressource b
-                    }
-                    else if (noise1 <= .5f && noise2 >= .5f)
-                    {
-                        res = Ressource.ressourceC;
-                        // ressource c
-                    }
-                    else if (noise1 <= .5f && noise2 < .5f)
-                    {
-                        res = Ressource.resscoureD;
-                        //ressource d
-                    }
-                    else
-                    {
-                        res = Ressource.ressourceA;
-                    }
+                    continue;
+                }
+                else if (/*noise1 < mapSettings.NoiseThresholds.x && noise2 < mapSettings.NoiseThresholds.x*/mapNoise1 < mapSettings.M_NoiseThresholds.x)
+                {
+                    continue;
+                }
+                Vector2Int coordinate = kvp.Key;
+                float distance = HexGridUtil.CubeDistance(HexGridUtil.AxialToCubeCoord(coordinate), Vector3Int.zero);
 
-                    GridTile newTile = Instantiate(GridTilePrefab);
-                    newTile.Setup(coordinate, res);
-
-                    newTile.transform.parent = transform;
-                    newTile.transform.position = HexGridUtil.AxialHexToPixel(coordinate, 1);
-
-                    Grid.Add(coordinate, newTile);
+                if (/*(Mathf.Abs(noise1) + Mathf.Abs(noise2))*/Mathf.Abs(mapNoise1) * distance >= mapSettings.M_DistanceThreshold)
+                {
+                    continue;
                 }
 
+                //Debug.Log($"noise1: {noise1}, noise2: {noise2} at {coordinate}");
+                Ressource res;
+                if (noise1 > 0f && noise2 >= 0f)
+                {
+                    res = Ressource.ressourceA;
+                    // ressource a
+                }
+                else if (noise1 > 0f && noise2 < 0f)
+                {
+                    res = Ressource.ressourceB;
+                    // ressource b
+                }
+                else if (noise1 <= 0f && noise2 >= 0f)
+                {
+                    res = Ressource.ressourceC;
+                    // ressource c
+                }
+                else if (noise1 <= 0f && noise2 < 0f)
+                {
+                    res = Ressource.resscoureD;
+                    //ressource d
+                }
+                else
+                {
+                    res = Ressource.ressourceA;
+                }
+                coordRessourceDict.Add(coordinate,res);
+            }
 
+            List<Vector2Int> reachableCoords = HexGridUtil.CubeToAxialCoord(HexGridUtil.CoordinatesReachable(Vector3Int.zero, mapSettings.NoiseDataSize.x, HexGridUtil.AxialToCubeCoord(coordRessourceDict.Keys.ToList<Vector2Int>())));
+
+            foreach(Vector2Int coordinates in reachableCoords)
+            {
+                GridTile newTile = Instantiate(GridTilePrefab);
+                newTile.Setup(coordinates, coordRessourceDict[coordinates]);
+                newTile.transform.parent = transform;
+                newTile.transform.position = HexGridUtil.AxialHexToPixel(coordinates, 1);
+
+                Grid.Add(coordinates, newTile);
             }
         }
     }

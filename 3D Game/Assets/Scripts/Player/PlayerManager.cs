@@ -23,15 +23,14 @@ public class PlayerManager : MonoBehaviour
     //MovePointsDoTween MovePointsDoTween;
 
 
+    [SerializeField] int movementPointsPerTurn;
     private int movementAction = 4;
     private Vector3 mouse_pos;
     public GameObject player;
     public Camera cam;
     public Vector2Int PlayerSpawnPoint;
     public Vector2Int collisionPoint;
-    private Vector3 Point;
     public Vector2Int playerPosition;
-    private Vector3Int selectedPoint;
 
     public int RessourceAInventory;
     public int RessourceBInventory;
@@ -41,7 +40,7 @@ public class PlayerManager : MonoBehaviour
     bool abilityActivated = false;
     private bool abilityUsable = true;
 
-    [SerializeField] ParticleSystem AbilityCastParticleSystem;
+    //[SerializeField] ParticleSystem AbilityCastParticleSystem;
 
     [SerializeField] InputActionReference cancelAbilityInputActionReference;
 
@@ -62,6 +61,7 @@ public class PlayerManager : MonoBehaviour
         playerPosition = PlayerSpawnPoint;
         player.transform.position = GridManager.Instance.Grid[PlayerSpawnPoint].transform.position;
         EventManager.OnEndTurnEvent += resetMovementPoints;
+        EventManager.OnAbilityButtonEvent += AbilityClicked;
     }
 
     private void OnDestroy()
@@ -95,6 +95,7 @@ public class PlayerManager : MonoBehaviour
         // wenn Ability nicht bezahlbar ist check Nachbarn
         if (abilityUsable == false)
         {
+            bool lost = true;
             foreach (Vector3Int neighbor in neighbors)
             {
                 try
@@ -104,18 +105,17 @@ public class PlayerManager : MonoBehaviour
                         GridManager.Instance.gS_Positive ||
                         GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].currentGridState ==
                         GridManager.Instance.gS_Neutral)
-                        break;
-
-                    // no positive/ neutral neighbors = GameOverScene
-                    else
                     {
-                        SceneManager.LoadScene("GameOverScene");
-                        player.transform.DOPunchRotation(new Vector3(10f, 2f), 1f);
+                        lost = false; break;
                     }
                 }
                 catch (Exception e)
                 {
                 }
+            }
+            if (lost)
+            {
+                SceneManager.LoadScene("GameOverScene");
             }
         }
 
@@ -208,7 +208,7 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     public void resetMovementPoints()
     {
-        movementAction = 4;
+        movementAction = movementPointsPerTurn;
 
         foreach (GameObject mp in MovePoints)
         {

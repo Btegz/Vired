@@ -7684,17 +7684,6 @@ Transform:
   m_Father: {fileID: 919866852}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 20, y: 0, z: 0}
---- !u!114 &654068422 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7721379056904406131, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
-  m_PrefabInstance: {fileID: 1013245897}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &658995619
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11511,34 +11500,6 @@ PrefabInstance:
       propertyPath: mainCanvas
       value: 
       objectReference: {fileID: 820957795}
-    - target: {fileID: 6993991225135169736, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
-      propertyPath: currentPhase
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6993991225135169736, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
-      propertyPath: gS_BossNegative
-      value: 
-      objectReference: {fileID: 11400000, guid: c718cad9d8e6ba542b6e1ee719ab955e, type: 2}
-    - target: {fileID: 6993991225135169736, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
-      propertyPath: negativeBarFill
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6993991225135169736, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
-      propertyPath: phases.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6993991225135169736, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
-      propertyPath: phases.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 7009bdc355cc7684ea63bc92d6a1b537, type: 2}
-    - target: {fileID: 6993991225135169736, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
-      propertyPath: phases.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 8c459dee471d3cb4c9ff117d3bbc02a7, type: 2}
-    - target: {fileID: 6993991225135169736, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
-      propertyPath: phases.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: e91e6de84199b6641a2229fb69d4ab04, type: 2}
     - target: {fileID: 6993991225135169737, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
       propertyPath: m_Name
       value: GridManager
@@ -12960,19 +12921,19 @@ PrefabInstance:
     - target: {fileID: 7721379056699693291, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
       propertyPath: abilityButtons.Array.data[1]
       value: 
-      objectReference: {fileID: 2056002747}
+      objectReference: {fileID: 0}
     - target: {fileID: 7721379056699693291, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
       propertyPath: abilityButtons.Array.data[2]
       value: 
-      objectReference: {fileID: 1442990938}
+      objectReference: {fileID: 0}
     - target: {fileID: 7721379056699693291, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
       propertyPath: abilityButtons.Array.data[3]
       value: 
-      objectReference: {fileID: 1252428531}
+      objectReference: {fileID: 0}
     - target: {fileID: 7721379056699693291, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
       propertyPath: abilityButtons.Array.data[4]
       value: 
-      objectReference: {fileID: 654068422}
+      objectReference: {fileID: 0}
     - target: {fileID: 7721379056699693292, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
       propertyPath: m_UiScaleMode
       value: 0
@@ -15764,17 +15725,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!114 &1252428531 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7721379056589199530, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
-  m_PrefabInstance: {fileID: 1013245897}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!23 &1261685810 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 8058411163812965884, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
@@ -17538,17 +17488,6 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 8058411163812965884, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
   m_PrefabInstance: {fileID: 822793351}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1442990938 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7721379057766568466, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
-  m_PrefabInstance: {fileID: 1013245897}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!23 &1450997150 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 8058411163812965884, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
@@ -23616,6 +23555,7 @@ MonoBehaviour:
   - {fileID: 1001394157}
   - {fileID: 813588030}
   - {fileID: 1825301632}
+  movementPointsPerTurn: 4
   player: {fileID: 279237420}
   cam: {fileID: 652675123}
   PlayerSpawnPoint: {x: 2, y: -7}
@@ -23625,7 +23565,6 @@ MonoBehaviour:
   RessourceBInventory: 0
   RessourceCInventory: 0
   RessourceDInventory: 0
-  AbilityCastParticleSystem: {fileID: 7319323730482922668, guid: aaf4640fd26069f419b170346c490e61, type: 3}
   cancelAbilityInputActionReference: {fileID: 2201862511427077551, guid: 26454fd94e486c84595f431522cf20cf, type: 3}
 --- !u!4 &2032763746
 Transform:
@@ -23806,17 +23745,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!114 &2056002747 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7721379058129484394, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
-  m_PrefabInstance: {fileID: 1013245897}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2067677960
 PrefabInstance:
   m_ObjectHideFlags: 0

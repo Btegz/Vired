@@ -1172,7 +1172,6 @@ MonoBehaviour:
   RedAbilityLayout: {fileID: 4472225010259340352}
   GreenAbilityLayout: {fileID: 4472225011279965843}
   ConfirmButton: {fileID: 2891272345314709494}
-  mainGameCanvas: {fileID: 0}
 --- !u!1 &8702207893230839534
 GameObject:
   m_ObjectHideFlags: 0
@@ -1365,6 +1364,7 @@ GameObject:
   - component: {fileID: 7932377382751484523}
   - component: {fileID: 5613519190538631975}
   - component: {fileID: 1012731054436319183}
+  - component: {fileID: 2628580030131267426}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -1431,3 +1431,29 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!61 &2628580030131267426
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9165163621548197491}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0

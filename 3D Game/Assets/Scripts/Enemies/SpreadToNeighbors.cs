@@ -29,13 +29,11 @@ public class SpreadToNeighbors : Spreadbehaviours
             }
             catch (Exception e)
             {
-                Debug.Log("Tile not valid");
             }
         }
 
         if (possibleTargets.Count == 0)
         {
-            Debug.Log("no possible tragets found");
             target = Vector3Int.zero;
             return false;
         }
