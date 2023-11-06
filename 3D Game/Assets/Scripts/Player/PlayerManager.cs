@@ -43,6 +43,7 @@ public class PlayerManager : MonoBehaviour
     public bool AbilityLoadoutActive;
 
     public GameObject indicatorPrefab;
+    GameObject indicatorPrefabClone;
 
     //[SerializeField] ParticleSystem AbilityCastParticleSystem;
 
@@ -66,6 +67,7 @@ public class PlayerManager : MonoBehaviour
         player.transform.position = GridManager.Instance.Grid[PlayerSpawnPoint].transform.position;
         EventManager.OnEndTurnEvent += resetMovementPoints;
         EventManager.OnAbilityButtonEvent += AbilityClicked;
+
     }
 
     private void OnDestroy()
@@ -199,9 +201,6 @@ public class PlayerManager : MonoBehaviour
         player.transform.DOPunchScale(Vector3.one * .1f, .25f).OnComplete(landingCloud.Play);
         movementAction--;
 
-
-
-
         MovePoints[movementAction].GetComponent<MovePointsDoTween>().Away();
         //MovePoints[movementAction].SetActive(false);
 
@@ -254,7 +253,7 @@ public class PlayerManager : MonoBehaviour
 
             //Vector3 indicatorPosition = new Vector3(0, 0, 0);
             Quaternion indicatorRotation = Quaternion.Euler(0, 30, 0);
-            indicatorPrefab = Instantiate(indicatorPrefab, player.transform.position, indicatorRotation);
+            indicatorPrefabClone = Instantiate(indicatorPrefab, player.transform.position, indicatorRotation);
         }
     }
 
@@ -325,7 +324,7 @@ public class PlayerManager : MonoBehaviour
             if (Mouse.current.rightButton.wasPressedThisFrame)
             {
                 CancelAbilityChoice();
-                Destroy(indicatorPrefab);
+                Destroy(indicatorPrefabClone);
             }
 
             // enters if Left Mouse Button was clicked
@@ -355,20 +354,20 @@ public class PlayerManager : MonoBehaviour
     {
         cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice;
         abilityActivated = false;
-        Destroy(indicatorPrefab);
+        Destroy(indicatorPrefabClone);
     }
 
     public void CancelAbilityChoice(InputAction.CallbackContext actionCallBackContext)
     {
         abilityActivated = false;
         cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice;
-        Destroy(indicatorPrefab);
+        Destroy(indicatorPrefabClone);
     }
 
     public void CancelAbilityChoice()
     {
         abilityActivated = false;
         cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice;
-        Destroy(indicatorPrefab);
+        Destroy(indicatorPrefabClone);
     }
 }
