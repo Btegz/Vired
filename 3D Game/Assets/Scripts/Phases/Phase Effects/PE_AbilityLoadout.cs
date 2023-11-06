@@ -13,6 +13,14 @@ public class PE_AbilityLoadout : PhaseEffect
     {
         grid.mainCanvas.gameObject.SetActive(false);
         AbilityLoadout abl = Instantiate(abilityLoadoutPrefab);
-        abl.amountToChoose = AmountToChoose;
+        if(PlayerManager.Instance.abilitInventory.Count != 0)
+        {
+            abl.amountToChoose = AmountToChoose + PlayerManager.Instance.abilitInventory.Count;
+        }
+        else
+        {
+            abl.amountToChoose = AmountToChoose;
+        }
+       
     }
 }

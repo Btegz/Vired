@@ -825,6 +825,18 @@ PrefabInstance:
       propertyPath: negativeBarFill
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6993991225135169736, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
+      propertyPath: phases.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7009bdc355cc7684ea63bc92d6a1b537, type: 2}
+    - target: {fileID: 6993991225135169736, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
+      propertyPath: phases.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8c459dee471d3cb4c9ff117d3bbc02a7, type: 2}
+    - target: {fileID: 6993991225135169736, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
+      propertyPath: phases.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: c9cf539afa54efa488b254a0f86a630c, type: 2}
     - target: {fileID: 6993991225135169737, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
       propertyPath: m_Name
       value: GridManager
@@ -1741,6 +1753,7 @@ MonoBehaviour:
   RessourceCInventory: 0
   RessourceDInventory: 0
   AbilityLoadoutActive: 0
+  indicatorPrefab: {fileID: 145189214612838007, guid: 0b64f0872b32555418fb73b30158740a, type: 3}
   cancelAbilityInputActionReference: {fileID: 2201862511427077551, guid: 26454fd94e486c84595f431522cf20cf, type: 3}
 --- !u!4 &2032763746
 Transform:

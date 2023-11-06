@@ -42,6 +42,8 @@ public class PlayerManager : MonoBehaviour
 
     public bool AbilityLoadoutActive;
 
+    public GameObject indicatorPrefab;
+
     //[SerializeField] ParticleSystem AbilityCastParticleSystem;
 
     [SerializeField] InputActionReference cancelAbilityInputActionReference;
@@ -245,6 +247,14 @@ public class PlayerManager : MonoBehaviour
         {
             abilityActivated = true;
             StartCoroutine(ChooseAbilityLocation(index));
+
+
+            //SHOW THE ABILITY INDICATOR
+
+
+            //Vector3 indicatorPosition = new Vector3(0, 0, 0);
+            Quaternion indicatorRotation = Quaternion.Euler(0, 30, 0);
+            indicatorPrefab = Instantiate(indicatorPrefab, player.transform.position, indicatorRotation);
         }
     }
 
@@ -315,6 +325,7 @@ public class PlayerManager : MonoBehaviour
             if (Mouse.current.rightButton.wasPressedThisFrame)
             {
                 CancelAbilityChoice();
+                Destroy(indicatorPrefab);
             }
 
             // enters if Left Mouse Button was clicked
@@ -344,17 +355,20 @@ public class PlayerManager : MonoBehaviour
     {
         cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice;
         abilityActivated = false;
+        Destroy(indicatorPrefab);
     }
 
     public void CancelAbilityChoice(InputAction.CallbackContext actionCallBackContext)
     {
         abilityActivated = false;
         cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice;
+        Destroy(indicatorPrefab);
     }
 
     public void CancelAbilityChoice()
     {
         abilityActivated = false;
         cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice;
+        Destroy(indicatorPrefab);
     }
 }
