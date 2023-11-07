@@ -53,7 +53,11 @@ public class CameraRotation : MonoBehaviour
 
     void StopRotato(InputAction.CallbackContext obj)
     {
-        StopCoroutine(rotationCoroutine);
+        try
+        {
+            StopCoroutine(rotationCoroutine);
+        }
+        catch { }        
     }
     void StartRotato(InputAction.CallbackContext obj)
     {
@@ -72,7 +76,6 @@ public class CameraRotation : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("mouseScrollY " + mouseScrollY + ", deltaTime: " + Time.deltaTime + " = " + mouseScrollY * Time.deltaTime);
         endPosition = new Vector3(0, 1, 2);
         camPosition = gameObject.transform.GetChild(0).transform.localPosition;
 

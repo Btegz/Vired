@@ -70,7 +70,6 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
@@ -79,7 +78,9 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            Destroy(healthpoints[healthpoints.Count - 1].gameObject);
+            Image hp = healthpoints[healthpoints.Count - 1];
+            healthpoints.RemoveAt(healthpoints.Count - 1);
+            Destroy(hp.gameObject);
         }
     }
 
