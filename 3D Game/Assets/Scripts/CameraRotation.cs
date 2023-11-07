@@ -16,23 +16,21 @@ public class CameraRotation : MonoBehaviour
     [SerializeField] float maxMovementSpeed = 50;
     [SerializeField] private float minMovementSpeed = 5f;
     [SerializeField] private float speedAdaption = 0.2f;
-   
-    
+
+
     [SerializeField] Vector3 endPosition;
 
     private float mouseScrollY;
     private float startMovementSpeed;
-     
+
     private Coroutine rotationCoroutine;
     private Coroutine movementCoroutine;
-    
+
     private Vector3 camPosition;
     private Vector3 startingPosition;
-    
+    [SerializeField] float MouseScrollStep;
+    [SerializeField] float MouseScrollDistance;
 
-   
-  
-    
     void Awake()
     {
         rotatoAction.action.Enable();
@@ -41,18 +39,18 @@ public class CameraRotation : MonoBehaviour
 
         zoomAction.action.Enable();
         zoomAction.action.performed += x => mouseScrollY = x.ReadValue<float>();
-        
+
         movementAction.action.Enable();
         movementAction.action.started += StartMovement;
-        movementAction.action.canceled += StopMovement ;
+        movementAction.action.canceled += StopMovement;
     }
-    
+
     void Start()
     {
         startingPosition = gameObject.transform.GetChild(0).transform.localPosition;
         startMovementSpeed = maxMovementSpeed;
     }
-    
+
     void StopRotato(InputAction.CallbackContext obj)
     {
         StopCoroutine(rotationCoroutine);
@@ -61,38 +59,44 @@ public class CameraRotation : MonoBehaviour
     {
         rotationCoroutine = StartCoroutine(Rotato());
     }
-    
+
     void StartMovement(InputAction.CallbackContext obj)
     {
         movementCoroutine = StartCoroutine(Movement());
-    } 
+    }
     void StopMovement(InputAction.CallbackContext obj)
     {
         StopCoroutine(movementCoroutine);
     }
-    
-    
+
+
     private void Update()
     {
+        Debug.Log("mouseScrollY " + mouseScrollY + ", deltaTime: " + Time.deltaTime + " = " + mouseScrollY * Time.deltaTime);
         endPosition = new Vector3(0, 1, 2);
         camPosition = gameObject.transform.GetChild(0).transform.localPosition;
-        
+
         /// Zoom +
         /// Lerp von der Kamera Position durch die End Positon mit dem Scroll Input 
-        if (mouseScrollY > 0 )
-        {  
-            gameObject.transform.GetChild(0).transform.localPosition = Vector3.Lerp(camPosition, endPosition, mouseScrollY * Time.deltaTime );
-            maxMovementSpeed = Mathf.Lerp(maxMovementSpeed, 5, mouseScrollY * Time.deltaTime);
+        if (mouseScrollY > 0)
+        {
+            MouseScrollDistance += MouseScrollStep;
+            MouseScrollDistance = Mathf.Clamp(MouseScrollDistance, 0, 1);
+            gameObject.transform.GetChild(0).transform.localPosition = Vector3.Lerp(camPosition, endPosition, MouseScrollDistance);
+            maxMovementSpeed = Mathf.Lerp(maxMovementSpeed, minMovementSpeed, MouseScrollDistance);
         }
-      
+
         /// Zoom -
         /// Lerp von der anfangs Kamera Position durch die aktuelle KameraPosition mit dem Scroll Input 
         if (mouseScrollY < 0)
         {
-            gameObject.transform.GetChild(0).transform.localPosition = Vector3.Lerp(startingPosition,camPosition, ((mouseScrollY * Time.deltaTime )+1));
-            maxMovementSpeed = Mathf.Lerp(startMovementSpeed,maxMovementSpeed, ((mouseScrollY * Time.deltaTime)+1));        }
+            MouseScrollDistance -= MouseScrollStep;
+            MouseScrollDistance = Mathf.Clamp(MouseScrollDistance, 0, 1);
+            gameObject.transform.GetChild(0).transform.localPosition = Vector3.Lerp(startingPosition, camPosition, MouseScrollDistance);
+            maxMovementSpeed = Mathf.Lerp(startMovementSpeed, maxMovementSpeed, MouseScrollDistance);
+        }
     }
-    
+
     /// <summary>
     /// Rotation der Kamera um das Spielfeld mit der rechten Maustaste
     /// </summary>
@@ -100,7 +104,7 @@ public class CameraRotation : MonoBehaviour
     IEnumerator Rotato()
     {
         Vector2 previousMousePosition = Pointer.current.position.ReadValue();
-        
+
         while (true)
         {
             Vector2 currentMousePosition = Pointer.current.position.ReadValue();
@@ -119,10 +123,31 @@ public class CameraRotation : MonoBehaviour
         Vector3 previousMousePosition = Pointer.current.position.ReadValue();
         while (true)
         {
-            Vector3 currentMousePosition = Pointer.current.position.ReadValue();
-            gameObject.transform.GetChild(0).transform.localPosition += new Vector3((-(currentMousePosition - previousMousePosition).x / Screen.width) * maxMovementSpeed, transform.localPosition.y,((-(currentMousePosition - previousMousePosition).y / Screen.width) * maxMovementSpeed));
-            previousMousePosition = currentMousePosition;
+            //Vector3 currentMousePosition = Pointer.current.position.ReadValue();
+            ///*transform.GetChild(0).*/transform./*local*/position += new Vector3((-(currentMousePosition - previousMousePosition).x / Screen.width) * maxMovementSpeed, transform.localPosition.y, ((-(currentMousePosition - previousMousePosition).y / Screen.width) * maxMovementSpeed));
+            //previousMousePosition = currentMousePosition;
+            //yield return null;
+
+            var pointerWorldRay = cam.ScreenPointToRay(previousMousePosition);
+            Plane groundPlane = new Plane(Vector3.up,1);
+            groundPlane.Raycast(pointerWorldRay, out var EnterDistance);
+            Vector3 previousPointerWorldPos = pointerWorldRay.GetPoint(EnterDistance);
+
+            Vector2 currentPointerPos = Pointer.current.position.ReadValue();
+            pointerWorldRay = cam.ScreenPointToRay(currentPointerPos);
+            groundPlane.Raycast(pointerWorldRay, out var enterDistance);
+            Vector3 currentPointerWorldPos = pointerWorldRay.GetPoint(enterDistance);
+
+            Vector3 delta = previousPointerWorldPos - currentPointerWorldPos;
+
+            transform.position += delta;
+
+            previousMousePosition = currentPointerPos;  
             yield return null;
-        }
+
+
+
+                }
+
     }
 }
