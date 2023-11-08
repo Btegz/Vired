@@ -20,13 +20,13 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] List<GameObject> MovePoints;
 
-    //MovePointsDoTween MovePointsDoTween;
-
+    [SerializeField] public List<Player> Players;
+    public Player selectedPlayer;
 
     [SerializeField] int movementPointsPerTurn;
     private int movementAction = 4;
     private Vector3 mouse_pos;
-    public GameObject player;
+
     public Camera cam;
     public Vector2Int PlayerSpawnPoint;
     public Vector2Int collisionPoint;
@@ -63,8 +63,16 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
-        playerPosition = PlayerSpawnPoint;
-        player.transform.position = GridManager.Instance.Grid[PlayerSpawnPoint].transform.position;
+        //playerPosition = PlayerSpawnPoint;
+        //selectedPlayer.transform.position = GridManager.Instance.Grid[PlayerSpawnPoint].transform.position;
+        foreach (Player p in Players)
+        {
+            p.transform.position = GridManager.Instance.Grid[p.SpawnPoint].transform.position;
+            p.CoordinatePosition = GridManager.Instance.Grid[p.SpawnPoint].AxialCoordinate;
+        }
+
+        selectedPlayer = Players[0];
+
         EventManager.OnEndTurnEvent += resetMovementPoints;
         EventManager.OnAbilityButtonEvent += AbilityClicked;
 
@@ -83,7 +91,7 @@ public class PlayerManager : MonoBehaviour
             // takes mouse positition
             mouse_pos = Mouse.current.position.ReadValue();
             // Searches for the Nieghbors of playerposition
-            List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(playerPosition));
+            List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(selectedPlayer.CoordinatePosition));
 
             // Lose Condition: surrounded by enemies/ no ressources 
             for (int i = 0; i < abilitInventory.Count; i++)
@@ -128,11 +136,9 @@ public class PlayerManager : MonoBehaviour
                 }
             }
 
-            if (movementAction == 0 && Mouse.current.leftButton.wasPressedThisFrame)
+            if (movementAction == 0 && Mouse.current.leftButton.wasPressedThisFrame && !abilityActivated)
             {
-                Debug.Log("ich schüttle mich");
-                player.transform.DOPunchRotation(new Vector3(10f, 2f), 1f);
-
+                selectedPlayer.transform.DOPunchRotation(new Vector3(10f, 2f), 1f);
             }
 
             // enters if Left Mouse Button was clicked
@@ -176,14 +182,16 @@ public class PlayerManager : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            clickedTile = hit.collider.GetComponent<GridTile>().AxialCoordinate;
-            return true;
+            GridTile tile;
+
+            if (hit.collider.TryGetComponent<GridTile>(out tile))
+            {
+                clickedTile = tile.AxialCoordinate;
+                return true;
+            }
         }
-        else
-        {
-            clickedTile = Vector2Int.zero;
-            return false;
-        }
+        clickedTile = Vector2Int.zero;
+        return false;
     }
 
     /// <summary>
@@ -195,17 +203,17 @@ public class PlayerManager : MonoBehaviour
     {
         GridTile target = GridManager.Instance.Grid[moveTo];
 
-        ParticleSystem landingCloud = player.GetComponentInChildren<ParticleSystem>();
-        player.transform.DOJump(target.transform.position, 2, 1, .25f)
+        ParticleSystem landingCloud = selectedPlayer.GetComponentInChildren<ParticleSystem>();
+        selectedPlayer.transform.DOJump(target.transform.position, 2, 1, .25f)
             .OnComplete(() => target.currentGridState.PlayerEnters(target));
-        player.transform.DOPunchScale(Vector3.one * .1f, .25f).OnComplete(landingCloud.Play);
+        selectedPlayer.transform.DOPunchScale(Vector3.one * .1f, .25f).OnComplete(landingCloud.Play);
         movementAction--;
 
         MovePoints[movementAction].GetComponent<MovePointsDoTween>().Away();
         //MovePoints[movementAction].SetActive(false);
 
 
-        playerPosition = moveTo;
+        selectedPlayer.CoordinatePosition = moveTo;
 
         yield return null;
     }
@@ -253,7 +261,7 @@ public class PlayerManager : MonoBehaviour
 
             //Vector3 indicatorPosition = new Vector3(0, 0, 0);
             Quaternion indicatorRotation = Quaternion.Euler(0, 30, 0);
-            indicatorPrefabClone = Instantiate(indicatorPrefab, player.transform.position, indicatorRotation);
+            indicatorPrefabClone = Instantiate(indicatorPrefab, selectedPlayer.transform.position, indicatorRotation);
         }
     }
 
@@ -313,9 +321,9 @@ public class PlayerManager : MonoBehaviour
         cancelAbilityInputActionReference.action.performed += CancelAbilityChoice;
 
         // collects player Neighbors as viable tiles
-        List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(playerPosition));
+        List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(selectedPlayer.CoordinatePosition));
 
-        //selectedPoint = HexGridUtil.AxialToCubeCoord(playerPosition);
+        //selectedPoint = HexGridUtil.AxialToCubeCoord(selectedPlayer.coordinatePosition);
 
         Vector2Int clickedTile;
 
@@ -335,7 +343,7 @@ public class PlayerManager : MonoBehaviour
                     if (neighbors.Contains(HexGridUtil.AxialToCubeCoord(clickedTile)))
                     {
                         ChooseAbilityWithIndex(AbilityIndex, HexGridUtil.AxialToCubeCoord(clickedTile),
-                            HexGridUtil.AxialToCubeCoord(playerPosition));
+                            HexGridUtil.AxialToCubeCoord(selectedPlayer.CoordinatePosition));
                         break;
                     }
 

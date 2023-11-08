@@ -217,26 +217,39 @@ public class GridManager : MonoBehaviour
 
     private void SpawnBossAndPlayer()
     {
-        Vector2Int maxX = new Vector2Int();
-        Vector2Int minX = new Vector2Int();
-        foreach (KeyValuePair<Vector2Int, GridTile> kvp in Grid)
+        Vector3Int maxX = new Vector3Int();
+        Vector3Int maxY = new Vector3Int();
+        Vector3Int maxZ = new Vector3Int();
+
+        List<Vector3Int> CubeCoords = HexGridUtil.AxialToCubeCoord(Grid.Keys.ToList<Vector2Int>());
+
+        foreach (Vector3Int coord in CubeCoords)
         {
-            if (kvp.Key.x > maxX.x)
+            if (coord.x > maxX.x)
             {
-                maxX = kvp.Key;
+                maxX = coord;
             }
-            if (kvp.Key.x < minX.x)
+            if (coord.y > maxY.y)
             {
-                minX = kvp.Key;
+                maxY = coord;
+            }
+            if (coord.z > maxZ.z)
+            {
+                maxZ = coord;
             }
         }
-        Enemy Boss = Instantiate(BossPrefab);
-        Boss.Setup(BossEnemySO, Grid[maxX]);
-        Boss.transform.parent = Grid[maxX].transform;
-        Boss.transform.position = Grid[maxX].transform.position;
-        Grid[maxX].ChangeCurrentState(gS_Boss);
 
-        PlayerManager.Instance.PlayerSpawnPoint = minX;
+        Enemy Boss = Instantiate(BossPrefab);
+        Boss.Setup(BossEnemySO, Grid[Vector2Int.zero]);
+        Boss.transform.parent = Grid[Vector2Int.zero].transform;
+        Boss.transform.position = Grid[Vector2Int.zero].transform.position;
+        Grid[Vector2Int.zero].ChangeCurrentState(gS_Boss);
+
+        List<Player> players = PlayerManager.Instance.Players;
+
+        players[0].SpawnPoint = HexGridUtil.CubeToAxialCoord(maxX);
+        players[1].SpawnPoint = HexGridUtil.CubeToAxialCoord(maxY);
+        players[2].SpawnPoint = HexGridUtil.CubeToAxialCoord(maxZ);
     }
 
     /// <summary>

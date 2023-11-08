@@ -266,7 +266,7 @@ public class AbilityObjScript : MonoBehaviour
 
             case Effect.Movement:
                 PlayerManager.Instance.playerPosition = gridTile.AxialCoordinate;
-                PlayerManager.Instance.player.transform.position = gridTile.transform.position;
+                PlayerManager.Instance.selectedPlayer.transform.position = gridTile.transform.position;
                 gridTile.ChangeCurrentState(GridManager.Instance.gS_Neutral);
                 break;
 
