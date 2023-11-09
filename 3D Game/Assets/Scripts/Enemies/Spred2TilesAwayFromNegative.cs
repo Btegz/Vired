@@ -19,15 +19,13 @@ public class Spred2TilesAwayFromNegative : Spreadbehaviours
                 continue;
             }
 
-            List<Vector3Int> reachableTiles = HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(kvp.Key), 3,HexGridUtil.AxialToCubeCoord(GridManager.Instance.Grid.Keys.ToList<Vector2Int>()));
+            List<Vector3Int> reachableTiles = HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(kvp.Key), 3, HexGridUtil.AxialToCubeCoord(GridManager.Instance.Grid.Keys.ToList<Vector2Int>()));
             bool stillvalid = true;
             foreach (Vector3Int tile in reachableTiles)
             {
                 Vector2Int axTile = HexGridUtil.CubeToAxialCoord(tile);
                 if (grid.ContainsKey(axTile))
                 {
-
-
                     if (grid[axTile].currentGridState == GridManager.Instance.gS_Negative || grid[axTile].currentGridState == GridManager.Instance.gS_Enemy || grid[axTile].currentGridState == GridManager.Instance.gS_Boss || grid[axTile].currentGridState == GridManager.Instance.gS_BossNegative)
                     {
                         stillvalid = false;
@@ -40,8 +38,11 @@ public class Spred2TilesAwayFromNegative : Spreadbehaviours
                 continue;
             }
 
-            if(kvp.Key != playerPosition)
-            possibleTiles.Add(HexGridUtil.AxialToCubeCoord(kvp.Key));
+            if (!PlayerManager.Instance.PlayerPositions().Contains(kvp.Key))
+            {
+                possibleTiles.Add(HexGridUtil.AxialToCubeCoord(kvp.Key));
+            }
+                
         }
 
         if (possibleTiles.Count == 0)

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,16 +16,18 @@ public class SpreadToNeighbors : Spreadbehaviours
         playerPosition = PlayerManager.Instance.playerPosition;
 
         foreach (Vector3Int neighbor in neighbors)
-        {   
-            
-            Vector2Int axialNeighbor =HexGridUtil.CubeToAxialCoord(neighbor);
+        {
+
+            Vector2Int axialNeighbor = HexGridUtil.CubeToAxialCoord(neighbor);
             try
-            { 
+            {
                 if (GridManager.Instance.Grid[axialNeighbor].currentGridState == GridManager.Instance.gS_Neutral ||
                   GridManager.Instance.Grid[axialNeighbor].currentGridState == GridManager.Instance.gS_Positive)
-                {   
-                    if(axialNeighbor != playerPosition)
-                    possibleTargets.Add(axialNeighbor);
+                {
+                    if (!PlayerManager.Instance.PlayerPositions().Contains(axialNeighbor))
+                    {
+                        possibleTargets.Add(axialNeighbor);
+                    }
                 }
             }
             catch (Exception e)
@@ -40,7 +43,7 @@ public class SpreadToNeighbors : Spreadbehaviours
 
         else
         {
-            target = HexGridUtil.AxialToCubeCoord(possibleTargets[Random.Range (0,possibleTargets.Count)]);
+            target = HexGridUtil.AxialToCubeCoord(possibleTargets[Random.Range(0, possibleTargets.Count)]);
             return true;
         }
     }

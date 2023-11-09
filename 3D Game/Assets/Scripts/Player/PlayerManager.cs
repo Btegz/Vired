@@ -9,6 +9,7 @@ using Unity.VisualScripting;
 using UnityEngine.InputSystem;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using UnityEditor.PackageManager.Requests;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -380,5 +381,15 @@ public class PlayerManager : MonoBehaviour
         abilityActivated = false;
         cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice;
         Destroy(indicatorPrefabClone);
+    }
+
+    public List<Vector2Int> PlayerPositions()
+    {
+        List<Vector2Int> positions = new List<Vector2Int>();
+        foreach(Player p in Players)
+        {
+            positions.Add(p.CoordinatePosition);
+        }
+        return positions;
     }
 }

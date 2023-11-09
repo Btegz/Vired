@@ -11,9 +11,9 @@ public class SpreadToClosestEnemy : Spreadbehaviours
         List<GridTile> EnemyTiles = GridManager.Instance.GetTilesWithState(GridManager.Instance.gS_Enemy);
         List<Vector3Int> EnemyCoordinates = new List<Vector3Int>();
 
-     
 
-        foreach(GridTile gt in EnemyTiles)
+
+        foreach (GridTile gt in EnemyTiles)
         {
             EnemyCoordinates.Add(HexGridUtil.AxialToCubeCoord(gt.AxialCoordinate));
         }
@@ -23,7 +23,7 @@ public class SpreadToClosestEnemy : Spreadbehaviours
 
         // We extract Coordinates from the Grid
         List<Vector3Int> GridCoordinates = new List<Vector3Int>();
-        foreach(KeyValuePair<Vector2Int,GridTile> kvp in GridManager.Instance.Grid)
+        foreach (KeyValuePair<Vector2Int, GridTile> kvp in GridManager.Instance.Grid)
         {
             GridCoordinates.Add(HexGridUtil.AxialToCubeCoord(kvp.Key));
         }
@@ -32,29 +32,35 @@ public class SpreadToClosestEnemy : Spreadbehaviours
         int Length = int.MaxValue;
         List<Vector3Int> shortestPath = new List<Vector3Int>();
 
-        foreach(Vector3Int enemyLoc in EnemyCoordinates)
+        foreach (Vector3Int enemyLoc in EnemyCoordinates)
         {
             int pathcost = 0;
-            List<Vector3Int> path = HexGridUtil.CostHeuristicPathFind(enemyPosition, enemyLoc,GridManager.Instance.Grid,out pathcost);
-            if(pathcost == 0)
+            List<Vector3Int> path = HexGridUtil.CostHeuristicPathFind(enemyPosition, enemyLoc, GridManager.Instance.Grid, out pathcost);
+            if (pathcost == 0)
             {
                 continue;
             }
-            if(pathcost < Length)
+            if (pathcost < Length)
             {
                 Length = path.Count;
                 shortestPath = path;
             }
         }
 
-        foreach(Vector3Int pathNode in shortestPath)
+        foreach (Vector3Int pathNode in shortestPath)
         {
-            if (GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(pathNode)].currentGridState == GridManager.Instance.gS_Neutral || GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(pathNode)].currentGridState == GridManager.Instance.gS_Positive)
+            Vector2Int axialPos = HexGridUtil.CubeToAxialCoord(pathNode);
+
+
+            if (!PlayerManager.Instance.PlayerPositions().Contains(axialPos))
             {
-                if (pathNode != HexGridUtil.AxialToCubeCoord(playerPosition))
+            if (GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(pathNode)].currentGridState == GridManager.Instance.gS_Neutral || GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(pathNode)].currentGridState == GridManager.Instance.gS_Positive)
                 {
-                    target = pathNode;
-                    return true;
+                    if (pathNode != HexGridUtil.AxialToCubeCoord(playerPosition))
+                    {
+                        target = pathNode;
+                        return true;
+                    }
                 }
             }
         }

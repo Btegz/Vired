@@ -16,7 +16,7 @@ public class SpreadAroundEnemy : Spreadbehaviours
             foreach (Vector3Int coord in circle)
             {
                 Vector2Int axcoord = HexGridUtil.CubeToAxialCoord(coord);
-                if (GridManager.Instance.Grid[axcoord].currentGridState.StateValue() >= 0)
+                if (GridManager.Instance.Grid[axcoord].currentGridState.StateValue() >= 0 && !PlayerManager.Instance.PlayerPositions().Contains(HexGridUtil.CubeToAxialCoord(coord)))
                 {
                     possibleTargets.Add(coord);
                 }
