@@ -172,13 +172,13 @@ public class AbilityObjScript : MonoBehaviour
     public void rotateClockwisePlayerCenter()
     {
         transform.rotation *= Quaternion.Euler(0, 60, 0);
-        AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeClockwise(HexGridUtil.AxialToCubeCoord(PlayerManager.Instance.playerPosition), HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), 1));
+        AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeClockwise(HexGridUtil.AxialToCubeCoord(PlayerManager.Instance.selectedPlayer.CoordinatePosition), HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), 1));
     }
 
     public void rotateCounterClockwisePlayerCenter()
     {
         transform.rotation *= Quaternion.Euler(0, -60, 0);
-        AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeCounterClockwise(HexGridUtil.AxialToCubeCoord(PlayerManager.Instance.playerPosition), HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), 1));
+        AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeCounterClockwise(HexGridUtil.AxialToCubeCoord(PlayerManager.Instance.selectedPlayer.CoordinatePosition), HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), 1));
 
 
     }
@@ -280,6 +280,7 @@ public class AbilityObjScript : MonoBehaviour
         {
             if (GridManager.Instance.Grid.ContainsKey(AbilityShapeLocation[i]))
             {
+                Debug.Log(AbilityShapeLocation[i]);
                 gridTile = GridManager.Instance.Grid[AbilityShapeLocation[i]];
                 UsingEffect(ability.Effects[i]);
             }
