@@ -17,8 +17,11 @@ public class PlayerManager : MonoBehaviour
     public AbilityObjScript abilityObj;
 
     public List<Ability> abilitInventory;
+    public List<Ability> AllAbilities;
+
 
     [SerializeField] List<GameObject> MovePoints;
+    public int SkillPoints;
 
     [SerializeField] public List<Player> Players;
     public Player selectedPlayer;

@@ -16,9 +16,10 @@ public class Ability : HexShape
 
 
     public List<Effect> Effects;
+    [SerializeField] public List<Ability> NextLevel;
+    [SerializeField] public int UpgradeCost;
     
     public string Name;
-
     public Mesh previewShape;
     public RotationMode rotato;
 

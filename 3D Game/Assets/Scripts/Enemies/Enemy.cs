@@ -74,6 +74,7 @@ public class Enemy : MonoBehaviour
         if (currentHealth <= 0)
         {
             GetComponentInParent<GridTile>().ChangeCurrentState(GridManager.Instance.gS_Negative);
+            PlayerManager.Instance.SkillPoints++;
             Destroy(gameObject);
         }
         else
