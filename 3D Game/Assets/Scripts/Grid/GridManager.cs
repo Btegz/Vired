@@ -349,5 +349,6 @@ public class GridManager : MonoBehaviour
         }
         currentPhase = phases[0];
         currentPhase.myPhaseTransition.InitPhaseTransitionCheck();
+        currentPhase.TriggerPhaseEffects(TurnCounter,this);
     }
 }
