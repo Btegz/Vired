@@ -15,4 +15,6 @@ public class GridTileSO : ScriptableObject
     public Material resourceDMaterial;
     public Material neutralMaterial;
     public Material negativeMaterial;
+    public Material PoflMaterial;
+
 }

@@ -1,0 +1,35 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "GS_Pofl", menuName = "GridStates/GS_Pofl")]
+
+public class GS_Pofl : GridState
+{
+    public override GridState CurrentState()
+    {
+        return this;
+    }
+
+    public override void EnterState(GridTile parent)
+    {
+        parent.meshRenderer.material = parent.gridTileSO.PoflMaterial;
+
+    }
+
+    public override void ExitState(GridTile parent)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void PlayerEnters(GridTile parent)
+    {
+        throw new System.NotImplementedException();
+        //Aktiviere Overlay
+    }
+
+    public override int StateValue()
+    {
+        return 1;
+    }
+}
