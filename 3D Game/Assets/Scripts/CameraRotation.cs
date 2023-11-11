@@ -27,7 +27,7 @@ public class CameraRotation : MonoBehaviour
     [SerializeField] float rotationSpeed = 500;
     [SerializeField] float maxMovementSpeed = 50;
     [SerializeField] private float minMovementSpeed = 5f;
-    [SerializeField] private float speedAdaption = 0.2f;
+   // [SerializeField] private float speedAdaption = 0.2f;
 
 
     [SerializeField] Vector3 endPosition;

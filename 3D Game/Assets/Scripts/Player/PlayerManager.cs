@@ -41,6 +41,7 @@ public class PlayerManager : MonoBehaviour
     public int RessourceCInventory;
     public int RessourceDInventory;
 
+
     bool abilityActivated = false;
     private bool abilityUsable = true;
 
@@ -63,6 +64,8 @@ public class PlayerManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+
     }
 
     void Start()
