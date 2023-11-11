@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class GS_Pofl : GridState
 {
+    [SerializeField] GameObject PointOfInterest;
     public override GridState CurrentState()
     {
         return this;
@@ -24,12 +25,12 @@ public class GS_Pofl : GridState
 
     public override void PlayerEnters(GridTile parent)
     {
-        throw new System.NotImplementedException();
-        //Aktiviere Overlay
+        Instantiate(PointOfInterest, PointOfInterest.transform.position, Quaternion.identity);
+        parent.ChangeCurrentState(GridManager.Instance.gS_Neutral);
     }
 
     public override int StateValue()
     {
-        return 1;
+        return 4;
     }
 }

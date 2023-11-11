@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class PofIManager : MonoBehaviour
 {
-    public Event1 event1;
-    public Event2 event2;
+    public EventButton event1;
     [SerializeField] int pofi1;
     [SerializeField] int pofi2;
-    [SerializeField] PofI pofiEvent1;
-    [SerializeField] PofI pofiEvent2;
+    private PofI pofiEvent1;
+    private PofI pofiEvent2;
 
     public enum PofI
     {
@@ -22,18 +21,16 @@ public class PofIManager : MonoBehaviour
     private void OnEnable()
     {
         randomPofI();
-       
     }
 
     private void Update()
     {
-        if(event1.PofIEvent1 && event2.PofIEvent2 == false)
+        if(event1.PofIEvent1 == true && event1.PofIEvent2 == false)
         {
-           
             PofIEvent(pofiEvent1);
         }
 
-        else if(event2.PofIEvent2 && event1.PofIEvent1== false)
+        else if(event1.PofIEvent2 == true && event1.PofIEvent1== false)
         {   
             PofIEvent(pofiEvent2);
         }
