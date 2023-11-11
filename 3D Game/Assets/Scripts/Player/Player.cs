@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Cinemachine;
 
-public class Player : MonoBehaviour, IPointerClickHandler
+public class Player : MonoBehaviour
 {
     public List<Ability> AbilityInventory;
 
@@ -11,9 +12,33 @@ public class Player : MonoBehaviour, IPointerClickHandler
 
     public Vector2Int SpawnPoint;
 
-    public void OnPointerClick(PointerEventData eventData)
+    [SerializeField] CinemachineVirtualCamera PlayerCam;
+
+
+
+    public void PlayerSelect()
     {
-        Debug.Log("I AM THE SELECTED ONE " + transform.name);
-        PlayerManager.Instance.selectedPlayer = this;
+        CameraRotation.Instance.MainCam = true;
+        switch(CameraRotation.Instance.keyPressed)
+        {
+            case 1:
+                PlayerManager.Instance.selectedPlayer  = PlayerManager.Instance.Players[0];
+     
+                break;
+
+            case 2:
+                PlayerManager.Instance.selectedPlayer = PlayerManager.Instance.Players[1];
+                break;
+
+            case 3:
+                PlayerManager.Instance.selectedPlayer = PlayerManager.Instance.Players[2];
+                break;
+        }
+        PlayerCam.LookAt = PlayerManager.Instance.selectedPlayer.transform; 
+        PlayerCam.Follow = PlayerManager.Instance.selectedPlayer.transform;  
+        CameraRotation.Instance.SwitchToPlayer();
+        
     }
 }
+
+
