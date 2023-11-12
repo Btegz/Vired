@@ -46,7 +46,7 @@ public class Drop : MonoBehaviour, IDropHandler
         Vector2Int player2Position = (Vector2Int)GridManager.Instance.Grid[PlayerManager.Instance.Players[p2].CoordinatePosition].AxialCoordinate;
         PlayerManager.Instance.Players[p].CoordinatePosition = player2Position;*/
         
-      ;
+    
         Destroy(PofIManager.posSwitch);
 
        
