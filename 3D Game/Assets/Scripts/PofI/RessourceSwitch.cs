@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using static PofIManager;
 using System;
+using UnityEngine.EventSystems;
 
 public class RessourceSwitch : MonoBehaviour
 {
@@ -13,8 +14,6 @@ public class RessourceSwitch : MonoBehaviour
     public Button RessourceB;
     public Button RessourceC;
     public Button RessourceD;
-
-    public Ability ability;
 
     void Start()
     {
@@ -31,8 +30,11 @@ public class RessourceSwitch : MonoBehaviour
         switch(buttonNo)
         {
             case 0:
+                Debug.Log(gameObject);
+                Destroy(gameObject);
                 PlayerManager.Instance.RessourceAInventory += 5;
                 break;
+
             case 1:
                 PlayerManager.Instance.RessourceBInventory += 5;
                 break;
@@ -43,5 +45,7 @@ public class RessourceSwitch : MonoBehaviour
                 PlayerManager.Instance.RessourceDInventory += 5;
                 break;
         }
+        Destroy(gameObject);
+
     }
 }

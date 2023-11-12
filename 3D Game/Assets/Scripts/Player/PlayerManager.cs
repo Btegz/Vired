@@ -28,8 +28,9 @@ public class PlayerManager : MonoBehaviour
     public Player selectedPlayer;
 
     [SerializeField] int movementPointsPerTurn;
-    private int movementAction = 4;
-    private Vector3 mouse_pos;
+    public int movementAction = 4;
+    public Vector3 mouse_pos;
+    public int extraMovement;
 
     public Camera cam;
     public Vector2Int PlayerSpawnPoint;
@@ -49,6 +50,7 @@ public class PlayerManager : MonoBehaviour
 
     public GameObject indicatorPrefab;
     GameObject indicatorPrefabClone;
+
 
     //[SerializeField] ParticleSystem AbilityCastParticleSystem;
 
@@ -143,7 +145,7 @@ public class PlayerManager : MonoBehaviour
                 }
             }
 
-            if (movementAction == 0 && Mouse.current.leftButton.wasPressedThisFrame && !abilityActivated)
+            if (movementAction == 0 && Mouse.current.leftButton.wasPressedThisFrame && !abilityActivated && extraMovement ==0)
             {
                 selectedPlayer.transform.DOPunchRotation(new Vector3(10f, 2f), 1f);
             }
@@ -152,7 +154,7 @@ public class PlayerManager : MonoBehaviour
             if (Mouse.current.leftButton.wasPressedThisFrame)
             {
                 // checks whether movement points are available or if a Ability is activated
-                if (movementAction > 0 || abilityActivated)
+                if (movementAction > 0 || abilityActivated || ((movementAction == 0) && (extraMovement > 0)))
                 {
                     // saves the Grid Tile Location that was clicked
                     Vector2Int clickedTile;
@@ -210,13 +212,22 @@ public class PlayerManager : MonoBehaviour
     /// <returns></returns>
     IEnumerator Move(Vector2Int moveTo)
     {
+
         GridTile target = GridManager.Instance.Grid[moveTo];
 
         ParticleSystem landingCloud = selectedPlayer.GetComponentInChildren<ParticleSystem>();
         selectedPlayer.transform.DOJump(target.transform.position, 2, 1, .25f)
             .OnComplete(() => target.currentGridState.PlayerEnters(target));
         selectedPlayer.transform.DOPunchScale(Vector3.one * .1f, .25f).OnComplete(landingCloud.Play);
-        movementAction--;
+
+        if (((movementAction == 0) && (extraMovement > 0)))
+        {
+            extraMovement--;
+        }
+        else if (movementAction > 0)
+        {
+            movementAction--;
+        }
 
         MovePoints[movementAction].GetComponent<MovePointsDoTween>().Away();
         //MovePoints[movementAction].SetActive(false);
@@ -391,7 +402,7 @@ public class PlayerManager : MonoBehaviour
     public List<Vector2Int> PlayerPositions()
     {
         List<Vector2Int> positions = new List<Vector2Int>();
-        foreach(Player p in Players)
+        foreach (Player p in Players)
         {
             positions.Add(p.CoordinatePosition);
         }

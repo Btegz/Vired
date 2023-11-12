@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3347520190811535232
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3347520190811535262}
+  - component: {fileID: 3347520190811535263}
+  m_Layer: 0
+  m_Name: PofIManager 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3347520190811535262
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3347520190811535232}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3347520190811535263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3347520190811535232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc0c0ebe847d84d4f9ffe3589e8b3564, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  event1: {fileID: 0}
+  pofi1: 0
+  pofi2: 0
+  pofiEvent1: 0
+  pofiEvent2: 0
+  gS_PofI: {fileID: 11400000, guid: 9ec617689cbf9844aa63007fd32415cb, type: 2}
+  extraMovement: 0
+  posSwitch: {fileID: 1356944461933388534, guid: fb3b78cc07b80414fbcd73b332242d3d, type: 3}
+  NewResource: {fileID: 5779522450981827884, guid: 4f74716fb565ed849bb674571ddf9382, type: 3}
+  SkillPoints: {fileID: 5450238965100818773, guid: e1a308c8349f51e4db60c8a45a546b04, type: 3}
+  ResourceSwitch: {fileID: 6258951290884104302, guid: cf4eb68467bdec047ab09d799a9145e4, type: 3}
+  NewAbility: {fileID: 4698562447132120502, guid: 43ff89db25a687d45844347f3952134b, type: 3}
+  PositionSwitch: {fileID: 1356944461933388534, guid: fb3b78cc07b80414fbcd73b332242d3d, type: 3}
+  Movement: {fileID: 4349066001925921412, guid: a59a04dafc03e344c81a67858827ac0d, type: 3}

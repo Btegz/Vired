@@ -1763,6 +1763,9 @@ MonoBehaviour:
   - {fileID: 1493776949}
   selectedPlayer: {fileID: 0}
   movementPointsPerTurn: 4
+  movementAction: 4
+  mouse_pos: {x: 0, y: 0, z: 0}
+  extraMovement: 0
   cam: {fileID: 652675123}
   PlayerSpawnPoint: {x: 0, y: 0}
   collisionPoint: {x: 0, y: 0}
@@ -1838,11 +1841,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1365018791635980433, guid: 11b34f7d6d9bf504e95faf77866c009c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.00011006876
+      value: -0.00011010243
       objectReference: {fileID: 0}
     - target: {fileID: 1365018791635980433, guid: 11b34f7d6d9bf504e95faf77866c009c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000023135797
+      value: 0.000023142873
       objectReference: {fileID: 0}
     - target: {fileID: 1365018791700332626, guid: 11b34f7d6d9bf504e95faf77866c009c, type: 3}
       propertyPath: player

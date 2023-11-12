@@ -10,101 +10,82 @@ public class PofIManager : MonoBehaviour
     [HideInInspector][SerializeField] public int pofi2;
     public PofI pofiEvent1;
     public PofI pofiEvent2;
-   
-    public Button NewResource,SkillPoints,ResourceSwitch,NewAbility,PositionSwitch,Movement;
+    public GS_Pofl gS_PofI;
+    public int extraMovement;
+    [SerializeField] public GameObject posSwitch;
+    
+    public GameObject SkillPoints,NewResource, ResourceSwitch, NewAbility, PositionSwitch, Movement;
 
-    public Button[] PofIEvents = new Button[5];
+
+
     public enum PofI
     {
-        PofI_NewResource,
         PofI_SkillPoints,
+        PofI_NewResource,
         PofI_ResourceSwitch,
         PofI_NewAbility,
         PofI_PositionSwitch, 
         PofI_MovementPoints,
     };
 
-    
 
-    private void Start()
-    {
-        
-        
-            Button[] PofIEvents =
-            {
-                NewResource,
-                SkillPoints,
-                ResourceSwitch,
-                NewAbility,
-                PositionSwitch,
-                Movement,
-            };
-    }
-    /*   private void Update()
-       {
-           if(event1.PofIEvent1 == true && event1.PofIEvent2 == false)
-           {
-               PofIEvent(pofiEvent1);
-           }
-
-           else if(event1.PofIEvent2 == true && event1.PofIEvent1== false)
-           {   
-               PofIEvent(pofiEvent2);
-           }
-       }*/
-
-    private void OnEnable()
+    public void Awake()
     {
         randomPofI();
     }
 
-
     public void randomPofI()
     {
-        Debug.Log("test");
-        int pofi1 = (int)Random.Range(0, 5);
-        PofI pofiEvent1 = (PofI)pofi1;
+         pofi1 = (int)Random.Range(0, 5);
+            pofi1 = 2; 
+            pofiEvent1 = (PofI)pofi1;
+         pofi2 = (int)Random.Range(0, 5);
+         pofiEvent2 = (PofI)pofi2;
 
-        int pofi2 = (int)Random.Range(0, 5);
-        PofI pofiEvent2 = (PofI)pofi2;
 
         while (pofi1 == pofi2)
         {
-            pofi2 = (int)Random.Range(0, 3);
+            pofi2 = (int)Random.Range(0, 5);
             break;
-        }
-
-      
+        }      
     }
 
     public void PofIEvent(PofI pofi)
     {
         switch (pofi)
         {
+            case PofI.PofI_SkillPoints:
+                PlayerManager.Instance.SkillPoints += 2;
+                break;
+            
+            case PofI.PofI_NewResource:
+                Destroy(gS_PofI.pofi);
+                Instantiate(NewResource, NewResource.transform.position,Quaternion.identity);
+                break;
+            
+            case PofI.PofI_ResourceSwitch:
+                Instantiate(ResourceSwitch, ResourceSwitch.transform.position, Quaternion.identity);
+                break;            
+            
             case PofI.PofI_NewAbility:
                Debug.Log("NewAbility");
                 break;
 
-            case PofI.PofI_NewResource:
-                Debug.Log("NewResource");
-                break;
-
-            case PofI.PofI_ResourceSwitch:
- 
-                Instantiate(ResourceSwitch, ResourceSwitch.transform.position,Quaternion.identity);
-                break;
-
-            case PofI.PofI_SkillPoints:
-                PlayerManager.Instance.SkillPoints += 2;
-                break;
-
             case PofI.PofI_PositionSwitch:
+                Destroy(gS_PofI.pofi);
+                posSwitch  = Instantiate(PositionSwitch, PositionSwitch.transform.position,Quaternion.identity); 
                 break;
 
             case PofI.PofI_MovementPoints:
+                
+                PlayerManager.Instance.extraMovement = 3;
+                Destroy(gS_PofI.pofi);
                 break;
-
+                
+               
+                
         }
+     
 
     }
 }

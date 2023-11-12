@@ -7,8 +7,8 @@ using UnityEngine;
 public class GS_Pofl : GridState
 {
     [SerializeField] GameObject PointOfInterest;
-    [SerializeField] EventButton eventButton;
-    [SerializeField] PofIManager PofI;
+    [SerializeField] public GameObject pofi;
+ 
     public override GridState CurrentState()
     {
         return this;
@@ -27,14 +27,9 @@ public class GS_Pofl : GridState
 
     public override void PlayerEnters(GridTile parent)
     {
-        parent.ChangeCurrentState(GridManager.Instance.gS_Neutral);
-        GameObject pofi =  Instantiate(PointOfInterest, PointOfInterest.transform.position, Quaternion.identity);
-        /*Debug.Log(PofI.pofi1);
-        pofi.transform.GetChild(PofI.pofi1).gameObject.SetActive(true);
-        pofi.transform.GetChild(PofI.pofi2).gameObject.SetActive(true);
-        */
-
-        
+       
+        pofi = Instantiate(PointOfInterest, PointOfInterest.transform.position, Quaternion.identity);
+  
     }
 
     public override int StateValue()
