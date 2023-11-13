@@ -35,4 +35,12 @@ public class EventManager
     {
         OnAbilityButtonEvent?.Invoke(index);
     }
+
+    public delegate void LoadOutAbilityChosen(AbilityLoadoutButton abilityButton);
+    public static event LoadOutAbilityChosen OnAbilityChosenEvent;
+
+    public static void OnAbilityChosen(AbilityLoadoutButton abilityLoadoutButton)
+    {
+        OnAbilityChosenEvent?.Invoke(abilityLoadoutButton);
+    }
 }

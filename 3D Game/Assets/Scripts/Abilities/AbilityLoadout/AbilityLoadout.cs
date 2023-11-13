@@ -23,11 +23,26 @@ public class AbilityLoadout : MonoBehaviour
 
     [SerializeField] Button ConfirmButton;
 
+    [SerializeField] public List<UI_PlayerABLInventory> PlayerInventoryAreas;
+    [SerializeField] UI_PlayerABLInventory playerABLInventoryPrefab;
+    [SerializeField] GameObject playersArea;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
-        PlayerManager.Instance.AbilityLoadoutActive = true;
+        PlayerManager playerManager = PlayerManager.Instance;
+
+        playerManager.AbilityLoadoutActive = true;
+
+        foreach(Player player in playerManager.Players)
+        {
+            UI_PlayerABLInventory ini = Instantiate(playerABLInventoryPrefab, playersArea.transform);
+
+            ini.Setup(player);
+        }
+
         if(PlayerManager.Instance.abilitInventory.Count > 0)
         {
             ChosenAbilityList = PlayerManager.Instance.abilitInventory;
@@ -35,7 +50,7 @@ public class AbilityLoadout : MonoBehaviour
             {
                 abilityCollection.Remove(ability);
                 AbilityLoadoutButton button = Instantiate(abloadoutButton, ChosenAbilitiesLayout.transform);
-                button.Setup(ability, this);
+                button.Setup(ability);
                 button.GetComponent<Button>().enabled = false;
             }
         }
@@ -47,24 +62,26 @@ public class AbilityLoadout : MonoBehaviour
             {
                 case Ressource.ressourceA:
                     instance = Instantiate(abloadoutButton, BlueAbilityLayout.transform);
-                    instance.Setup(ability, this);
+                    instance.Setup(ability);
                     break;
 
                 case Ressource.ressourceB:
                     instance = Instantiate(abloadoutButton, OrangeAbilityLayout.transform);
-                    instance.Setup(ability, this);
+                    instance.Setup(ability);
                     break;
 
                 case Ressource.ressourceC:
                     instance = Instantiate(abloadoutButton, RedAbilityLayout.transform);
-                    instance.Setup(ability, this);
+                    instance.Setup(ability);
                     break;
                 case Ressource.resscoureD:
                     instance = Instantiate(abloadoutButton, GreenAbilityLayout.transform);
-                    instance.Setup(ability, this);
+                    instance.Setup(ability);
                     break;
             }
+            
         }
+        EventManager.OnAbilityChosenEvent += AddAbilityChoice;
     }
 
     public void AddAbilityChoice(AbilityLoadoutButton abilityLoadoutButton)
