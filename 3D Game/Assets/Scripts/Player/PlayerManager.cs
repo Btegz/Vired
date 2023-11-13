@@ -103,21 +103,26 @@ public class PlayerManager : MonoBehaviour
             // Searches for the Nieghbors of playerposition
             List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(selectedPlayer.CoordinatePosition));
 
-            // Lose Condition: surrounded by enemies/ no ressources 
-            for (int i = 0; i < abilitInventory.Count; i++)
+            foreach(Player player in Players)
             {
-                //check ob Ability bezahlbar ist 
-                if (InventoryCheck(i))
+                // Lose Condition: surrounded by enemies/ no ressources 
+                for (int i = 0; i < player.AbilityInventory.Count; i++)
                 {
-                    abilityUsable = true;
-                    break;
-                }
+                    //check ob Ability bezahlbar ist 
+                    if (InventoryCheck(i))
+                    {
+                        abilityUsable = true;
+                        break;
+                    }
 
-                else
-                {
-                    abilityUsable = false;
+                    else
+                    {
+                        abilityUsable = false;
+                    }
                 }
             }
+
+            
 
             // wenn Ability nicht bezahlbar ist check Nachbarn
             if (abilityUsable == false)
@@ -258,7 +263,7 @@ public class PlayerManager : MonoBehaviour
 
     public void ChooseAbilityWithIndex(int index, Vector3Int selectedPoint, Vector3Int playerPos)
     {
-        Ability chosenAbility = abilitInventory[index];
+        Ability chosenAbility = selectedPlayer.AbilityInventory[index];
         AbilityObjScript AbilityPreview = Instantiate(abilityObj);
         AbilityPreview.ShowMesh(chosenAbility, selectedPoint, playerPos);
     }
@@ -289,7 +294,7 @@ public class PlayerManager : MonoBehaviour
     public bool InventoryCheck(int index)
     {
         //saves the cost of the chosen Ability
-        Ressource resCost = abilitInventory[index].costs[0];
+        Ressource resCost = selectedPlayer.AbilityInventory[index].costs[0];
 
         //switches over the different ressources and checks whether player has anough ressources of fitting Type
         //the function returns if Player does not have enough Ressources for the Ability

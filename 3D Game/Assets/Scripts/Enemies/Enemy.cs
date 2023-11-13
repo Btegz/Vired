@@ -63,7 +63,7 @@ public class Enemy : MonoBehaviour
                 break;
         }
 
-        for(int i = 0;i<currentHealth;i++)
+        for (int i = 0; i < currentHealth; i++)
         {
             Image hpp = Instantiate(HealthpointPrefab);
             healthpoints.Add(hpp);
@@ -78,18 +78,17 @@ public class Enemy : MonoBehaviour
         {
             GetComponentInParent<GridTile>().ChangeCurrentState(GridManager.Instance.gS_Negative);
             PlayerManager.Instance.SkillPoints++;
-
-            
-            Instantiate(Particle_EnemyDeath, transform.position, Quaternion.Euler(-90, 0 ,0));
-            
-
+            Instantiate(Particle_EnemyDeath, transform.position, Quaternion.Euler(-90, 0, 0));
             Destroy(gameObject);
         }
         else
         {
-            Image hp = healthpoints[healthpoints.Count - 1];
-            healthpoints.RemoveAt(healthpoints.Count - 1);
-            Destroy(hp.gameObject);
+            for (int i = 0; i < damage; i++)
+            {
+                Image hp = healthpoints[healthpoints.Count - 1];
+                healthpoints.RemoveAt(healthpoints.Count - 1);
+                Destroy(hp.gameObject);
+            }
         }
     }
 
