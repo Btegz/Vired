@@ -8,7 +8,7 @@ using static PofIManager;
 using System;
 using UnityEngine.EventSystems;
 
-public class NewResource : MonoBehaviour
+public class RessourceSwitch : MonoBehaviour
 {
     public Button RessourceA;
     public Button RessourceB;
@@ -23,7 +23,8 @@ public class NewResource : MonoBehaviour
         RessourceD.onClick.AddListener(() => Switch(3));
     }
 
-
+    // Update is called once per frame
+    // Why are u adding 20???
     void Switch(int buttonNo)
     {
         switch(buttonNo)

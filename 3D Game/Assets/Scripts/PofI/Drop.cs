@@ -21,7 +21,8 @@ public class Drop : MonoBehaviour, IDropHandler
 
     public void OnButtonClicked()
     {
-        
+        Debug.Log(Player[0].name);
+        Debug.Log(Player[1].name);
         for (int i = 0; i < PlayerManager.Instance.Players.Count; i++)
         {
             
@@ -38,14 +39,13 @@ public class Drop : MonoBehaviour, IDropHandler
         }
 
         
-       /* Vector2 gridtile = GridManager.Instance.Grid[PlayerManager.Instance.Players[p].CoordinatePosition].transform.position;
-        Vector2Int playerPosition = (Vector2Int) GridManager.Instance.Grid[PlayerManager.Instance.Players[p].CoordinatePosition].AxialCoordinate;
+       //Vector2 gridtile = GridManager.Instance.Grid[PlayerManager.Instance.Players[p].CoordinatePosition].transform.position;
+        Vector2Int playerPosition = (Vector2Int) PlayerManager.Instance.Players[p].CoordinatePosition;
+        Vector2Int player2Position = (Vector2Int)PlayerManager.Instance.Players[p2].CoordinatePosition;
         PlayerManager.Instance.Players[p2].CoordinatePosition = playerPosition;
-
-
-        Vector2Int player2Position = (Vector2Int)GridManager.Instance.Grid[PlayerManager.Instance.Players[p2].CoordinatePosition].AxialCoordinate;
-        PlayerManager.Instance.Players[p].CoordinatePosition = player2Position;*/
-        
+        PlayerManager.Instance.Players[p].CoordinatePosition = player2Position;
+        PlayerManager.Instance.Players[p2].transform.position = GridManager.Instance.Grid[PlayerManager.Instance.Players[p2].CoordinatePosition].transform.position;
+        PlayerManager.Instance.Players[p].transform.position = GridManager.Instance.Grid[PlayerManager.Instance.Players[p].CoordinatePosition].transform.position;
     
         Destroy(PofIManager.posSwitch);
 

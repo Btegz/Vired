@@ -388,8 +388,8 @@ MonoBehaviour:
   zoomAction: {fileID: -6776810313273384712, guid: 26454fd94e486c84595f431522cf20cf, type: 3}
   movementAction: {fileID: 4958632821665724103, guid: 26454fd94e486c84595f431522cf20cf, type: 3}
   switchAction: {fileID: -7625714661082818169, guid: 26454fd94e486c84595f431522cf20cf, type: 3}
-  playerswitchAction: {fileID: 0}
-  topDownAction: {fileID: 0}
+  playerswitchAction: {fileID: 6662104365436766857, guid: 26454fd94e486c84595f431522cf20cf, type: 3}
+  topDownAction: {fileID: -2479732235813107071, guid: 26454fd94e486c84595f431522cf20cf, type: 3}
   playerAction:
     m_Name: Player
     m_Type: 0
@@ -406,13 +406,12 @@ MonoBehaviour:
   rotationSpeed: 500
   maxMovementSpeed: 50
   minMovementSpeed: 5
-  speedAdaption: 0.2
   endPosition: {x: 0, y: 0, z: 0}
   MouseScrollStep: 30
   MouseScrollDistance: 0
   MainCam: 1
   keyPressed: 0
-  player: {fileID: 0}
+  player: {fileID: 141612170120246660, guid: 035a5f621b3605341a971c308f6e86ad, type: 3}
 --- !u!1 &1365018791943486810
 GameObject:
   m_ObjectHideFlags: 0
