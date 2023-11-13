@@ -23,6 +23,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] List<Image> healthpoints;
 
 
+    [SerializeField] GameObject Particle_EnemyDeath;
+
+
     private void Awake()
     {
 
@@ -75,6 +78,11 @@ public class Enemy : MonoBehaviour
         {
             GetComponentInParent<GridTile>().ChangeCurrentState(GridManager.Instance.gS_Negative);
             PlayerManager.Instance.SkillPoints++;
+
+            
+            Instantiate(Particle_EnemyDeath, transform.position, Quaternion.Euler(-90, 0 ,0));
+            
+
             Destroy(gameObject);
         }
         else
