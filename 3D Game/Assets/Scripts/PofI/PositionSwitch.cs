@@ -21,15 +21,14 @@ public class PositionSwitch : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
-        
+
         if (gameObject.CompareTag("Player1"))
-        {   Debug.Log("Drag1");
+        {
             Player1 = PlayerManager.Instance.Players[0];
             drop.Player.Add(Player1);
         }
         if (gameObject.CompareTag("Player2"))
         {
-            Debug.Log("Drag2");
             Player2 = PlayerManager.Instance.Players[1];
             drop.Player.Add(Player2);
         }

@@ -37,7 +37,7 @@ public class PofIManager : MonoBehaviour
     public void randomPofI()
     {
          pofi1 = (int)Random.Range(0, 5);
-            pofi1 = 2; 
+            pofi1 = 4; 
             pofiEvent1 = (PofI)pofi1;
          pofi2 = (int)Random.Range(0, 5);
          pofiEvent2 = (PofI)pofi2;
@@ -64,7 +64,8 @@ public class PofIManager : MonoBehaviour
                 break;
             
             case PofI.PofI_ResourceSwitch:
-                Instantiate(ResourceSwitch, ResourceSwitch.transform.position, Quaternion.identity);
+                Debug.Log("RessourceSwitch");
+                //Instantiate(ResourceSwitch, ResourceSwitch.transform.position, Quaternion.identity);
                 break;            
             
             case PofI.PofI_NewAbility:
