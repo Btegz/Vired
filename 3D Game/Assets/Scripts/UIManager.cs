@@ -20,35 +20,46 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] GameObject AbilitiesInventory;
 
-    [SerializeField] List<Button> abilityButtons;
+    [SerializeField] List<AbilityCastButton> abilityButtons;
 
     [SerializeField] Sprite emptyAbilitySlotSprite;
+
+    [SerializeField] GameObject PlayerButtonParent;
+    [SerializeField] PlayerButton playerButtonPrefab;
+    [SerializeField] public List<PlayerButton> playerButtons;
 
     // Start is called before the first frame update
     void Start()
     {
+        foreach(Player player in PlayerManager.Instance.Players)
+        {
+            PlayerButton playerButton = Instantiate(playerButtonPrefab, PlayerButtonParent.transform);
+            playerButton.Setup(player,this);
+        }
         EndTurnButton.onClick.AddListener(EventManager.OnEndTurn);
         EndTurnButton.onClick.AddListener(GridManager.Instance.TriggerPhase);
-        AbilitiesInventoryButton.onClick.AddListener(ExpandAbilityInventory);
+        EventManager.OnSelectPlayerEvent += UpdateAbilityInventory;
+        //AbilitiesInventoryButton.onClick.AddListener(ExpandAbilityInventory);
     }
 
     private void OnEnable()
     {
         try
         {
-            List<Ability> abilityInv = PlayerManager.Instance.abilitInventory;
+            //List<Ability> abilityInv = PlayerManager.Instance.abilitInventory;
 
-            for (int i = 0; i < abilityButtons.Count; i++)
-            {
-                if (i < abilityInv.Count)
-                {
-                    abilityButtons[i].GetComponent<Image>().sprite = abilityInv[i].AbilityUISprite;
-                }
-                else
-                {
-                    abilityButtons[i].image.sprite = emptyAbilitySlotSprite;
-                }
-            }
+            //for (int i = 0; i < abilityButtons.Count; i++)
+            //{
+            //    if (i < abilityInv.Count)
+            //    {
+            //        abilityButtons[i].GetComponent<Image>().sprite = abilityInv[i].AbilityUISprite;
+            //    }
+            //    else
+            //    {
+            //        abilityButtons[i].GetComponent<Button>().image.sprite = emptyAbilitySlotSprite;
+            //    }
+            //}
+            UpdateAbilityInventory(PlayerManager.Instance.selectedPlayer);
         }
         catch
         {
@@ -86,21 +97,21 @@ public class UIManager : MonoBehaviour
         ressourceDText.text = PlayerManager.Instance.RessourceDInventory.ToString();
     }
 
-    public void ExpandAbilityInventory()
-    {
-        AbilitiesInventoryButton.onClick.RemoveListener(ExpandAbilityInventory);
+    //public void ExpandAbilityInventory()
+    //{
+    //    AbilitiesInventoryButton.onClick.RemoveListener(ExpandAbilityInventory);
 
-        AbilitiesInventory.GetComponent<RectTransform>().DOAnchorPosY(280, 1);
-        AbilitiesInventoryButton.onClick.AddListener(HideAbilityInventory);
+    //    AbilitiesInventory.GetComponent<RectTransform>().DOAnchorPosY(280, 1);
+    //    AbilitiesInventoryButton.onClick.AddListener(HideAbilityInventory);
 
-    }
+    //}
 
-    public void HideAbilityInventory()
-    {
-        AbilitiesInventoryButton.onClick.RemoveListener(HideAbilityInventory);
-        AbilitiesInventory.GetComponent<RectTransform>().DOMoveY(50, 1);
-        AbilitiesInventoryButton.onClick.AddListener(ExpandAbilityInventory);
-    }
+    //public void HideAbilityInventory()
+    //{
+    //    AbilitiesInventoryButton.onClick.RemoveListener(HideAbilityInventory);
+    //    AbilitiesInventory.GetComponent<RectTransform>().DOMoveY(50, 1);
+    //    AbilitiesInventoryButton.onClick.AddListener(ExpandAbilityInventory);
+    //}
 
     public void GameOver()
     {
@@ -124,4 +135,22 @@ public class UIManager : MonoBehaviour
             i.gameObject.SetActive(false);
         }
     }
+
+    public void UpdateAbilityInventory(Player player)
+    {
+        PlayerManager.Instance.PlayerSelect(PlayerManager.Instance.Players.IndexOf(player));
+        for (int i = 0;i < abilityButtons.Count;i++)
+        {
+            if(player.AbilityInventory.Count > i)
+            {
+                abilityButtons[i].GetComponent<Button>().image.sprite = player.AbilityInventory[i].AbilityUISprite;
+            }
+            else
+            {
+                abilityButtons[i].GetComponent<Button>().image.sprite = emptyAbilitySlotSprite;
+            }
+        }
+        
+    }
+
 }

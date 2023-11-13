@@ -18,7 +18,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         PlayerManager.Instance.selectedPlayer = this;
-
+        EventManager.OnSelectPlayer(this);
         PlayerCam.LookAt = PlayerManager.Instance.selectedPlayer.transform;
         PlayerCam.Follow = PlayerManager.Instance.selectedPlayer.transform;
         CameraRotation.Instance.SwitchToPlayer();

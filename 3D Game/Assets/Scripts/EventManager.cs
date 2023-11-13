@@ -43,4 +43,12 @@ public class EventManager
     {
         OnAbilityChosenEvent?.Invoke(abilityLoadoutButton);
     }
+
+    public delegate void SelectPlayerDelegate(Player player);
+    public static event SelectPlayerDelegate OnSelectPlayerEvent;
+
+    public static void OnSelectPlayer(Player player)
+    {
+        OnSelectPlayerEvent?.Invoke(player);
+    }
 }
