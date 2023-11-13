@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 82815302e6d62a84ba5059f2bc688aa6, type: 2}
+  - {fileID: 2100000, guid: a7d0a5097aaf19d4abe65e1836db209b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -113,6 +113,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityInventory: []
   CoordinatePosition: {x: 0, y: 0}
+  SpawnPoint: {x: 1, y: 0}
+  PlayerCam: {fileID: 0}
 --- !u!1001 &7275479254789717186
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Cinemachine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IPointerClickHandler
+
 {
     public List<Ability> AbilityInventory;
 
@@ -14,30 +15,13 @@ public class Player : MonoBehaviour
 
     [SerializeField] CinemachineVirtualCamera PlayerCam;
 
-
-
-    public void PlayerSelect()
+    public void OnPointerClick(PointerEventData eventData)
     {
-        CameraRotation.Instance.MainCam = true;
-        switch(CameraRotation.Instance.keyPressed)
-        {
-            case 1:
-                PlayerManager.Instance.selectedPlayer  = PlayerManager.Instance.Players[0];
-     
-                break;
+        PlayerManager.Instance.selectedPlayer = this;
 
-            case 2:
-                PlayerManager.Instance.selectedPlayer = PlayerManager.Instance.Players[1];
-                break;
-
-            case 3:
-                PlayerManager.Instance.selectedPlayer = PlayerManager.Instance.Players[2];
-                break;
-        }
-        PlayerCam.LookAt = PlayerManager.Instance.selectedPlayer.transform; 
-        PlayerCam.Follow = PlayerManager.Instance.selectedPlayer.transform;  
+        PlayerCam.LookAt = PlayerManager.Instance.selectedPlayer.transform;
+        PlayerCam.Follow = PlayerManager.Instance.selectedPlayer.transform;
         CameraRotation.Instance.SwitchToPlayer();
-        
     }
 }
 

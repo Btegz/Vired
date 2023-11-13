@@ -20,7 +20,7 @@ public class CameraRotation : MonoBehaviour
     [SerializeField] InputActionReference topDownAction;
     [SerializeField] InputAction playerAction;
     [SerializeField] Camera cam;
-    [SerializeField] CinemachineVirtualCamera Playercam;
+    [SerializeField] public CinemachineVirtualCamera Playercam;
     [SerializeField] CinemachineVirtualCamera Worldcam;
     [SerializeField] CinemachineVirtualCamera TopDownCam;
 
@@ -43,7 +43,6 @@ public class CameraRotation : MonoBehaviour
     [SerializeField] float MouseScrollStep;
     [SerializeField] float MouseScrollDistance;
     [SerializeField] public bool MainCam = true;
-    public float keyPressed;
     private bool playerSwitchCalled = false;
 
 
@@ -76,8 +75,9 @@ public class CameraRotation : MonoBehaviour
         switchAction.action.performed += _ => SwitchtoMain();
 
         playerswitchAction.action.Enable();
-        playerswitchAction.action.performed += ctx => keyPressed = ctx.ReadValue<float>();
-        playerswitchAction.action.performed += _ => player.PlayerSelect();
+        playerswitchAction.action.performed += _ => PlayerManager.Instance.PlayerSelect(_.ReadValue<float>());
+        
+
 
         topDownAction.action.Enable();
         topDownAction.action.performed += _ => SwitchToTopDown();
@@ -93,6 +93,7 @@ public class CameraRotation : MonoBehaviour
     {
         startingPosition = gameObject.transform.GetChild(0).transform.localPosition;
         startMovementSpeed = maxMovementSpeed;
+
 
     }
 
@@ -135,18 +136,28 @@ public class CameraRotation : MonoBehaviour
         {
             MouseScrollDistance += MouseScrollStep;
             MouseScrollDistance = Mathf.Clamp(MouseScrollDistance, 0, 1);
+            
             gameObject.transform.GetChild(0).transform.localPosition = Vector3.Lerp(camPosition, endPosition, MouseScrollDistance);
             maxMovementSpeed = Mathf.Lerp(maxMovementSpeed, minMovementSpeed, MouseScrollDistance);
-            if (MainCam)
+
+          
+
+            if (Worldcam.Priority == 2 && MainCam == true)
             {
                 Worldcam.transform.LookAt(gameObject.transform.GetChild(0).transform.position);
                 Worldcam.m_Lens.FieldOfView -= MouseScrollDistance;
             }
 
+            else if (Playercam.Priority == 2)
+            {
+                Playercam.transform.LookAt(gameObject.transform.GetChild(2).transform.position);
+                Playercam.m_Lens.FieldOfView -= MouseScrollDistance;
+            }
+
             else
             {
-                Playercam.transform.LookAt(gameObject.transform.GetChild(0).transform.position);
-                Playercam.m_Lens.FieldOfView -= MouseScrollDistance;
+                TopDownCam.transform.LookAt(gameObject.transform.GetChild(3).transform.position);
+                TopDownCam.m_Lens.FieldOfView -= MouseScrollDistance;
             }
         }
 
@@ -159,18 +170,23 @@ public class CameraRotation : MonoBehaviour
             gameObject.transform.GetChild(0).transform.localPosition = Vector3.Lerp(startingPosition, camPosition, MouseScrollDistance);
             maxMovementSpeed = Mathf.Lerp(startMovementSpeed, maxMovementSpeed, MouseScrollDistance);
 
-            if (MainCam)
+            if (Worldcam.Priority == 2 && MainCam == true)
             {
                 Worldcam.transform.LookAt(gameObject.transform.GetChild(0).transform.position);
                 Worldcam.m_Lens.FieldOfView += MouseScrollDistance;
             }
 
-            else
+            else if (Playercam.Priority == 2)
             {
-                Playercam.transform.LookAt(gameObject.transform.GetChild(0).transform.position);
+                Playercam.transform.LookAt(gameObject.transform.GetChild(2).transform.position);
                 Playercam.m_Lens.FieldOfView += MouseScrollDistance;
             }
 
+            else
+            {
+                TopDownCam.transform.LookAt(gameObject.transform.GetChild(3).transform.position);
+                TopDownCam.m_Lens.FieldOfView += MouseScrollDistance;
+            }
         }
     }
 
@@ -231,7 +247,7 @@ public class CameraRotation : MonoBehaviour
         Worldcam.Priority = 2;
         TopDownCam.Priority = 1;
         Playercam.Priority = 0;
-        MainCam = true;
+       MainCam = true;
     }
 
     public void SwitchToPlayer()
@@ -239,8 +255,8 @@ public class CameraRotation : MonoBehaviour
         Worldcam.Priority = 0;
         TopDownCam.Priority = 1;
         Playercam.Priority = 2;
-        keyPressed = 0;
-        MainCam = false;
+       
+       MainCam = false;
     }
 
     public void SwitchToTopDown()

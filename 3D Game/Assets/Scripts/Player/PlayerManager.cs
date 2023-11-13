@@ -33,6 +33,7 @@ public class PlayerManager : MonoBehaviour
     public int extraMovement;
 
     public Camera cam;
+   
     public Vector2Int PlayerSpawnPoint;
     public Vector2Int collisionPoint;
     public Vector2Int playerPosition;
@@ -80,7 +81,7 @@ public class PlayerManager : MonoBehaviour
             p.CoordinatePosition = GridManager.Instance.Grid[p.SpawnPoint].AxialCoordinate;
         }
 
-        selectedPlayer = Players[0];
+       selectedPlayer = Players[0];
 
         EventManager.OnEndTurnEvent += resetMovementPoints;
         EventManager.OnAbilityButtonEvent += AbilityClicked;
@@ -407,5 +408,17 @@ public class PlayerManager : MonoBehaviour
             positions.Add(p.CoordinatePosition);
         }
         return positions;
+    }
+
+    public void PlayerSelect(float keyPressed)
+    {
+        CameraRotation.Instance.MainCam = true;
+
+        PlayerManager.Instance.selectedPlayer = PlayerManager.Instance.Players[(int)keyPressed];
+
+        CameraRotation.Instance.Playercam.LookAt = PlayerManager.Instance.selectedPlayer.transform;
+        CameraRotation.Instance.Playercam.Follow = PlayerManager.Instance.selectedPlayer.transform;
+        CameraRotation.Instance.SwitchToPlayer();
+
     }
 }
