@@ -23,6 +23,9 @@ public class AbilityObjScript : MonoBehaviour
     [SerializeField] InputActionReference castAbiltyInputActionReference;
     [SerializeField] InputActionReference CancelAbilityInputActionReference;
 
+    [SerializeField] GameObject particle_AbilityPositive;
+    [SerializeField] GameObject particle_AbilityNegative;
+
 
     Camera cam;
 
@@ -187,6 +190,9 @@ public class AbilityObjScript : MonoBehaviour
         switch (effect)
         {
             case Effect.Positive:
+
+                Instantiate(particle_AbilityPositive, gridTile.transform.position, Quaternion.Euler(-85, 0, 0));
+
                 switch (gridTile.currentGridState)
                 {
                     case GS_positive:
@@ -203,9 +209,13 @@ public class AbilityObjScript : MonoBehaviour
                         gridTile.ChangeCurrentState(GridManager.Instance.gS_Positive);
                         break;
 
+                        
                 }
                 break;
             case Effect.Negative100:
+
+                Instantiate(particle_AbilityNegative, gridTile.transform.position, Quaternion.Euler(-85, 0, 0));
+
                 if (gridTile.currentGridState.StateValue() < -1)
                 {
                     Enemy currentEnemy = gridTile.GetComponentInChildren<Enemy>();
@@ -218,6 +228,9 @@ public class AbilityObjScript : MonoBehaviour
                 break;
 
             case Effect.Negative200:
+
+                Instantiate(particle_AbilityNegative, gridTile.transform.position, Quaternion.Euler(-85, 0, 0));
+
                 if (gridTile.currentGridState.StateValue() < -1)
                 {
                     Enemy currentEnemy = gridTile.GetComponentInChildren<Enemy>();
@@ -230,6 +243,9 @@ public class AbilityObjScript : MonoBehaviour
                 break;
 
             case Effect.Negative300:
+
+                Instantiate(particle_AbilityNegative, gridTile.transform.position, Quaternion.Euler(-85, 0, 0));
+
                 if (gridTile.currentGridState.StateValue() < -1)
                 {
                     Enemy currentEnemy = gridTile.GetComponentInChildren<Enemy>();
@@ -242,6 +258,9 @@ public class AbilityObjScript : MonoBehaviour
                 break;
 
             case Effect.Negative400:
+
+                Instantiate(particle_AbilityNegative, gridTile.transform.position, Quaternion.Euler(-85, 0, 0));
+
                 if (gridTile.currentGridState.StateValue() < -1)
                 {
                     Enemy currentEnemy = gridTile.GetComponentInChildren<Enemy>();
@@ -253,6 +272,9 @@ public class AbilityObjScript : MonoBehaviour
                 break;
 
             case Effect.Negative500:
+
+                Instantiate(particle_AbilityNegative, gridTile.transform.position, Quaternion.Euler(-85, 0, 0));
+
                 if (gridTile.currentGridState.StateValue() < -1)
                 {
                     Enemy currentEnemy = gridTile.GetComponentInChildren<Enemy>();
@@ -288,7 +310,7 @@ public class AbilityObjScript : MonoBehaviour
         Payment();
         castAbiltyInputActionReference.action.performed -= CastAbility;
         PlayerManager.Instance.AbilityCasted();
-        EventManager.OnAbilityCast();
+        EventManager.OnAbilityCast();   
 
         Destroy(gameObject);
     }
