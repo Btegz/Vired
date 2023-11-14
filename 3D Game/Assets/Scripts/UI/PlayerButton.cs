@@ -12,7 +12,7 @@ public class PlayerButton : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        manager.UpdateAbilityInventory(player);
+        EventManager.OnSelectPlayer(player);
     }
 
     public void Setup(Player player, UIManager uIManager)

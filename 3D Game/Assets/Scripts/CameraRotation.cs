@@ -75,7 +75,7 @@ public class CameraRotation : MonoBehaviour
         switchAction.action.performed += _ => SwitchtoMain();
 
         playerswitchAction.action.Enable();
-        playerswitchAction.action.performed += _ => PlayerManager.Instance.PlayerSelect(_.ReadValue<float>());
+        playerswitchAction.action.performed += _ => PlayerManager.Instance.PlayerSelect(PlayerManager.Instance.Players[(int) _.ReadValue<float>()]);
         
 
 

@@ -33,7 +33,7 @@ public class PlayerManager : MonoBehaviour
     public int extraMovement;
 
     public Camera cam;
-   
+
     public Vector2Int PlayerSpawnPoint;
     public Vector2Int collisionPoint;
     public Vector2Int playerPosition;
@@ -81,48 +81,51 @@ public class PlayerManager : MonoBehaviour
             p.CoordinatePosition = GridManager.Instance.Grid[p.SpawnPoint].AxialCoordinate;
         }
 
-       selectedPlayer = Players[0];
+        selectedPlayer = Players[0];
 
         EventManager.OnEndTurnEvent += resetMovementPoints;
         EventManager.OnAbilityButtonEvent += AbilityClicked;
+        EventManager.OnSelectPlayerEvent += PlayerSelect;
 
     }
 
     private void OnDestroy()
     {
         EventManager.OnEndTurnEvent -= resetMovementPoints;
+        EventManager.OnAbilityButtonEvent -= AbilityClicked;
     }
 
     private void Update()
     {
         if (!AbilityLoadoutActive)
         {
-
             // takes mouse positition
             mouse_pos = Mouse.current.position.ReadValue();
             // Searches for the Nieghbors of playerposition
             List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(selectedPlayer.CoordinatePosition));
 
-            foreach(Player player in Players)
+            foreach (Player player in Players)
             {
-                // Lose Condition: surrounded by enemies/ no ressources 
+                // Lose Condition: surrounded by enemies/ no ressources
                 for (int i = 0; i < player.AbilityInventory.Count; i++)
                 {
-                    //check ob Ability bezahlbar ist 
-                    if (InventoryCheck(i))
+                    if (player.AbilityInventory.Count > 0)
                     {
-                        abilityUsable = true;
-                        break;
-                    }
-
-                    else
-                    {
-                        abilityUsable = false;
+                        //check ob Ability bezahlbar ist
+                        if (InventoryCheck(i))
+                        {
+                            abilityUsable = true;
+                            break;
+                        }
+                        else
+                        {
+                            abilityUsable = false;
+                        }
                     }
                 }
             }
 
-            
+
 
             // wenn Ability nicht bezahlbar ist check Nachbarn
             if (abilityUsable == false)
@@ -151,7 +154,7 @@ public class PlayerManager : MonoBehaviour
                 }
             }
 
-            if (movementAction == 0 && Mouse.current.leftButton.wasPressedThisFrame && !abilityActivated && extraMovement ==0)
+            if (movementAction == 0 && Mouse.current.leftButton.wasPressedThisFrame && !abilityActivated && extraMovement == 0)
             {
                 selectedPlayer.transform.DOPunchRotation(new Vector3(10f, 2f), 1f);
             }
@@ -293,48 +296,55 @@ public class PlayerManager : MonoBehaviour
 
     public bool InventoryCheck(int index)
     {
-        //saves the cost of the chosen Ability
-        Ressource resCost = selectedPlayer.AbilityInventory[index].costs[0];
-
-        //switches over the different ressources and checks whether player has anough ressources of fitting Type
-        //the function returns if Player does not have enough Ressources for the Ability
-        switch (resCost)
+        try
         {
-            case Ressource.ressourceA:
-                if (abilitInventory[index].costs.Count > RessourceAInventory)
-                {
-                    return false;
-                }
+            //saves the cost of the chosen Ability
+            Ressource resCost = selectedPlayer.AbilityInventory[index].costs[0];
 
-                break;
+            //switches over the different ressources and checks whether player has anough ressources of fitting Type
+            //the function returns if Player does not have enough Ressources for the Ability
+            switch (resCost)
+            {
+                case Ressource.ressourceA:
+                    if (abilitInventory[index].costs.Count > RessourceAInventory)
+                    {
+                        return false;
+                    }
+
+                    break;
 
 
-            case Ressource.ressourceB:
-                if (abilitInventory[index].costs.Count > RessourceBInventory)
-                {
-                    return false;
-                }
+                case Ressource.ressourceB:
+                    if (abilitInventory[index].costs.Count > RessourceBInventory)
+                    {
+                        return false;
+                    }
 
-                break;
+                    break;
 
-            case Ressource.ressourceC:
-                if (abilitInventory[index].costs.Count > RessourceCInventory)
-                {
-                    return false;
-                }
+                case Ressource.ressourceC:
+                    if (abilitInventory[index].costs.Count > RessourceCInventory)
+                    {
+                        return false;
+                    }
 
-                break;
+                    break;
 
-            case Ressource.resscoureD:
-                if (abilitInventory[index].costs.Count > RessourceDInventory)
-                {
-                    return false;
-                }
+                case Ressource.resscoureD:
+                    if (abilitInventory[index].costs.Count > RessourceDInventory)
+                    {
+                        return false;
+                    }
 
-                break;
+                    break;
+            }
+
+            return true;
         }
-
-        return true;
+        catch
+        {
+            return false;
+        }
     }
 
     /// <summary>
@@ -415,11 +425,11 @@ public class PlayerManager : MonoBehaviour
         return positions;
     }
 
-    public void PlayerSelect(float keyPressed)
+    public void PlayerSelect(Player player)
     {
         CameraRotation.Instance.MainCam = true;
 
-        PlayerManager.Instance.selectedPlayer = PlayerManager.Instance.Players[(int)keyPressed];
+        PlayerManager.Instance.selectedPlayer = player/*PlayerManager.Instance.Players[(int)keyPressed]*/;
 
         //EventManager.OnSelectPlayer(selectedPlayer);
 

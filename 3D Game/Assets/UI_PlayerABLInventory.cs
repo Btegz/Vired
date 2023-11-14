@@ -19,7 +19,7 @@ public class UI_PlayerABLInventory : MonoBehaviour,IPointerEnterHandler,IPointer
 
         foreach(Ability ability in player.AbilityInventory)
         {
-            AbilityLoadoutButton abilityLoadout = Instantiate(loadoutButtonPrefab);
+            AbilityLoadoutButton abilityLoadout = Instantiate(loadoutButtonPrefab,transform);
             abilityLoadout.Setup(ability);
         }
     }
@@ -39,5 +39,10 @@ public class UI_PlayerABLInventory : MonoBehaviour,IPointerEnterHandler,IPointer
     public void OnPointerEnter(PointerEventData eventData)
     {
         EventManager.OnAbilityChosenEvent += AddAbility;
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.OnAbilityChosenEvent -= AddAbility;
     }
 }

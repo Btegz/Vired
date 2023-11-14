@@ -41,11 +41,7 @@ public class AbilityLoadout : MonoBehaviour
             UI_PlayerABLInventory ini = Instantiate(playerABLInventoryPrefab, playersArea.transform);
 
             ini.Setup(player);
-        }
 
-        if(PlayerManager.Instance.abilitInventory.Count > 0)
-        {
-            ChosenAbilityList = PlayerManager.Instance.abilitInventory;
             foreach (Ability ability in ChosenAbilityList)
             {
                 abilityCollection.Remove(ability);
@@ -53,6 +49,18 @@ public class AbilityLoadout : MonoBehaviour
                 button.Setup(ability);
                 button.GetComponent<Button>().enabled = false;
             }
+        }
+
+        if(PlayerManager.Instance.abilitInventory.Count > 0)
+        {
+            ChosenAbilityList = PlayerManager.Instance.abilitInventory;
+            //foreach (Ability ability in ChosenAbilityList)
+            //{
+            //    abilityCollection.Remove(ability);
+            //    AbilityLoadoutButton button = Instantiate(abloadoutButton, ChosenAbilitiesLayout.transform);
+            //    button.Setup(ability);
+            //    button.GetComponent<Button>().enabled = false;
+            //}
         }
 
         AbilityLoadoutButton instance;
@@ -82,6 +90,11 @@ public class AbilityLoadout : MonoBehaviour
             
         }
         EventManager.OnAbilityChosenEvent += AddAbilityChoice;
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.OnAbilityChosenEvent -= AddAbilityChoice;
     }
 
     public void AddAbilityChoice(AbilityLoadoutButton abilityLoadoutButton)

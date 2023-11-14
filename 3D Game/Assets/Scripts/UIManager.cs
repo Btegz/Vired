@@ -68,6 +68,11 @@ public class UIManager : MonoBehaviour
 
     }
 
+    private void OnDestroy()
+    {
+        EventManager.OnSelectPlayerEvent -= UpdateAbilityInventory;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -138,7 +143,9 @@ public class UIManager : MonoBehaviour
 
     public void UpdateAbilityInventory(Player player)
     {
-        PlayerManager.Instance.PlayerSelect(PlayerManager.Instance.Players.IndexOf(player));
+        //EventManager.OnSelectPlayer(player);
+
+        //PlayerManager.Instance.PlayerSelect(PlayerManager.Instance.Players.IndexOf(player));
         for (int i = 0;i < abilityButtons.Count;i++)
         {
             if(player.AbilityInventory.Count > i)

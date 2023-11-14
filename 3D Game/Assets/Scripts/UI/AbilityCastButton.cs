@@ -17,4 +17,9 @@ public class AbilityCastButton : MonoBehaviour
     {
         EventManager.OnAbilityButtonClicked(index);
     }
+
+    private void OnDestroy()
+    {
+        GetComponent<Button>().onClick.RemoveListener(clicked);
+    }
 }
