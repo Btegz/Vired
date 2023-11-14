@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class UI_PlayerABLInventory : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler
+public class UI_PlayerABLInventory : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] Image InventoryArea;
+    [SerializeField] public HorizontalLayoutGroup InventoryArea;
 
     [SerializeField] Player player;
 
@@ -17,15 +17,28 @@ public class UI_PlayerABLInventory : MonoBehaviour,IPointerEnterHandler,IPointer
         this.player = player;
         //EventManager.OnAbilityChosenEvent += AddAbility;
 
-        foreach(Ability ability in player.AbilityInventory)
-        {
-            AbilityLoadoutButton abilityLoadout = Instantiate(loadoutButtonPrefab,transform);
-            abilityLoadout.Setup(ability);
-        }
+        //foreach(Ability ability in player.AbilityInventory)
+        //{
+        //    AbilityLoadoutButton abilityLoadout = Instantiate(loadoutButtonPrefab,transform);
+        //    abilityLoadout.Setup(ability);
+        //}
     }
 
     public void AddAbility(AbilityLoadoutButton abilityLoadOUtButton)
     {
+        //public void OnDrop(PointerEventData eventData)
+        //{
+        //    if (eventData.pointerDrag != null)
+        //        eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = GetComponent<RectTransform>().anchoredPosition;
+
+        //}
+
+        //if (abilityLoadOUtButton.transform.)
+
+
+
+
+
         player.AbilityInventory.Add(abilityLoadOUtButton.ability);
 
         abilityLoadOUtButton.transform.SetParent(InventoryArea.transform);
@@ -33,11 +46,13 @@ public class UI_PlayerABLInventory : MonoBehaviour,IPointerEnterHandler,IPointer
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        Debug.Log("I Exit");
         EventManager.OnAbilityChosenEvent -= AddAbility;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        Debug.Log("I ENTER");
         EventManager.OnAbilityChosenEvent += AddAbility;
     }
 

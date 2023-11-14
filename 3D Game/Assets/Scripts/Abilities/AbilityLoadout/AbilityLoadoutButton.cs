@@ -5,23 +5,29 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class AbilityLoadoutButton : MonoBehaviour, IDragHandler, IEndDragHandler
+public class AbilityLoadoutButton : MonoBehaviour, IDragHandler, IEndDragHandler,IBeginDragHandler
 {
     public Ability ability;
+
+    CanvasGroup canvasGroup;
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        canvasGroup.blocksRaycasts = false;
+    }
 
     public void OnDrag(PointerEventData eventData)
     {
         Vector2 mousePos = Pointer.current.position.ReadValue();
 
         transform.position = new Vector3(mousePos.x,mousePos.y,0);
-        Debug.Log(transform.position);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         // Check if position is inside of a Player Inventory Area
         // if true invoke Ability Chosen Event
-
+        canvasGroup.blocksRaycasts = true;
         EventManager.OnAbilityChosen(this);
     }
 
@@ -30,11 +36,10 @@ public class AbilityLoadoutButton : MonoBehaviour, IDragHandler, IEndDragHandler
         this.ability = ability;
         GetComponent<Image>().sprite = ability.AbilityUISprite;
         Button b = GetComponent<Button>();
-        b.onClick.AddListener(clicked);
     }
 
-    private void clicked()
+    private void Start()
     {
-        //abilityLoadout.AddAbilityChoice(this);
+        canvasGroup = GetComponent<CanvasGroup>();
     }
 }

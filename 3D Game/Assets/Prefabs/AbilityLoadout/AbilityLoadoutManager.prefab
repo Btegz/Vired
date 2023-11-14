@@ -29,9 +29,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9045196305232165688}
-  - {fileID: 7629960686944105201}
   m_Father: {fileID: 8702207892047931069}
-  m_RootOrder: 5
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -308,67 +307,6 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!1 &4053426567265418226
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7629960686944105201}
-  - component: {fileID: 9116722417809168915}
-  m_Layer: 5
-  m_Name: ChosenAbilitiesGridLayout
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &7629960686944105201
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4053426567265418226}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7607941868629560537}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -4.3258057, y: 32.4442}
-  m_SizeDelta: {x: -95.1697, y: -129.7768}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &9116722417809168915
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4053426567265418226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 10
-    m_Right: 10
-    m_Top: 10
-    m_Bottom: 10
-  m_ChildAlignment: 4
-  m_StartCorner: 0
-  m_StartAxis: 0
-  m_CellSize: {x: 150, y: 150}
-  m_Spacing: {x: 40, y: 40}
-  m_Constraint: 0
-  m_ConstraintCount: 2
 --- !u!1 &4406373213767404014
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,7 +471,7 @@ RectTransform:
   m_Children:
   - {fileID: 2589439793367595973}
   m_Father: {fileID: 8702207892047931069}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -595,7 +533,7 @@ RectTransform:
   m_Children:
   - {fileID: 7694517768672463938}
   m_Father: {fileID: 8702207892047931069}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -657,7 +595,7 @@ RectTransform:
   m_Children:
   - {fileID: 5314256249294167368}
   m_Father: {fileID: 8702207892047931069}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -719,7 +657,7 @@ RectTransform:
   m_Children:
   - {fileID: 3137696819689845439}
   m_Father: {fileID: 8702207892047931069}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -1092,11 +1030,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7932377382751484523}
+  - {fileID: 7607941868629560537}
   - {fileID: 4472225011043630921}
   - {fileID: 4472225010259340353}
   - {fileID: 4472225009428210351}
   - {fileID: 4472225011279965840}
-  - {fileID: 7607941868629560537}
   - {fileID: 8702207891416076903}
   - {fileID: 8952766746991662591}
   m_Father: {fileID: 8702207892935929877}
@@ -1229,7 +1167,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6221f575d6b222041ab34aaa18f0a657, type: 2}
   ChosenAbilityList: []
   abloadoutButton: {fileID: 8983986266932953782, guid: f9707cddb74eadd4cb81d785b6e34006, type: 3}
-  ChosenAbilitiesLayout: {fileID: 9116722417809168915}
+  ChosenAbilitiesLayout: {fileID: 0}
   amountToChoose: 3
   BlueAbilityLayout: {fileID: 4472225011043630920}
   OrangeAbilityLayout: {fileID: 4472225009428210350}

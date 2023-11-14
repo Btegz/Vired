@@ -343,6 +343,7 @@ public class PlayerManager : MonoBehaviour
         }
         catch
         {
+            Debug.Log("Inventory Check failed");
             return false;
         }
     }
