@@ -28,7 +28,6 @@ public class AbilityLoadoutButton : MonoBehaviour, IDragHandler, IEndDragHandler
         // Check if position is inside of a Player Inventory Area
         // if true invoke Ability Chosen Event
         canvasGroup.blocksRaycasts = true;
-        EventManager.OnAbilityChosen(this);
     }
 
     public void Setup(Ability ability)
