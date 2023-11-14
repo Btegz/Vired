@@ -36,32 +36,38 @@ public class AbilityLoadout : MonoBehaviour
 
         playerManager.AbilityLoadoutActive = true;
 
-        foreach(Player player in playerManager.Players)
+        ChosenAbilityList = new List<Ability>();
+
+        foreach (Player player in playerManager.Players)
         {
+            Debug.Log("Hello i wanna setup my PlayerInventory" + player.name);
             UI_PlayerABLInventory ini = Instantiate(playerABLInventoryPrefab, playersArea.transform);
 
             ini.Setup(player);
 
-            foreach (Ability ability in ChosenAbilityList)
+            foreach (Ability ability in player.AbilityInventory)
             {
+                Debug.Log("I HAVE A CHOSEN ABILITY" + player.name + " " + ability.name);
+                ChosenAbilityList.Add(ability);
                 abilityCollection.Remove(ability);
-                AbilityLoadoutButton button = Instantiate(abloadoutButton, ChosenAbilitiesLayout.transform);
+                AbilityLoadoutButton button = Instantiate(abloadoutButton);
                 button.Setup(ability);
-                button.GetComponent<Button>().enabled = false;
+                button.transform.SetParent(ini.InventoryArea.transform);
+                //button.GetComponent<Button>().enabled = false;
             }
         }
 
-        if(PlayerManager.Instance.abilitInventory.Count > 0)
-        {
-            ChosenAbilityList = PlayerManager.Instance.abilitInventory;
-            //foreach (Ability ability in ChosenAbilityList)
-            //{
-            //    abilityCollection.Remove(ability);
-            //    AbilityLoadoutButton button = Instantiate(abloadoutButton, ChosenAbilitiesLayout.transform);
-            //    button.Setup(ability);
-            //    button.GetComponent<Button>().enabled = false;
-            //}
-        }
+        //if(PlayerManager.Instance.abilitInventory.Count > 0)
+        //{
+        //    ChosenAbilityList = PlayerManager.Instance.abilitInventory;
+        //    foreach (Ability ability in ChosenAbilityList)
+        //    {
+        //        abilityCollection.Remove(ability);
+        //        AbilityLoadoutButton button = Instantiate(abloadoutButton, ChosenAbilitiesLayout.transform);
+        //        button.Setup(ability);
+        //        button.GetComponent<Button>().enabled = false;
+        //    }
+        //}
 
         AbilityLoadoutButton instance;
         foreach (Ability ability in abilityCollection)
@@ -101,7 +107,7 @@ public class AbilityLoadout : MonoBehaviour
     {
         if (ChosenAbilityList.Count < amountToChoose)
         {
-            abilityLoadoutButton.transform.SetParent(ChosenAbilitiesLayout.transform);
+            //abilityLoadoutButton.transform.SetParent(ChosenAbilitiesLayout.transform);
             abilityLoadoutButton.GetComponent<Button>().enabled = false;
             ChosenAbilityList.Add(abilityLoadoutButton.ability);
             if (ChosenAbilityList.Count == amountToChoose)
