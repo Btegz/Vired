@@ -47,12 +47,8 @@ public class CameraRotation : MonoBehaviour
     [SerializeField] float MouseZoom;
     [SerializeField] float MouseZoomStep;
 
-    private float dollyStartPosition;
-    private float dollyEndPosition;
+    [SerializeField] Vector3 WorldcamStart;
 
-
-    //  [SerializeField] CinemachineTrackedDolly dolly;
-    //public DollyTrack dolly_;
 
 
 
@@ -103,7 +99,8 @@ public class CameraRotation : MonoBehaviour
 
     void Start()
     {
-        startingPosition = gameObject.transform.GetChild(0).transform.localPosition;
+        WorldcamStart = transform.position;
+        startingPosition = cam.transform.localPosition;
         startMovementSpeed = maxMovementSpeed;
 
 
@@ -140,7 +137,7 @@ public class CameraRotation : MonoBehaviour
 
 
         endPosition = new Vector3(0, 1, 2);
-        camPosition = gameObject.transform.GetChild(0).transform.localPosition;
+        camPosition = cam.transform.localPosition;
 
         /// Zoom +
         /// Lerp von der Kamera Position durch die End Positon mit dem Scroll Input 
@@ -149,26 +146,26 @@ public class CameraRotation : MonoBehaviour
             MouseScrollDistance += MouseScrollStep;
             MouseScrollDistance = Mathf.Clamp(MouseScrollDistance, 0, 1);
 
-            gameObject.transform.GetChild(0).transform.localPosition = Vector3.Lerp(camPosition, endPosition, MouseScrollDistance);
+            cam.transform.localPosition = Vector3.Lerp(camPosition, endPosition, MouseScrollDistance);
             maxMovementSpeed = Mathf.Lerp(maxMovementSpeed, minMovementSpeed, MouseScrollDistance);
 
 
 
             if (Worldcam.Priority == 2 && MainCam == true)
             {
-                Worldcam.transform.LookAt(gameObject.transform.GetChild(0).transform.position);
+                Worldcam.transform.LookAt(cam.transform.position);
                 Worldcam.m_Lens.FieldOfView -= MouseScrollDistance;
             }
 
             else if (Playercam.Priority == 2)
             {
-                Playercam.transform.LookAt(gameObject.transform.GetChild(2).transform.position);
+                Playercam.transform.LookAt(Playercam.transform.position);
                 Playercam.m_Lens.FieldOfView -= MouseScrollDistance;
             }
 
             else
             {
-                TopDownCam.transform.LookAt(gameObject.transform.GetChild(3).transform.position);
+                TopDownCam.transform.LookAt(TopDownCam.transform.position);
                 TopDownCam.m_Lens.FieldOfView -= MouseScrollDistance;
             }
         }
@@ -179,24 +176,26 @@ public class CameraRotation : MonoBehaviour
         {
             MouseScrollDistance += MouseScrollStep;
             MouseScrollDistance = Mathf.Clamp(MouseScrollDistance, 0, 1);
-            cam.transform.localPosition = Vector3.Lerp(startingPosition, camPosition, MouseScrollDistance);
+            cam.transform.localPosition = Vector3.Lerp(camPosition, startingPosition, MouseScrollDistance);
             maxMovementSpeed = Mathf.Lerp(startMovementSpeed, maxMovementSpeed, MouseScrollDistance);
+
 
             if (Worldcam.Priority == 2 && MainCam == true)
             {
-                Worldcam.transform.LookAt(gameObject.transform.GetChild(0).transform.position);
+                Worldcam.transform.LookAt(cam.transform.position);
                 Worldcam.m_Lens.FieldOfView += MouseScrollDistance;
             }
 
             else if (Playercam.Priority == 2)
             {
-                Playercam.transform.LookAt(gameObject.transform.GetChild(2).transform.position);
-                Playercam.m_Lens.FieldOfView += MouseScrollDistance;
+                Playercam.transform.LookAt(Playercam.transform.position);
+                Playercam.m_Lens.FieldOfView += MouseScrollDistance;       
+
             }
 
             else
             {
-                TopDownCam.transform.LookAt(gameObject.transform.GetChild(3).transform.position);
+                TopDownCam.transform.LookAt(TopDownCam.transform.position);
                 TopDownCam.m_Lens.FieldOfView += MouseScrollDistance;
             }
         }
@@ -209,27 +208,21 @@ public class CameraRotation : MonoBehaviour
     IEnumerator Rotato()
     {
         Vector2 previousMousePosition = Pointer.current.position.ReadValue();
-
-
-        /*if (Playercam.Priority == 2)
+        if (Playercam.Priority == 2)
         {
-            CinemachineTrackedDolly dolly = Playercam.GetCinemachineComponent<CinemachineTrackedDolly>();
-            dollyStartPosition = dolly.m_PathPosition;
-
-
+            CameraRotation.Instance.Playercam.LookAt = null;
+            CameraRotation.Instance.Playercam.Follow = null;
             while (true)
             {
-                dollyEndPosition = dollyStartPosition + 4;
                 Vector2 currentMousePosition = Pointer.current.position.ReadValue();
-                MouseZoom = ((currentMousePosition - previousMousePosition).x/ Screen.width);
-                dolly.m_PathPosition = Mathf.Lerp(dollyStartPosition, dollyEndPosition, );
+                transform.RotateAround(PlayerManager.Instance.selectedPlayer.transform.position, Vector3.up, ((currentMousePosition - previousMousePosition).x / Screen.width) * rotationSpeed);
                 previousMousePosition = currentMousePosition;
-                dollyEndPosition = dollyStartPosition;
-               yield return null;
-            }
-        }*/
+                yield return null;
 
-       
+            }
+        }
+        else
+        {
             while (true)
             {
                 Vector2 currentMousePosition = Pointer.current.position.ReadValue();
@@ -238,6 +231,7 @@ public class CameraRotation : MonoBehaviour
                 yield return null;
 
             }
+        }
         
     }
 
@@ -250,10 +244,12 @@ public class CameraRotation : MonoBehaviour
         Vector3 previousMousePosition = Pointer.current.position.ReadValue();
         while (true)
         {
-            //Vector3 currentMousePosition = Pointer.current.position.ReadValue();
-            ///*transform.GetChild(0).*/transform./*local*/position += new Vector3((-(currentMousePosition - previousMousePosition).x / Screen.width) * maxMovementSpeed, transform.localPosition.y, ((-(currentMousePosition - previousMousePosition).y / Screen.width) * maxMovementSpeed));
-            //previousMousePosition = currentMousePosition;
-            //yield return null;
+            if (Playercam.Priority == 2)
+            {
+                CameraRotation.Instance.Playercam.LookAt = null;
+                CameraRotation.Instance.Playercam.Follow = null;
+            }
+        
 
             var pointerWorldRay = cam.ScreenPointToRay(previousMousePosition);
             Plane groundPlane = new Plane(Vector3.up, 1);
@@ -282,6 +278,8 @@ public class CameraRotation : MonoBehaviour
         TopDownCam.Priority = 1;
         Playercam.Priority = 0;
         MainCam = true;
+        transform.position = WorldcamStart;
+
     }
 
     public void SwitchToPlayer()
@@ -298,6 +296,8 @@ public class CameraRotation : MonoBehaviour
         Worldcam.Priority = 0;
         Playercam.Priority = 1;
         TopDownCam.Priority = 2;
+        transform.position = WorldcamStart;
+
 
     }
 }

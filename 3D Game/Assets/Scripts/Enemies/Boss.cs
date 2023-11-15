@@ -7,7 +7,7 @@ using System.Linq;
 public class Boss : MonoBehaviour
 {
 
-    [SerializeField] Vector2Int location;
+    [SerializeField] public Vector2Int location;
     [SerializeField] List<Vector3Int> BossReachableTiles = new List<Vector3Int>();
 
     private void Start()
