@@ -10,7 +10,7 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 public class CameraRotation : MonoBehaviour
 {
     public static CameraRotation Instance;
-
+    public Player player;
 
     [SerializeField] InputActionReference rotatoAction;
     [SerializeField] InputActionReference zoomAction;
@@ -26,39 +26,30 @@ public class CameraRotation : MonoBehaviour
 
     [SerializeField] float rotationSpeed = 500;
     [SerializeField] float maxMovementSpeed = 50;
-    [SerializeField] private float minMovementSpeed = 5f;
-    // [SerializeField] private float speedAdaption = 0.2f;
-
-
-    [SerializeField] Vector3 endPosition;
-
+    [SerializeField] float minMovementSpeed = 5f;
+    [SerializeField] public float MaxZoom;
+    [SerializeField] public float MinZoom;
+    [SerializeField] float MouseZoom;
+    [SerializeField] float MouseZoomStep;
+    [SerializeField] float MouseScrollStep;
+    [SerializeField] float MouseScrollDistance;
+    
     private float mouseScrollY;
     private float startMovementSpeed;
 
     private Coroutine rotationCoroutine;
     private Coroutine movementCoroutine;
 
+    private Vector3 endPosition;
     private Vector3 camPosition;
     private Vector3 startingPosition;
-    [SerializeField] float MouseScrollStep;
-    [SerializeField] float MouseScrollDistance;
-    [SerializeField] public bool MainCam = true;
-    private bool playerSwitchCalled = false;
-    [SerializeField] float MouseZoom;
-    [SerializeField] float MouseZoomStep;
 
-    [SerializeField] Vector3 WorldcamStart;
-
-
-
-
-
-
-    public Player player;
+    
+    [HideInInspector][SerializeField] public bool MainCam = true;
+    private Vector3 WorldcamStart;
 
     void Awake()
     {
-
         if (Instance == null)
         {
             Instance = this;
@@ -85,16 +76,8 @@ public class CameraRotation : MonoBehaviour
         playerswitchAction.action.Enable();
         playerswitchAction.action.performed += _ => PlayerManager.Instance.PlayerSelect(PlayerManager.Instance.Players[(int)_.ReadValue<float>()]);
 
-
-
         topDownAction.action.Enable();
         topDownAction.action.performed += _ => SwitchToTopDown();
-
-
-
-
-
-
     }
 
     void Start()
@@ -102,8 +85,6 @@ public class CameraRotation : MonoBehaviour
         WorldcamStart = transform.position;
         startingPosition = cam.transform.localPosition;
         startMovementSpeed = maxMovementSpeed;
-
-
     }
 
     void StopRotato(InputAction.CallbackContext obj)
@@ -131,11 +112,6 @@ public class CameraRotation : MonoBehaviour
 
     private void Update()
     {
-
-        //Playercam.transform.localPosition = (Vector3)HexGridUtil.AxialToCubeCoord(PlayerManager.Instance.selectedPlayer.CoordinatePosition) - new Vector3(2,2,2);
-
-
-
         endPosition = new Vector3(0, 1, 2);
         camPosition = cam.transform.localPosition;
 
@@ -154,7 +130,8 @@ public class CameraRotation : MonoBehaviour
             if (Worldcam.Priority == 2 && MainCam == true)
             {
                 Worldcam.transform.LookAt(cam.transform.position);
-                Worldcam.m_Lens.FieldOfView -= MouseScrollDistance;
+                if (Worldcam.m_Lens.FieldOfView > MaxZoom)
+               Worldcam.m_Lens.FieldOfView -= MouseScrollDistance;
             }
 
             else if (Playercam.Priority == 2)
@@ -183,6 +160,7 @@ public class CameraRotation : MonoBehaviour
             if (Worldcam.Priority == 2 && MainCam == true)
             {
                 Worldcam.transform.LookAt(cam.transform.position);
+                if (Worldcam.m_Lens.FieldOfView <MinZoom)
                 Worldcam.m_Lens.FieldOfView += MouseScrollDistance;
             }
 
@@ -271,7 +249,10 @@ public class CameraRotation : MonoBehaviour
 
         }
     }
-
+    /// <summary>
+    /// Priority Switch der einzelnen Kameras 
+    /// Kamera mit der höchsten Priority wird angezeigt 
+    /// </summary>
     public void SwitchtoMain()
     {
         Worldcam.Priority = 2;

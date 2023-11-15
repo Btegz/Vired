@@ -179,7 +179,7 @@ public class PlayerManager : MonoBehaviour
                                 GridManager.Instance.Grid[clickedTile].currentGridState ==
                                 GridManager.Instance.gS_Neutral ||
                                 GridManager.Instance.Grid[clickedTile].currentGridState ==
-                                GridManager.Instance.gS_Pofl)
+                                GridManager.Instance.gS_PofI)
 
                                 StartCoroutine(Move(clickedTile));
                         }

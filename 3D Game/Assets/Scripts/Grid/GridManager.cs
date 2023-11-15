@@ -31,7 +31,7 @@ public class GridManager : MonoBehaviour
     public GS_Enemy gS_Enemy;
     public GS_Boss gS_Boss;
     public GS_BossNegative gS_BossNegative;
-    public GS_Pofl gS_Pofl;
+    public GS_Pofl gS_PofI;
 
     [Header("Map")]
     [SerializeField] MapSettings mapSettings;
@@ -212,6 +212,8 @@ public class GridManager : MonoBehaviour
 
                 Grid.Add(coordinates, newTile);
             }
+
+        
         }
         SpawnBossAndPlayer();
     }
@@ -251,6 +253,20 @@ public class GridManager : MonoBehaviour
         players[0].SpawnPoint = HexGridUtil.CubeToAxialCoord(maxX);
         players[1].SpawnPoint = HexGridUtil.CubeToAxialCoord(maxY);
         players[2].SpawnPoint = HexGridUtil.CubeToAxialCoord(maxZ);
+    }
+
+    private void SpawnPofIs()
+    {
+        for(int i = 0; i<PlayerManager.Instance.Players.Count ; i++) 
+        {
+            List<Vector3Int> reachable = HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(PlayerManager.Instance.Players[i].CoordinatePosition), 2, HexGridUtil.AxialToCubeCoord(GridManager.Instance.Grid.Keys.ToList<Vector2Int>()));
+            
+            foreach(Vector3Int tile in reachable)
+            {
+                  /// checken ob Feld möglich ist oder ob es auf Boss/ BossFeldern liegt dann spawne PofIs
+                  /// je nachdem was die Anforderungen sind anpassen 
+            }
+        }
     }
 
     /// <summary>

@@ -77,7 +77,7 @@ public class GridTile : MonoBehaviour
             case GS_Enemy: meshRenderer.material = gridTileSO.negativeMaterial; SpawnEnemy(); break;
             case GS_Boss: meshRenderer.material = gridTileSO.negativeMaterial; SpawnEnemy(); break;
             case GS_BossNegative: meshRenderer.material = gridTileSO.negativeMaterial; break;
-            case GS_Pofl: meshRenderer.material = gridTileSO.PoflMaterial; break;
+            case GS_Pofl: meshRenderer.material = gridTileSO.PofIMaterial; break;
         }
     }
 
@@ -127,7 +127,7 @@ public class GridTile : MonoBehaviour
             case GS_Enemy: meshRenderer.material = gridTileSO.negativeMaterial; SpawnEnemy(); break;
             case GS_Boss: meshRenderer.material = gridTileSO.negativeMaterial; SpawnEnemy(); break;
             case GS_BossNegative: meshRenderer.material = gridTileSO.negativeMaterial; break;
-            case GS_Pofl: meshRenderer.material = gridTileSO.PoflMaterial; break;
+            case GS_Pofl: meshRenderer.material = gridTileSO.PofIMaterial; break;
         }
 
         meshFilter.mesh = DrawMesh();
