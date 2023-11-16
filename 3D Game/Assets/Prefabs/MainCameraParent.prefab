@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1365018790282595584}
   - component: {fileID: 1365018790282595597}
   - component: {fileID: 1365018790282595598}
-  - component: {fileID: 1365018790282595599}
+  - component: {fileID: 226691192}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -73,7 +73,7 @@ MonoBehaviour:
   m_BiasX: 0
   m_BiasY: 0
   m_CenterOnActivate: 1
---- !u!114 &1365018790282595599
+--- !u!114 &226691192
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,8 +85,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BindingMode: 3
-  m_FollowOffset: {x: 0.0020000935, y: 3.91, z: -8.89}
+  m_BindingMode: 1
+  m_FollowOffset: {x: 0, y: 3.91, z: -10}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -123,8 +123,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1365018791435240838}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.09154813, y: -0.8896318, z: 0.20472541, w: 0.39782125}
+  m_LocalPosition: {x: 14.63242, y: 10.541234, z: 15.089193}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -154,9 +154,9 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.1
-  far clip plane: 5000
-  field of view: 40
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -289,8 +289,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1365018791635980434}
-  m_LocalRotation: {x: 0.20569915, y: -0.00011014938, z: 0.000023119152, w: 0.9786153}
-  m_LocalPosition: {x: -1.4200058, y: 3.909998, z: -5.630005}
+  m_LocalRotation: {x: 0.185285, y: 1e-45, z: -0, w: 0.98268485}
+  m_LocalPosition: {x: -1.422, y: 3.91, z: -6.74}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -314,7 +314,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 2
+  m_Priority: 1
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
@@ -384,6 +384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd413f04deb53254a9dffa22b8cb618e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   rotatoAction: {fileID: -1155452060369335062, guid: 26454fd94e486c84595f431522cf20cf, type: 3}
   zoomAction: {fileID: -6776810313273384712, guid: 26454fd94e486c84595f431522cf20cf, type: 3}
   movementAction: {fileID: 4958632821665724103, guid: 26454fd94e486c84595f431522cf20cf, type: 3}
@@ -394,7 +395,7 @@ MonoBehaviour:
     m_Name: Player
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 13955cc4-0037-41c7-8f9c-44f1755fcb8e
+    m_Id: 5babfd74-779c-4b2d-84e0-47123e666750
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
@@ -402,15 +403,17 @@ MonoBehaviour:
   cam: {fileID: 1365018791435240836}
   Playercam: {fileID: 1365018791635980432}
   Worldcam: {fileID: 1365018791943486808}
-  TopDownCam: {fileID: 0}
+  TopDownCam: {fileID: 4886585584104240934}
   rotationSpeed: 500
   maxMovementSpeed: 50
   minMovementSpeed: 5
-  endPosition: {x: 0, y: 0, z: 0}
+  MaxZoom: 15
+  MinZoom: 90
+  MouseZoom: 0
+  MouseZoomStep: 30
   MouseScrollStep: 30
   MouseScrollDistance: 0
   MainCam: 1
-  player: {fileID: 141612170120246660, guid: 035a5f621b3605341a971c308f6e86ad, type: 3}
 --- !u!1 &1365018791943486810
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,7 +463,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 3
+  m_Priority: 2
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
@@ -569,7 +572,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BindingMode: 1
   m_FollowOffset: {x: 0, y: 0, z: -10}
-  m_XDamping: 1
+  m_XDamping: 0.86
   m_YDamping: 1
   m_ZDamping: 1
   m_AngularDampingMode: 0
@@ -587,6 +590,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5862816338092495775}
   - component: {fileID: 4886585584104240934}
+  - component: {fileID: 1362339328}
   m_Layer: 0
   m_Name: TopdownCam
   m_TagString: Untagged
@@ -626,7 +630,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 2
+  m_Priority: 0
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
@@ -648,6 +652,25 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 6813639073310871187}
+--- !u!114 &1362339328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623929425495987683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0544e7b14d134a1449e61175446cfb95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ApplyAfter: 3
+  m_Tilt: 0
+  m_Pan: 0
+  m_Dutch: 0
+  m_ZoomScale: 1
+  m_FollowAttachment: 1
+  m_LookAtAttachment: 1
 --- !u!1 &7438313404185773362
 GameObject:
   m_ObjectHideFlags: 0

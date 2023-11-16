@@ -14,29 +14,27 @@ using UnityEditor.PackageManager.Requests;
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance;
-
     public AbilityObjScript abilityObj;
 
     public List<Ability> abilitInventory;
     public List<Ability> AllAbilities;
 
-
-    [SerializeField] List<GameObject> MovePoints;
-    public int SkillPoints;
+    [SerializeField] public List<GameObject> MovePoints;
+    [HideInInspector] public int SkillPoints;
 
     [SerializeField] public List<Player> Players;
-    public Player selectedPlayer;
+    [HideInInspector] public Player selectedPlayer;
 
     [SerializeField] int movementPointsPerTurn;
     public int movementAction = 4;
-    public Vector3 mouse_pos;
-    public int extraMovement;
+    [HideInInspector] public Vector3 mouse_pos;
+    [HideInInspector] public int extraMovement;
 
     public Camera cam;
 
-    public Vector2Int PlayerSpawnPoint;
-    public Vector2Int collisionPoint;
-    public Vector2Int playerPosition;
+    [HideInInspector] public Vector2Int PlayerSpawnPoint;
+    [HideInInspector] public Vector2Int collisionPoint;
+    [HideInInspector] public Vector2Int playerPosition;
 
     public int RessourceAInventory;
     public int RessourceBInventory;
@@ -47,10 +45,12 @@ public class PlayerManager : MonoBehaviour
     bool abilityActivated = false;
     private bool abilityUsable = true;
 
-    public bool AbilityLoadoutActive;
+    [HideInInspector] public bool AbilityLoadoutActive;
 
     public GameObject indicatorPrefab;
     GameObject indicatorPrefabClone;
+
+    [HideInInspector] public GridTile target;
 
 
     //[SerializeField] ParticleSystem AbilityCastParticleSystem;
@@ -222,12 +222,11 @@ public class PlayerManager : MonoBehaviour
     IEnumerator Move(Vector2Int moveTo)
     {
 
-        GridTile target = GridManager.Instance.Grid[moveTo];
+        target = GridManager.Instance.Grid[moveTo];
 
-        ParticleSystem landingCloud = selectedPlayer.GetComponentInChildren<ParticleSystem>();
-        selectedPlayer.transform.DOJump(target.transform.position, 2, 1, .25f)
-            .OnComplete(() => target.currentGridState.PlayerEnters(target));
-        selectedPlayer.transform.DOPunchScale(Vector3.one * .1f, .25f).OnComplete(landingCloud.Play);
+            ParticleSystem landingCloud = selectedPlayer.GetComponentInChildren<ParticleSystem>();
+            selectedPlayer.transform.DOJump(target.transform.position, 2, 1, .25f).OnComplete(() => target.currentGridState.PlayerEnters(target));
+            selectedPlayer.transform.DOPunchScale(Vector3.one * .1f, .25f).OnComplete(landingCloud.Play);
 
         if (((movementAction == 0) && (extraMovement > 0)))
         {
@@ -433,11 +432,11 @@ public class PlayerManager : MonoBehaviour
         PlayerManager.Instance.selectedPlayer = player/*PlayerManager.Instance.Players[(int)keyPressed]*/;
         //EventManager.OnSelectPlayer(selectedPlayer);
 
-    
-            CameraRotation.Instance.Playercam.LookAt = PlayerManager.Instance.selectedPlayer.transform;
-            CameraRotation.Instance.Playercam.Follow = PlayerManager.Instance.selectedPlayer.transform;
-            CameraRotation.Instance.SwitchToPlayer();
-        
+
+        CameraRotation.Instance.Playercam.LookAt = PlayerManager.Instance.selectedPlayer.transform;
+        CameraRotation.Instance.Playercam.Follow = PlayerManager.Instance.selectedPlayer.transform;
+        CameraRotation.Instance.SwitchToPlayer();
+
 
 
     }

@@ -31,4 +31,6 @@ public class GS_BossNegative : GridState
     {
         return -1;
     }
+
+ 
 }

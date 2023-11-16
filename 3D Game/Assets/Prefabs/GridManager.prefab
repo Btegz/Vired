@@ -52,6 +52,7 @@ MonoBehaviour:
   gS_Boss: {fileID: 11400000, guid: 9f8330aefe2318843bad86f99d876839, type: 2}
   gS_BossNegative: {fileID: 11400000, guid: c718cad9d8e6ba542b6e1ee719ab955e, type: 2}
   gS_PofI: {fileID: 11400000, guid: 9ec617689cbf9844aa63007fd32415cb, type: 2}
+  boss: {fileID: 8325508271288384589, guid: cb3ffeb04c339524d80d5f80ea01af82, type: 3}
   mapSettings: {fileID: 11400000, guid: 31b30a2f7c42db94190378dde8218266, type: 2}
   innerSize: 0.5
   outerSize: 1
@@ -69,7 +70,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2148683299467376766, guid: 46ce70d7f7b651c4d85ca32bf76de3f9, type: 3}
   enemySOs:
   - {fileID: 11400000, guid: 624febcbbbfddfa4b9507611ba2f9bd1, type: 2}
-  BossEnemySO: {fileID: 0}
+  BossEnemySO: {fileID: 11400000, guid: 835522eebbfc13c4e922c45e683ba113, type: 2}
   BossPrefab: {fileID: 2148683299467376766, guid: cb3ffeb04c339524d80d5f80ea01af82, type: 3}
   TurnCounter: 1
   currentPhase: {fileID: 0}

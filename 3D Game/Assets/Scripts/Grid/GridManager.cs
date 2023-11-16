@@ -32,6 +32,8 @@ public class GridManager : MonoBehaviour
     public GS_Boss gS_Boss;
     public GS_BossNegative gS_BossNegative;
     public GS_Pofl gS_PofI;
+    
+    [SerializeField] public Boss boss;
 
     [Header("Map")]
     [SerializeField] MapSettings mapSettings;
@@ -212,10 +214,13 @@ public class GridManager : MonoBehaviour
 
                 Grid.Add(coordinates, newTile);
             }
-
+           
         
         }
         SpawnBossAndPlayer();
+        boss.BossNeighbors();
+        SpawnPofIs();
+        
     }
 
     private void SpawnBossAndPlayer()
@@ -257,15 +262,20 @@ public class GridManager : MonoBehaviour
 
     private void SpawnPofIs()
     {
-        for(int i = 0; i<PlayerManager.Instance.Players.Count ; i++) 
-        {
-            List<Vector3Int> reachable = HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(PlayerManager.Instance.Players[i].CoordinatePosition), 2, HexGridUtil.AxialToCubeCoord(GridManager.Instance.Grid.Keys.ToList<Vector2Int>()));
-            
-            foreach(Vector3Int tile in reachable)
+        List<Vector2Int> possibleTiles = new List<Vector2Int>();
+
+        foreach (KeyValuePair<Vector2Int, GridTile> kvp in Grid)
+
+        { 
+          if(kvp.Value.currentGridState == gS_Positive )
             {
-                  /// checken ob Feld möglich ist oder ob es auf Boss/ BossFeldern liegt dann spawne PofIs
-                  /// je nachdem was die Anforderungen sind anpassen 
+                possibleTiles.Add(kvp.Key);
             }
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+             Grid[possibleTiles[Random.Range(0, possibleTiles.Count)]].ChangeCurrentState(gS_PofI);
         }
     }
 

@@ -22,13 +22,13 @@ public class GS_Pofl : GridState
 
     public override void ExitState(GridTile parent)
     {
-        throw new System.NotImplementedException();
+
     }
 
     public override void PlayerEnters(GridTile parent)
     {
-       
         pofi = Instantiate(PointOfInterest, PointOfInterest.transform.position, Quaternion.identity);
+        parent.ChangeCurrentState(GridManager.Instance.gS_Neutral);
   
     }
 

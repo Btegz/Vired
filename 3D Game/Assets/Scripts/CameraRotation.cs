@@ -160,7 +160,7 @@ public class CameraRotation : MonoBehaviour
             if (Worldcam.Priority == 2 && MainCam == true)
             {
                 Worldcam.transform.LookAt(cam.transform.position);
-                if (Worldcam.m_Lens.FieldOfView <MinZoom)
+                if (Worldcam.m_Lens.FieldOfView < MinZoom)
                 Worldcam.m_Lens.FieldOfView += MouseScrollDistance;
             }
 
