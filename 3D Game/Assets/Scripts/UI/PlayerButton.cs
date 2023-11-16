@@ -17,6 +17,10 @@ public class PlayerButton : MonoBehaviour, IPointerClickHandler
     {
         this.player = player;
         GetComponentInChildren<TMP_Text>().text = player.name;
+        if(PlayerManager.Instance.selectedPlayer == player)
+        {
+            EventManager.OnSelectPlayer(player);
+        }
     }
 
 

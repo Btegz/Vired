@@ -14,21 +14,42 @@ public class UpgradeHexGrid : MonoBehaviour
     public Dictionary<Vector2Int, Effect> AbilityGrid;
     [SerializeField] UpgradeGridHex upgradeHexPrefab;
 
-    [SerializeField] Ability loadedAbility;
+    [SerializeField] public Ability loadedAbility;
+
+    public int AbilityTierLevel;
 
     // Start is called before the first frame update
     void Start()
     {
-        MakeGrid();
-
-
-        //MakeAbilityToGrid(loadedAbility);
+        if (PlayerManager.Instance.selectedPlayer != null)
+        {
+            Player selectedPlayer = PlayerManager.Instance.selectedPlayer;
+            if (selectedPlayer.AbilityInventory[0] != null)
+            {
+                MakeAbilityToGrid(selectedPlayer.AbilityInventory[0]);
+            }
+            else
+            {
+                MakeGrid(3);
+            }
+        }
     }
 
-    public void MakeGrid()
+    public void MakeGrid(int radius)
     {
-        Grid = new Dictionary<Vector2Int, UpgradeGridHex>();
-        List<Vector2Int> gridCoords = HexGridUtil.GenerateHexagonalShapedGrid(4);
+        if(Grid != null)
+        {
+            foreach(KeyValuePair <Vector2Int,UpgradeGridHex> kvp in Grid)
+            {
+                Destroy(kvp.Value.gameObject);
+            }
+            Grid.Clear();
+        }
+        else
+        {
+            Grid = new Dictionary<Vector2Int, UpgradeGridHex>();
+        }
+        List<Vector2Int> gridCoords = HexGridUtil.GenerateHexagonalShapedGrid(radius);
 
         foreach (Vector2Int coordinate in gridCoords)
         {
@@ -44,7 +65,15 @@ public class UpgradeHexGrid : MonoBehaviour
 
     public void MakeAbilityToGrid(Ability ability)
     {
-        AbilityGrid = new Dictionary<Vector2Int, Effect>();
+        MakeGrid(ability.MyTierLevel);
+        if(AbilityGrid != null)
+        {
+            AbilityGrid.Clear();
+        }
+        else
+        {
+            AbilityGrid = new Dictionary<Vector2Int, Effect>();
+        }
         for (int i = 0; i < ability.Coordinates.Count; i++)
         {
             Sprite sp = GetFittingSprite(ability.Effects[i], out string text);
@@ -55,6 +84,7 @@ public class UpgradeHexGrid : MonoBehaviour
                 Grid[ability.Coordinates[i]].effect = ability.Effects[i];
             }
         }
+        loadedAbility = ability;
     }
 
     public Sprite GetFittingSprite(Effect effect, out string text)
@@ -121,8 +151,9 @@ public class UpgradeHexGrid : MonoBehaviour
         {
             ConfirmAbilityUpgrade();
         }
-        MakeAbilityToGrid(ability);
         loadedAbility = ability;
+        MakeAbilityToGrid(ability);
+        
     }
 
     public void ConfirmAbilityUpgrade()

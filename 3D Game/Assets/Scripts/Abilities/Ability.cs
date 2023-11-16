@@ -51,4 +51,15 @@ public class Ability : HexShape
         set { CastParticleSystem = value; }
     }
 
+    [SerializeField] private int myTierLevel;
+
+    public int MyTierLevel
+    {
+        get { return myTierLevel; }
+        set { myTierLevel = value; }
+    }
+
+
+
+
 }

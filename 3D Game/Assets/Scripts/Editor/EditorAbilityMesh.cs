@@ -48,8 +48,6 @@ public class EditorAbilityMesh
                 GridTileList.Add(gridTileInstanz);
                 
                 hexagone.Add(gridTileInstanz.DrawMesh());
-                
-               
             }
 
             CombineInstance[] combine = new CombineInstance[hexagone.Count];

@@ -20,6 +20,10 @@ public class UpgradeAbilityButton : MonoBehaviour, IPointerClickHandler
     {
         ButtonImage = GetComponent<Image>();
         EventManager.OnSelectPlayerEvent += SelectAbility;
+        if(PlayerManager.Instance.selectedPlayer != null)
+        {
+            SelectAbility(PlayerManager.Instance.selectedPlayer);
+        }
     }
 
     private void OnDestroy()
