@@ -13,6 +13,7 @@ using UnityEditor.PackageManager.Requests;
 
 public class PlayerManager : MonoBehaviour
 {
+
     public static PlayerManager Instance;
     public AbilityObjScript abilityObj;
 

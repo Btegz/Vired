@@ -176,6 +176,7 @@ public class UpgradeHexGrid : MonoBehaviour
                     }
                 }
             }
+            loadedAbility.RecalculatePreviewMesh(AbilityGrid);
         }
     }
     

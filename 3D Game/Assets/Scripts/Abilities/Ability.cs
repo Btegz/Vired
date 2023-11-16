@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public enum RotationMode 
+public enum RotationMode
 {
     PlayerCenter,
     SelectedPointCenter,
-} 
+}
 
 [CreateAssetMenu]
 
@@ -18,7 +18,7 @@ public class Ability : HexShape
     public List<Effect> Effects;
     [SerializeField] public List<Ability> NextLevel;
     [SerializeField] public int UpgradeCost;
-    
+
     public string Name;
     public Mesh previewShape;
     public RotationMode rotato;
@@ -30,7 +30,7 @@ public class Ability : HexShape
 
     public Dictionary<Vector2Int, Effect> AbilityEffectDict;
 
-  
+
     public Dictionary<Vector2Int, Effect> GetAbilityEffectDict()
     {
         Dictionary<Vector2Int, Effect> neww = new Dictionary<Vector2Int, Effect>();
@@ -59,7 +59,47 @@ public class Ability : HexShape
         set { myTierLevel = value; }
     }
 
+    public void RecalculatePreviewMesh(Dictionary<Vector2Int,Effect> newShape)
+    {
+        Coordinates.Clear();
+        Effects.Clear();
+
+        foreach(KeyValuePair<Vector2Int,Effect> kvp in newShape)
+        {
+            Coordinates.Add(kvp.Key);
+            Effects.Add(kvp.Value);
+        }
+
+        List<Mesh> hexagone = new List<Mesh>();
+
+        List<GridTile> GridTileList = new List<GridTile>();
 
 
+        foreach (Vector2Int coord in Coordinates)
+        {
+            GridTile gridTileInstanz = Instantiate(tileprefab);
 
+            gridTileInstanz.transform.position = HexGridUtil.AxialHexToPixel(coord, 1);
+
+            GridTileList.Add(gridTileInstanz);
+
+            hexagone.Add(gridTileInstanz.DrawMesh());
+        }
+
+        CombineInstance[] combine = new CombineInstance[hexagone.Count];
+        int i = 0;
+        while (i < hexagone.Count)
+        {
+            combine[i].mesh = hexagone[i];
+            combine[i].transform = GridTileList[i].transform.localToWorldMatrix;
+            i++;
+        }
+        Mesh mesh = new Mesh();
+        mesh.CombineMeshes(combine, false);
+        previewShape = mesh;
+        foreach (GridTile gr in GridTileList)
+        {
+            GameObject.DestroyImmediate(gr.gameObject);
+        }
+    }
 }

@@ -225,6 +225,7 @@ public class GridTile : MonoBehaviour
         CombineFaces();
         if (Application.isPlaying)
         {
+            meshCollider = GetComponent<MeshCollider>();
             meshCollider.sharedMesh = mesh;
         }
 
