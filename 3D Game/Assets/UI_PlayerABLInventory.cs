@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class UI_PlayerABLInventory : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class UI_PlayerABLInventory : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,IDropHandler
 {
     [SerializeField] public HorizontalLayoutGroup InventoryArea;
 
@@ -26,19 +26,6 @@ public class UI_PlayerABLInventory : MonoBehaviour, IPointerEnterHandler, IPoint
 
     public void AddAbility(AbilityLoadoutButton abilityLoadOUtButton)
     {
-        //public void OnDrop(PointerEventData eventData)
-        //{
-        //    if (eventData.pointerDrag != null)
-        //        eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = GetComponent<RectTransform>().anchoredPosition;
-
-        //}
-
-        //if (abilityLoadOUtButton.transform.)
-
-
-
-
-
         player.AbilityInventory.Add(abilityLoadOUtButton.ability);
 
         abilityLoadOUtButton.transform.SetParent(InventoryArea.transform);
@@ -46,18 +33,31 @@ public class UI_PlayerABLInventory : MonoBehaviour, IPointerEnterHandler, IPoint
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log("I Exit");
-        EventManager.OnAbilityChosenEvent -= AddAbility;
+        //EventManager.OnAbilityChosenEvent -= AddAbility;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("I ENTER");
-        EventManager.OnAbilityChosenEvent += AddAbility;
+        //EventManager.OnAbilityChosenEvent += AddAbility;
     }
 
     private void OnDestroy()
     {
         EventManager.OnAbilityChosenEvent -= AddAbility;
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        if (eventData.pointerDrag != null)
+        {
+            if (eventData.pointerDrag.TryGetComponent<AbilityLoadoutButton>(out AbilityLoadoutButton abilityLoadOUtButton))
+            {
+                player.AbilityInventory.Add(abilityLoadOUtButton.ability);
+
+                abilityLoadOUtButton.transform.SetParent(InventoryArea.transform); 
+                EventManager.OnAbilityChosen(abilityLoadOUtButton);
+            }
+        }
+            
     }
 }

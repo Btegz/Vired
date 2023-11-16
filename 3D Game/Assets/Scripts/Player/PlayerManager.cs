@@ -106,21 +106,23 @@ public class PlayerManager : MonoBehaviour
 
             foreach (Player player in Players)
             {
-                // Lose Condition: surrounded by enemies/ no ressources
-                for (int i = 0; i < player.AbilityInventory.Count; i++)
+                if (player.AbilityInventory.Count > 0)
                 {
-                    if (player.AbilityInventory.Count > 0)
+                    // Lose Condition: surrounded by enemies/ no ressources
+                    for (int i = 0; i < player.AbilityInventory.Count; i++)
                     {
+
+                        abilityUsable = true;
                         //check ob Ability bezahlbar ist
-                        if (InventoryCheck(i))
-                        {
-                            abilityUsable = true;
-                            break;
-                        }
-                        else
-                        {
-                            abilityUsable = false;
-                        }
+                        //if (InventoryCheck(i,player))
+                        //{
+                        //    abilityUsable = true;
+                        //    break;
+                        //}
+                        //else
+                        //{
+                        //    abilityUsable = false;
+                        //}
                     }
                 }
             }
@@ -150,7 +152,7 @@ public class PlayerManager : MonoBehaviour
                 }
                 if (lost)
                 {
-                    //SceneManager.LoadScene("GameOverScene");
+                    SceneManager.LoadScene("GameOverScene");
                 }
             }
 
@@ -278,7 +280,7 @@ public class PlayerManager : MonoBehaviour
     public void AbilityClicked(int index)
     {
         // sets the "abilityAcitvated" bool to true, so player cant move anymore after choosing a Ability
-        if (abilityActivated == false && InventoryCheck(index))
+        if (abilityActivated == false && InventoryCheck(index,selectedPlayer))
         {
             abilityActivated = true;
             StartCoroutine(ChooseAbilityLocation(index));
@@ -293,19 +295,24 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public bool InventoryCheck(int index)
+    public bool InventoryCheck(int index,Player player)
     {
+        Debug.Log(index);
+        if (player.AbilityInventory[index] == null)
+        {
+            Debug.Log("I wonder how, i wonder why");
+        }
         try
         {
             //saves the cost of the chosen Ability
-            Ressource resCost = selectedPlayer.AbilityInventory[index].costs[0];
-
+            Ressource resCost = player.AbilityInventory[index].costs[0];
+            Debug.Log("Cost: " + resCost);
             //switches over the different ressources and checks whether player has anough ressources of fitting Type
             //the function returns if Player does not have enough Ressources for the Ability
             switch (resCost)
             {
                 case Ressource.ressourceA:
-                    if (abilitInventory[index].costs.Count > RessourceAInventory)
+                    if (player.AbilityInventory[index].costs.Count > RessourceAInventory)
                     {
                         return false;
                     }
@@ -314,7 +321,7 @@ public class PlayerManager : MonoBehaviour
 
 
                 case Ressource.ressourceB:
-                    if (abilitInventory[index].costs.Count > RessourceBInventory)
+                    if (player.AbilityInventory[index].costs.Count > RessourceBInventory)
                     {
                         return false;
                     }
@@ -322,7 +329,7 @@ public class PlayerManager : MonoBehaviour
                     break;
 
                 case Ressource.ressourceC:
-                    if (abilitInventory[index].costs.Count > RessourceCInventory)
+                    if (player.AbilityInventory[index].costs.Count > RessourceCInventory)
                     {
                         return false;
                     }
@@ -330,7 +337,7 @@ public class PlayerManager : MonoBehaviour
                     break;
 
                 case Ressource.resscoureD:
-                    if (abilitInventory[index].costs.Count > RessourceDInventory)
+                    if (player.AbilityInventory[index].costs.Count > RessourceDInventory)
                     {
                         return false;
                     }
@@ -342,7 +349,6 @@ public class PlayerManager : MonoBehaviour
         }
         catch
         {
-            Debug.Log("Inventory Check failed");
             return false;
         }
     }
