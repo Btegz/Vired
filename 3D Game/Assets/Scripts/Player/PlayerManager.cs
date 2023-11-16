@@ -29,6 +29,8 @@ public class PlayerManager : MonoBehaviour
     public int movementAction = 4;
     [HideInInspector] public Vector3 mouse_pos;
     [HideInInspector] public int extraMovement;
+    [HideInInspector] public bool move = true;
+    [HideInInspector] public bool moving = false;
 
     public Camera cam;
 
@@ -42,7 +44,7 @@ public class PlayerManager : MonoBehaviour
     public int RessourceDInventory;
 
 
-    bool abilityActivated = false;
+    public bool abilityActivated = false;
     private bool abilityUsable = true;
 
     [HideInInspector] public bool AbilityLoadoutActive;
@@ -51,6 +53,7 @@ public class PlayerManager : MonoBehaviour
     GameObject indicatorPrefabClone;
 
     [HideInInspector] public GridTile target;
+
 
 
     //[SerializeField] ParticleSystem AbilityCastParticleSystem;
@@ -174,7 +177,7 @@ public class PlayerManager : MonoBehaviour
                     if (MouseCursorPosition(out clickedTile))
                     {
                         // enters if Players Neighbors contains the clicked Tile
-                        if (neighbors.Contains(HexGridUtil.AxialToCubeCoord(clickedTile)) && !abilityActivated)
+                        if (neighbors.Contains(HexGridUtil.AxialToCubeCoord(clickedTile)) && !abilityActivated && move == true)
                         {
                             if (GridManager.Instance.Grid[clickedTile].currentGridState ==
                                 GridManager.Instance.gS_Positive ||
@@ -226,10 +229,8 @@ public class PlayerManager : MonoBehaviour
 
         target = GridManager.Instance.Grid[moveTo];
 
-            ParticleSystem landingCloud = selectedPlayer.GetComponentInChildren<ParticleSystem>();
-            selectedPlayer.transform.DOJump(target.transform.position, 2, 1, .25f).OnComplete(() => target.currentGridState.PlayerEnters(target));
-            selectedPlayer.transform.DOPunchScale(Vector3.one * .1f, .25f).OnComplete(landingCloud.Play);
 
+        moving = true;
         if (((movementAction == 0) && (extraMovement > 0)))
         {
             extraMovement--;
@@ -238,9 +239,18 @@ public class PlayerManager : MonoBehaviour
         {
             movementAction--;
         }
+     /*   ParticleSystem landingCloud = selectedPlayer.GetComponentInChildren<ParticleSystem>();
+        selectedPlayer.transform.DOJump(target.transform.position, 2, 1, .25f).OnComplete(() => target.currentGridState.PlayerEnters(target));
+        selectedPlayer.transform.DOPunchScale(Vector3.one * .1f, .25f).OnComplete(landingCloud.Play);*/
+
+        selectedPlayer.transform.DOMove(target.transform.position, .25f);
 
         MovePoints[movementAction].GetComponent<MovePointsDoTween>().Away();
+
         //MovePoints[movementAction].SetActive(false);
+
+       // selectedPlayer.transform.position = target.transform.position;
+        //target.currentGridState.PlayerEnters(target);
 
 
         selectedPlayer.CoordinatePosition = moveTo;

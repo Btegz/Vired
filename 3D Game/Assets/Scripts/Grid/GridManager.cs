@@ -220,7 +220,6 @@ public class GridManager : MonoBehaviour
         SpawnBossAndPlayer();
         boss.BossNeighbors();
         SpawnPofIs();
-        
     }
 
     private void SpawnBossAndPlayer()

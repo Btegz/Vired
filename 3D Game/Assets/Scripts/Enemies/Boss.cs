@@ -12,7 +12,7 @@ public class Boss : MonoBehaviour
 
     private void Start()
     {
-   //     EventManager.OnEndTurnEvent += BossNeighbors;
+        EventManager.OnEndTurnEvent += BossNeighbors;
         location = GetComponentInParent<GridTile>().AxialCoordinate;
     }
 

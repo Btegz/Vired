@@ -82,10 +82,8 @@ public class PofIManager : MonoBehaviour
                 Destroy(gS_PofI.pofi);
                 PlayerManager.Instance.extraMovement = 3;
                 break;
-
-
-
         }
+        PlayerManager.Instance.move = true;
 
 
     }
