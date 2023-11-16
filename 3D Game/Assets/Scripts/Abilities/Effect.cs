@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum Effect
 {
-    Positive,
+    Neutral,
+    Positive, 
+    Movement,
     Negative100,
     Negative200,
     Negative300,
     Negative400,
-    Negative500,
-    Movement,
-    Neutral
+    Negative500
+    
 }

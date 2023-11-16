@@ -8,16 +8,13 @@ public class PlayerButton : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] public Player player;
 
-    UIManager manager;
-
     public void OnPointerClick(PointerEventData eventData)
     {
         EventManager.OnSelectPlayer(player);
     }
 
-    public void Setup(Player player, UIManager uIManager)
+    public void Setup(Player player)
     {
-        manager = uIManager;
         this.player = player;
         GetComponentInChildren<TMP_Text>().text = player.name;
     }

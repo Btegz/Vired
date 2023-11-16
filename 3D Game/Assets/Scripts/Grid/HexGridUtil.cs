@@ -435,6 +435,21 @@ public static class HexGridUtil
         return result;
     }
 
+    public static Vector2Int PixelToHexCoord2D(Vector2 pixel,float size)
+    {
+        Vector2Int result = new Vector2Int();
+
+        float x = ((2f / 3f) * pixel.x)/size;
+        float y = ((-1f / 3f) * pixel.x + ((Mathf.Sqrt(3f)/3f) * pixel.y))/size;
+
+        Vector3Int roundedResult = CubeRound(new Vector3(x,y,-x-y));
+
+        result.x = roundedResult.x;
+        result.y = roundedResult.y;
+
+        return result;
+    }
+
     // COMBINE ----------------------------------------------------------------------------------------------------------------------------
 
     /// <summary>

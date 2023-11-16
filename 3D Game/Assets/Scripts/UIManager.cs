@@ -34,7 +34,7 @@ public class UIManager : MonoBehaviour
         foreach(Player player in PlayerManager.Instance.Players)
         {
             PlayerButton playerButton = Instantiate(playerButtonPrefab, PlayerButtonParent.transform);
-            playerButton.Setup(player,this);
+            playerButton.Setup(player);
         }
         EndTurnButton.onClick.AddListener(EventManager.OnEndTurn);
         EndTurnButton.onClick.AddListener(GridManager.Instance.TriggerPhase);
