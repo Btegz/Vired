@@ -41,11 +41,13 @@ public class PofIManager : MonoBehaviour
         pofi2 = (int)Random.Range(0, 5);
         pofiEvent2 = (PofI)pofi2;
 
-
         while (pofi1 == pofi2)
         {
             pofi2 = (int)Random.Range(0, 5);
-            break;
+            if (pofi1 == pofi2)
+                continue;
+            else
+                break;
         }
     }
 

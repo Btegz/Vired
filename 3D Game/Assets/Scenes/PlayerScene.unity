@@ -991,24 +991,29 @@ MonoBehaviour:
   abilityObj: {fileID: 8527911146813857575, guid: a3e553756b59e4d46b657791d81a0ea3, type: 3}
   abilitInventory: []
   AllAbilities: []
+  abilityActivated: 0
+  indicatorPrefab: {fileID: 145189214612838007, guid: 0b64f0872b32555418fb73b30158740a, type: 3}
+  AbilityLoadoutActive: 0
   MovePoints:
   - {fileID: 149689343}
   - {fileID: 1001394157}
   - {fileID: 813588030}
   - {fileID: 1825301632}
-  SkillPoints: 0
   Players:
   - {fileID: 1192876668}
   - {fileID: 1688233350}
   - {fileID: 1493776949}
-  selectedPlayer: {fileID: 0}
   movementPointsPerTurn: 4
   movementAction: 4
-  mouse_pos: {x: 0, y: 0, z: 0}
+  cam: {fileID: 652675123}
+  SkillPoints: 0
   extraMovement: 0
+  selectedPlayer: {fileID: 0}
+  target: {fileID: 0}
   move: 1
   moving: 1
-  cam: {fileID: 652675123}
+  mouse_pos: {x: 0, y: 0, z: 0}
+  clickedTile: {x: 0, y: 0}
   PlayerSpawnPoint: {x: 0, y: 0}
   collisionPoint: {x: 0, y: 0}
   playerPosition: {x: 0, y: 0}
@@ -1016,10 +1021,6 @@ MonoBehaviour:
   RessourceBInventory: 0
   RessourceCInventory: 0
   RessourceDInventory: 0
-  abilityActivated: 0
-  AbilityLoadoutActive: 0
-  indicatorPrefab: {fileID: 145189214612838007, guid: 0b64f0872b32555418fb73b30158740a, type: 3}
-  target: {fileID: 0}
   cancelAbilityInputActionReference: {fileID: 2201862511427077551, guid: 26454fd94e486c84595f431522cf20cf, type: 3}
 --- !u!4 &2032763746
 Transform:

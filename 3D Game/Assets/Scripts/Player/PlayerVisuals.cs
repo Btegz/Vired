@@ -15,6 +15,16 @@ public class PlayerVisuals : MonoBehaviour
         EventManager.OnMoveEvent += Movement;
     }
   
+
+    
+    public void Shake()
+    {
+        if ((GridManager.Instance.Grid[PlayerManager.Instance.clickedTile].currentGridState != GridManager.Instance.gS_Neutral && Mouse.current.leftButton.wasPressedThisFrame) || (GridManager.Instance.Grid[PlayerManager.Instance.clickedTile].currentGridState != GridManager.Instance.gS_Positive && Mouse.current.leftButton.wasPressedThisFrame))
+        {
+
+            transform.DOPunchRotation(new Vector3(2f, 10f), .5f);
+        }
+    }
     public void Movement(Player player)
     {
         try
@@ -22,21 +32,14 @@ public class PlayerVisuals : MonoBehaviour
             if (player == playwer)
             {
                 ParticleSystem landingCloud = GetComponentInChildren<ParticleSystem>();
-                transform.DOLocalJump(/*PlayerManager.Instance.target.transform.position*/Vector3.zero, 2, 1, .25f)
-                 .OnComplete(() => PlayerManager.Instance.target.currentGridState.PlayerEnters(PlayerManager.Instance.target));
+                transform.DOLocalJump(Vector3.zero, 2, 1, .25f);
                 transform.DOPunchScale(Vector3.one * .1f, .25f).OnComplete(landingCloud.Play);
             }
-            
-           /* else if(PlayerManager.Instance.movementAction == 0 && Mouse.current.leftButton.wasPressedThisFrame && !PlayerManager.Instance.abilityActivated && PlayerManager.Instance.extraMovement == 0)
-            {
-                tween = transform.DOPunchScale(Vector3.one* .1f, .25f) ;
-            }
 
-            PlayerManager.Instance.moving = false;*/
         }
         catch
         {
-
+           
         }
 
     }

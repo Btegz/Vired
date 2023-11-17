@@ -16,7 +16,6 @@ public class PlayerManager : MonoBehaviour
 
     public static PlayerManager Instance;
 
-
     [Header("AbilityStuff")]
     public AbilityObjScript abilityObj;
     public List<Ability> abilitInventory;
@@ -40,7 +39,7 @@ public class PlayerManager : MonoBehaviour
     [HideInInspector] public bool move = true;
     [HideInInspector] public bool moving = false;
     [HideInInspector] public Vector3 mouse_pos;
-
+    [HideInInspector] public Vector2Int clickedTile;
     [HideInInspector] public Vector2Int PlayerSpawnPoint;
     [HideInInspector] public Vector2Int collisionPoint;
     [HideInInspector] public Vector2Int playerPosition;
@@ -50,7 +49,7 @@ public class PlayerManager : MonoBehaviour
     public int RessourceBInventory;
     public int RessourceCInventory;
     public int RessourceDInventory;
-    Vector2Int clickedTile;
+   
 
     [SerializeField] InputActionReference cancelAbilityInputActionReference;
 
@@ -64,8 +63,6 @@ public class PlayerManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-
     }
 
     void Start()
@@ -83,7 +80,6 @@ public class PlayerManager : MonoBehaviour
         EventManager.OnEndTurnEvent += resetMovementPoints;
         EventManager.OnAbilityButtonEvent += AbilityClicked;
         EventManager.OnSelectPlayerEvent += PlayerSelect;
-        // EventManager.OnMoveEvent += StartMovement;
         EventManager.OnMoveEvent += _ => StartCoroutine(Move(clickedTile));
 
     }
@@ -155,13 +151,19 @@ public class PlayerManager : MonoBehaviour
                 }
             }
 
-            if (movementAction == 0 && Mouse.current.leftButton.wasPressedThisFrame && !abilityActivated && extraMovement == 0)
+            if ((movementAction == 0 && Mouse.current.leftButton.wasPressedThisFrame && !abilityActivated && extraMovement == 0))
             {
                 selectedPlayer.transform.DOPunchRotation(new Vector3(10f, 2f), 1f);
             }
+            
+            if ((GridManager.Instance.Grid[PlayerManager.Instance.clickedTile].currentGridState != GridManager.Instance.gS_Neutral && Mouse.current.leftButton.wasPressedThisFrame) || (GridManager.Instance.Grid[PlayerManager.Instance.clickedTile].currentGridState != GridManager.Instance.gS_Positive && Mouse.current.leftButton.wasPressedThisFrame))
+            {
+                //
+            }
 
-            // enters if Left Mouse Button was clicked
-            if (Mouse.current.leftButton.wasPressedThisFrame)
+
+                // enters if Left Mouse Button was clicked
+                if (Mouse.current.leftButton.wasPressedThisFrame)
             {
                 // checks whether movement points are available or if a Ability is activated
                 if (movementAction > 0 || abilityActivated || ((movementAction == 0) && (extraMovement > 0)))
@@ -172,6 +174,7 @@ public class PlayerManager : MonoBehaviour
                     // enters if a tile was clicked
                     if (MouseCursorPosition(out clickedTile))
                     {
+                        
                         // enters if Players Neighbors contains the clicked Tile
                         if (neighbors.Contains(HexGridUtil.AxialToCubeCoord(clickedTile)) && !abilityActivated && move == true)
                         {
@@ -184,12 +187,15 @@ public class PlayerManager : MonoBehaviour
 
                                 EventManager.OnMove(selectedPlayer);
 
+                            
+                            
 
                         }
                     }
                 }
             }
         }
+     
     }
 
 
@@ -237,6 +243,8 @@ public class PlayerManager : MonoBehaviour
         {
             movementAction--;
         }
+
+        PlayerManager.Instance.target.currentGridState.PlayerEnters(PlayerManager.Instance.target);
 
         selectedPlayer.transform.DOMove(target.transform.position, .25f);
 
@@ -297,7 +305,6 @@ public class PlayerManager : MonoBehaviour
 
     public bool InventoryCheck(int index, Player player)
     {
-        Debug.Log(index);
         if (player.AbilityInventory[index] == null)
         {
             Debug.Log("I wonder how, i wonder why");
