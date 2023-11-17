@@ -13,19 +13,18 @@ using UnityEditor.PackageManager.Requests;
 
 public class PlayerManager : MonoBehaviour
 {
-
+    [Header("Abilities")]
     public static PlayerManager Instance;
     public AbilityObjScript abilityObj;
 
     public List<Ability> abilitInventory;
     public List<Ability> AllAbilities;
 
+    [Header("Player")]
     [SerializeField] public List<GameObject> MovePoints;
     [HideInInspector] public int SkillPoints;
-
     [SerializeField] public List<Player> Players;
     [HideInInspector] public Player selectedPlayer;
-
     [SerializeField] int movementPointsPerTurn;
     public int movementAction = 4;
     [HideInInspector] public Vector3 mouse_pos;
