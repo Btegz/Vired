@@ -61,4 +61,12 @@ public class EventManager
     {
         OnMoveEvent?.Invoke(player);
     }
+
+    public delegate void UpgradeAbilitySelectDelegate(Ability ability);
+    public static event UpgradeAbilitySelectDelegate UpgradeAbilitySelectEvent;
+
+    public static void OnUpgradeAbilitySelect(Ability ability)
+    {
+        UpgradeAbilitySelectEvent?.Invoke(ability);
+    }
 }

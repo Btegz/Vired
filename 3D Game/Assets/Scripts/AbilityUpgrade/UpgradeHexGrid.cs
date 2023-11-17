@@ -85,6 +85,7 @@ public class UpgradeHexGrid : MonoBehaviour
             }
         }
         loadedAbility = ability;
+        EventManager.OnUpgradeAbilitySelect(ability);
     }
 
     public Sprite GetFittingSprite(Effect effect, out string text)
