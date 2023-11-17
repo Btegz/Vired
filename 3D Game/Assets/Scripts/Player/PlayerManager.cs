@@ -50,6 +50,7 @@ public class PlayerManager : MonoBehaviour
     public int RessourceBInventory;
     public int RessourceCInventory;
     public int RessourceDInventory;
+    Vector2Int clickedTile;
 
     [SerializeField] InputActionReference cancelAbilityInputActionReference;
 
@@ -82,6 +83,8 @@ public class PlayerManager : MonoBehaviour
         EventManager.OnEndTurnEvent += resetMovementPoints;
         EventManager.OnAbilityButtonEvent += AbilityClicked;
         EventManager.OnSelectPlayerEvent += PlayerSelect;
+        // EventManager.OnMoveEvent += StartMovement;
+        EventManager.OnMoveEvent += _ => StartCoroutine(Move(clickedTile));
 
     }
 
@@ -164,7 +167,7 @@ public class PlayerManager : MonoBehaviour
                 if (movementAction > 0 || abilityActivated || ((movementAction == 0) && (extraMovement > 0)))
                 {
                     // saves the Grid Tile Location that was clicked
-                    Vector2Int clickedTile;
+                    
 
                     // enters if a tile was clicked
                     if (MouseCursorPosition(out clickedTile))
@@ -179,7 +182,9 @@ public class PlayerManager : MonoBehaviour
                                 GridManager.Instance.Grid[clickedTile].currentGridState ==
                                 GridManager.Instance.gS_PofI)
 
-                                StartCoroutine(Move(clickedTile));
+                                EventManager.OnMove(selectedPlayer);
+
+
                         }
                     }
                 }
@@ -241,6 +246,7 @@ public class PlayerManager : MonoBehaviour
 
         yield return null;
     }
+
 
     /// <summary>
     /// Used to reset Movementpoints of the Player

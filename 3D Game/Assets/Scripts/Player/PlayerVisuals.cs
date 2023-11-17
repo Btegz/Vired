@@ -6,29 +6,33 @@ using DG.Tweening;
 
 public class PlayerVisuals : MonoBehaviour
 {
+
+    [SerializeField] Player playwer;
     Tweener tween;
-    public void Update()
+
+    public void Start()
     {
-        Movement();
+        EventManager.OnMoveEvent += Movement;
     }
-    public void Movement()
+  
+    public void Movement(Player player)
     {
         try
         {
-            if (PlayerManager.Instance.moving == true)
+            if (player == playwer)
             {
                 ParticleSystem landingCloud = GetComponentInChildren<ParticleSystem>();
-                transform.DOJump(PlayerManager.Instance.target.transform.position, 2, 1, .25f)
+                transform.DOLocalJump(/*PlayerManager.Instance.target.transform.position*/Vector3.zero, 2, 1, .25f)
                  .OnComplete(() => PlayerManager.Instance.target.currentGridState.PlayerEnters(PlayerManager.Instance.target));
                 transform.DOPunchScale(Vector3.one * .1f, .25f).OnComplete(landingCloud.Play);
-
             }
-            else if(PlayerManager.Instance.movementAction == 0 && Mouse.current.leftButton.wasPressedThisFrame && !PlayerManager.Instance.abilityActivated && PlayerManager.Instance.extraMovement == 0)
+            
+           /* else if(PlayerManager.Instance.movementAction == 0 && Mouse.current.leftButton.wasPressedThisFrame && !PlayerManager.Instance.abilityActivated && PlayerManager.Instance.extraMovement == 0)
             {
                 tween = transform.DOPunchScale(Vector3.one* .1f, .25f) ;
             }
 
-            PlayerManager.Instance.moving = false;
+            PlayerManager.Instance.moving = false;*/
         }
         catch
         {

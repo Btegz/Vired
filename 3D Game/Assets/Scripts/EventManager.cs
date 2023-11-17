@@ -51,4 +51,14 @@ public class EventManager
     {
         OnSelectPlayerEvent?.Invoke(player);
     }
+
+    
+    
+    public delegate void Movement(Player player);
+    public static event Movement OnMoveEvent;
+
+    public static void OnMove(Player player)
+    {
+        OnMoveEvent?.Invoke(player);
+    }
 }
