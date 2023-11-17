@@ -265,14 +265,14 @@ public class GridManager : MonoBehaviour
 
         foreach (KeyValuePair<Vector2Int, GridTile> kvp in Grid)
 
-        { 
-          if(kvp.Value.currentGridState == gS_Positive )
+        {
+            if (kvp.Value.currentGridState == gS_Positive && kvp.Key !=PlayerManager.Instance.Players[0].CoordinatePosition && kvp.Key != PlayerManager.Instance.Players[1].CoordinatePosition && kvp.Key != PlayerManager.Instance.Players[2].CoordinatePosition) 
             {
                 possibleTiles.Add(kvp.Key);
             }
         }
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 4; i++)
         {
              Grid[possibleTiles[Random.Range(0, possibleTiles.Count)]].ChangeCurrentState(gS_PofI);
         }

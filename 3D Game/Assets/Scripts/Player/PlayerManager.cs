@@ -13,50 +13,43 @@ using UnityEditor.PackageManager.Requests;
 
 public class PlayerManager : MonoBehaviour
 {
-    [Header("Abilities")]
-    public static PlayerManager Instance;
-    public AbilityObjScript abilityObj;
 
+    public static PlayerManager Instance;
+
+
+    [Header("AbilityStuff")]
+    public AbilityObjScript abilityObj;
     public List<Ability> abilitInventory;
     public List<Ability> AllAbilities;
+    public bool abilityActivated = false;
+    private bool abilityUsable = true;
+    public GameObject indicatorPrefab;
+    private GameObject indicatorPrefabClone;
+    [HideInInspector] public bool AbilityLoadoutActive;
 
     [Header("Player")]
     [SerializeField] public List<GameObject> MovePoints;
-    [HideInInspector] public int SkillPoints;
     [SerializeField] public List<Player> Players;
-    [HideInInspector] public Player selectedPlayer;
     [SerializeField] int movementPointsPerTurn;
     public int movementAction = 4;
-    [HideInInspector] public Vector3 mouse_pos;
+    public Camera cam;
+    [HideInInspector] public int SkillPoints;
     [HideInInspector] public int extraMovement;
+    [HideInInspector] public Player selectedPlayer;
+    [HideInInspector] public GridTile target;
     [HideInInspector] public bool move = true;
     [HideInInspector] public bool moving = false;
-
-    public Camera cam;
+    [HideInInspector] public Vector3 mouse_pos;
 
     [HideInInspector] public Vector2Int PlayerSpawnPoint;
     [HideInInspector] public Vector2Int collisionPoint;
     [HideInInspector] public Vector2Int playerPosition;
 
+    [Header("Resources")]
     public int RessourceAInventory;
     public int RessourceBInventory;
     public int RessourceCInventory;
     public int RessourceDInventory;
-
-
-    public bool abilityActivated = false;
-    private bool abilityUsable = true;
-
-    [HideInInspector] public bool AbilityLoadoutActive;
-
-    public GameObject indicatorPrefab;
-    GameObject indicatorPrefabClone;
-
-    [HideInInspector] public GridTile target;
-
-
-
-    //[SerializeField] ParticleSystem AbilityCastParticleSystem;
 
     [SerializeField] InputActionReference cancelAbilityInputActionReference;
 
@@ -239,19 +232,10 @@ public class PlayerManager : MonoBehaviour
         {
             movementAction--;
         }
-     /*   ParticleSystem landingCloud = selectedPlayer.GetComponentInChildren<ParticleSystem>();
-        selectedPlayer.transform.DOJump(target.transform.position, 2, 1, .25f).OnComplete(() => target.currentGridState.PlayerEnters(target));
-        selectedPlayer.transform.DOPunchScale(Vector3.one * .1f, .25f).OnComplete(landingCloud.Play);*/
 
         selectedPlayer.transform.DOMove(target.transform.position, .25f);
 
         MovePoints[movementAction].GetComponent<MovePointsDoTween>().Away();
-
-        //MovePoints[movementAction].SetActive(false);
-
-       // selectedPlayer.transform.position = target.transform.position;
-        //target.currentGridState.PlayerEnters(target);
-
 
         selectedPlayer.CoordinatePosition = moveTo;
 
@@ -290,7 +274,7 @@ public class PlayerManager : MonoBehaviour
     public void AbilityClicked(int index)
     {
         // sets the "abilityAcitvated" bool to true, so player cant move anymore after choosing a Ability
-        if (abilityActivated == false && InventoryCheck(index,selectedPlayer))
+        if (abilityActivated == false && InventoryCheck(index, selectedPlayer))
         {
             abilityActivated = true;
             StartCoroutine(ChooseAbilityLocation(index));
@@ -305,7 +289,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public bool InventoryCheck(int index,Player player)
+    public bool InventoryCheck(int index, Player player)
     {
         Debug.Log(index);
         if (player.AbilityInventory[index] == null)

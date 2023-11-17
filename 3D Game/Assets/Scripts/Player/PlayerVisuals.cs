@@ -6,7 +6,7 @@ using DG.Tweening;
 
 public class PlayerVisuals : MonoBehaviour
 {
-
+    Tweener tween;
     public void Update()
     {
         Movement();
@@ -25,9 +25,9 @@ public class PlayerVisuals : MonoBehaviour
             }
             else if(PlayerManager.Instance.movementAction == 0 && Mouse.current.leftButton.wasPressedThisFrame && !PlayerManager.Instance.abilityActivated && PlayerManager.Instance.extraMovement == 0)
             {
-               transform.DOPunchRotation(new Vector3(10f, 2f), 1f);
+                tween = transform.DOPunchScale(Vector3.one* .1f, .25f) ;
             }
-           
+
             PlayerManager.Instance.moving = false;
         }
         catch

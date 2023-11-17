@@ -137,6 +137,7 @@ public class CameraRotation : MonoBehaviour
             else if (Playercam.Priority == 2)
             {
                 Playercam.transform.LookAt(Playercam.transform.position);
+                if (Playercam.m_Lens.FieldOfView > MaxZoom)
                 Playercam.m_Lens.FieldOfView -= MouseScrollDistance;
             }
 
@@ -167,6 +168,7 @@ public class CameraRotation : MonoBehaviour
             else if (Playercam.Priority == 2)
             {
                 Playercam.transform.LookAt(Playercam.transform.position);
+                if (Playercam.m_Lens.FieldOfView < MinZoom)
                 Playercam.m_Lens.FieldOfView += MouseScrollDistance;       
 
             }
