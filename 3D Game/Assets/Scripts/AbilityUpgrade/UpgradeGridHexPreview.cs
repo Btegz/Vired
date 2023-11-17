@@ -25,6 +25,7 @@ public class UpgradeGridHexPreview : UpgradeGridHex
     {
         if (upgradeHexGrid.Grid.ContainsKey(coordinateToPlace))
         {
+            PlayerManager.Instance.SkillPoints --;
             upgradeHexGrid.UpgradeAbility(coordinateToPlace, HexToPlace.effect);
         }
         Destroy(gameObject);

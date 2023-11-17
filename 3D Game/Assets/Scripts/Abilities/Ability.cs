@@ -102,4 +102,25 @@ public class Ability : HexShape
             GameObject.DestroyImmediate(gr.gameObject);
         }
     }
+
+    [SerializeField] private int myPositiveUpgradeCost;
+
+    public int MyPositiveUpgradeCost
+    {
+        get { return myPositiveUpgradeCost; }
+        set { myPositiveUpgradeCost = value; }
+    }
+
+    [SerializeField] private int myDamageUpgradeCost;
+
+    public int MyDamageUpgradeCost
+    {
+        get { return myDamageUpgradeCost; }
+        set { myDamageUpgradeCost = value; }
+    }
+
+    public int MyRangeUpgradeCost
+    {
+        get { return myTierLevel; }
+    }
 }

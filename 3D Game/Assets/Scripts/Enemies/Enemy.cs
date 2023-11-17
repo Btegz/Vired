@@ -76,6 +76,7 @@ public class Enemy : MonoBehaviour
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
+            PlayerManager.Instance.SkillPoints++;
             GetComponentInParent<GridTile>().ChangeCurrentState(GridManager.Instance.gS_Negative);
             PlayerManager.Instance.SkillPoints++;
             Instantiate(Particle_EnemyDeath, transform.position, Quaternion.Euler(-90, 0, 0));
