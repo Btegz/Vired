@@ -28,12 +28,12 @@ public class EventManager
         OnConfirmButtonEvent?.Invoke();
     }
 
-    public delegate void AbilityButtonDelegate(int index);
+    public delegate void AbilityButtonDelegate(Ability ability);
     public static event AbilityButtonDelegate OnAbilityButtonEvent;
 
-    public static void OnAbilityButtonClicked(int index)
+    public static void OnAbilityButtonClicked(Ability ability)
     {
-        OnAbilityButtonEvent?.Invoke(index);
+        OnAbilityButtonEvent?.Invoke(ability);
     }
 
     public delegate void LoadOutAbilityChosen(AbilityLoadoutButton abilityButton);

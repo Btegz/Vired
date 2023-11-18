@@ -273,9 +273,9 @@ public class PlayerManager : MonoBehaviour
         //MovePoints[3].GetComponent<MovePointsDoTween>().SpriteReset();
     }
 
-    public void ChooseAbilityWithIndex(int index, Vector3Int selectedPoint, Vector3Int playerPos)
+    public void ChooseAbilityWithIndex(Ability ability, Vector3Int selectedPoint, Vector3Int playerPos)
     {
-        Ability chosenAbility = selectedPlayer.AbilityInventory[index];
+        Ability chosenAbility = ability;
         AbilityObjScript AbilityPreview = Instantiate(abilityObj);
         AbilityPreview.ShowMesh(chosenAbility, selectedPoint, playerPos);
     }
@@ -285,13 +285,13 @@ public class PlayerManager : MonoBehaviour
     /// determins whether player has enough Ressources for the Ability
     /// </summary>
     /// <param name="index">index of the Ability Clicked</param>
-    public void AbilityClicked(int index)
+    public void AbilityClicked(Ability ability)
     {
         // sets the "abilityAcitvated" bool to true, so player cant move anymore after choosing a Ability
-        if (abilityActivated == false && InventoryCheck(index, selectedPlayer))
+        if (abilityActivated == false && InventoryCheck(ability, selectedPlayer))
         {
             abilityActivated = true;
-            StartCoroutine(ChooseAbilityLocation(index));
+            StartCoroutine(ChooseAbilityLocation(ability));
 
 
             //SHOW THE ABILITY INDICATOR
@@ -303,22 +303,22 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public bool InventoryCheck(int index, Player player)
+    public bool InventoryCheck(Ability ability, Player player)
     {
-        if (player.AbilityInventory[index] == null)
+        if (player.AbilityInventory.Contains(ability))
         {
             Debug.Log("I wonder how, i wonder why");
         }
         try
         {
             //saves the cost of the chosen Ability
-            Ressource resCost = player.AbilityInventory[index].MyCostRessource;
+            Ressource resCost = ability.MyCostRessource;
             //switches over the different ressources and checks whether player has anough ressources of fitting Type
             //the function returns if Player does not have enough Ressources for the Ability
             switch (resCost)
             {
                 case Ressource.ressourceA:
-                    if (player.AbilityInventory[index].MyCostAmount > RessourceAInventory)
+                    if (ability.MyCostAmount > RessourceAInventory)
                     {
                         return false;
                     }
@@ -327,7 +327,7 @@ public class PlayerManager : MonoBehaviour
 
 
                 case Ressource.ressourceB:
-                    if (player.AbilityInventory[index].MyCostAmount > RessourceBInventory)
+                    if (ability.MyCostAmount > RessourceBInventory)
                     {
                         return false;
                     }
@@ -335,7 +335,7 @@ public class PlayerManager : MonoBehaviour
                     break;
 
                 case Ressource.ressourceC:
-                    if (player.AbilityInventory[index].MyCostAmount > RessourceCInventory)
+                    if (ability.MyCostAmount > RessourceCInventory)
                     {
                         return false;
                     }
@@ -343,7 +343,7 @@ public class PlayerManager : MonoBehaviour
                     break;
 
                 case Ressource.resscoureD:
-                    if (player.AbilityInventory[index].MyCostAmount > RessourceDInventory)
+                    if (ability.MyCostAmount > RessourceDInventory)
                     {
                         return false;
                     }
@@ -364,7 +364,7 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     /// <param name="AbilityIndex"></param>
     /// <returns></returns>
-    public IEnumerator ChooseAbilityLocation(int AbilityIndex)
+    public IEnumerator ChooseAbilityLocation(Ability ability)
     {
         cancelAbilityInputActionReference.action.performed += CancelAbilityChoice;
 
@@ -390,7 +390,7 @@ public class PlayerManager : MonoBehaviour
                 {
                     if (neighbors.Contains(HexGridUtil.AxialToCubeCoord(clickedTile)))
                     {
-                        ChooseAbilityWithIndex(AbilityIndex, HexGridUtil.AxialToCubeCoord(clickedTile),
+                        ChooseAbilityWithIndex(ability, HexGridUtil.AxialToCubeCoord(clickedTile),
                             HexGridUtil.AxialToCubeCoord(selectedPlayer.CoordinatePosition));
                         break;
                     }
