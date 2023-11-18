@@ -10,46 +10,37 @@ public enum RotationMode
 }
 
 [CreateAssetMenu]
-
 public class Ability : HexShape
 {
-
-
     public List<Effect> Effects;
-    [SerializeField] public List<Ability> NextLevel;
-    [SerializeField] public int UpgradeCost;
 
     public string Name;
     public Mesh previewShape;
     public RotationMode rotato;
 
-    [FormerlySerializedAs("Kosten")] public List<Ressource> costs;
+    [SerializeField] private Ressource myCostRessource;
+
+    public Ressource MyCostRessource
+    {
+        get { return myCostRessource; }
+        set { myCostRessource = value; }
+    }
+
+    [SerializeField] private int myCostAmount;
+
+    public int MyCostAmount
+    {
+        get { return myCostAmount; }
+        set { myCostAmount = value; }
+    }
+
+
+
+    //[SerializeField] public List<Ressource> costs;
 
 
     [SerializeField] public Sprite AbilityUISprite;
 
-    public Dictionary<Vector2Int, Effect> AbilityEffectDict;
-
-
-    public Dictionary<Vector2Int, Effect> GetAbilityEffectDict()
-    {
-        Dictionary<Vector2Int, Effect> neww = new Dictionary<Vector2Int, Effect>();
-
-        for (int i = 0; i < Effects.Count; i++)
-        {
-            neww.Add(Coordinates[i], Effects[i]);
-        }
-
-        return neww;
-    }
-
-    [SerializeField] private ParticleSystem MyCastParticleSystem;
-
-    public ParticleSystem CastParticleSystem
-    {
-        get { return CastParticleSystem; }
-        set { CastParticleSystem = value; }
-    }
 
     [SerializeField] private int myTierLevel;
 
@@ -59,12 +50,12 @@ public class Ability : HexShape
         set { myTierLevel = value; }
     }
 
-    public void RecalculatePreviewMesh(Dictionary<Vector2Int,Effect> newShape)
+    public void RecalculatePreviewMesh(Dictionary<Vector2Int, Effect> newShape)
     {
         Coordinates.Clear();
         Effects.Clear();
 
-        foreach(KeyValuePair<Vector2Int,Effect> kvp in newShape)
+        foreach (KeyValuePair<Vector2Int, Effect> kvp in newShape)
         {
             Coordinates.Add(kvp.Key);
             Effects.Add(kvp.Value);
@@ -101,6 +92,7 @@ public class Ability : HexShape
         {
             GameObject.DestroyImmediate(gr.gameObject);
         }
+        RecalculateCost();
     }
 
     [SerializeField] private int myPositiveUpgradeCost;
@@ -122,5 +114,67 @@ public class Ability : HexShape
     public int MyRangeUpgradeCost
     {
         get { return myTierLevel; }
+    }
+
+    [Header("StarterParameters")]
+
+    [SerializeField] private int myStartAmountPositive;
+
+    public int MyStartAmountPositive
+    {
+        get { return myStartAmountPositive; }
+        set { myStartAmountPositive = value; }
+    }
+
+    [SerializeField] private int myStartAmountDamage;
+
+    public int MyStartAmountDamage
+    {
+        get { return myStartAmountDamage; }
+        set { myStartAmountDamage = value; }
+    }
+
+    [SerializeField] private int myStartTierlevel;
+
+    public int MyStartTierLevel
+    {
+        get { return myStartTierlevel; }
+        set { myStartTierlevel = value; }
+    }
+
+    public void StarterAbility()
+    {
+        MyTierLevel = MyStartTierLevel;
+        List<Vector2Int> possibleTiles = HexGridUtil.CubeToAxialCoord(HexGridUtil.CoordinatesReachable(Vector3Int.zero, MyStartTierLevel+1));
+
+        Debug.Log(possibleTiles.Count);
+
+        Dictionary<Vector2Int, Effect> newShape = new Dictionary<Vector2Int, Effect>();
+
+        for (int i = 0; i < MyStartAmountPositive; i++)
+        {
+            Vector2Int randomTile = possibleTiles[Random.Range(0, possibleTiles.Count-1)];
+            while (newShape.ContainsKey(randomTile))
+            {
+                randomTile = possibleTiles[Random.Range(0, possibleTiles.Count)];
+            }
+            newShape.Add(randomTile, Effect.Positive);
+        }
+
+        for (int i = 0; i < MyStartAmountDamage; i++)
+        {
+            Vector2Int randomTile = possibleTiles[Random.Range(0, possibleTiles.Count - 1)];
+            while (newShape.ContainsKey(randomTile))
+            {
+                randomTile = possibleTiles[Random.Range(0, possibleTiles.Count)];
+            }
+            newShape.Add(randomTile, Effect.Negative100);
+        }
+        RecalculatePreviewMesh(newShape);
+    }
+
+    public void RecalculateCost()
+    {
+        MyCostAmount = Coordinates.Count / 4;
     }
 }

@@ -21,12 +21,12 @@ public class SkillTreeAbilityVisual : MonoBehaviour, IPointerClickHandler
     {
         this.ability = ability;
         AbilityVisual.sprite = ability.AbilityUISprite;
-        UseCost.text = ability.costs.Count.ToString();
+        UseCost.text = ability.MyCostAmount.ToString();
     }
 
     private void Start()
     {
         AbilityVisual.sprite = ability.AbilityUISprite;
-        UseCost.text = ability.costs.Count.ToString();
+        UseCost.text = ability.MyCostAmount.ToString();
     }
 }

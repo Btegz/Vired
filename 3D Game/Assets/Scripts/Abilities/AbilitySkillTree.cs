@@ -33,13 +33,13 @@ public class AbilitySkillTree : MonoBehaviour
             if(ChosenAbilities.Contains(ability.ability))
             {
                 
-                foreach( Ability nextLevelAbility in ability.ability.NextLevel)
-                {
-                    if(nextLevelAbility.UpgradeCost <= PlayerManager.Instance.SkillPoints)
-                    {
-                        ability.AbilityVisual.color = Color.green;
-                    }
-                }
+                //foreach( Ability nextLevelAbility in ability.ability.NextLevel)
+                //{
+                //    if(nextLevelAbility.UpgradeCost <= PlayerManager.Instance.SkillPoints)
+                //    {
+                //        ability.AbilityVisual.color = Color.green;
+                //    }
+                //}
             }
         }
     }

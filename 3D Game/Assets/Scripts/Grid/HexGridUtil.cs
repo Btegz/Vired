@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 /// <summary>
 /// The Class GexGridUtil provides functions with algorithms for Operations in a Hexagonal Grid.
@@ -339,6 +340,57 @@ public static class HexGridUtil
             fringes.Add(NextIteration);
         }
         return visited;
+    }
+    public static List<Vector3Int> CoordinatesReachable(Vector3Int startCoord, int range)
+    {
+        // List of coordinates "visited" by the search
+        List<Vector3Int> visited = new List<Vector3Int>
+        {
+            // starting Tile is added to "visited"
+            startCoord
+        };
+
+        // List of a List of Coordinates. fringes[k] has all Tiles reachable in k steps.
+        List<List<Vector3Int>> fringes = new()
+        {
+            // fringes[0] gets the "visited" list containing only the starting coord. in 0 steps there is only the one Tile (starting coord) reachable.
+            new List<Vector3Int> { startCoord }
+        };
+
+        // loop through the range
+        for (int k = 1; k < range; k++)
+        {
+            // new List to hold every reachable tile to be added to visited.
+            List<Vector3Int> NextIteration = new List<Vector3Int>();
+
+            // loop through every Coordinate in fringes[k-1]
+            foreach (Vector3Int hex in fringes[k - 1])
+            {
+                // take every neighbor of the current tile
+                foreach (Vector3Int neighbor in CubeNeighbors(hex))
+                {
+                    // check, whether we have it visited already and whether it is blocked.
+                    if (!visited.Contains(neighbor))
+                    {
+                        //Add it to visited, since it is reachable
+                        visited.Add(neighbor);
+                        // Add it to fringes[k] for the next loop iteration of fringes[k-1]
+                        NextIteration.Add(neighbor);
+                    }
+                }
+            }
+            // add a new List in fringes[k] to be filled with reachable tiles in current k steps.
+            fringes.Add(NextIteration);
+        }
+        List<Vector3Int> result = new List<Vector3Int>();
+        foreach(Vector3Int hex in visited)
+        {
+            if(hex != Vector3Int.zero)
+            {
+                result.Add(hex);
+            }
+        }
+        return result;
     }
 
     // ROTATION ----------------------------------------------------------------------------------------------------------------------------

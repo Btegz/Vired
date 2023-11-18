@@ -219,7 +219,7 @@ public class AbilityObjScript : MonoBehaviour
                 if (gridTile.currentGridState.StateValue() < -1)
                 {
                     Enemy currentEnemy = gridTile.GetComponentInChildren<Enemy>();
-                    if (ability.costs[0] == currentEnemy.ressource)
+                    if (ability.MyCostRessource == currentEnemy.ressource)
                     currentEnemy.TakeDamage(2);
                     else
                         currentEnemy.TakeDamage(1);
@@ -234,7 +234,7 @@ public class AbilityObjScript : MonoBehaviour
                 if (gridTile.currentGridState.StateValue() < -1)
                 {
                     Enemy currentEnemy = gridTile.GetComponentInChildren<Enemy>();
-                    if (ability.costs[0] == currentEnemy.ressource)
+                    if (ability.MyCostRessource == currentEnemy.ressource)
                         currentEnemy.TakeDamage(3);
 
                     else
@@ -249,7 +249,7 @@ public class AbilityObjScript : MonoBehaviour
                 if (gridTile.currentGridState.StateValue() < -1)
                 {
                     Enemy currentEnemy = gridTile.GetComponentInChildren<Enemy>();
-                    if (ability.costs[0] == currentEnemy.ressource)
+                    if (ability.MyCostRessource == currentEnemy.ressource)
                         currentEnemy.TakeDamage(3);
 
                     else
@@ -264,7 +264,7 @@ public class AbilityObjScript : MonoBehaviour
                 if (gridTile.currentGridState.StateValue() < -1)
                 {
                     Enemy currentEnemy = gridTile.GetComponentInChildren<Enemy>();
-                    if (ability.costs[0] == currentEnemy.ressource)
+                    if (ability.MyCostRessource == currentEnemy.ressource)
                     currentEnemy.TakeDamage(5);
                     else
                         currentEnemy.TakeDamage(4);
@@ -278,7 +278,7 @@ public class AbilityObjScript : MonoBehaviour
                 if (gridTile.currentGridState.StateValue() < -1)
                 {
                     Enemy currentEnemy = gridTile.GetComponentInChildren<Enemy>();
-                    if (ability.costs[0] == currentEnemy.ressource)
+                    if (ability.MyCostRessource == currentEnemy.ressource)
                     currentEnemy.TakeDamage(6);
 
                     else
@@ -317,22 +317,22 @@ public class AbilityObjScript : MonoBehaviour
 
     public void Payment()
     {
-        switch (ability.costs[0])
+        switch (ability.MyCostRessource)
         {
             case Ressource.ressourceA:
-                PlayerManager.Instance.RessourceAInventory -= ability.costs.Count;
+                PlayerManager.Instance.RessourceAInventory -= ability.MyCostAmount;
                 break;
 
             case Ressource.ressourceB:
-                PlayerManager.Instance.RessourceBInventory -= ability.costs.Count;
+                PlayerManager.Instance.RessourceBInventory -= ability.MyCostAmount;
                 break;
 
             case Ressource.ressourceC:
-                PlayerManager.Instance.RessourceCInventory -= ability.costs.Count;
+                PlayerManager.Instance.RessourceCInventory -= ability.MyCostAmount;
                 break;
 
             case Ressource.resscoureD:
-                PlayerManager.Instance.RessourceDInventory -= ability.costs.Count;
+                PlayerManager.Instance.RessourceDInventory -= ability.MyCostAmount;
                 break;
         }
     }

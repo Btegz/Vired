@@ -312,14 +312,13 @@ public class PlayerManager : MonoBehaviour
         try
         {
             //saves the cost of the chosen Ability
-            Ressource resCost = player.AbilityInventory[index].costs[0];
-            Debug.Log("Cost: " + resCost);
+            Ressource resCost = player.AbilityInventory[index].MyCostRessource;
             //switches over the different ressources and checks whether player has anough ressources of fitting Type
             //the function returns if Player does not have enough Ressources for the Ability
             switch (resCost)
             {
                 case Ressource.ressourceA:
-                    if (player.AbilityInventory[index].costs.Count > RessourceAInventory)
+                    if (player.AbilityInventory[index].MyCostAmount > RessourceAInventory)
                     {
                         return false;
                     }
@@ -328,7 +327,7 @@ public class PlayerManager : MonoBehaviour
 
 
                 case Ressource.ressourceB:
-                    if (player.AbilityInventory[index].costs.Count > RessourceBInventory)
+                    if (player.AbilityInventory[index].MyCostAmount > RessourceBInventory)
                     {
                         return false;
                     }
@@ -336,7 +335,7 @@ public class PlayerManager : MonoBehaviour
                     break;
 
                 case Ressource.ressourceC:
-                    if (player.AbilityInventory[index].costs.Count > RessourceCInventory)
+                    if (player.AbilityInventory[index].MyCostAmount > RessourceCInventory)
                     {
                         return false;
                     }
@@ -344,7 +343,7 @@ public class PlayerManager : MonoBehaviour
                     break;
 
                 case Ressource.resscoureD:
-                    if (player.AbilityInventory[index].costs.Count > RessourceDInventory)
+                    if (player.AbilityInventory[index].MyCostAmount > RessourceDInventory)
                     {
                         return false;
                     }

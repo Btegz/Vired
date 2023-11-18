@@ -40,7 +40,6 @@ public class AbilityLoadout : MonoBehaviour
 
         foreach (Player player in playerManager.Players)
         {
-            Debug.Log("Hello i wanna setup my PlayerInventory" + player.name);
             UI_PlayerABLInventory ini = Instantiate(playerABLInventoryPrefab, playersArea.transform);
 
             ini.Setup(player);
@@ -53,47 +52,30 @@ public class AbilityLoadout : MonoBehaviour
                 AbilityLoadoutButton button = Instantiate(abloadoutButton);
                 button.Setup(ability);
                 button.transform.SetParent(ini.InventoryArea.transform);
-                //button.GetComponent<Button>().enabled = false;
             }
         }
-
-        //if(PlayerManager.Instance.abilitInventory.Count > 0)
-        //{
-        //    ChosenAbilityList = PlayerManager.Instance.abilitInventory;
-        //    foreach (Ability ability in ChosenAbilityList)
-        //    {
-        //        abilityCollection.Remove(ability);
-        //        AbilityLoadoutButton button = Instantiate(abloadoutButton, ChosenAbilitiesLayout.transform);
-        //        button.Setup(ability);
-        //        button.GetComponent<Button>().enabled = false;
-        //    }
-        //}
 
         AbilityLoadoutButton instance;
         foreach (Ability ability in abilityCollection)
         {
-            switch (ability.costs[0])
+            switch (ability.MyCostRessource)
             {
                 case Ressource.ressourceA:
                     instance = Instantiate(abloadoutButton, BlueAbilityLayout.transform);
-                    instance.Setup(ability);
                     break;
-
                 case Ressource.ressourceB:
                     instance = Instantiate(abloadoutButton, OrangeAbilityLayout.transform);
-                    instance.Setup(ability);
                     break;
-
                 case Ressource.ressourceC:
                     instance = Instantiate(abloadoutButton, RedAbilityLayout.transform);
-                    instance.Setup(ability);
                     break;
                 case Ressource.resscoureD:
                     instance = Instantiate(abloadoutButton, GreenAbilityLayout.transform);
-                    instance.Setup(ability);
                     break;
+                default: instance = null; break;
             }
-            
+            instance.Setup(ability);
+            instance.ability.StarterAbility();
         }
         EventManager.OnAbilityChosenEvent += AddAbilityChoice;
     }
