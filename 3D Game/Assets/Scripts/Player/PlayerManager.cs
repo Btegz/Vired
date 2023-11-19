@@ -32,7 +32,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] int movementPointsPerTurn;
     public int movementAction = 4;
     public Camera cam;
-    [HideInInspector] public int SkillPoints;
+    public int SkillPoints;
     [HideInInspector] public int extraMovement;
     [HideInInspector] public Player selectedPlayer;
     [HideInInspector] public GridTile target;

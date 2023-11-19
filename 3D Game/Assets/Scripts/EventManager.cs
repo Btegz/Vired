@@ -69,4 +69,13 @@ public class EventManager
     {
         UpgradeAbilitySelectEvent?.Invoke(ability);
     }
+
+    public delegate void AbilityChangeDelegate(Dictionary<Vector2Int, UpgradeGridHex> Grid, Ability ability);
+    public static event AbilityChangeDelegate AbilityChangeEvent;
+
+    public static void OnAbilityChange(Dictionary<Vector2Int, UpgradeGridHex> Grid, Ability ability)
+    {
+        AbilityChangeEvent?.Invoke(Grid, ability);
+    }
+
 }

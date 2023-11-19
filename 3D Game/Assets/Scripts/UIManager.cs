@@ -150,7 +150,7 @@ public class UIManager : MonoBehaviour
         {
             if(player.AbilityInventory.Count > i)
             {
-                abilityButtons[i].GetComponent<Button>().image.sprite = player.AbilityInventory[i].AbilityUISprite;
+                //abilityButtons[i].GetComponent<Button>().image.sprite = player.AbilityInventory[i].AbilityUISprite;
             }
             else
             {
