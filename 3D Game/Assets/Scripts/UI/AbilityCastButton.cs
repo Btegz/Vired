@@ -21,6 +21,7 @@ public class AbilityCastButton : MonoBehaviour
     [SerializeField] public Ability ability;
 
     public Dictionary<Vector2Int, UpgradeGridHex> UIGrid;
+    [SerializeField] Sprite emptyAbilitySlotSprite;
 
 
     // Start is called before the first frame update
@@ -49,20 +50,23 @@ public class AbilityCastButton : MonoBehaviour
 
     public void AssignAbility(Player player)
     {
-        try
+        Debug.Log(player.name.ToString());
+        if(player.AbilityInventory.Count > index)
         {
             ability = player.AbilityInventory[index];
             MakeAbilityToGrid();
             CorrectBackground();
         }
-        catch
+        else
         {
+            Debug.Log("I GOT CAUGHT SHOULD I HAVE BEEN CAUGHT?");
             ability = null;
             UpgradeGridHex[] children = GetComponentsInChildren<UpgradeGridHex>();
             foreach (UpgradeGridHex rt in children)
             {
                 Destroy(rt.gameObject);
             }
+            GetComponent<Image>().sprite = emptyAbilitySlotSprite;
         }
     }
 
@@ -132,7 +136,10 @@ public class AbilityCastButton : MonoBehaviour
         {
             foreach (KeyValuePair<Vector2Int, UpgradeGridHex> kvp in UIGrid)
             {
-                Destroy(kvp.Value.gameObject);
+                if(kvp.Value != null)
+                {
+                    Destroy(kvp.Value.gameObject);
+                }
             }
             UIGrid.Clear();
         }

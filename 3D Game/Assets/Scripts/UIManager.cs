@@ -146,17 +146,18 @@ public class UIManager : MonoBehaviour
         //EventManager.OnSelectPlayer(player);
 
         //PlayerManager.Instance.PlayerSelect(PlayerManager.Instance.Players.IndexOf(player));
-        for (int i = 0;i < abilityButtons.Count;i++)
-        {
-            if(player.AbilityInventory.Count > i)
-            {
-                //abilityButtons[i].GetComponent<Button>().image.sprite = player.AbilityInventory[i].AbilityUISprite;
-            }
-            else
-            {
-                abilityButtons[i].GetComponent<Button>().image.sprite = emptyAbilitySlotSprite;
-            }
-        }
+        //for (int i = 0;i < abilityButtons.Count;i++)
+        //{
+        //    if(player.AbilityInventory.Count > i)
+        //    {
+        //        abilityButtons[i].AssignAbility(player);
+        //        //abilityButtons[i].GetComponent<Button>().image.sprite = player.AbilityInventory[i].AbilityUISprite;
+        //    }
+        //    else
+        //    {
+        //        abilityButtons[i].GetComponent<Button>().image.sprite = emptyAbilitySlotSprite;
+        //    }
+        //}
         
     }
 
