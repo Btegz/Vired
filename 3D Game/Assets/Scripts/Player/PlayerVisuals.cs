@@ -13,18 +13,13 @@ public class PlayerVisuals : MonoBehaviour
     public void Start()
     {
         EventManager.OnMoveEvent += Movement;
-    }
-  
-
     
-    public void Shake()
-    {
-        if ((GridManager.Instance.Grid[PlayerManager.Instance.clickedTile].currentGridState != GridManager.Instance.gS_Neutral && Mouse.current.leftButton.wasPressedThisFrame) || (GridManager.Instance.Grid[PlayerManager.Instance.clickedTile].currentGridState != GridManager.Instance.gS_Positive && Mouse.current.leftButton.wasPressedThisFrame))
-        {
-
-            transform.DOPunchRotation(new Vector3(2f, 10f), .5f);
-        }
     }
+
+   
+
+
+  
     public void Movement(Player player)
     {
         try

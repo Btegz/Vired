@@ -34,6 +34,14 @@ public class GridManager : MonoBehaviour
     public GS_Pofl gS_PofI;
     
     [SerializeField] public Boss boss;
+    [SerializeField] public Enemy Boss;
+    [SerializeField] public Enemy Boss1Phase2;
+    [SerializeField] public Enemy Boss2Phase2;
+    [SerializeField] public Enemy Boss3Phase2;
+
+    public Vector2Int BossSpawn;
+    public int random;
+    public new Vector2Int[] coords = new Vector2Int[3];
 
     [Header("Map")]
     [SerializeField] MapSettings mapSettings;
@@ -213,13 +221,12 @@ public class GridManager : MonoBehaviour
                 newTile.transform.position = HexGridUtil.AxialHexToPixel(coordinates, 1);
 
                 Grid.Add(coordinates, newTile);
-            }
-           
-        
+            }      
         }
         SpawnBossAndPlayer();
-        boss.BossNeighbors();
+     //   boss.BossNeighbors();
         SpawnPofIs();
+   
     }
 
     private void SpawnBossAndPlayer()
@@ -227,6 +234,9 @@ public class GridManager : MonoBehaviour
         Vector3Int maxX = new Vector3Int();
         Vector3Int maxY = new Vector3Int();
         Vector3Int maxZ = new Vector3Int();
+        Vector3Int minX = new Vector3Int();
+        Vector3Int minY = new Vector3Int();
+        Vector3Int minZ = new Vector3Int();
 
         List<Vector3Int> CubeCoords = HexGridUtil.AxialToCubeCoord(Grid.Keys.ToList<Vector2Int>());
 
@@ -236,21 +246,43 @@ public class GridManager : MonoBehaviour
             {
                 maxX = coord;
             }
+
+            if (coord.x < minX.x)
+            {
+                minX = coord;
+            }
+
             if (coord.y > maxY.y)
             {
                 maxY = coord;
             }
+
+            if (coord.y < minY.y)
+            {
+                minY = coord;
+            }
+
             if (coord.z > maxZ.z)
             {
                 maxZ = coord;
             }
-        }
 
-        Enemy Boss = Instantiate(BossPrefab);
-        Boss.Setup(BossEnemySO, Grid[Vector2Int.zero]);
-        Boss.transform.parent = Grid[Vector2Int.zero].transform;
-        Boss.transform.position = Grid[Vector2Int.zero].transform.position;
-        Grid[Vector2Int.zero].ChangeCurrentState(gS_Boss);
+            if ((coord.z < minZ.z))
+            {
+                minZ = coord;
+            }
+        }
+        
+        Vector3Int[] coords = { minY, minX, minZ };
+        random = Random.Range(0, coords.Length);
+        BossSpawn = HexGridUtil.CubeToAxialCoord(coords[random]);
+        Boss = Instantiate(BossPrefab);
+      
+        Boss.Setup(BossEnemySO, Grid[BossSpawn]);
+       
+        Boss.transform.parent = Grid[BossSpawn].transform;
+        Boss.transform.position = Grid[BossSpawn].transform.position;
+        Grid[BossSpawn].ChangeCurrentState(gS_Boss);
 
         List<Player> players = PlayerManager.Instance.Players;
 
@@ -259,6 +291,7 @@ public class GridManager : MonoBehaviour
         players[2].SpawnPoint = HexGridUtil.CubeToAxialCoord(maxZ);
     }
 
+    
     private void SpawnPofIs()
     {
         List<Vector2Int> possibleTiles = new List<Vector2Int>();

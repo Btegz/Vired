@@ -40,4 +40,12 @@ public class Phase : ScriptableObject
         get { return PhaseTransition; } 
         set { PhaseTransition = value; } 
     }
+
+    [SerializeField, Tooltip("Drag & Drop Phase specific Boss Spread")] private PhaseBoss PhaseBoss;
+
+    public PhaseBoss myPhaseBoss
+    {
+        get { return PhaseBoss; }
+        set { PhaseBoss = value; }
+    }
 }

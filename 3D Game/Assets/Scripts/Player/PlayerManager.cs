@@ -49,7 +49,7 @@ public class PlayerManager : MonoBehaviour
     public int RessourceBInventory;
     public int RessourceCInventory;
     public int RessourceDInventory;
-   
+
 
     [SerializeField] InputActionReference cancelAbilityInputActionReference;
 
@@ -81,7 +81,6 @@ public class PlayerManager : MonoBehaviour
         EventManager.OnAbilityButtonEvent += AbilityClicked;
         EventManager.OnSelectPlayerEvent += PlayerSelect;
         EventManager.OnMoveEvent += _ => StartCoroutine(Move(clickedTile));
-
     }
 
     private void OnDestroy()
@@ -151,30 +150,27 @@ public class PlayerManager : MonoBehaviour
                 }
             }
 
-            if ((movementAction == 0 && Mouse.current.leftButton.wasPressedThisFrame && !abilityActivated && extraMovement == 0))
+            if ((PlayerManager.Instance.movementAction == 0 && Mouse.current.leftButton.wasPressedThisFrame && !PlayerManager.Instance.abilityActivated && PlayerManager.Instance.extraMovement == 0))
             {
-                selectedPlayer.transform.DOPunchRotation(new Vector3(10f, 2f), 1f);
-            }
-            
-            if ((GridManager.Instance.Grid[PlayerManager.Instance.clickedTile].currentGridState != GridManager.Instance.gS_Neutral && Mouse.current.leftButton.wasPressedThisFrame) || (GridManager.Instance.Grid[PlayerManager.Instance.clickedTile].currentGridState != GridManager.Instance.gS_Positive && Mouse.current.leftButton.wasPressedThisFrame))
-            {
-                //
+                selectedPlayer.gameObject.transform.GetChild(0).transform.DOComplete();
+                selectedPlayer.gameObject.transform.GetChild(0).transform.DOPunchRotation(new Vector3(10f, 2f), 1f);
             }
 
 
-                // enters if Left Mouse Button was clicked
-                if (Mouse.current.leftButton.wasPressedThisFrame)
+
+            // enters if Left Mouse Button was clicked
+            if (Mouse.current.leftButton.wasPressedThisFrame)
             {
                 // checks whether movement points are available or if a Ability is activated
                 if (movementAction > 0 || abilityActivated || ((movementAction == 0) && (extraMovement > 0)))
                 {
                     // saves the Grid Tile Location that was clicked
-                    
+
 
                     // enters if a tile was clicked
                     if (MouseCursorPosition(out clickedTile))
                     {
-                        
+
                         // enters if Players Neighbors contains the clicked Tile
                         if (neighbors.Contains(HexGridUtil.AxialToCubeCoord(clickedTile)) && !abilityActivated && move == true)
                         {
@@ -187,15 +183,18 @@ public class PlayerManager : MonoBehaviour
 
                                 EventManager.OnMove(selectedPlayer);
 
-                            
-                            
+                            else
+
+                                selectedPlayer.gameObject.transform.GetChild(0).transform.DOComplete();
+                            selectedPlayer.gameObject.transform.GetChild(0).transform.DOPunchRotation(new Vector3(10f, 2f), .5f);
+
 
                         }
                     }
                 }
             }
         }
-     
+
     }
 
 
@@ -222,6 +221,10 @@ public class PlayerManager : MonoBehaviour
         clickedTile = Vector2Int.zero;
         return false;
     }
+
+
+
+
 
     /// <summary>
     /// Coroutine to Move Player to a Coordinate
