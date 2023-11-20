@@ -223,7 +223,7 @@ public class GridManager : MonoBehaviour
                 Grid.Add(coordinates, newTile);
             }      
         }
-        SpawnBossAndPlayer();
+       SpawnBossAndPlayer();
      //   boss.BossNeighbors();
         SpawnPofIs();
    

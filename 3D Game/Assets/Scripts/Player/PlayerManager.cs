@@ -184,10 +184,10 @@ public class PlayerManager : MonoBehaviour
                                 EventManager.OnMove(selectedPlayer);
 
                             else
-
+                            {
                                 selectedPlayer.gameObject.transform.GetChild(0).transform.DOComplete();
-                            selectedPlayer.gameObject.transform.GetChild(0).transform.DOPunchRotation(new Vector3(10f, 2f), .5f);
-
+                                selectedPlayer.gameObject.transform.GetChild(0).transform.DOPunchRotation(new Vector3(10f, 2f), .5f);
+                            }
 
                         }
                     }

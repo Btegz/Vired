@@ -6,7 +6,8 @@ using UnityEngine;
 public class PB_Phase3 : PhaseBoss
 {
     public override void BossSpread(Vector2Int Bosslocation)
-    { 
+    {
+        
         GridManager.Instance.Boss = Instantiate(GridManager.Instance.BossPrefab);
         GridManager.Instance.Boss.Setup(GridManager.Instance.BossEnemySO, GridManager.Instance.Grid[Vector2Int.zero]);
 
