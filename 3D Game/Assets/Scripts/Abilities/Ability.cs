@@ -147,11 +147,14 @@ public class Ability : HexShape
         MyTierLevel = MyStartTierLevel;
         List<Vector2Int> possibleTiles = HexGridUtil.CubeToAxialCoord(HexGridUtil.CoordinatesReachable(Vector3Int.zero, MyStartTierLevel+1));
 
-        Debug.Log(possibleTiles.Count);
-
         Dictionary<Vector2Int, Effect> newShape = new Dictionary<Vector2Int, Effect>();
+        if(MyStartAmountPositive > 0)
+        {
+            Vector2Int coord = new Vector2Int(1, 0);
+            newShape.Add(coord, Effect.Positive);
+        }
 
-        for (int i = 0; i < MyStartAmountPositive; i++)
+        for (int i = 1; i < MyStartAmountPositive; i++)
         {
             Vector2Int randomTile = possibleTiles[Random.Range(0, possibleTiles.Count-1)];
             while (newShape.ContainsKey(randomTile))
