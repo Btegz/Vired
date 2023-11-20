@@ -276,16 +276,7 @@ public class GridManager : MonoBehaviour
         Vector3Int[] coords = { minY, minX, minZ };
         random = Random.Range(0, coords.Length);
         BossSpawn = HexGridUtil.CubeToAxialCoord(coords[random]);
-        Boss = Instantiate(BossPrefab);
-      
-        Boss.Setup(BossEnemySO, Grid[BossSpawn]);
-       
-        Boss.transform.parent = Grid[BossSpawn].transform;
-        Boss.transform.position = Grid[BossSpawn].transform.position;
-        Grid[BossSpawn].ChangeCurrentState(gS_Boss);
-
         List<Player> players = PlayerManager.Instance.Players;
-
         players[0].SpawnPoint = HexGridUtil.CubeToAxialCoord(maxX);
         players[1].SpawnPoint = HexGridUtil.CubeToAxialCoord(maxY);
         players[2].SpawnPoint = HexGridUtil.CubeToAxialCoord(maxZ);
