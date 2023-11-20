@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -786,6 +786,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Konfetti_Particle 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3998011604197919498, guid: a9bd1b8da43bb154880a4f7b1eb5d824, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c025d91793dad6a4489a0b55e3985f9f, type: 2}
     - target: {fileID: 7039653626630488955, guid: a9bd1b8da43bb154880a4f7b1eb5d824, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -830,6 +834,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8775739226345930281, guid: a9bd1b8da43bb154880a4f7b1eb5d824, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c025d91793dad6a4489a0b55e3985f9f, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9bd1b8da43bb154880a4f7b1eb5d824, type: 3}
 --- !u!1 &1818310088

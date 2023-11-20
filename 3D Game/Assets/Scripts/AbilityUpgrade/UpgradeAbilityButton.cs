@@ -5,13 +5,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UpgradeAbilityButton : MonoBehaviour, IPointerClickHandler
+public class UpgradeAbilityButton : AbilityButton, IPointerClickHandler
 {
-    [SerializeField] int index;
-
     Image ButtonImage;
-
-    Ability abilitySelected;
 
     [SerializeField]UpgradeHexGrid upgradeHexGrid;
 
@@ -24,6 +20,10 @@ public class UpgradeAbilityButton : MonoBehaviour, IPointerClickHandler
         {
             SelectAbility(PlayerManager.Instance.selectedPlayer);
         }
+        else
+        {
+            ButtonImage.sprite = emptyAbilitySlotSprite;
+        }
     }
 
     private void OnDestroy()
@@ -33,23 +33,24 @@ public class UpgradeAbilityButton : MonoBehaviour, IPointerClickHandler
 
     private void SelectAbility(Player player)
     {
-        try
+        if(player.AbilityInventory.Count > index)
         {
-            Ability ability = player.AbilityInventory[index];
-            ButtonImage.sprite = player.AbilityInventory[index].AbilityUISprite;
-            abilitySelected = player.AbilityInventory[index];
+            this.ability = player.AbilityInventory[index];
+
+            MakeAbilityToGrid();
+            CorrectBackground();
         }
-        catch
+        else
         {
-            abilitySelected = null;
+            this.ability = null;
         }
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if(abilitySelected != null)
+        if(this.ability != null)
         {
-            upgradeHexGrid.LoadAbility(abilitySelected);
+            upgradeHexGrid.LoadAbility(this.ability);
         }
     }
 }

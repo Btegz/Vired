@@ -5,10 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class AbilityLoadoutButton : MonoBehaviour, IDragHandler, IEndDragHandler,IBeginDragHandler
+public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler,IBeginDragHandler
 {
-    public Ability ability;
-
     CanvasGroup canvasGroup;
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -33,7 +31,8 @@ public class AbilityLoadoutButton : MonoBehaviour, IDragHandler, IEndDragHandler
     public void Setup(Ability ability)
     {
         this.ability = ability;
-        GetComponent<Image>().sprite = ability.AbilityUISprite;
+        MakeAbilityToGrid();
+        CorrectBackground();
         Button b = GetComponent<Button>();
     }
 

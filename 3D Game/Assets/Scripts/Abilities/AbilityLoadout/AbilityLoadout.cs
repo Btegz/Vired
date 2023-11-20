@@ -46,7 +46,6 @@ public class AbilityLoadout : MonoBehaviour
 
             foreach (Ability ability in player.AbilityInventory)
             {
-                Debug.Log("I HAVE A CHOSEN ABILITY" + player.name + " " + ability.name);
                 ChosenAbilityList.Add(ability);
                 abilityCollection.Remove(ability);
                 AbilityLoadoutButton button = Instantiate(abloadoutButton);

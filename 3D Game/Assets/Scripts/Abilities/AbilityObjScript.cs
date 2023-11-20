@@ -302,7 +302,6 @@ public class AbilityObjScript : MonoBehaviour
         {
             if (GridManager.Instance.Grid.ContainsKey(AbilityShapeLocation[i]))
             {
-                Debug.Log(AbilityShapeLocation[i]);
                 gridTile = GridManager.Instance.Grid[AbilityShapeLocation[i]];
                 UsingEffect(ability.Effects[i]);
             }
