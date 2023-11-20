@@ -3,15 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class P1_Boss : Boss
-{
-    Boss boss;
-    
-
+{ 
     private void Start()
     {
 
-        Debug.Log("phase1");
-            boss.Spawn(Vector2Int.zero);
+      Spawn(Vector2Int.zero);
 
     }
 
@@ -19,4 +15,6 @@ public class P1_Boss : Boss
     {
          //EventManager.OnEndTurnEvent -= boss.BossNeighbors;
     }
+
+    //override Spawn
 }

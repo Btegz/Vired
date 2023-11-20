@@ -5,4 +5,10 @@ using UnityEngine;
 public class BossManager : MonoBehaviour
 {
     public List<Boss> BossList;
+
+    public void Start()
+    {
+        Instantiate(BossList[0]);
+
+    }
 }

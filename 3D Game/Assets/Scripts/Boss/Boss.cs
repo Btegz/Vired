@@ -13,13 +13,11 @@ public class Boss : MonoBehaviour
     [SerializeField] int Health;
     [SerializeField] int SkillPoints;
     [SerializeField] int AbilityLoadout;
-    public BossManager bossmanager;
     Vector2Int location;
 
     private void Start()
     {
       //  EventManager.OnEndTurnEvent += BossNeighbors;
-        Instantiate(bossmanager.BossList[0]);
         
     }
 
