@@ -9,8 +9,8 @@ public class PT_AllEnemiesDefeated : PhaseTransition
     {
         if (GridManager.Instance.GetTilesWithState(GridManager.Instance.gS_Boss).Count == 0 && GridManager.Instance.GetTilesWithState(GridManager.Instance.gS_Enemy).Count == 0)
         {
-            EventManager.OnAbilityCastEvent -= ConditionFullfilledCheck;
-            EventManager.OnEndTurnEvent -= ConditionFullfilledCheck;
+          /*  EventManager.OnAbilityCastEvent -= ConditionFullfilledCheck;
+            EventManager.OnEndTurnEvent -= ConditionFullfilledCheck;*/
             GridManager.Instance.PhaseTransition();
         }
     }
@@ -23,7 +23,7 @@ public class PT_AllEnemiesDefeated : PhaseTransition
                 EventManager.OnAbilityCastEvent += ConditionFullfilledCheck;
                 break;
             case WhenCheckCondition.AfterPhaseEffects:
-                EventManager.OnEndTurnEvent += ConditionFullfilledCheck;
+               // EventManager.OnEndTurnEvent += ConditionFullfilledCheck;
                 break;
         }
     }

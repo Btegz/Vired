@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class EventManager
 {
-    public delegate void EndTurnDelegate();
+    public delegate void EndTurnDelegate(Vector2Int location, int SpawnRange);
     public static event EndTurnDelegate OnEndTurnEvent;
 
-    public static void OnEndTurn()
+    public static void OnEndTurn(Vector2Int location, int SpawnRange)
     {
-        OnEndTurnEvent?.Invoke();
+        OnEndTurnEvent?.Invoke(location, SpawnRange);
     }
 
     public delegate void AbilityCast();

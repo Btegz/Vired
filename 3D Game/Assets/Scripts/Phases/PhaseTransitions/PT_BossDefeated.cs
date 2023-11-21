@@ -10,7 +10,7 @@ public class PT_BossDefeated : PhaseTransition
         if (GridManager.Instance.GetTilesWithState(GridManager.Instance.gS_Boss).Count == 0)
         {
             EventManager.OnAbilityCastEvent -= ConditionFullfilledCheck;
-            EventManager.OnEndTurnEvent -= ConditionFullfilledCheck;
+          //  EventManager.OnEndTurnEvent -= ConditionFullfilledCheck;
             GridManager.Instance.PhaseTransition();
         }
     }
@@ -23,7 +23,7 @@ public class PT_BossDefeated : PhaseTransition
                 EventManager.OnAbilityCastEvent += ConditionFullfilledCheck;
                 break;
             case WhenCheckCondition.AfterPhaseEffects:
-                EventManager.OnEndTurnEvent += ConditionFullfilledCheck;
+              //  EventManager.OnEndTurnEvent += ConditionFullfilledCheck;
                 break;
         }
     }

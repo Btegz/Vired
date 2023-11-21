@@ -20,11 +20,7 @@ public class BossManager : MonoBehaviour
     public void Phase()
     { 
         BossList.Remove(BossList[0]);
+        Instantiate(BossList[0]);
         
-        if (BossList[0] != null)
-        {
-           
-            Instantiate(BossList[0]);
-        }
     }
 }

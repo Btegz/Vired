@@ -10,14 +10,13 @@ public class P3_Boss : Boss
         GetComponent<Enemy>().currentHealth = 8;
         GetComponent<Enemy>().Setup(GridManager.Instance.BossEnemySO, GridManager.Instance.Grid[Vector2Int.zero]);
         Spawn(Vector2Int.zero, gameObject);
-        BossNeighbors(Vector2Int.zero);
+        BossNeighbors(Vector2Int.zero,3);
         
     }
 
 
     public void OnDestroy()
     {
-        EventManager.OnPhaseChange();
         GridManager.Instance.GameWon();
     }
 }

@@ -10,7 +10,7 @@ public class P1_Boss : Boss
     {
         enemy.Setup(GridManager.Instance.BossEnemySO, GridManager.Instance.Grid[GridManager.Instance.BossSpawn]);
         Spawn(GridManager.Instance.BossSpawn, gameObject);
-        BossNeighbors(GridManager.Instance.BossSpawn);
+        BossNeighbors(GridManager.Instance.BossSpawn,3);
         enemy.currentHealth = 5;
     }
 

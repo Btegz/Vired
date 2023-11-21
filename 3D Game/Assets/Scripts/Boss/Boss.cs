@@ -18,7 +18,7 @@ public class Boss : MonoBehaviour
     private void Start()
     {
        
-      //  EventManager.OnEndTurnEvent += BossNeighbors;
+        EventManager.OnEndTurnEvent += BossNeighbors;
         
     }
 
@@ -30,9 +30,9 @@ public class Boss : MonoBehaviour
         GridManager.Instance.Grid[location].ChangeCurrentState(GridManager.Instance.gS_Boss);
     }
 
-    public void BossNeighbors(Vector2Int location)
+    public void BossNeighbors(Vector2Int location, int SpawnRange)
     {
-        BossReachableTiles = HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(location), 3, HexGridUtil.AxialToCubeCoord(GridManager.Instance.Grid.Keys.ToList<Vector2Int>()));
+        BossReachableTiles = HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(location), SpawnRange, HexGridUtil.AxialToCubeCoord(GridManager.Instance.Grid.Keys.ToList<Vector2Int>()));
         BossReachableTiles.Remove(HexGridUtil.AxialToCubeCoord(location));
 
         foreach (Vector3Int neighbor in BossReachableTiles)

@@ -36,12 +36,17 @@ public class UIManager : MonoBehaviour
             PlayerButton playerButton = Instantiate(playerButtonPrefab, PlayerButtonParent.transform);
             playerButton.Setup(player);
         }
-        EndTurnButton.onClick.AddListener(EventManager.OnEndTurn);
+        EndTurnButton.onClick.AddListener(EndTurn);
         EndTurnButton.onClick.AddListener(GridManager.Instance.TriggerPhase);
         EventManager.OnSelectPlayerEvent += UpdateAbilityInventory;
         //AbilitiesInventoryButton.onClick.AddListener(ExpandAbilityInventory);
     }
 
+
+    private void EndTurn()
+    {
+        EventManager.OnEndTurn(Vector2Int.zero, 0);
+    }
     private void OnEnable()
     {
         try
