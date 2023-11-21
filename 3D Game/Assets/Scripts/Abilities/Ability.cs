@@ -52,9 +52,8 @@ public class Ability : HexShape
 
     public void RecalculatePreviewMesh(Dictionary<Vector2Int, Effect> newShape)
     {
-        Coordinates.Clear();
-        Effects.Clear();
-
+        Coordinates = new List<Vector2Int>();
+        Effects = new List<Effect>();
         foreach (KeyValuePair<Vector2Int, Effect> kvp in newShape)
         {
             Coordinates.Add(kvp.Key);
@@ -144,6 +143,8 @@ public class Ability : HexShape
 
     public void StarterAbility()
     {
+        Coordinates.Clear();
+        Effects.Clear();
         MyTierLevel = MyStartTierLevel;
         List<Vector2Int> possibleTiles = HexGridUtil.CubeToAxialCoord(HexGridUtil.CoordinatesReachable(Vector3Int.zero, MyStartTierLevel+1));
 

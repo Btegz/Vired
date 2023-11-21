@@ -308,10 +308,6 @@ public class PlayerManager : MonoBehaviour
 
     public bool InventoryCheck(Ability ability, Player player)
     {
-        if (player.AbilityInventory.Contains(ability))
-        {
-            Debug.Log("I wonder how, i wonder why");
-        }
         try
         {
             //saves the cost of the chosen Ability

@@ -16,16 +16,19 @@ public class UpgradeGridHexPreview : UpgradeGridHex
 
     Vector3 previousPosition;
 
+    int cost;
+
     private void Start()
     {
         previousPosition = Vector3.zero;
+        coordinateToPlace = Vector2Int.zero;
     }
 
     public void Place()
     {
-        if (upgradeHexGrid.Grid.ContainsKey(coordinateToPlace))
+        if (upgradeHexGrid.Grid.ContainsKey(coordinateToPlace) && coordinateToPlace != Vector2Int.zero)
         {
-            PlayerManager.Instance.SkillPoints --;
+            PlayerManager.Instance.SkillPoints -= cost;
             upgradeHexGrid.UpgradeAbility(coordinateToPlace, HexToPlace.effect);
         }
         Destroy(gameObject);
@@ -52,17 +55,18 @@ public class UpgradeGridHexPreview : UpgradeGridHex
             {
                 transform.position = previousPosition;
             }
-
         }
         else
         {
+            coordinateToPlace = Vector2Int.zero;
             transform.position = mousePos;
         }
     }
 
-    public void Initialize(UpgradeHexGrid hexGrid, UpgradeGridHex toPlace)
+    public void Initialize(UpgradeHexGrid hexGrid, UpgradeGridHex toPlace, int cost)
     {
         this.Fill(toPlace.image.sprite);
+        this.cost = cost;
 
         upgradeHexGrid = hexGrid;
         HexToPlace = toPlace;

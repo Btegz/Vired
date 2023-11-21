@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,7 @@ public class AbilityButton : MonoBehaviour
 
     [SerializeField] public Ability ability;
     [SerializeField] protected Sprite emptyAbilitySlotSprite;
+    [SerializeField] TMP_Text CostText;
 
     public Dictionary<Vector2Int, UpgradeGridHex> UIGrid;
 
@@ -57,12 +59,15 @@ public class AbilityButton : MonoBehaviour
                 Vector3 wordPos = HexGridUtil.AxialHexToPixel(kvp.Key, 10);
 
                 newHex.transform.localPosition = new Vector2(wordPos.x, wordPos.z);
+                CostText.text = ability.MyCostAmount.ToString();
             }
         }
     }
 
-    public void MakeGrid(int radius)
+    public void MakeAbilityToGrid()
     {
+        ResetButton();
+        //MakeGrid(ability.MyTierLevel);
         if (UIGrid != null)
         {
             foreach (KeyValuePair<Vector2Int, UpgradeGridHex> kvp in UIGrid)
@@ -78,25 +83,7 @@ public class AbilityButton : MonoBehaviour
         {
             UIGrid = new Dictionary<Vector2Int, UpgradeGridHex>();
         }
-        List<Vector2Int> gridCoords = HexGridUtil.GenerateHexagonalShapedGrid(radius);
 
-        foreach (Vector2Int coordinate in gridCoords)
-        {
-            UpgradeGridHex newHex = Instantiate(upgradeHexPrefab, this.transform);
-            newHex.transform.localScale = Vector2.one * 0.2f;
-            Vector3 wordPos = HexGridUtil.AxialHexToPixel(coordinate, 10);
-            newHex.transform.localPosition = new Vector2(wordPos.x, wordPos.z);
-            newHex.coordinate = coordinate;
-            UIGrid.Add(coordinate, newHex);
-        }
-
-        UIGrid[Vector2Int.zero].Fill(PlayerHexSprite, "Player");
-    }
-
-    public void MakeAbilityToGrid()
-    {
-        ResetButton();
-        MakeGrid(ability.MyTierLevel);
         for (int i = 0; i < ability.Coordinates.Count; i++)
         {
             Sprite sp = GetFittingSprite(ability.Effects[i], out string text);
@@ -105,7 +92,27 @@ public class AbilityButton : MonoBehaviour
                 UIGrid[ability.Coordinates[i]].Fill(sp, text);
                 UIGrid[ability.Coordinates[i]].effect = ability.Effects[i];
             }
+            else
+            {
+                UpgradeGridHex newHex = Instantiate(upgradeHexPrefab, this.transform);
+                newHex.transform.localScale = Vector2.one * 0.2f;
+                Vector3 wordPos = HexGridUtil.AxialHexToPixel(ability.Coordinates[i], 10);
+                newHex.transform.localPosition = new Vector2(wordPos.x, wordPos.z);
+                newHex.coordinate = ability.Coordinates[i];
+                UIGrid.Add(ability.Coordinates[i], newHex); 
+                UIGrid[ability.Coordinates[i]].Fill(sp, text);
+                UIGrid[ability.Coordinates[i]].effect = ability.Effects[i];
+            }
         }
+        UpgradeGridHex playerHex = Instantiate(upgradeHexPrefab, this.transform);
+        playerHex.transform.localScale = Vector2.one * 0.2f;
+        Vector3 playerWorldPos = HexGridUtil.AxialHexToPixel(Vector2Int.zero, 10);
+        playerHex.transform.localPosition = new Vector2(playerWorldPos.x, playerWorldPos.z);
+        playerHex.coordinate = Vector2Int.zero;
+        UIGrid.Add(Vector2Int.zero, playerHex);
+        UIGrid[Vector2Int.zero].Fill(PlayerHexSprite, "Player");
+
+        CostText.text = ability.MyCostAmount.ToString();
     }
     public Sprite GetFittingSprite(Effect effect, out string text)
     {
@@ -149,5 +156,6 @@ public class AbilityButton : MonoBehaviour
             Destroy(rt.gameObject);
         }
         GetComponent<Image>().sprite = emptyAbilitySlotSprite;
+        CostText.text = "";
     }
 }

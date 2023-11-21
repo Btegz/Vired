@@ -40,9 +40,8 @@ public class UpgradeHex : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     {
         if (PlayerManager.Instance.SkillPoints >= Cost)
         {
-            PlayerManager.Instance.SkillPoints -= Cost;
             gridHex = Instantiate(gridHexPrefab, this.transform);
-            gridHex.Initialize(upgradeHexGrid, newHex);
+            gridHex.Initialize(upgradeHexGrid, newHex,Cost);
         }
 
     }
