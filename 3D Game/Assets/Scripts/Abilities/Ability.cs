@@ -179,6 +179,6 @@ public class Ability : HexShape
 
     public void RecalculateCost()
     {
-        MyCostAmount = Coordinates.Count / 4;
+        MyCostAmount = 2 + (Coordinates.Count / 4);
     }
 }
