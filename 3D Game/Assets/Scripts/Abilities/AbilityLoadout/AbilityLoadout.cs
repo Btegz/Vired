@@ -49,8 +49,8 @@ public class AbilityLoadout : MonoBehaviour
                 ChosenAbilityList.Add(ability);
                 abilityCollection.Remove(ability);
                 AbilityLoadoutButton button = Instantiate(abloadoutButton);
-                button.Setup(ability);
                 button.transform.SetParent(ini.InventoryArea.transform);
+                button.Setup(ability, ini.InventoryArea);
             }
         }
 
@@ -61,27 +61,33 @@ public class AbilityLoadout : MonoBehaviour
             {
                 case Ressource.ressourceA:
                     instance = Instantiate(abloadoutButton, BlueAbilityLayout.transform);
+                    instance.Setup(ability, BlueAbilityLayout);
                     break;
                 case Ressource.ressourceB:
                     instance = Instantiate(abloadoutButton, OrangeAbilityLayout.transform);
+                    instance.Setup(ability, OrangeAbilityLayout);
                     break;
                 case Ressource.ressourceC:
                     instance = Instantiate(abloadoutButton, RedAbilityLayout.transform);
+                    instance.Setup(ability, RedAbilityLayout);
                     break;
                 case Ressource.resscoureD:
                     instance = Instantiate(abloadoutButton, GreenAbilityLayout.transform);
+                    instance.Setup(ability, GreenAbilityLayout);
                     break;
                 default: instance = null; break;
             }
-            instance.Setup(ability);
+            
             instance.ability.StarterAbility();
         }
         EventManager.OnAbilityChosenEvent += AddAbilityChoice;
+        EventManager.LoadOutAbilityChoiseRemoveEvent += RemoveAbilityChoice;
     }
 
     private void OnDestroy()
     {
         EventManager.OnAbilityChosenEvent -= AddAbilityChoice;
+        EventManager.LoadOutAbilityChoiseRemoveEvent -= RemoveAbilityChoice;
     }
 
     public void AddAbilityChoice(AbilityLoadoutButton abilityLoadoutButton)
@@ -95,6 +101,19 @@ public class AbilityLoadout : MonoBehaviour
             {
                 ConfirmButton.gameObject.SetActive(true);
             }
+            else
+            {
+                ConfirmButton.gameObject.SetActive(false);
+            }
+        }
+    }
+
+    public void RemoveAbilityChoice(AbilityLoadoutButton abilityLoadoutButton)
+    {
+        ChosenAbilityList.Remove(abilityLoadoutButton.ability);
+        if (ConfirmButton.gameObject.activeSelf)
+        {
+            ConfirmButton.gameObject.SetActive(false);
         }
     }
 

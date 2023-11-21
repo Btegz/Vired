@@ -4,11 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class UI_PlayerABLInventory : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,IDropHandler
+public class UI_PlayerABLInventory : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] public HorizontalLayoutGroup InventoryArea;
+    [SerializeField] public GridLayoutGroup InventoryArea;
 
-    [SerializeField] Player player;
+    [SerializeField] public Player player;
 
     [SerializeField] AbilityLoadoutButton loadoutButtonPrefab;
 
@@ -44,20 +44,5 @@ public class UI_PlayerABLInventory : MonoBehaviour, IPointerEnterHandler, IPoint
     private void OnDestroy()
     {
         EventManager.OnAbilityChosenEvent -= AddAbility;
-    }
-
-    public void OnDrop(PointerEventData eventData)
-    {
-        if (eventData.pointerDrag != null)
-        {
-            if (eventData.pointerDrag.TryGetComponent<AbilityLoadoutButton>(out AbilityLoadoutButton abilityLoadOUtButton))
-            {
-                player.AbilityInventory.Add(abilityLoadOUtButton.ability);
-
-                abilityLoadOUtButton.transform.SetParent(InventoryArea.transform); 
-                EventManager.OnAbilityChosen(abilityLoadOUtButton);
-            }
-        }
-            
     }
 }

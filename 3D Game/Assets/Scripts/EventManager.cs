@@ -44,6 +44,14 @@ public class EventManager
         OnAbilityChosenEvent?.Invoke(abilityLoadoutButton);
     }
 
+    public delegate void LoadOutAbilityChoiceRemoveDelegate(AbilityLoadoutButton abilityButton);
+    public static event LoadOutAbilityChoiceRemoveDelegate LoadOutAbilityChoiseRemoveEvent;
+
+    public static void OnLoadoutAbilityChoiceRemove(AbilityLoadoutButton abilityLoadoutButton)
+    {
+        LoadOutAbilityChoiseRemoveEvent?.Invoke(abilityLoadoutButton);
+    }
+
     public delegate void SelectPlayerDelegate(Player player);
     public static event SelectPlayerDelegate OnSelectPlayerEvent;
 
@@ -51,8 +59,6 @@ public class EventManager
     {
         OnSelectPlayerEvent?.Invoke(player);
     }
-
-    
     
     public delegate void Movement(Player player);
     public static event Movement OnMoveEvent;
