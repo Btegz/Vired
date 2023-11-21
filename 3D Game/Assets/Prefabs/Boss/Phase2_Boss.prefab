@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2071123213569512506
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5447889641059372588}
+  - component: {fileID: 8722108006677765001}
+  - component: {fileID: -6124643049886693301}
+  m_Layer: 0
+  m_Name: Phase2_Boss
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5447889641059372588
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2071123213569512506}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8722108006677765001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2071123213569512506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac40004989043c74bac78dc94d695d48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemySO: {fileID: 0}
+  currentHealth: 0
+  maxHealth: 0
+  ressource: 0
+  AMAterial: {fileID: 0}
+  BMAterial: {fileID: 0}
+  CMAterial: {fileID: 0}
+  DMAterial: {fileID: 0}
+  HealthPointsLayout: {fileID: 0}
+  HealthpointPrefab: {fileID: 0}
+  healthpoints: []
+  Particle_EnemyDeath: {fileID: 0}
+--- !u!114 &-6124643049886693301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2071123213569512506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34844618b07586241b60fcb21186c7ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BossReachableTiles: []
+  BossSpread: []
+  SkillPoints: 0
+  AbilityLoadout: 0
+  Boss1: {fileID: 4784703169308235399, guid: 518c8a4c86cd99948a0c3fa2efcf5436, type: 3}
+  Boss2: {fileID: 3330919580862709941, guid: 0c562a2fedc3a5345bdc1c7f4c5b6dc1, type: 3}
+  Boss3: {fileID: 4027204570549402153, guid: 430ba50fd7255e740a11acf26087b0cc, type: 3}
+  enemy: {fileID: 8722108006677765001}
+  possibleTiles: []
+  randomTile1: 0
+  randomTile2: 0
+  randomTile3: 0

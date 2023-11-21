@@ -176,9 +176,9 @@ GameObject:
   - component: {fileID: 8254572460369654826}
   - component: {fileID: 8254572460369654825}
   - component: {fileID: 2148683299467376766}
-  - component: {fileID: 8325508271288384589}
+  - component: {fileID: 2774349534592181857}
   m_Layer: 0
-  m_Name: Boss_Prefab
+  m_Name: Phase3_Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -274,7 +274,7 @@ MonoBehaviour:
   HealthpointPrefab: {fileID: 4546101371875049633, guid: 653162b7ccefd14408d3d51e5851e964, type: 3}
   healthpoints: []
   Particle_EnemyDeath: {fileID: 726535386845715946, guid: 005fc7e0d2c6e1247b7b8880e93a8099, type: 3}
---- !u!114 &8325508271288384589
+--- !u!114 &2774349534592181857
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -283,8 +283,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8254572460369654823}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e358582cacc8867449f787d0154c3002, type: 3}
+  m_Script: {fileID: 11500000, guid: b966f9bb6f24a7d438650eecfa352c6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  location: {x: 0, y: 0}
   BossReachableTiles: []
+  BossSpread: []
+  SkillPoints: 0
+  AbilityLoadout: 0
+  enemy: {fileID: 2148683299467376766}
