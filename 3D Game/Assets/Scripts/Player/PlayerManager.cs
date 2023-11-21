@@ -43,6 +43,7 @@ public class PlayerManager : MonoBehaviour
     [HideInInspector] public Vector2Int PlayerSpawnPoint;
     [HideInInspector] public Vector2Int collisionPoint;
     [HideInInspector] public Vector2Int playerPosition;
+    public List<Sprite> PlayerSprites;
 
     [Header("Resources")]
     public int RessourceAInventory;

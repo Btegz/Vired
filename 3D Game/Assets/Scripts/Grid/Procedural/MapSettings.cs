@@ -33,7 +33,7 @@ public class MapSettings : ScriptableObject
         set { noiseType2 = value; }
     }
 
-    [SerializeField][Range(0.001f,1f)]  private float frequency; 
+    [SerializeField][Range(0.001f, 1f)] private float frequency;
     public float Frequency
     {
         get { return frequency; }
@@ -41,7 +41,7 @@ public class MapSettings : ScriptableObject
     }
 
 
-    public Dictionary<Vector2Int, float> NoiseData(FastNoiseLite.NoiseType noiseType,float frequency)
+    public Dictionary<Vector2Int, float> NoiseData(FastNoiseLite.NoiseType noiseType, float frequency)
     {
         noise.SetNoiseType(noiseType);
         noise.SetFrequency(frequency);
@@ -53,15 +53,23 @@ public class MapSettings : ScriptableObject
         {
             result.Add(c, noise.GetNoise(c.x, c.y));
         }
-
-        //for (int x = 0; x < NoiseDataSize.x; x++)
-        //{
-        //    for (int y = 0; y < NoiseDataSize.y; y++)
-        //    {
-        //        result.Add(new Vector2Int(x, y), noise.GetNoise(x, y));
-        //    }
-        //}
         return result;
+    }
+
+    public Dictionary<Vector2Int,float> NoiseData(FastNoiseLite.NoiseType noiseType,float frequency, FastNoiseLite.DomainWarpType domainWarpType, float domainWarpAmplitude)
+    {
+        Dictionary<Vector2Int, float> result = NoiseData(noiseType, frequency);
+        Dictionary<Vector2Int, float> resultresult = new Dictionary<Vector2Int, float>();
+        noise.SetDomainWarpType(domainWarpType);
+        noise.SetDomainWarpAmp(domainWarpAmplitude);
+        foreach (KeyValuePair<Vector2Int, float> kvp in result)
+        {
+            float x = kvp.Key.x;
+            float y = kvp.Key.y;
+            noise.DomainWarp(ref x,ref y);
+            resultresult.Add(kvp.Key, noise.GetNoise(x, y));
+        }
+        return resultresult;
     }
 
     [Header("World-Shape Noise Settings")]
@@ -82,15 +90,7 @@ public class MapSettings : ScriptableObject
         set { m_frequency = value; }
     }
 
-    [SerializeField] Vector2 m_noiseThresholds;
-
-    public Vector2 M_NoiseThresholds
-    {
-        get { return m_noiseThresholds; }
-        set { m_noiseThresholds = value; }
-    }
-
-    [SerializeField][Range(0.5f,10f)] float m_distanceThreshold;
+    [SerializeField] float m_distanceThreshold;
 
     public float M_DistanceThreshold
     {
@@ -98,4 +98,48 @@ public class MapSettings : ScriptableObject
         set { m_distanceThreshold = value; }
     }
 
+    [SerializeField] private FastNoiseLite.DomainWarpType m_DomainWarpType;
+
+    public FastNoiseLite.DomainWarpType M_DomainWarpType
+    {
+        get { return m_DomainWarpType; }
+        set { m_DomainWarpType = value; }
+    }
+
+    [SerializeField] private float m_DomainWarpAmplitude;
+
+    public float M_DomainWarpAmplitude  
+    {
+        get { return m_DomainWarpAmplitude; }
+        set { m_DomainWarpAmplitude = value; }
+    }
+
+
+
+
+
+
+
+    [SerializeField] private FastNoiseLite.NoiseType m_HillNoiseType;
+    public FastNoiseLite.NoiseType M_HillNoiseType
+    {
+        get { return m_HillNoiseType; }
+        set { m_HillNoiseType = value; }
+    }
+
+    [SerializeField][Range(0.001f, 1f)] float m_HillFrequency;
+
+    public float M_HillFrequency
+    {
+        get { return m_HillFrequency; }
+        set { m_HillFrequency = value; }
+    }
+
+    [SerializeField] Vector2 m_HillnoiseThresholds;
+
+    public Vector2 M_HillNoiseThresholds
+    {
+        get { return m_HillnoiseThresholds; }
+        set { m_HillnoiseThresholds = value; }
+    }
 }

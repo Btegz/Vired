@@ -12,16 +12,26 @@ public class UI_PlayerABLInventory : MonoBehaviour, IPointerEnterHandler, IPoint
 
     [SerializeField] AbilityLoadoutButton loadoutButtonPrefab;
 
+    [SerializeField] Image PlayerPortrait;
+
     public void Setup(Player player)
     {
         this.player = player;
-        //EventManager.OnAbilityChosenEvent += AddAbility;
+        for(int i = 0; i < PlayerManager.Instance.Players.Count; i++)
+        {
+            if(player == PlayerManager.Instance.Players[i])
+            {
+                try
+                {
+                    PlayerPortrait.sprite = PlayerManager.Instance.PlayerSprites[i];
+                }
+                catch
+                {
+                    Debug.Log("Player cant find his Portrait");
+                }
+            }
+        }
 
-        //foreach(Ability ability in player.AbilityInventory)
-        //{
-        //    AbilityLoadoutButton abilityLoadout = Instantiate(loadoutButtonPrefab,transform);
-        //    abilityLoadout.Setup(ability);
-        //}
     }
 
     public void AddAbility(AbilityLoadoutButton abilityLoadOUtButton)

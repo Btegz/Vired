@@ -32,7 +32,7 @@ public class GridManager : MonoBehaviour
     public GS_Boss gS_Boss;
     public GS_BossNegative gS_BossNegative;
     public GS_Pofl gS_PofI;
-    
+
     [SerializeField] public Boss boss;
     [SerializeField] public Enemy Boss;
     [SerializeField] public Enemy Boss1Phase2;
@@ -156,33 +156,38 @@ public class GridManager : MonoBehaviour
             Grid = new Dictionary<Vector2Int, GridTile>();
 
             Dictionary<Vector2Int, Ressource> coordRessourceDict = new Dictionary<Vector2Int, Ressource>();
-            Dictionary<Vector2Int, float> mapNoise = mapSettings.NoiseData(mapSettings.M_NoiseType1, mapSettings.M_Frequency);
+            Dictionary<Vector2Int, float> mapNoise = mapSettings.NoiseData(mapSettings.M_NoiseType1, mapSettings.M_Frequency,mapSettings.M_DomainWarpType,mapSettings.M_DomainWarpAmplitude);
+            Dictionary<Vector2Int, float> mapHillNoise = mapSettings.NoiseData(mapSettings.M_HillNoiseType, mapSettings.M_HillFrequency);
             Dictionary<Vector2Int, float> gridNoise1 = mapSettings.NoiseData(mapSettings.NoiseType1, mapSettings.Frequency);
             Dictionary<Vector2Int, float> gridNoise2 = mapSettings.NoiseData(mapSettings.NoiseType2, mapSettings.Frequency);
+
 
             foreach (KeyValuePair<Vector2Int, float> kvp in gridNoise1)
             {
                 float noise1 = kvp.Value;
                 float noise2 = gridNoise2[kvp.Key];
                 float mapNoise1 = mapNoise[kvp.Key];
+                float mapHillNoise1 = mapHillNoise[kvp.Key];
 
-                if (/*noise1 > mapSettings.NoiseThresholds.y && noise2 > mapSettings.NoiseThresholds.y*/mapNoise1 > mapSettings.M_NoiseThresholds.y)
+                // Take out tiles as Hills
+                if (mapHillNoise1 > mapSettings.M_HillNoiseThresholds.y)
                 {
                     continue;
                 }
-                else if (/*noise1 < mapSettings.NoiseThresholds.x && noise2 < mapSettings.NoiseThresholds.x*/mapNoise1 < mapSettings.M_NoiseThresholds.x)
+                else if (mapNoise1 < mapSettings.M_HillNoiseThresholds.x)
                 {
                     continue;
                 }
+
+                // Take out Tiles with Distance to form a Shaped Map
                 Vector2Int coordinate = kvp.Key;
                 float distance = HexGridUtil.CubeDistance(HexGridUtil.AxialToCubeCoord(coordinate), Vector3Int.zero);
-
-                if (/*(Mathf.Abs(noise1) + Mathf.Abs(noise2))*/Mathf.Abs(mapNoise1) * distance >= mapSettings.M_DistanceThreshold)
+                if (Mathf.Abs(mapNoise1) * distance >= mapSettings.M_DistanceThreshold)
                 {
                     continue;
                 }
 
-                //Debug.Log($"noise1: {noise1}, noise2: {noise2} at {coordinate}");
+                // Fill Map with Ressources
                 Ressource res;
                 if (noise1 > 0f && noise2 >= 0f)
                 {
@@ -211,6 +216,7 @@ public class GridManager : MonoBehaviour
                 coordRessourceDict.Add(coordinate, res);
             }
 
+            // Take out Tiles unreachable
             List<Vector2Int> reachableCoords = HexGridUtil.CubeToAxialCoord(HexGridUtil.CoordinatesReachable(Vector3Int.zero, mapSettings.NoiseDataSize.x, HexGridUtil.AxialToCubeCoord(coordRessourceDict.Keys.ToList<Vector2Int>())));
 
             foreach (Vector2Int coordinates in reachableCoords)
@@ -221,12 +227,13 @@ public class GridManager : MonoBehaviour
                 newTile.transform.position = HexGridUtil.AxialHexToPixel(coordinates, 1);
 
                 Grid.Add(coordinates, newTile);
-            }      
+            }
         }
-       SpawnBossAndPlayer();
-     //   boss.BossNeighbors();
+
+        // Fill Map with Things
+        SpawnBossAndPlayer();
         SpawnPofIs();
-   
+
     }
 
     private void SpawnBossAndPlayer()
@@ -272,14 +279,14 @@ public class GridManager : MonoBehaviour
                 minZ = coord;
             }
         }
-        
+
         Vector3Int[] coords = { minY, minX, minZ };
         random = Random.Range(0, coords.Length);
         BossSpawn = HexGridUtil.CubeToAxialCoord(coords[random]);
         Boss = Instantiate(BossPrefab);
-      
+
         Boss.Setup(BossEnemySO, Grid[BossSpawn]);
-       
+
         Boss.transform.parent = Grid[BossSpawn].transform;
         Boss.transform.position = Grid[BossSpawn].transform.position;
         Grid[BossSpawn].ChangeCurrentState(gS_Boss);
@@ -291,7 +298,7 @@ public class GridManager : MonoBehaviour
         players[2].SpawnPoint = HexGridUtil.CubeToAxialCoord(maxZ);
     }
 
-    
+
     private void SpawnPofIs()
     {
         List<Vector2Int> possibleTiles = new List<Vector2Int>();
@@ -299,7 +306,7 @@ public class GridManager : MonoBehaviour
         foreach (KeyValuePair<Vector2Int, GridTile> kvp in Grid)
 
         {
-            if (kvp.Value.currentGridState == gS_Positive && kvp.Key !=PlayerManager.Instance.Players[0].CoordinatePosition && kvp.Key != PlayerManager.Instance.Players[1].CoordinatePosition && kvp.Key != PlayerManager.Instance.Players[2].CoordinatePosition) 
+            if (kvp.Value.currentGridState == gS_Positive && kvp.Key != PlayerManager.Instance.Players[0].CoordinatePosition && kvp.Key != PlayerManager.Instance.Players[1].CoordinatePosition && kvp.Key != PlayerManager.Instance.Players[2].CoordinatePosition)
             {
                 possibleTiles.Add(kvp.Key);
             }
@@ -307,7 +314,7 @@ public class GridManager : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
         {
-             Grid[possibleTiles[Random.Range(0, possibleTiles.Count)]].ChangeCurrentState(gS_PofI);
+            Grid[possibleTiles[Random.Range(0, possibleTiles.Count)]].ChangeCurrentState(gS_PofI);
         }
     }
 
@@ -408,6 +415,6 @@ public class GridManager : MonoBehaviour
         }
         currentPhase = phases[0];
         currentPhase.myPhaseTransition.InitPhaseTransitionCheck();
-        currentPhase.TriggerPhaseEffects(TurnCounter,this);
+        currentPhase.TriggerPhaseEffects(TurnCounter, this);
     }
 }
