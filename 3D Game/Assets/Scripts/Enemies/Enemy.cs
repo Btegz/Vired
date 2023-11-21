@@ -8,8 +8,8 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] public EnemySO enemySO;
 
-    [SerializeField] int currentHealth;
-    [SerializeField] int maxHealth;
+    [SerializeField] public int currentHealth;
+    [SerializeField] public int maxHealth;
 
     [SerializeField] public Ressource ressource;
 
@@ -35,7 +35,7 @@ public class Enemy : MonoBehaviour
     {
         this.enemySO = enemySO;
 
-        currentHealth = enemySO.myCurrentHealth;
+        //currentHealth = enemySO.myCurrentHealth;
         maxHealth = enemySO.mymaxHealth;
         ressource = tile.ressource;
 

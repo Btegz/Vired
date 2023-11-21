@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class P3_Boss : MonoBehaviour
+public class P3_Boss : Boss
 {
-    // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
+        GetComponent<Enemy>().currentHealth = 8;
+        GetComponent<Enemy>().Setup(GridManager.Instance.BossEnemySO, GridManager.Instance.Grid[Vector2Int.zero]);
+        Spawn(Vector2Int.zero, gameObject);
+        BossNeighbors(Vector2Int.zero);
         
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public void OnDestroy()
     {
-        
+        EventManager.OnPhaseChange();
+        GridManager.Instance.GameWon();
     }
 }

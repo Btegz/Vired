@@ -78,4 +78,12 @@ public class EventManager
         AbilityChangeEvent?.Invoke(Grid, ability);
     }
 
+    public delegate void PhaseChangeDelegate();
+    public static event PhaseChangeDelegate PhaseChangeEvent;
+
+    public static void OnPhaseChange()
+    {
+        PhaseChangeEvent?.Invoke();
+    }
+
 }

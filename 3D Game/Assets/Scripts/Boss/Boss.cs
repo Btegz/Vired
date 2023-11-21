@@ -10,30 +10,29 @@ public class Boss : MonoBehaviour
 
     [SerializeField] List<Vector3Int> BossReachableTiles;
     [SerializeField] List<Spreadbehaviours> BossSpread;
-    [SerializeField] int Health;
     [SerializeField] int SkillPoints;
     [SerializeField] int AbilityLoadout;
+    
     Vector2Int location;
 
     private void Start()
     {
+       
       //  EventManager.OnEndTurnEvent += BossNeighbors;
         
     }
 
-    public void Spawn(Vector2Int location)
+    public void Spawn(Vector2Int location, GameObject boss)
     {
         
-        GridManager.Instance.Boss = Instantiate(GridManager.Instance.BossPrefab);
-        GridManager.Instance.Boss.Setup(GridManager.Instance.BossEnemySO, GridManager.Instance.Grid[location]);
-        GridManager.Instance.Boss.transform.parent = GridManager.Instance.Grid[location].transform;
-        GridManager.Instance.Boss.transform.position = GridManager.Instance.Grid[location].transform.position;
-        GridManager.Instance.Grid[GridManager.Instance.BossSpawn].ChangeCurrentState(GridManager.Instance.gS_Boss);
+        boss.transform.parent = GridManager.Instance.Grid[location].transform;
+        boss.transform.position = GridManager.Instance.Grid[location].transform.position;
+        GridManager.Instance.Grid[location].ChangeCurrentState(GridManager.Instance.gS_Boss);
     }
 
     public void BossNeighbors(Vector2Int location)
     {
-        BossReachableTiles = HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(location), 4, HexGridUtil.AxialToCubeCoord(GridManager.Instance.Grid.Keys.ToList<Vector2Int>()));
+        BossReachableTiles = HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(location), 3, HexGridUtil.AxialToCubeCoord(GridManager.Instance.Grid.Keys.ToList<Vector2Int>()));
         BossReachableTiles.Remove(HexGridUtil.AxialToCubeCoord(location));
 
         foreach (Vector3Int neighbor in BossReachableTiles)
