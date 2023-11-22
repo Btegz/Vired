@@ -10,6 +10,7 @@ using UnityEngine.InputSystem;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 using UnityEditor.PackageManager.Requests;
+using UnityEngine.EventSystems;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -206,21 +207,25 @@ public class PlayerManager : MonoBehaviour
     /// <returns>true if Mouse Position is on a GridTile</returns>
     private bool MouseCursorPosition(out Vector2Int clickedTile)
     {
-        Ray ray = cam.ScreenPointToRay(mouse_pos);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            GridTile tile;
+            Ray ray = cam.ScreenPointToRay(mouse_pos);
+            RaycastHit hit;
 
-            if (hit.collider.TryGetComponent<GridTile>(out tile))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
-                clickedTile = tile.AxialCoordinate;
-                return true;
+                GridTile tile;
+
+                if (hit.collider.TryGetComponent<GridTile>(out tile))
+                {
+                    clickedTile = tile.AxialCoordinate;
+                    return true;
+                }
             }
         }
         clickedTile = Vector2Int.zero;
         return false;
+
     }
 
 
