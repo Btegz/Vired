@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class P2_Boss : Boss
 {
@@ -89,12 +90,38 @@ public class P2_Boss : Boss
 
     public void RandomTiles()
     {
+      
         foreach (KeyValuePair<Vector2Int, GridTile> kvp in GridManager.Instance.Grid)
         {
-            if ((kvp.Value.currentGridState == GridManager.Instance.gS_Neutral) || (kvp.Value.currentGridState == GridManager.Instance.gS_Positive))
+            if (kvp.Value.currentGridState == GridManager.Instance.gS_Negative || kvp.Value.currentGridState == GridManager.Instance.gS_Enemy || kvp.Value.currentGridState == GridManager.Instance.gS_Boss || kvp.Value.currentGridState == GridManager.Instance.gS_BossNegative)
+            {
+                continue;
+            }
+
+            List<Vector3Int> reachableTiles = HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(kvp.Key), 3, HexGridUtil.AxialToCubeCoord(GridManager.Instance.Grid.Keys.ToList<Vector2Int>()));
+            bool stillvalid = true;
+            foreach (Vector3Int tile in reachableTiles)
+            {
+                Vector2Int axTile = HexGridUtil.CubeToAxialCoord(tile);
+                if (GridManager.Instance.Grid.ContainsKey(axTile))
+                {
+                    if (GridManager.Instance.Grid[axTile].currentGridState == GridManager.Instance.gS_Negative || GridManager.Instance.Grid[axTile].currentGridState == GridManager.Instance.gS_Enemy || GridManager.Instance.Grid[axTile].currentGridState == GridManager.Instance.gS_Boss || GridManager.Instance.Grid[axTile].currentGridState == GridManager.Instance.gS_BossNegative)
+                    {
+                        stillvalid = false;
+                        break; 
+                    }
+                }
+            }
+            if (!stillvalid)
+            {
+                continue;
+            }
+
+            if (!PlayerManager.Instance.PlayerPositions().Contains(kvp.Key))
             {
                 possibleTiles.Add(kvp.Key);
             }
+
         }
 
         randomTile1 = Random.Range(1, possibleTiles.Count);

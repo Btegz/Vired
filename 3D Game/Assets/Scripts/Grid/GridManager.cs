@@ -91,6 +91,8 @@ public class GridManager : MonoBehaviour
         EventManager.OnEndTurnEvent += EndTurn;
         TransferGridSOData();
 
+
+
         //GenerateGrid();
 
         // Das ist nur spielerei.
@@ -234,8 +236,29 @@ public class GridManager : MonoBehaviour
         SpawnBossAndPlayer();
         SpawnPofIs();
 
+        for(int i=0; i<3; i++)
+        {
+            SpawnEnemy();
+        }
+
     }
 
+
+    private void SpawnEnemy()
+    {
+        Enemy enemy = Instantiate(enemyPrefab);
+      
+            List<GridTile> reachableTiles = new List<GridTile>();
+            
+       
+           reachableTiles = GridManager.Instance.GetTilesWithState(gS_Positive);
+
+            GridTile targetLocation = reachableTiles[Random.Range(0, reachableTiles.Count)];
+            enemy.Setup(enemySOs[Random.Range(0, enemySOs.Count)], targetLocation);
+            targetLocation.ChangeCurrentState(gS_Enemy);
+            enemy.transform.parent = targetLocation.transform;
+            enemy.transform.position = targetLocation.transform.position;
+        }
     private void SpawnBossAndPlayer()
     {
         Vector3Int maxX = new Vector3Int();
