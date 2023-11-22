@@ -57,6 +57,7 @@ public class AbilityLoadout : MonoBehaviour
         AbilityLoadoutButton instance;
         foreach (Ability ability in abilityCollection)
         {
+            ability.StarterAbility();
             switch (ability.MyCostRessource)
             {
                 case Ressource.ressourceA:
