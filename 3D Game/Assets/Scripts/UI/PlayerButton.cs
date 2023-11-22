@@ -22,7 +22,4 @@ public class PlayerButton : MonoBehaviour, IPointerClickHandler
             EventManager.OnSelectPlayer(player);
         }
     }
-
-
-
 }

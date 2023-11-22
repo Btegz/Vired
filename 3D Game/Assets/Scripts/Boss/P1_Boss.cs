@@ -26,6 +26,8 @@ public class P1_Boss : Boss
     public void OnDestroy()
      {
         EventManager.OnPhaseChange();
+        BossDeath(location[0]);
+
      }
 
     //override Spawn

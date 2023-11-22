@@ -23,5 +23,6 @@ public class P3_Boss : Boss
     public void OnDestroy()
     {
         GridManager.Instance.GameWon();
+        BossDeath(location[0]);
     }
 }

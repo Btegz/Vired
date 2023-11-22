@@ -10,6 +10,7 @@ using UnityEngine.InputSystem;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 using UnityEditor.PackageManager.Requests;
+using UnityEngine.EventSystems;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -206,21 +207,39 @@ public class PlayerManager : MonoBehaviour
     /// <returns>true if Mouse Position is on a GridTile</returns>
     private bool MouseCursorPosition(out Vector2Int clickedTile)
     {
-        Ray ray = cam.ScreenPointToRay(mouse_pos);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        bool overUI = false;
+        foreach (RaycastResult reaycastResult in results)
         {
-            GridTile tile;
-
-            if (hit.collider.TryGetComponent<GridTile>(out tile))
+            if (reaycastResult.gameObject.TryGetComponent<RectTransform>(out RectTransform res))
             {
-                clickedTile = tile.AxialCoordinate;
-                return true;
+                overUI = true;
+                break;
+            }
+        }
+        if (!overUI)
+        {
+            Ray ray = cam.ScreenPointToRay(mouse_pos);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            {
+                GridTile tile;
+
+                if (hit.collider.TryGetComponent<GridTile>(out tile))
+                {
+                    clickedTile = tile.AxialCoordinate;
+                    return true;
+                }
+
             }
         }
         clickedTile = Vector2Int.zero;
         return false;
+
     }
 
 
