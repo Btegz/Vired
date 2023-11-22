@@ -308,7 +308,7 @@ public class AbilityObjScript : MonoBehaviour
         }
         Payment();
         castAbiltyInputActionReference.action.performed -= CastAbility;
-        PlayerManager.Instance.AbilityCasted();
+        //PlayerManager.Instance.AbilityCasted();
         EventManager.OnAbilityCast();   
 
         Destroy(gameObject);

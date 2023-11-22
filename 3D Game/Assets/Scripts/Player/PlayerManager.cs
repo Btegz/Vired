@@ -279,6 +279,7 @@ public class PlayerManager : MonoBehaviour
 
     public void ChooseAbilityWithIndex(Ability ability, Vector3Int selectedPoint, Vector3Int playerPos)
     {
+        Debug.Log("I CHOSE AN ABILITY");
         Ability chosenAbility = ability;
         AbilityObjScript AbilityPreview = Instantiate(abilityObj);
         AbilityPreview.ShowMesh(chosenAbility, selectedPoint, playerPos);
@@ -291,19 +292,23 @@ public class PlayerManager : MonoBehaviour
     /// <param name="index">index of the Ability Clicked</param>
     public void AbilityClicked(Ability ability)
     {
+        Debug.Log("I am AbilityClicked and i got called from the AbilityButtonClickEvent. Currdently, abilityActivated is: " + abilityActivated);
         // sets the "abilityAcitvated" bool to true, so player cant move anymore after choosing a Ability
         if (abilityActivated == false && InventoryCheck(ability, selectedPlayer))
         {
+            cancelAbilityInputActionReference.action.performed += CancelAbilityChoice;
             abilityActivated = true;
-            StartCoroutine(ChooseAbilityLocation(ability));
-
+            EventManager.OnAbilityCastEvent += AbilityCasted;
+            //StartCoroutine(ChooseAbilityLocation(ability));
+            ChooseAbilityWithIndex(ability, HexGridUtil.CubeAdd(HexGridUtil.AxialToCubeCoord(selectedPlayer.CoordinatePosition), HexGridUtil.cubeDirectionVectors[0]),
+                            HexGridUtil.AxialToCubeCoord(selectedPlayer.CoordinatePosition));
 
             //SHOW THE ABILITY INDICATOR
 
 
             //Vector3 indicatorPosition = new Vector3(0, 0, 0);
-            Quaternion indicatorRotation = Quaternion.Euler(0, 30, 0);
-            indicatorPrefabClone = Instantiate(indicatorPrefab, selectedPlayer.transform.position, indicatorRotation);
+            //Quaternion indicatorRotation = Quaternion.Euler(0, 30, 0);
+            //indicatorPrefabClone = Instantiate(indicatorPrefab, selectedPlayer.transform.position, indicatorRotation);
         }
     }
 
@@ -364,50 +369,50 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     /// <param name="AbilityIndex"></param>
     /// <returns></returns>
-    public IEnumerator ChooseAbilityLocation(Ability ability)
-    {
-        cancelAbilityInputActionReference.action.performed += CancelAbilityChoice;
+    //public IEnumerator ChooseAbilityLocation(Ability ability)
+    //{
+    //    cancelAbilityInputActionReference.action.performed += CancelAbilityChoice;
 
-        // collects player Neighbors as viable tiles
-        List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(selectedPlayer.CoordinatePosition));
+    //    // collects player Neighbors as viable tiles
+    //    List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(selectedPlayer.CoordinatePosition));
 
-        //selectedPoint = HexGridUtil.AxialToCubeCoord(selectedPlayer.coordinatePosition);
+    //    //selectedPoint = HexGridUtil.AxialToCubeCoord(selectedPlayer.coordinatePosition);
 
-        Vector2Int clickedTile;
+    //    Vector2Int clickedTile;
 
-        while (abilityActivated)
-        {
-            if (Mouse.current.rightButton.wasPressedThisFrame)
-            {
-                CancelAbilityChoice();
-                Destroy(indicatorPrefabClone);
-            }
+    //    while (abilityActivated)
+    //    {
+    //        if (Mouse.current.rightButton.wasPressedThisFrame)
+    //        {
+    //            CancelAbilityChoice();
+    //            Destroy(indicatorPrefabClone);
+    //        }
 
-            // enters if Left Mouse Button was clicked
-            if (Mouse.current.leftButton.wasPressedThisFrame)
-            {
-                if (MouseCursorPosition(out clickedTile))
-                {
-                    if (neighbors.Contains(HexGridUtil.AxialToCubeCoord(clickedTile)))
-                    {
-                        ChooseAbilityWithIndex(ability, HexGridUtil.AxialToCubeCoord(clickedTile),
-                            HexGridUtil.AxialToCubeCoord(selectedPlayer.CoordinatePosition));
-                        break;
-                    }
+    //        // enters if Left Mouse Button was clicked
+    //        if (Mouse.current.leftButton.wasPressedThisFrame)
+    //        {
+    //            if (MouseCursorPosition(out clickedTile))
+    //            {
+    //                if (neighbors.Contains(HexGridUtil.AxialToCubeCoord(clickedTile)))
+    //                {
+    //                    //ChooseAbilityWithIndex(ability, HexGridUtil.AxialToCubeCoord(clickedTile),HexGridUtil.AxialToCubeCoord(selectedPlayer.CoordinatePosition));
+    //                    break;
+    //                }
 
-                    yield return null;
-                }
-            }
+    //                yield return null;
+    //            }
+    //        }
 
-            yield return null;
-        }
+    //        yield return null;
+    //    }
 
-        yield return null;
-    }
+    //    yield return null;
+    //}
 
 
     public void AbilityCasted()
     {
+        EventManager.OnAbilityCastEvent -= AbilityCasted;
         cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice;
         abilityActivated = false;
         Destroy(indicatorPrefabClone);
@@ -416,6 +421,7 @@ public class PlayerManager : MonoBehaviour
     public void CancelAbilityChoice(InputAction.CallbackContext actionCallBackContext)
     {
         abilityActivated = false;
+        EventManager.OnAbilityCastEvent -= AbilityCasted;
         cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice;
         Destroy(indicatorPrefabClone);
     }
