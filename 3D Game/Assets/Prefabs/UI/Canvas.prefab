@@ -2106,6 +2106,7 @@ GameObject:
   - component: {fileID: 7721379057968283833}
   - component: {fileID: 7721379057968283831}
   - component: {fileID: 7721379057968283830}
+  - component: {fileID: 5558005925352120035}
   m_Layer: 5
   m_Name: NegativeBarBG
   m_TagString: Untagged
@@ -2173,6 +2174,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5558005925352120035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7721379057968283832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Header: Negative Bar
+  Content: this is the negative bar yo
 --- !u!1 &8711132561323814552
 GameObject:
   m_ObjectHideFlags: 0
