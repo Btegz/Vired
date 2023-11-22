@@ -45,7 +45,7 @@ public class UIManager : MonoBehaviour
 
     private void EndTurn()
     {
-        EventManager.OnEndTurn(Vector2Int.zero, 0);
+        EventManager.OnEndTurn();
     }
     private void OnEnable()
     {

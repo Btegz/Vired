@@ -263,7 +263,7 @@ public class PlayerManager : MonoBehaviour
     /// <summary>
     /// Used to reset Movementpoints of the Player
     /// </summary>
-    public void resetMovementPoints(Vector2Int location, int SpawnRange)
+    public void resetMovementPoints()
     {
         movementAction = movementPointsPerTurn;
 

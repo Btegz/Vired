@@ -8,15 +8,22 @@ public class P1_Boss : Boss
     public BossManager bossManager;
     private void Start()
     {
+        EventManager.OnEndTurnEvent += BossNeighbors;
+
+        location = new List<Vector2Int>();
+
         enemy.Setup(GridManager.Instance.BossEnemySO, GridManager.Instance.Grid[GridManager.Instance.BossSpawn]);
         Spawn(GridManager.Instance.BossSpawn, gameObject);
-        BossNeighbors(GridManager.Instance.BossSpawn,3);
+        location.Add(GridManager.Instance.BossSpawn);
+        BossNeighbors();
         enemy.currentHealth = 5;
     }
 
-  
 
-     public void OnDestroy()
+   
+
+
+    public void OnDestroy()
      {
         EventManager.OnPhaseChange();
      }

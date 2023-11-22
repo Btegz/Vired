@@ -356,7 +356,7 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    public void EndTurn(Vector2Int location, int SpawnRange)
+    public void EndTurn()
     {
         TurnCounter++;
     }
