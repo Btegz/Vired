@@ -22,7 +22,6 @@ public class P2_Boss : Boss
         location = new List<Vector2Int>();
         EventManager.OnEndTurnEvent += BossNeighbors;
 
-        
 
         
         Boss1 = Instantiate(Boss1);
@@ -44,8 +43,10 @@ public class P2_Boss : Boss
         Boss3.GetComponent<Enemy>().Setup(GridManager.Instance.BossEnemySO, GridManager.Instance.Grid[possibleTiles[randomTile3]]);
         Spawn(possibleTiles[randomTile3], Boss3);
         BossNeighbors();
-        
-        
+
+      
+
+
 
     }
 
