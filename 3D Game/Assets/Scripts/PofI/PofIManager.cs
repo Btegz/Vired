@@ -14,7 +14,7 @@ public class PofIManager : MonoBehaviour
     [HideInInspector] public int extraMovement;
     [SerializeField] public GameObject posSwitch;
 
-    public GameObject SkillPoints, NewResource, ResourceSwitch, NewAbility, PositionSwitch, Movement;
+    public GameObject SkillPoints, NewResource, PositionSwitch, Movement;
 
 
 
@@ -22,8 +22,6 @@ public class PofIManager : MonoBehaviour
     {
         PofI_SkillPoints,
         PofI_NewResource,
-        PofI_ResourceSwitch,
-        PofI_NewAbility,
         PofI_PositionSwitch,
         PofI_MovementPoints,
     };
@@ -32,22 +30,26 @@ public class PofIManager : MonoBehaviour
     public void Awake()
     {
         randomPofI();
+     
+
     }
 
     public void randomPofI()
     {
-        pofi1 = (int)Random.Range(0, 5);
+        pofi1 = (int)Random.Range(0, 3);
         pofiEvent1 = (PofI)pofi1;
-        pofi2 = (int)Random.Range(0, 5);
+        pofi2 = (int)Random.Range(0, 3);
+       
+
         pofiEvent2 = (PofI)pofi2;
 
         while (pofi1 == pofi2)
         {
-            pofi2 = (int)Random.Range(0, 5);
+            pofi2 = (int)Random.Range(0, 3);
             if (pofi1 == pofi2)
                 continue;
             else
-                break;
+            break;
         }
     }
 
@@ -63,16 +65,6 @@ public class PofIManager : MonoBehaviour
             case PofI.PofI_NewResource:
                 Destroy(gS_PofI.pofi);
                 Instantiate(NewResource, NewResource.transform.position, Quaternion.identity);
-                break;
-
-            case PofI.PofI_ResourceSwitch:
-                Destroy(gS_PofI.pofi);
-                Debug.Log("RessourceSwitch");
-                break;
-
-            case PofI.PofI_NewAbility:                
-                Destroy(gS_PofI.pofi);
-                Debug.Log("NewAbility");
                 break;
 
             case PofI.PofI_PositionSwitch:

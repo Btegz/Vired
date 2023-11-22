@@ -18,13 +18,15 @@ public class P2_Boss : Boss
 
     private void Start()
     {
+        location = new List<Vector2Int>();
         EventManager.OnEndTurnEvent += BossNeighbors;
 
-        location = new List<Vector2Int>();
+        
 
-        RandomTiles();
-        location.AddRange(possibleTiles);
+        
         Boss1 = Instantiate(Boss1);
+        RandomTiles();
+       
         Boss1.GetComponent<Enemy>().currentHealth = 4;
         Boss1.GetComponent<Enemy>().Setup(GridManager.Instance.BossEnemySO, GridManager.Instance.Grid[possibleTiles[randomTile1]]);
         Spawn(possibleTiles[randomTile1], Boss1);
@@ -56,16 +58,21 @@ public class P2_Boss : Boss
         if (Boss1 != null && Boss1.GetComponent<Enemy>().currentHealth <= 0)
         {
             BossAlive--;
+            location.Remove(possibleTiles[randomTile1]);
         }
 
         if (Boss2 != null && Boss2.GetComponent<Enemy>().currentHealth <= 0)
         {
             BossAlive--;
+            location.Remove(possibleTiles[randomTile2]);
+
         }
 
         if (Boss3 != null && Boss3.GetComponent<Enemy>().currentHealth <= 0)
         {
             BossAlive--;
+            location.Remove(possibleTiles[randomTile3]);
+
         }
 
 
@@ -87,11 +94,14 @@ public class P2_Boss : Boss
             }
         }
 
-        randomTile1 = Random.Range(0, possibleTiles.Count);
-        randomTile2 = Random.Range(0, possibleTiles.Count);
-        randomTile3 = Random.Range(0, possibleTiles.Count);
+        randomTile1 = Random.Range(1, possibleTiles.Count);
+        randomTile2 = Random.Range(1, possibleTiles.Count);
+        randomTile3 = Random.Range(1, possibleTiles.Count);
 
-       
+        location.Add(possibleTiles[randomTile1]);
+        location.Add(possibleTiles[randomTile2]);
+        location.Add(possibleTiles[randomTile3]);
+
     }
 
     public void OnDestroy()
