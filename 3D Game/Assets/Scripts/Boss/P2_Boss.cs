@@ -58,12 +58,14 @@ public class P2_Boss : Boss
         if (Boss1 != null && Boss1.GetComponent<Enemy>().currentHealth <= 0)
         {
             BossAlive--;
+            BossDeath(possibleTiles[randomTile1]);
             location.Remove(possibleTiles[randomTile1]);
         }
 
         if (Boss2 != null && Boss2.GetComponent<Enemy>().currentHealth <= 0)
         {
             BossAlive--;
+            BossDeath(possibleTiles[randomTile2]);
             location.Remove(possibleTiles[randomTile2]);
 
         }
@@ -71,6 +73,7 @@ public class P2_Boss : Boss
         if (Boss3 != null && Boss3.GetComponent<Enemy>().currentHealth <= 0)
         {
             BossAlive--;
+            BossDeath(possibleTiles[randomTile3]);
             location.Remove(possibleTiles[randomTile3]);
 
         }

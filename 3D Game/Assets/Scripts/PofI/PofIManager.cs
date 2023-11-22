@@ -38,9 +38,8 @@ public class PofIManager : MonoBehaviour
     {
         pofi1 = (int)Random.Range(0, 3);
         pofiEvent1 = (PofI)pofi1;
-        pofi2 = (int)Random.Range(0, 3);
-       
 
+        pofi2 = (int)Random.Range(0,3);
         pofiEvent2 = (PofI)pofi2;
 
         while (pofi1 == pofi2)
