@@ -170,11 +170,11 @@ public class GridManager : MonoBehaviour
                 float mapHillNoise1 = mapHillNoise[kvp.Key];
 
                 // Take out tiles as Hills
-                if (mapHillNoise1 > mapSettings.M_HillNoiseThresholds.y)
+                if (mapHillNoise1 > mapSettings.M_HillNoiseThresholds.y && kvp.Key != Vector2Int.zero)
                 {
                     continue;
                 }
-                else if (mapNoise1 < mapSettings.M_HillNoiseThresholds.x)
+                else if (mapHillNoise1 < mapSettings.M_HillNoiseThresholds.x && kvp.Key != Vector2Int.zero)
                 {
                     continue;
                 }
