@@ -114,12 +114,6 @@ public class MapSettings : ScriptableObject
         set { m_DomainWarpAmplitude = value; }
     }
 
-
-
-
-
-
-
     [SerializeField] private FastNoiseLite.NoiseType m_HillNoiseType;
     public FastNoiseLite.NoiseType M_HillNoiseType
     {

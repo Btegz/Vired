@@ -13,7 +13,9 @@ public class Boss : MonoBehaviour
     [SerializeField] int SkillPoints;
     [SerializeField] int AbilityLoadout;
     
-    Vector2Int location;
+    public List<Vector2Int> location;
+    [SerializeField] int SpawnRange;
+
 
     private void Start()
     {
@@ -30,20 +32,21 @@ public class Boss : MonoBehaviour
         GridManager.Instance.Grid[location].ChangeCurrentState(GridManager.Instance.gS_Boss);
     }
 
-    public void BossNeighbors(Vector2Int location, int SpawnRange)
+    public void BossNeighbors()
     {
-        BossReachableTiles = HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(location), SpawnRange, HexGridUtil.AxialToCubeCoord(GridManager.Instance.Grid.Keys.ToList<Vector2Int>()));
-        BossReachableTiles.Remove(HexGridUtil.AxialToCubeCoord(location));
-
-        foreach (Vector3Int neighbor in BossReachableTiles)
+        foreach (Vector2Int loc in location)
         {
-            if (GridManager.Instance.Grid.ContainsKey(HexGridUtil.CubeToAxialCoord(neighbor)))
-                GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].ChangeCurrentState(GridManager.Instance.gS_BossNegative);
+           
+            BossReachableTiles = HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(loc), SpawnRange, HexGridUtil.AxialToCubeCoord(GridManager.Instance.Grid.Keys.ToList<Vector2Int>()));
+            BossReachableTiles.Remove(HexGridUtil.AxialToCubeCoord(loc));
+
+            foreach (Vector3Int neighbor in BossReachableTiles)
+            {
+                if (GridManager.Instance.Grid.ContainsKey(HexGridUtil.CubeToAxialCoord(neighbor)))
+                {
+                    GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].ChangeCurrentState(GridManager.Instance.gS_BossNegative);
+                }
+            }
         }
     }
-
-  
-
-
-
 }

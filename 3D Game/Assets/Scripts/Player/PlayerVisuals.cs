@@ -27,7 +27,7 @@ public class PlayerVisuals : MonoBehaviour
             if (player == playwer)
             {
                 ParticleSystem landingCloud = GetComponentInChildren<ParticleSystem>();
-                transform.DOLocalJump(Vector3.zero, 2, 1, .25f);
+                transform.DOLocalJump(Vector3.up*0.5f, 2, 1, .25f);
                 transform.DOPunchScale(Vector3.one * .1f, .25f).OnComplete(landingCloud.Play);
             }
 
