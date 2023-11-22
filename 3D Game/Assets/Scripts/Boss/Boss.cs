@@ -46,7 +46,6 @@ public class Boss : MonoBehaviour
                 if (GridManager.Instance.Grid.ContainsKey(HexGridUtil.CubeToAxialCoord(neighbor)))
                 {
                     GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].ChangeCurrentState(GridManager.Instance.gS_BossNegative);
-                    Debug.Log(location);
                 }
             }
         }

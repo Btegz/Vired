@@ -33,6 +33,7 @@ public class EventManager
 
     public static void OnAbilityButtonClicked(Ability ability)
     {
+        Debug.Log("I INVOKE ABILITY BUTTON CLICKED");
         OnAbilityButtonEvent?.Invoke(ability);
     }
 

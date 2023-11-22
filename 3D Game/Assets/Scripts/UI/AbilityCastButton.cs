@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class AbilityCastButton : AbilityButton
+public class AbilityCastButton : AbilityButton, IPointerClickHandler
 {
     public void AssignAbility(Player player)
     {
@@ -42,7 +43,7 @@ public class AbilityCastButton : AbilityButton
     void Start()
     {
         EventManager.OnSelectPlayerEvent += AssignAbility;
-        GetComponent<Button>().onClick.AddListener(clicked);
+        //GetComponent<Button>().onClick.AddListener(clicked);
         EventManager.OnConfirmButtonEvent += AssignAbility;
         EventManager.AbilityChangeEvent += UpdateUI;
     }
@@ -58,5 +59,10 @@ public class AbilityCastButton : AbilityButton
         EventManager.OnSelectPlayerEvent -= AssignAbility;
         EventManager.OnConfirmButtonEvent -= AssignAbility;
         EventManager.AbilityChangeEvent -= UpdateUI;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        clicked();
     }
 }
