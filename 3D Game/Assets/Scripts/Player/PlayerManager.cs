@@ -207,21 +207,21 @@ public class PlayerManager : MonoBehaviour
     /// <returns>true if Mouse Position is on a GridTile</returns>
     private bool MouseCursorPosition(out Vector2Int clickedTile)
     {
-        if (!EventSystem.current.IsPointerOverGameObject())
+        //if (!EventSystem.current.IsPointerOverGameObject())
+        //{
+        Ray ray = cam.ScreenPointToRay(mouse_pos);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            Ray ray = cam.ScreenPointToRay(mouse_pos);
-            RaycastHit hit;
+            GridTile tile;
 
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            if (hit.collider.TryGetComponent<GridTile>(out tile))
             {
-                GridTile tile;
-
-                if (hit.collider.TryGetComponent<GridTile>(out tile))
-                {
-                    clickedTile = tile.AxialCoordinate;
-                    return true;
-                }
+                clickedTile = tile.AxialCoordinate;
+                return true;
             }
+            // }
         }
         clickedTile = Vector2Int.zero;
         return false;
