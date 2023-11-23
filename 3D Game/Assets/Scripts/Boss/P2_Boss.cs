@@ -138,5 +138,7 @@ public class P2_Boss : Boss
     public void OnDestroy()
     {
         EventManager.OnPhaseChange();
+        PlayerManager.Instance.SkillPoints += 2;
+        
     }
 }

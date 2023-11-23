@@ -33,11 +33,11 @@ public class GridManager : MonoBehaviour
     public GS_BossNegative gS_BossNegative;
     public GS_Pofl gS_PofI;
 
-    [SerializeField] public Boss boss;
-    [SerializeField] public Enemy Boss;
-    [SerializeField] public Enemy Boss1Phase2;
-    [SerializeField] public Enemy Boss2Phase2;
-    [SerializeField] public Enemy Boss3Phase2;
+    [SerializeField][HideInInspector] public Boss boss;
+    [SerializeField][HideInInspector] public Enemy Boss;
+    [SerializeField][HideInInspector] public Enemy Boss1Phase2;
+    [SerializeField][HideInInspector] public Enemy Boss2Phase2;
+    [SerializeField][HideInInspector] public Enemy Boss3Phase2;
 
     public Vector2Int BossSpawn;
     public int random;

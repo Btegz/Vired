@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1507654038430288489}
   - component: {fileID: 1605054075253180852}
+  - component: {fileID: 9196800943744860313}
   m_Layer: 0
   m_Name: HealthPoints
   m_TagString: Untagged
@@ -63,6 +64,23 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &9196800943744860313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2703274353667822884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64180fba505d82549b3080abf986f577, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 0}
+  billboardType: 0
+  lockX: 0
+  lockY: 0
+  lockZ: 0
 --- !u!1 &4614363456210993301
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,10 +305,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BossReachableTiles: []
+  BossTiles: []
   BossSpread: []
-  SkillPoints: 0
   AbilityLoadout: 0
   location: []
   SpawnRange: 4
+  Enemy2Prefab: {fileID: 0}
   enemy: {fileID: 2148683299467376766}
   bossManager: {fileID: 5357543653835728221, guid: 710f2ec76b3e94748b37e8a3f9bb820e, type: 3}

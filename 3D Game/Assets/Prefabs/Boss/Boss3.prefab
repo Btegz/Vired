@@ -234,6 +234,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1865378933577393631}
   - component: {fileID: 268797989845638784}
+  - component: {fileID: 6167147765027841206}
   m_Layer: 0
   m_Name: HealthPoints
   m_TagString: Untagged
@@ -287,3 +288,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &6167147765027841206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8941758224433320597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64180fba505d82549b3080abf986f577, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 0}
+  billboardType: 0
+  lockX: 0
+  lockY: 0
+  lockZ: 0

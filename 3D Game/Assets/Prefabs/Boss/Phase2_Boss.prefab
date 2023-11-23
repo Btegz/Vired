@@ -56,7 +56,7 @@ MonoBehaviour:
   HealthPointsLayout: {fileID: 0}
   HealthpointPrefab: {fileID: 0}
   healthpoints: []
-  Particle_EnemyDeath: {fileID: 0}
+  Particle_EnemyDeath: {fileID: 726535386845715946, guid: 005fc7e0d2c6e1247b7b8880e93a8099, type: 3}
 --- !u!114 &-6124643049886693301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,11 +70,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BossReachableTiles: []
+  BossTiles: []
   BossSpread: []
-  SkillPoints: 0
   AbilityLoadout: 0
   location: []
   SpawnRange: 3
+  Enemy2Prefab: {fileID: 0}
   Boss1: {fileID: 4784703169308235399, guid: 518c8a4c86cd99948a0c3fa2efcf5436, type: 3}
   Boss2: {fileID: 3330919580862709941, guid: 0c562a2fedc3a5345bdc1c7f4c5b6dc1, type: 3}
   Boss3: {fileID: 4027204570549402153, guid: 430ba50fd7255e740a11acf26087b0cc, type: 3}

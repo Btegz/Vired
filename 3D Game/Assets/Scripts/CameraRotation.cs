@@ -4,8 +4,10 @@ using Cinemachine;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using static UnityEditor.Experimental.GraphView.GraphView;
+using TMPro;
 
 public class CameraRotation : MonoBehaviour
 {
@@ -21,8 +23,8 @@ public class CameraRotation : MonoBehaviour
     [SerializeField] InputAction playerAction;
     [SerializeField] Camera cam;
     [SerializeField] public CinemachineVirtualCamera Playercam;
-    [SerializeField] CinemachineVirtualCamera Worldcam;
-    [SerializeField] CinemachineVirtualCamera TopDownCam;
+    [SerializeField] public CinemachineVirtualCamera Worldcam;
+    [SerializeField] public CinemachineVirtualCamera TopDownCam;
 
     [SerializeField] float rotationSpeed = 500;
     [SerializeField] float maxMovementSpeed = 50;
@@ -33,7 +35,10 @@ public class CameraRotation : MonoBehaviour
     [SerializeField] float MouseZoomStep;
     [SerializeField] float MouseScrollStep;
     [SerializeField] float MouseScrollDistance;
-    
+    TMP_Dropdown dropdown;
+    public CameraDropDown cameraDropDown;
+
+
     private float mouseScrollY;
     private float startMovementSpeed;
 
@@ -58,6 +63,8 @@ public class CameraRotation : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
+        
 
         rotatoAction.action.Enable();
         rotatoAction.action.started += StartRotato;
@@ -72,12 +79,15 @@ public class CameraRotation : MonoBehaviour
 
         switchAction.action.Enable();
         switchAction.action.performed += _ => SwitchtoMain();
+        
 
         playerswitchAction.action.Enable();
         playerswitchAction.action.performed += _ => PlayerManager.Instance.PlayerSelect(PlayerManager.Instance.Players[(int)_.ReadValue<float>()]);
 
         topDownAction.action.Enable();
         topDownAction.action.performed += _ => SwitchToTopDown();
+        
+
     }
 
     void Start()
@@ -85,6 +95,9 @@ public class CameraRotation : MonoBehaviour
         WorldcamStart = transform.position;
         startingPosition = cam.transform.localPosition;
         startMovementSpeed = maxMovementSpeed;
+        dropdown = cameraDropDown.dropdown;
+       
+
     }
 
     void StopRotato(InputAction.CallbackContext obj)
@@ -117,6 +130,9 @@ public class CameraRotation : MonoBehaviour
 
         /// Zoom +
         /// Lerp von der Kamera Position durch die End Positon mit dem Scroll Input 
+      
+
+
         if (mouseScrollY > 0)
         {
             MouseScrollDistance += MouseScrollStep;
@@ -257,30 +273,45 @@ public class CameraRotation : MonoBehaviour
     /// </summary>
     public void SwitchtoMain()
     {
+
         Worldcam.Priority = 2;
         TopDownCam.Priority = 1;
         Playercam.Priority = 0;
         MainCam = true;
         transform.position = WorldcamStart;
+        if (dropdown.value != 0)
+            dropdown.value = 0;
+        dropdown.RefreshShownValue();
 
     }
 
     public void SwitchToPlayer()
     {
-        Worldcam.Priority = 0;
-        TopDownCam.Priority = 1;
-        Playercam.Priority = 2;
 
-        MainCam = false;
+        if (CameraRotation.Instance.TopDownCam.Priority < 2)
+        {
+            Worldcam.Priority = 0;
+            TopDownCam.Priority = 1;
+            Playercam.Priority = 2;
+
+            MainCam = false;
+            if (dropdown.value != 2)
+                dropdown.value = 2;
+            dropdown.RefreshShownValue();
+        }
+
     }
 
     public void SwitchToTopDown()
     {
+        
         Worldcam.Priority = 0;
         Playercam.Priority = 1;
         TopDownCam.Priority = 2;
         transform.position = WorldcamStart;
-
+        if(dropdown.value != 1)
+        dropdown.value = 1;
+        
 
     }
 }

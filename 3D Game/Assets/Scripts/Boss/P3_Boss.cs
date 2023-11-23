@@ -23,6 +23,8 @@ public class P3_Boss : Boss
     public void OnDestroy()
     {
         GridManager.Instance.GameWon();
-        BossDeath(location[0]);
+        BossDeath(location[0]);  
+        PlayerManager.Instance.SkillPoints += 2;
+        
     }
 }

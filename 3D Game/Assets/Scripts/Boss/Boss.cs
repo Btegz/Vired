@@ -11,7 +11,6 @@ public class Boss : MonoBehaviour
     [SerializeField] List<Vector3Int> BossReachableTiles;
     [SerializeField] List<Vector3Int> BossTiles;
     [SerializeField] List<Spreadbehaviours> BossSpread;
-    [SerializeField] int SkillPoints;
     [SerializeField] int AbilityLoadout;
   //[SerializeField] List<GridTile> GridEnemies;   
   //[SerializeField] List<Vector3Int> ReachableTiles;
@@ -73,30 +72,32 @@ public class Boss : MonoBehaviour
         }
     }
 
-   /* public void BossEnemyPhase2(Vector2Int location)
-    {
+    /* public void BossEnemyPhase2(Vector2Int location)
+     {
 
-        ReachableTiles = HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(location), 5, HexGridUtil.AxialToCubeCoord(GridManager.Instance.Grid.Keys.ToList<Vector2Int>()));
+         ReachableTiles = HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(location), 5, HexGridUtil.AxialToCubeCoord(GridManager.Instance.Grid.Keys.ToList<Vector2Int>()));
 
 
-        foreach(KeyValuePair<Vector2Int,GridTile> kvp in GridManager.Instance.Grid)
-        {
-            if (kvp.Value.currentGridState == GridManager.Instance.gS_Enemy)
-                GridEnemies.Add(kvp.Value);
-        }
+         foreach(KeyValuePair<Vector2Int,GridTile> kvp in GridManager.Instance.Grid)
+         {
+             if (kvp.Value.currentGridState == GridManager.Instance.gS_Enemy)
+                 GridEnemies.Add(kvp.Value);
+         }
 
-        foreach(GridTile enemytile in GridEnemies)
-        {
-           Destroy(enemytile.transform.GetChild(1).gameObject);
-           Instantiate(Enemy2Prefab);
-            GridTile targetLocation = enemytile;
+         foreach(GridTile enemytile in GridEnemies)
+         {
+            Destroy(enemytile.transform.GetChild(1).gameObject);
+            Instantiate(Enemy2Prefab);
+             GridTile targetLocation = enemytile;
 
-            GetComponent<Enemy>().Setup(GridManager.Instance.enemySOs[Random.Range(0, GridManager.Instance.enemySOs.Count)], targetLocation);
-            targetLocation.ChangeCurrentState(GridManager.Instance.gS_Enemy);
-            GetComponent<Enemy>().transform.parent = targetLocation.transform;
-            GetComponent<Enemy>().transform.position = targetLocation.transform.position;
-        }
-      
+             GetComponent<Enemy>().Setup(GridManager.Instance.enemySOs[Random.Range(0, GridManager.Instance.enemySOs.Count)], targetLocation);
+             targetLocation.ChangeCurrentState(GridManager.Instance.gS_Enemy);
+             GetComponent<Enemy>().transform.parent = targetLocation.transform;
+             GetComponent<Enemy>().transform.position = targetLocation.transform.position;
+         }
 
-    }*/
+
+     }*/
+
+
 }
