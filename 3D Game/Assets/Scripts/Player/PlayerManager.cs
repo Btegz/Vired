@@ -315,6 +315,7 @@ public class PlayerManager : MonoBehaviour
         // sets the "abilityAcitvated" bool to true, so player cant move anymore after choosing a Ability
         if (abilityActivated == false && InventoryCheck(ability, selectedPlayer))
         {
+            move = false;
             cancelAbilityInputActionReference.action.performed += CancelAbilityChoice;
             abilityActivated = true;
             EventManager.OnAbilityCastEvent += AbilityCasted;
@@ -431,10 +432,21 @@ public class PlayerManager : MonoBehaviour
 
     public void AbilityCasted()
     {
+        StartCoroutine(AbilityCastCoroutine());
+        //EventManager.OnAbilityCastEvent -= AbilityCasted;
+        //cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice; 
+        //abilityActivated = false;
+        //Destroy(indicatorPrefabClone);
+    }
+
+    public IEnumerator AbilityCastCoroutine()
+    {
         EventManager.OnAbilityCastEvent -= AbilityCasted;
         cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice;
         abilityActivated = false;
         Destroy(indicatorPrefabClone);
+
+        yield return new WaitForEndOfFrame();
     }
 
     public void CancelAbilityChoice(InputAction.CallbackContext actionCallBackContext)

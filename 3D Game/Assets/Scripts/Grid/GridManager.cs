@@ -424,7 +424,7 @@ public class GridManager : MonoBehaviour
         phases.RemoveAt(0);
         if (phases.Count <= 0)
         {
-            GameWon();
+            //GameWon();
             return;
         }
         currentPhase = phases[0];

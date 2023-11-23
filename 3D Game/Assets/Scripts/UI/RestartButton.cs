@@ -32,6 +32,6 @@ public class RestartButton : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene("ProceduralWorldScene1");
+        SceneManager.LoadScene("ProceduralWorldScene 1");
     }
 }
