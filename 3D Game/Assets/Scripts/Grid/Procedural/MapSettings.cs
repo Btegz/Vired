@@ -8,6 +8,25 @@ public class MapSettings : ScriptableObject
 {
     FastNoiseLite noise = new FastNoiseLite();
 
+    [Header("General")]
+
+    [SerializeField] private int mySeed;
+
+    public int MySeed
+    {
+        get { return mySeed; }
+        set { mySeed = value; }
+    }
+
+    [SerializeField] private bool myGenerateRandomSeed;
+
+    public bool MyGenerateRandomSeed
+    {
+        get { return myGenerateRandomSeed; }
+        set { myGenerateRandomSeed = value; }
+    }
+
+
     [Header("Ressource Noise Settings")]
     [SerializeField] private Vector2Int noiseDataSize;
 
@@ -45,19 +64,30 @@ public class MapSettings : ScriptableObject
     {
         noise.SetNoiseType(noiseType);
         noise.SetFrequency(frequency);
-        noise.SetSeed(Random.Range(1000, 2000));
+        if (myGenerateRandomSeed)
+        {
+            mySeed = Random.Range(1000, 2000);
+        }
+        noise.SetSeed(mySeed);
+        
         Dictionary<Vector2Int, float> result = new Dictionary<Vector2Int, float>();
 
         List<Vector2Int> coordinates = HexGridUtil.GenerateRectangleShapedGrid(noiseDataSize.x, noiseDataSize.y);
         foreach (Vector2Int c in coordinates)
         {
-            result.Add(c, noise.GetNoise(c.x, c.y));
+            Vector3 worldPos =  HexGridUtil.AxialHexToPixel(c, 1f);
+            result.Add(c, noise.GetNoise(worldPos.x, worldPos.z));
         }
         return result;
     }
 
     public Dictionary<Vector2Int,float> NoiseData(FastNoiseLite.NoiseType noiseType,float frequency, FastNoiseLite.DomainWarpType domainWarpType, float domainWarpAmplitude)
     {
+        if (myGenerateRandomSeed)
+        {
+            mySeed = Random.Range(1000, 2000);
+        }
+        noise.SetSeed(mySeed);
         Dictionary<Vector2Int, float> result = NoiseData(noiseType, frequency);
         Dictionary<Vector2Int, float> resultresult = new Dictionary<Vector2Int, float>();
         noise.SetDomainWarpType(domainWarpType);

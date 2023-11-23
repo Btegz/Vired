@@ -44,7 +44,7 @@ public class GridManager : MonoBehaviour
     public new Vector2Int[] coords = new Vector2Int[3];
 
     [Header("Map")]
-    [SerializeField] MapSettings mapSettings;
+    [SerializeField] public MapSettings mapSettings;
 
     [Header("Tile Presets")]
     [SerializeField, Tooltip("should be smaller then outerSize. If Hex should be filled this will be 0.")] float innerSize;
