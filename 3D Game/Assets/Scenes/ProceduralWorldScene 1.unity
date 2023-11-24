@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -537,6 +537,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: TransferGridSOData
       objectReference: {fileID: 0}
+    - target: {fileID: 879451617901032260, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+      propertyPath: m_Size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 879451617901032260, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3564242018764224634, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -589,9 +597,9 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5558005925352120035, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
-      propertyPath: tooltipUI
-      value: 
+    - target: {fileID: 4254820645494908250, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5625125876915822905, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
       propertyPath: m_AnchorMax.y
@@ -902,6 +910,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7835100544778968268, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125810615693072998, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
