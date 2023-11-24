@@ -21,12 +21,20 @@ public class Boss : MonoBehaviour
     [SerializeField] int SpawnRange;
     public GameObject Enemy2Prefab;
 
+    public GameObject blueParticle;
+    public GameObject orangeParticle;
+    public GameObject redParticle;
+    public GameObject greenParticle;
+
+
 
     private void Start()
     {
 
         EventManager.OnEndTurnEvent += BossNeighbors;
         EventManager.OnEndTurnEvent += TriggerSpread;
+
+   
 
     }
 
@@ -116,5 +124,50 @@ public class Boss : MonoBehaviour
 
      }*/
 
+
+    public void BossParticle(GameObject boss)
+    {
+        Ressource ressource = GetComponent<Enemy>().ressource;
+
+        switch (ressource)
+        {
+            case Ressource.ressourceA:
+                Instantiate(blueParticle, boss.gameObject.transform.position, Quaternion.identity, boss.transform.parent);
+                break;
+            case Ressource.ressourceB:
+                Instantiate(orangeParticle, boss.gameObject.transform.position,Quaternion.identity, boss.transform.parent);
+                break;
+            case Ressource.ressourceC:
+                Instantiate(redParticle, boss.gameObject.transform.position, Quaternion.identity, boss.transform.parent);
+                break;
+            case Ressource.resscoureD:
+                Instantiate(greenParticle, boss.gameObject.transform.position, Quaternion.identity, boss.transform.parent);
+                break;
+         
+
+        }
+
+        //if (GetComponent<Enemy>().ressource)
+        //{
+        //    Instantiate(blueParticle);
+        //}
+
+        //if (GetComponent<Enemy>().mr.material == GetComponent<Enemy>().BMAterial)
+        //{
+        //    Debug.Log("test");
+            
+        //}
+        //if (GetComponent<Enemy>().mr.material == GetComponent<Enemy>().CMAterial)
+        //{
+        //    Debug.Log("test");
+            
+        //}
+        //if (GetComponent<Enemy>().mr.material == GetComponent<Enemy>().DMAterial)
+        //{
+        //    Debug.Log("test");
+        //    Instantiate(greenParticle);
+        //}
+
+    }
 
 }

@@ -13,10 +13,10 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] public Ressource ressource;
 
-    [SerializeField] Material AMAterial;
-    [SerializeField] Material BMAterial;
-    [SerializeField] Material CMAterial;
-    [SerializeField] Material DMAterial;
+    [SerializeField] public Material AMAterial;
+    [SerializeField] public Material BMAterial;
+    [SerializeField] public Material CMAterial;
+    [SerializeField] public Material DMAterial;
 
     [SerializeField] GameObject HealthPointsLayout;
     [SerializeField] Image HealthpointPrefab;
@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] GameObject Particle_EnemyDeath;
 
-
+    public MeshRenderer mr;
     private void Awake()
     {
 
@@ -46,7 +46,7 @@ public class Enemy : MonoBehaviour
 
         transform.DOPunchScale(Vector3.one * Random.Range(0.5f, 1), 1f);
 
-        MeshRenderer mr = GetComponent<MeshRenderer>();
+        mr = GetComponent<MeshRenderer>();
         switch (ressource)
         {
             case Ressource.ressourceA:

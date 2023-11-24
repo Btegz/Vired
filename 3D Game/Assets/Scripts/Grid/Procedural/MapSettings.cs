@@ -1,23 +1,26 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public struct ProceduralTileInfo
+public class ProceduralTileInfo : IComparable<ProceduralTileInfo>
 {
     public Vector2Int coord;
     public Ressource resource;
-    public float distanceValue;
+    public float distance;
     public float noiseValue;
+    public float noiseDistanceFactor;
+    public bool valid;
     public ProceduralTileInfo(Vector2Int coord, float noise1, float noise2, float worldNoise)
     {
         this.coord = coord;
-        this.distanceValue = HexGridUtil.CubeDistance(HexGridUtil.AxialToCubeCoord(coord), Vector3Int.zero);
+        this.distance = HexGridUtil.CubeDistance(HexGridUtil.AxialToCubeCoord(coord), Vector3Int.zero);
         this.noiseValue = worldNoise;
 
         if (noise1 < 0 && noise2 < 0)
         {
-            resource =  Ressource.ressourceA;
+            resource = Ressource.ressourceA;
         }
         else if (noise1 < 0 && noise2 > 0)
         {
@@ -31,6 +34,13 @@ public struct ProceduralTileInfo
         {
             resource = Ressource.resscoureD;
         }
+        noiseDistanceFactor = Mathf.Abs(worldNoise) * (float)distance;
+        valid = true;
+    }
+
+    public int CompareTo(ProceduralTileInfo other)
+    {
+        return this.noiseDistanceFactor.CompareTo(other.noiseDistanceFactor);
     }
 }
 
@@ -154,22 +164,6 @@ public class MapSettings : ScriptableObject
         set { m_distanceThreshold = value; }
     }
 
-    [SerializeField] private FastNoiseLite.DomainWarpType m_DomainWarpType;
-
-    public FastNoiseLite.DomainWarpType M_DomainWarpType
-    {
-        get { return m_DomainWarpType; }
-        set { m_DomainWarpType = value; }
-    }
-
-    [SerializeField] private float m_DomainWarpAmplitude;
-
-    public float M_DomainWarpAmplitude
-    {
-        get { return m_DomainWarpAmplitude; }
-        set { m_DomainWarpAmplitude = value; }
-    }
-
     [SerializeField] private FastNoiseLite.NoiseType m_HillNoiseType;
     public FastNoiseLite.NoiseType M_HillNoiseType
     {
@@ -193,46 +187,61 @@ public class MapSettings : ScriptableObject
         set { m_HillnoiseThresholds = value; }
     }
 
-    public Dictionary<Vector2Int, float> NoiseData(FastNoiseLite.NoiseType noiseType, float frequency)
+    public Dictionary<Vector2Int, ProceduralTileInfo> NoiseData(FastNoiseLite.NoiseType noiseType, float frequency)
     {
-        if (myGenerateRandomSeed)
-        {
-            mySeed = Random.Range(1000, 2000);
-        }
-        noise1.SetSeed(mySeed);
-        noise1.SetNoiseType(noiseType);
-        noise1.SetFrequency(frequency);
+        List<ProceduralTileInfo> tiles = MakeTiles();
+        tiles = FixTileCount(tiles);
 
-        if (noiseType == FastNoiseLite.NoiseType.Cellular)
+        //if (myGenerateRandomSeed)
+        //{
+        //    mySeed = UnityEngine.Random.Range(1000, 2000);
+        //}
+        //noise1.SetSeed(mySeed);
+        //noise1.SetNoiseType(noiseType);
+        //noise1.SetFrequency(frequency);
+
+        //if (noiseType == FastNoiseLite.NoiseType.Cellular)
+        //{
+        //    noise1.SetCellularDistanceFunction(MyCellularDistanceFunction);
+        //    noise1.SetCellularReturnType(MyCellulareReturnType);
+        //    noise1.SetCellularJitter(MyJitter);
+        //}
+
+        Dictionary<Vector2Int, ProceduralTileInfo> result = new Dictionary<Vector2Int, ProceduralTileInfo>();
+        foreach (ProceduralTileInfo pti in tiles)
         {
-            noise1.SetCellularDistanceFunction(MyCellularDistanceFunction);
-            noise1.SetCellularReturnType(MyCellulareReturnType);
-            noise1.SetCellularJitter(MyJitter);
+            result.Add(pti.coord, pti);
         }
 
-        Dictionary<Vector2Int, float> result = new Dictionary<Vector2Int, float>();
-
-        List<Vector2Int> coordinates = HexGridUtil.GenerateRectangleShapedGrid(noiseDataSize.x, noiseDataSize.y);
-        foreach (Vector2Int c in coordinates)
-        {
-            Vector3 worldPos = HexGridUtil.AxialHexToPixel(c, 1f);
-            result.Add(c, noise1.GetNoise(worldPos.x, worldPos.z));
-        }
+        //List<Vector2Int> coordinates = HexGridUtil.GenerateRectangleShapedGrid(noiseDataSize.x, noiseDataSize.y);
+        //foreach (Vector2Int c in coordinates)
+        //{
+        //    Vector3 worldPos = HexGridUtil.AxialHexToPixel(c, 1f);
+        //    result.Add(c, noise1.GetNoise(worldPos.x, worldPos.z));
+        //}
         return result;
     }
 
-    public Dictionary<Vector2Int, float> NoiseData(FastNoiseLite.NoiseType noiseType, float frequency, FastNoiseLite.DomainWarpType domainWarpType, float domainWarpAmplitude)
+    public List<ProceduralTileInfo> NoiseData()
     {
-        Dictionary<Vector2Int, float> result = NoiseData(noiseType, frequency);
-        Dictionary<Vector2Int, float> resultresult = new Dictionary<Vector2Int, float>();
+        List<ProceduralTileInfo> tiles = MakeTiles();
+        tiles = FixTileCount(tiles);
+
+        return tiles;
+    }
+
+    public Dictionary<Vector2Int, ProceduralTileInfo> NoiseData(FastNoiseLite.NoiseType noiseType, float frequency, FastNoiseLite.DomainWarpType domainWarpType, float domainWarpAmplitude)
+    {
+        Dictionary<Vector2Int, ProceduralTileInfo> result = NoiseData(noiseType, frequency);
+        Dictionary<Vector2Int, ProceduralTileInfo> resultresult = new Dictionary<Vector2Int, ProceduralTileInfo>();
         noise1.SetDomainWarpType(domainWarpType);
         noise1.SetDomainWarpAmp(domainWarpAmplitude);
-        foreach (KeyValuePair<Vector2Int, float> kvp in result)
+        foreach (KeyValuePair<Vector2Int, ProceduralTileInfo> kvp in result)
         {
             float x = kvp.Key.x;
             float y = kvp.Key.y;
             noise1.DomainWarp(ref x, ref y);
-            resultresult.Add(kvp.Key, noise1.GetNoise(x, y));
+            resultresult.Add(kvp.Key, kvp.Value);
         }
         return resultresult;
     }
@@ -245,9 +254,14 @@ public class MapSettings : ScriptableObject
         foreach (Vector2Int c in coordinates)
         {
             Vector3 worldPos = HexGridUtil.AxialHexToPixel(c, 1f);
-            ProceduralTileInfo newTileInfo = new ProceduralTileInfo(c, noise1.GetNoise(worldPos.x, worldPos.z), noise2.GetNoise(worldPos.x, worldPos.z),worldNoise.GetNoise(worldPos.x, worldPos.z));
+            ProceduralTileInfo newTileInfo = new ProceduralTileInfo(c, noise1.GetNoise(worldPos.x, worldPos.z), noise2.GetNoise(worldPos.x, worldPos.z), worldNoise.GetNoise(worldPos.x, worldPos.z));
             result.Add(newTileInfo);
         }
+        result.Sort();
+        //foreach(ProceduralTileInfo pti in result)
+        //{
+        //    Debug.Log("Coordinate: " + pti.coord + ", Distance: " + pti.distance + ", Noise: " + pti.noiseValue + ", NoiseDistanceFactor: " + pti.noiseDistanceFactor);
+        //}
         return result;
     }
 
@@ -257,7 +271,7 @@ public class MapSettings : ScriptableObject
         noise2.SetNoiseType(noiseType2);
         noise1.SetFrequency(frequency);
         noise2.SetFrequency(frequency);
-        if(noiseType1 == FastNoiseLite.NoiseType.Cellular)
+        if (noiseType1 == FastNoiseLite.NoiseType.Cellular)
         {
             noise1.SetCellularDistanceFunction(MyCellularDistanceFunction);
             noise1.SetCellularReturnType(MyCellulareReturnType);
@@ -271,27 +285,103 @@ public class MapSettings : ScriptableObject
         }
         if (myGenerateRandomSeed)
         {
-            MySeed = Random.Range(1000,2000);
+            MySeed = UnityEngine.Random.Range(1000, 2000);
         }
         noise1.SetSeed(MySeed);
         noise2.SetSeed(MySeed + 1);
+        worldNoise.SetSeed(MySeed);
 
-        worldNoise.SetNoiseType(m_HillNoiseType);
+        worldNoise.SetNoiseType(M_NoiseType1);
         worldNoise.SetFrequency(m_frequency);
-        worldNoise.SetDomainWarpType(m_DomainWarpType);
-        worldNoise.SetDomainWarpAmp(m_DomainWarpAmplitude);
+
+        if (M_NoiseType1 == FastNoiseLite.NoiseType.Cellular)
+        {
+            worldNoise.SetCellularDistanceFunction(MyCellularDistanceFunction);
+            worldNoise.SetCellularReturnType(MyCellulareReturnType);
+            worldNoise.SetCellularJitter(MyJitter);
+        }
 
         hillNoise.SetNoiseType(m_HillNoiseType);
         hillNoise.SetFrequency(m_HillFrequency);
     }
 
-    public void SortTilesByDistanceNoise(List<ProceduralTileInfo> tiles)
+    public List<ProceduralTileInfo> FixTileCount(List<ProceduralTileInfo> tiles)
     {
-        //tiles.Sort(()=>)
+        List<ProceduralTileInfo> fixedList = tiles;
+        //Debug.Log("TileCount: " + fixedList.Count);
+        for (int i = fixedList.Count - 1; i > myTileCount - 1; i--)
+        {
+            fixedList[i].valid = false;
+        }
+        //Debug.Log("TileCount: " + fixedList.Count);
+        return fixedList;
+    }
+    public List<ProceduralTileInfo> FixUnreachableTiles(List<ProceduralTileInfo> tiles)
+    {
+        List<ProceduralTileInfo> reachableTiles = new List<ProceduralTileInfo>();
+
+        List<Vector2Int> tileCoords = new List<Vector2Int>();
+        foreach (ProceduralTileInfo pti in tiles)
+        {
+            tileCoords.Add(pti.coord);
+        }
+
+        List<Vector2Int> unreachableCoords = new List<Vector2Int>();
+        List<Vector2Int> reachableCoords = HexGridUtil.CubeToAxialCoord(HexGridUtil.CoordinatesReachable(Vector3Int.zero, noiseDataSize.x, HexGridUtil.AxialToCubeCoord(tileCoords)));
+        foreach (Vector2Int vv in reachableCoords)
+        {
+            unreachableCoords.Remove(vv);
+        }
+
+        for (int i = 0; i < unreachableCoords.Count; i++)
+        {
+            Vector2Int currentCoord = unreachableCoords[i];
+            if (GetTileFromCoord(currentCoord, tiles, out ProceduralTileInfo result))
+            {
+
+            }
+        }
+
+
+        //take every tilecoord in a List
+        //get every reachable coordinate from the List
+        //form a list from every coordinate that is not in reachable coordinates 
+
+
+
+        //foreach(Vector2Int c in unreachableCoords)
+        //{
+        //    List<Vector3Int> distLine = HexGridUtil.CubeLineDraw(HexGridUtil.AxialToCubeCoord(c), Vector3Int.zero);
+        //    if(GetTileFromCoord(c,reachableTiles,out ProceduralTileInfo reult))
+        //    {
+
+        //    }
+        //}
+
+
+        return reachableTiles;
     }
 
-    public void FixTileCount()
+    public List<ProceduralTileInfo> reachableTiles(List<ProceduralTileInfo> input)
     {
+        List<ProceduralTileInfo> reachableTiles = new List<ProceduralTileInfo>();
 
+
+
+        return reachableTiles;
+    }
+
+    public bool GetTileFromCoord(Vector2Int coord, List<ProceduralTileInfo> input, out ProceduralTileInfo result)
+    {
+        foreach (ProceduralTileInfo pti in input)
+        {
+            if (pti.coord == coord)
+            {
+                result = pti;
+                return true;
+            }
+        }
+        result = input[0];
+        return false;
     }
 }
