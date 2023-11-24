@@ -10,10 +10,12 @@ public class Boss : MonoBehaviour
 
     [SerializeField] List<Vector3Int> BossReachableTiles;
     [SerializeField] List<Vector3Int> BossTiles;
-    [SerializeField] List<Spreadbehaviours> BossSpread;
+    [SerializeField] public List<Spreadbehaviours> BossSpreads;
     [SerializeField] int AbilityLoadout;
-  //[SerializeField] List<GridTile> GridEnemies;   
-  //[SerializeField] List<Vector3Int> ReachableTiles;
+    //[SerializeField] List<GridTile> GridEnemies;   
+    //[SerializeField] List<Vector3Int> ReachableTiles;
+    public int everyXRounds;
+    public int turnCounter;
 
     public List<Vector2Int> location;
     [SerializeField] int SpawnRange;
@@ -24,6 +26,7 @@ public class Boss : MonoBehaviour
     {
 
         EventManager.OnEndTurnEvent += BossNeighbors;
+        EventManager.OnEndTurnEvent += TriggerSpread;
 
     }
 
@@ -37,6 +40,7 @@ public class Boss : MonoBehaviour
 
     public void BossNeighbors()
     {
+       
         foreach (Vector2Int loc in location)
         {
 
@@ -70,6 +74,19 @@ public class Boss : MonoBehaviour
             }
 
         }
+    }
+
+
+    public void TriggerSpread()
+    {
+        if (turnCounter % everyXRounds == 0)
+         {
+        for (int i = 0; i < BossSpreads.Count; i++)
+        {
+           
+            BossSpreads[i].TargetTile(HexGridUtil.AxialToCubeCoord(location[0]), out Vector3Int target, PlayerManager.Instance.playerPosition);
+        }
+         }
     }
 
     /* public void BossEnemyPhase2(Vector2Int location)

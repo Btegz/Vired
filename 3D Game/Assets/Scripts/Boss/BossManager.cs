@@ -13,6 +13,10 @@ public class BossManager : MonoBehaviour
 
         EventManager.PhaseChangeEvent += Phase;
         Instantiate(BossList[0]);
+        
+        
+     
+        
 
     }
 
@@ -22,4 +26,6 @@ public class BossManager : MonoBehaviour
         Instantiate(BossList[0]);
         
     }
+
+
 }
