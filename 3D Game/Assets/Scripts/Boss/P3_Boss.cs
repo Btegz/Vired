@@ -15,6 +15,7 @@ public class P3_Boss : Boss
         GetComponent<Enemy>().Setup(GridManager.Instance.BossEnemySO, GridManager.Instance.Grid[Vector2Int.zero]);
         Spawn(Vector2Int.zero, gameObject);
         BossNeighbors();
+        BossParticle(this.gameObject);
     }
 
   

@@ -292,6 +292,7 @@ MonoBehaviour:
   HealthpointPrefab: {fileID: 4546101371875049633, guid: 653162b7ccefd14408d3d51e5851e964, type: 3}
   healthpoints: []
   Particle_EnemyDeath: {fileID: 726535386845715946, guid: 005fc7e0d2c6e1247b7b8880e93a8099, type: 3}
+  mr: {fileID: 0}
 --- !u!114 &4900118087047907613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,5 +312,9 @@ MonoBehaviour:
   location: []
   SpawnRange: 4
   Enemy2Prefab: {fileID: 0}
+  blueParticle: {fileID: 6837410471105182777, guid: 17a752188eb6cb9498862a5490c0a5f5, type: 3}
+  orangeParticle: {fileID: 6707404070419994156, guid: 8c4efcf0b610937448491cceb36e3a12, type: 3}
+  redParticle: {fileID: 5178700602397541970, guid: d59862047bedbe94ead0e08a1166598f, type: 3}
+  greenParticle: {fileID: 2702663329028805863, guid: 150fa3cf7e0a94743a4315636f07bb13, type: 3}
   enemy: {fileID: 2148683299467376766}
   bossManager: {fileID: 5357543653835728221, guid: 710f2ec76b3e94748b37e8a3f9bb820e, type: 3}

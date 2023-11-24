@@ -31,20 +31,23 @@ public class P2_Boss : Boss
         Boss1.GetComponent<Enemy>().Setup(GridManager.Instance.BossEnemySO, GridManager.Instance.Grid[possibleTiles[randomTile1]]);
         Spawn(possibleTiles[randomTile1], Boss1);
         BossNeighbors();
+        BossParticle(Boss1);
         
         Boss2 = Instantiate(Boss2);
         Boss2.GetComponent<Enemy>().currentHealth = 4;
         Boss2.GetComponent<Enemy>().Setup(GridManager.Instance.BossEnemySO, GridManager.Instance.Grid[possibleTiles[randomTile2]]);
         Spawn(possibleTiles[randomTile2], Boss2);
         BossNeighbors();
+        BossParticle(Boss2);
 
         Boss3 = Instantiate(Boss3);
         Boss3.GetComponent<Enemy>().currentHealth = 4;
         Boss3.GetComponent<Enemy>().Setup(GridManager.Instance.BossEnemySO, GridManager.Instance.Grid[possibleTiles[randomTile3]]);
         Spawn(possibleTiles[randomTile3], Boss3);
         BossNeighbors();
+        BossParticle(Boss3);
 
-      
+
 
 
 

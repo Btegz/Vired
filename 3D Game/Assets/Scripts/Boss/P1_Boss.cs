@@ -18,6 +18,7 @@ public class P1_Boss : Boss
         location.Add(GridManager.Instance.BossSpawn);
         BossNeighbors();
         enemy.currentHealth = 5;
+        BossParticle(this.gameObject);
 
         for (int i = 0; i < PlayerManager.Instance.Players.Count; i++)
         {
