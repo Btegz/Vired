@@ -57,6 +57,7 @@ public class P2_Boss : Boss
 
     public void Death()
     {
+        PlayerManager.Instance.SkillPoints += 2;
         if (Boss1 != null && Boss1.GetComponent<Enemy>().currentHealth <= 0)
         {
             BossAlive--;
@@ -138,7 +139,7 @@ public class P2_Boss : Boss
     public void OnDestroy()
     {
         EventManager.OnPhaseChange();
-        PlayerManager.Instance.SkillPoints += 2;
+        
         
     }
 }

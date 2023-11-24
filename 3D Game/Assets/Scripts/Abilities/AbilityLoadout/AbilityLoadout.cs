@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class AbilityLoadout : MonoBehaviour
 {
@@ -27,11 +28,18 @@ public class AbilityLoadout : MonoBehaviour
     [SerializeField] UI_PlayerABLInventory playerABLInventoryPrefab;
     [SerializeField] GameObject playersArea;
 
+    [SerializeField] Camera MinimapCam;
+    [SerializeField] Button MiniMapZoomButton;
+    [SerializeField] Image MinMapImage;
+    bool miniMapIsZoomed;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
+        MinimapCam.orthographicSize = GridManager.Instance.mapSettings.NoiseDataSize.x;
+
         PlayerManager playerManager = PlayerManager.Instance;
 
         playerManager.AbilityLoadoutActive = true;
@@ -124,5 +132,21 @@ public class AbilityLoadout : MonoBehaviour
         PlayerManager.Instance.abilitInventory.AddRange(ChosenAbilityList);
         EventManager.OnConfirmButton();
         Destroy(gameObject);
+    }
+
+    public void ToggleMiniMapZoom()
+    {
+        if (miniMapIsZoomed)
+        {
+            MinMapImage.rectTransform.DOAnchorPos(new Vector2(646f, -237.83f), .5f);
+            //MinMapImage.rectTransform.DOMove(new Vector3(646f, -237.83f, 0f), .5f);
+            //MinMapImage.transform.DOMove(new Vector3(646f, -237.83f,0f), .5f);
+            MinMapImage.rectTransform.DOScale(Vector3.one, .5f).OnComplete(()=>miniMapIsZoomed=false);
+        }
+        else
+        {
+            MinMapImage.rectTransform.DOAnchorPos(Vector3.zero, .5f);
+            MinMapImage.rectTransform.DOScale(Vector3.one * 2, .5f).OnComplete(() => miniMapIsZoomed = true);
+        }
     }
 }

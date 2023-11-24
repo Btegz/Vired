@@ -44,7 +44,7 @@ public class GridManager : MonoBehaviour
     public new Vector2Int[] coords = new Vector2Int[3];
 
     [Header("Map")]
-    [SerializeField] MapSettings mapSettings;
+    [SerializeField] public MapSettings mapSettings;
 
     [Header("Tile Presets")]
     [SerializeField, Tooltip("should be smaller then outerSize. If Hex should be filled this will be 0.")] float innerSize;
@@ -158,10 +158,10 @@ public class GridManager : MonoBehaviour
             Grid = new Dictionary<Vector2Int, GridTile>();
 
             Dictionary<Vector2Int, Ressource> coordRessourceDict = new Dictionary<Vector2Int, Ressource>();
-            Dictionary<Vector2Int, float> mapNoise = mapSettings.NoiseData(mapSettings.M_NoiseType1, mapSettings.M_Frequency,mapSettings.M_DomainWarpType,mapSettings.M_DomainWarpAmplitude);
-            Dictionary<Vector2Int, float> mapHillNoise = mapSettings.NoiseData(mapSettings.M_HillNoiseType, mapSettings.M_HillFrequency);
-            Dictionary<Vector2Int, float> gridNoise1 = mapSettings.NoiseData(mapSettings.NoiseType1, mapSettings.Frequency);
-            Dictionary<Vector2Int, float> gridNoise2 = mapSettings.NoiseData(mapSettings.NoiseType2, mapSettings.Frequency);
+            Dictionary<Vector2Int, float> mapNoise = mapSettings.NoiseData(mapSettings.M_NoiseType1, mapSettings.M_Frequency/*, mapSettings.MyGenerateRandomSeed1, mapSettings.MySeed1*/, mapSettings.M_DomainWarpType,mapSettings.M_DomainWarpAmplitude);
+            Dictionary<Vector2Int, float> mapHillNoise = mapSettings.NoiseData(mapSettings.M_HillNoiseType, mapSettings.M_HillFrequency/*, mapSettings.MyGenerateRandomSeed1, mapSettings.MySeed1*/);
+            Dictionary<Vector2Int, float> gridNoise1 = mapSettings.NoiseData(mapSettings.NoiseType1, mapSettings.Frequency/*, mapSettings.MyGenerateRandomSeed1,mapSettings.MySeed1*/);
+            Dictionary<Vector2Int, float> gridNoise2 = mapSettings.NoiseData(mapSettings.NoiseType2, mapSettings.Frequency/*, mapSettings.MyGenerateRandomSeed1, mapSettings.MySeed1*/);
 
 
             foreach (KeyValuePair<Vector2Int, float> kvp in gridNoise1)
@@ -424,7 +424,7 @@ public class GridManager : MonoBehaviour
         phases.RemoveAt(0);
         if (phases.Count <= 0)
         {
-            GameWon();
+            //GameWon();
             return;
         }
         currentPhase = phases[0];

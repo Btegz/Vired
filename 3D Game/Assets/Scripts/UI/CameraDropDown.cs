@@ -5,7 +5,7 @@ using TMPro;
 
 public class CameraDropDown : MonoBehaviour
 {
-    [HideInInspector] public TMP_Dropdown dropdown;
+    /*[HideInInspector]*/ public TMP_Dropdown dropdown;
 
     public void HandleInputData(int va1)
     {
@@ -25,8 +25,8 @@ public class CameraDropDown : MonoBehaviour
         }
     }
 
-    public void Awake()
-    {
-        dropdown = GetComponentInChildren<TMP_Dropdown>();
-    }
+    //public void Awake()
+    //{
+    //    dropdown = GetComponentInChildren<TMP_Dropdown>();
+    //}
 }
