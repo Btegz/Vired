@@ -6,6 +6,7 @@ public class P1_Boss : Boss
 {
     public Enemy enemy;
     public BossManager bossManager;
+    List<float> PlayerDistances = new List<float>();
     private void Start()
     {
         EventManager.OnEndTurnEvent += BossNeighbors;
@@ -18,7 +19,18 @@ public class P1_Boss : Boss
         BossNeighbors();
         enemy.currentHealth = 5;
 
-       
+        for (int i = 0; i < PlayerManager.Instance.Players.Count; i++)
+        {
+            float PlayerDistanceToBoss = HexGridUtil.CubeDistance(HexGridUtil.AxialToCubeCoord(PlayerManager.Instance.Players[i].CoordinatePosition), Vector3Int.zero);
+            PlayerDistances.Add(PlayerDistanceToBoss);
+        }
+
+        PlayerDistances.Sort();
+
+        Debug.Log(PlayerDistances[0]);
+        Debug.Log(PlayerDistances[1]);
+        Debug.Log(PlayerDistances[2]);
+
 
     }
 

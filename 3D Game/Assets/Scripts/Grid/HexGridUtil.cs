@@ -298,7 +298,7 @@ public static class HexGridUtil
     /// <param name="startCoord">start of the search</param>
     /// <param name="range">how far do you want to go?</param>
     /// <returns>List of coordinates reachable from center within range that are not blocked</returns>
-    public static List<Vector3Int> CoordinatesReachable(Vector3Int startCoord, int range,List<Vector3Int> grid)
+    public static List<Vector3Int> CoordinatesReachable(Vector3Int startCoord, int range, List<Vector3Int> grid)
     {
         // List of coordinates "visited" by the search
         List<Vector3Int> visited = new List<Vector3Int>
@@ -383,9 +383,9 @@ public static class HexGridUtil
             fringes.Add(NextIteration);
         }
         List<Vector3Int> result = new List<Vector3Int>();
-        foreach(Vector3Int hex in visited)
+        foreach (Vector3Int hex in visited)
         {
-            if(hex != Vector3Int.zero)
+            if (hex != Vector3Int.zero)
             {
                 result.Add(hex);
             }
@@ -487,14 +487,14 @@ public static class HexGridUtil
         return result;
     }
 
-    public static Vector2Int PixelToHexCoord2D(Vector2 pixel,float size)
+    public static Vector2Int PixelToHexCoord2D(Vector2 pixel, float size)
     {
         Vector2Int result = new Vector2Int();
 
-        float x = ((2f / 3f) * pixel.x)/size;
-        float y = ((-1f / 3f) * pixel.x + ((Mathf.Sqrt(3f)/3f) * pixel.y))/size;
+        float x = ((2f / 3f) * pixel.x) / size;
+        float y = ((-1f / 3f) * pixel.x + ((Mathf.Sqrt(3f) / 3f) * pixel.y)) / size;
 
-        Vector3Int roundedResult = CubeRound(new Vector3(x,y,-x-y));
+        Vector3Int roundedResult = CubeRound(new Vector3(x, y, -x - y));
 
         result.x = roundedResult.x;
         result.y = roundedResult.y;
@@ -804,20 +804,23 @@ public static class HexGridUtil
         return cube;
     }
 
-    public static List<Vector3Int> Ring(Vector3Int center, int radius)
+    public static List<Vector3Int> Ring(Vector3Int center, int radius, List<Vector2Int> coords)
     {
         List<Vector3Int> cubeRing = new List<Vector3Int>();
-        Vector3Int hex = CubeAdd(center, CubeScale(cubeDirectionVectors[4], radius)); 
+        Vector3Int hex = CubeAdd(center, CubeScale(cubeDirectionVectors[4], radius));
 
-        for(int i=0; i<6; i++)
+        for (int i = 0; i < 6; i++)
         {
-            for(int j=0; j<radius; j++)
+            for (int j = 0; j < radius; j++)
             {
-                
-                cubeRing.Add(hex);
-                hex = CubeAdd(hex, cubeDirectionVectors[i]);
+                if (coords.Contains(CubeToAxialCoord(hex)))
+                {
+                    cubeRing.Add(hex);
+                    hex = CubeAdd(hex, cubeDirectionVectors[i]);
+                }
             }
         }
         return cubeRing;
     }
+
 }
