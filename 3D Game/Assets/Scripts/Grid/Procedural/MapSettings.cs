@@ -226,7 +226,7 @@ public class MapSettings : ScriptableObject
     {
         List<ProceduralTileInfo> tiles = MakeTiles();
         tiles = FixTileCount(tiles);
-
+        FixUnreachableTiles(tiles);
         return tiles;
     }
 
@@ -260,7 +260,7 @@ public class MapSettings : ScriptableObject
         result.Sort();
         //foreach(ProceduralTileInfo pti in result)
         //{
-        //    Debug.Log("Coordinate: " + pti.coord + ", Distance: " + pti.distance + ", Noise: " + pti.noiseValue + ", NoiseDistanceFactor: " + pti.noiseDistanceFactor);
+        //    Debug.Log("Coordinate: " + pti.coord + ", Distance: " + pti.distance + ", Noise: " + pti.noiseValue + ", NoiseDistanceFactor: " + pti.noiseDistanceFactor+", Validity: "+pti.valid);
         //}
         return result;
     }
@@ -311,34 +311,49 @@ public class MapSettings : ScriptableObject
         //Debug.Log("TileCount: " + fixedList.Count);
         for (int i = fixedList.Count - 1; i > myTileCount - 1; i--)
         {
+            //fixedList.RemoveAt(i);
+            //Debug.Log("I INVALIDATE A TILE. i = "+i+", myTileCount: "+myTileCount);
             fixedList[i].valid = false;
         }
         //Debug.Log("TileCount: " + fixedList.Count);
         return fixedList;
     }
-    public List<ProceduralTileInfo> FixUnreachableTiles(List<ProceduralTileInfo> tiles)
+    public void FixUnreachableTiles(List<ProceduralTileInfo> tiles)
     {
-        List<ProceduralTileInfo> reachableTiles = new List<ProceduralTileInfo>();
-
         List<Vector2Int> tileCoords = new List<Vector2Int>();
         foreach (ProceduralTileInfo pti in tiles)
         {
-            tileCoords.Add(pti.coord);
+            if (pti.valid)
+            {
+                tileCoords.Add(pti.coord);
+            }   
         }
 
-        List<Vector2Int> unreachableCoords = new List<Vector2Int>();
+        List<Vector2Int> unreachableCoords = tileCoords;
+
+
         List<Vector2Int> reachableCoords = HexGridUtil.CubeToAxialCoord(HexGridUtil.CoordinatesReachable(Vector3Int.zero, noiseDataSize.x, HexGridUtil.AxialToCubeCoord(tileCoords)));
+        Debug.Log("This is how many reachable coords i have: " + reachableCoords.Count + " this is how many should be unreachable" + (myTileCount - reachableCoords.Count)+".");
         foreach (Vector2Int vv in reachableCoords)
         {
             unreachableCoords.Remove(vv);
         }
 
+
+        List<Vector2Int> reachableNeighbors = HexGridUtil.AxialNeighbors(reachableCoords);
+
         for (int i = 0; i < unreachableCoords.Count; i++)
         {
-            Vector2Int currentCoord = unreachableCoords[i];
-            if (GetTileFromCoord(currentCoord, tiles, out ProceduralTileInfo result))
+            Debug.Log("i relocate a Tile that was unreachable");
+            if (GetTileFromCoord(unreachableCoords[i],tiles,out ProceduralTileInfo result))
             {
-
+                result.valid = false;
+                Vector2Int newValidCoord = reachableNeighbors[UnityEngine.Random.Range(0, reachableNeighbors.Count)];
+                if(GetTileFromCoord(newValidCoord,tiles,out ProceduralTileInfo result2))
+                {
+                    result2.valid = true;
+                    reachableNeighbors.Remove(newValidCoord);
+                }
             }
         }
 
@@ -359,7 +374,7 @@ public class MapSettings : ScriptableObject
         //}
 
 
-        return reachableTiles;
+        //return reachableTiles;
     }
 
     public List<ProceduralTileInfo> reachableTiles(List<ProceduralTileInfo> input)

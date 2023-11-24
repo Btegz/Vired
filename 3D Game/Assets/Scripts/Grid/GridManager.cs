@@ -226,12 +226,14 @@ public class GridManager : MonoBehaviour
 
             foreach (ProceduralTileInfo tileinfo in tileInfos)
             {
-                GridTile newTile = Instantiate(GridTilePrefab);
-                newTile.Setup(tileinfo.coord, tileinfo.resource);
-                newTile.transform.parent = transform;
-                newTile.transform.position = HexGridUtil.AxialHexToPixel(tileinfo.coord, 1);
-
-                Grid.Add(tileinfo.coord, newTile);
+                if (tileinfo.valid)
+                {
+                    GridTile newTile = Instantiate(GridTilePrefab);
+                    newTile.Setup(tileinfo.coord, tileinfo.resource);
+                    newTile.transform.parent = transform;
+                    newTile.transform.position = HexGridUtil.AxialHexToPixel(tileinfo.coord, 1);
+                    Grid.Add(tileinfo.coord, newTile);
+                }
             }
         }
 
@@ -239,7 +241,7 @@ public class GridManager : MonoBehaviour
         SpawnBossAndPlayer();
         SpawnPofIs();
 
-        for(int i=0; i<3; i++)
+        for (int i = 0; i < 3; i++)
         {
             SpawnEnemy();
         }
@@ -250,18 +252,18 @@ public class GridManager : MonoBehaviour
     private void SpawnEnemy()
     {
         Enemy enemy = Instantiate(enemyPrefab);
-      
-            List<GridTile> reachableTiles = new List<GridTile>();
-            
-       
-           reachableTiles = GridManager.Instance.GetTilesWithState(gS_Positive);
 
-            GridTile targetLocation = reachableTiles[Random.Range(0, reachableTiles.Count)];
-            enemy.Setup(enemySOs[Random.Range(0, enemySOs.Count)], targetLocation);
-            targetLocation.ChangeCurrentState(gS_Enemy);
-            enemy.transform.parent = targetLocation.transform;
-            enemy.transform.position = targetLocation.transform.position;
-        }
+        List<GridTile> reachableTiles = new List<GridTile>();
+
+
+        reachableTiles = GridManager.Instance.GetTilesWithState(gS_Positive);
+
+        GridTile targetLocation = reachableTiles[Random.Range(0, reachableTiles.Count)];
+        enemy.Setup(enemySOs[Random.Range(0, enemySOs.Count)], targetLocation);
+        targetLocation.ChangeCurrentState(gS_Enemy);
+        enemy.transform.parent = targetLocation.transform;
+        enemy.transform.position = targetLocation.transform.position;
+    }
     private void SpawnBossAndPlayer()
     {
         Vector3Int maxX = new Vector3Int();

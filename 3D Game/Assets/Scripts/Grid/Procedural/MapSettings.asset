@@ -12,21 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8206b7937082734cad26d2f44a68075, type: 3}
   m_Name: MapSettings
   m_EditorClassIdentifier: 
-  mySeed: 1969
+  mySeed: 1307
   myGenerateRandomSeed: 1
-  myTileCount: 0
+  myTileCount: 100
   noiseType1: 2
   noiseType2: 2
   frequency: 0.7
   myCellularDistanceFunction: 0
   myCellularReturnType: 0
   myJitter: 1
-  noiseDataSize: {x: 10, y: 10}
+  noiseDataSize: {x: 20, y: 20}
   m_noiseType1: 2
   m_frequency: 0.075
   m_distanceThreshold: 4
-  m_DomainWarpType: 2
-  m_DomainWarpAmplitude: 100
   m_HillNoiseType: 2
   m_HillFrequency: 0.7
   m_HillnoiseThresholds: {x: -1, y: 1}

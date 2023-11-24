@@ -827,4 +827,21 @@ public static class HexGridUtil
         return cubeRing;
     }
 
+    public static List<Vector2Int> AxialNeighbors(List<Vector2Int> coordinates)
+    {
+        List<Vector2Int> neighbors = new List<Vector2Int>();
+        foreach (Vector2Int coordinate in coordinates)
+        {
+            List<Vector2Int> localNeighbors = CubeToAxialCoord(CubeNeighbors(AxialToCubeCoord(coordinate)));
+            foreach(Vector2Int neighbor in localNeighbors)
+            {
+                if (!neighbors.Contains(neighbor) && !coordinates.Contains(neighbor))
+                {
+                    neighbors.Add(neighbor);
+                }
+            }
+        }
+        return neighbors;
+    }
+
 }
