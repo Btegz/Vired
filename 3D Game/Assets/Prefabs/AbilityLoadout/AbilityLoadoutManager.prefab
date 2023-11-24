@@ -458,7 +458,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4925254262067610696
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1048,6 +1048,7 @@ GameObject:
   - component: {fileID: 6290405121538015087}
   - component: {fileID: 7929656294086554923}
   - component: {fileID: 5769813708639328981}
+  - component: {fileID: 2694592322512078998}
   m_Layer: 5
   m_Name: ZoomButton
   m_TagString: Untagged
@@ -1073,8 +1074,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 832, y: -492}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 849, y: -439}
+  m_SizeDelta: {x: 198.4305, y: 172.7191}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6290405121538015087
 CanvasRenderer:
@@ -1104,9 +1105,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
+  m_Sprite: {fileID: 21300000, guid: 2aead32f37bbd1643ad857ce7e9fa878, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -1170,6 +1171,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2694592322512078998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6312791983251619011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b19911b8687a49b409a8f25ecafd0fec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6533470304886163943
 GameObject:
   m_ObjectHideFlags: 0
