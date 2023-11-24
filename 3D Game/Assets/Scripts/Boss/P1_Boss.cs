@@ -17,6 +17,9 @@ public class P1_Boss : Boss
         location.Add(GridManager.Instance.BossSpawn);
         BossNeighbors();
         enemy.currentHealth = 5;
+
+       
+
     }
 
 
