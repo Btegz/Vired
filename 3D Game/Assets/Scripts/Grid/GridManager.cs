@@ -157,78 +157,81 @@ public class GridManager : MonoBehaviour
 
             Grid = new Dictionary<Vector2Int, GridTile>();
 
-            Dictionary<Vector2Int, Ressource> coordRessourceDict = new Dictionary<Vector2Int, Ressource>();
-            Dictionary<Vector2Int, float> mapNoise = mapSettings.NoiseData(mapSettings.M_NoiseType1, mapSettings.M_Frequency/*, mapSettings.MyGenerateRandomSeed1, mapSettings.MySeed1*/, mapSettings.M_DomainWarpType,mapSettings.M_DomainWarpAmplitude);
-            Dictionary<Vector2Int, float> mapHillNoise = mapSettings.NoiseData(mapSettings.M_HillNoiseType, mapSettings.M_HillFrequency/*, mapSettings.MyGenerateRandomSeed1, mapSettings.MySeed1*/);
-            Dictionary<Vector2Int, float> gridNoise1 = mapSettings.NoiseData(mapSettings.NoiseType1, mapSettings.Frequency/*, mapSettings.MyGenerateRandomSeed1,mapSettings.MySeed1*/);
-            Dictionary<Vector2Int, float> gridNoise2 = mapSettings.NoiseData(mapSettings.NoiseType2, mapSettings.Frequency/*, mapSettings.MyGenerateRandomSeed1, mapSettings.MySeed1*/);
+            List<ProceduralTileInfo> tileInfos = mapSettings.NoiseData();
+
+            //Dictionary<Vector2Int, Ressource> coordRessourceDict = new Dictionary<Vector2Int, Ressource>();
+            //Dictionary<Vector2Int, float> mapNoise = mapSettings.NoiseData(mapSettings.M_NoiseType1, mapSettings.M_Frequency/*, mapSettings.MyGenerateRandomSeed1, mapSettings.MySeed1*/, mapSettings.M_DomainWarpType,mapSettings.M_DomainWarpAmplitude);
+            //Dictionary<Vector2Int, float> mapHillNoise = mapSettings.NoiseData(mapSettings.M_HillNoiseType, mapSettings.M_HillFrequency/*, mapSettings.MyGenerateRandomSeed1, mapSettings.MySeed1*/);
+            //Dictionary<Vector2Int, float> gridNoise1 = mapSettings.NoiseData(mapSettings.NoiseType1, mapSettings.Frequency/*, mapSettings.MyGenerateRandomSeed1,mapSettings.MySeed1*/);
+            //Dictionary<Vector2Int, float> gridNoise2 = mapSettings.NoiseData(mapSettings.NoiseType2, mapSettings.Frequency/*, mapSettings.MyGenerateRandomSeed1, mapSettings.MySeed1*/);
+
+            //foreach (KeyValuePair<Vector2Int, float> kvp in gridNoise1)
+            //{
+            //    float noise1 = kvp.Value;
+            //    float noise2 = gridNoise2[kvp.Key];
+            //    float mapNoise1 = mapNoise[kvp.Key];
+            //    float mapHillNoise1 = mapHillNoise[kvp.Key];
+
+            //    // Take out tiles as Hills
+            //    if (mapHillNoise1 > mapSettings.M_HillNoiseThresholds.y && kvp.Key != Vector2Int.zero)
+            //    {
+            //        continue;
+            //    }
+            //    else if (mapHillNoise1 < mapSettings.M_HillNoiseThresholds.x && kvp.Key != Vector2Int.zero)
+            //    {
+            //        continue;
+            //    }
+
+            //    // Take out Tiles with Distance to form a Shaped Map
+            //    Vector2Int coordinate = kvp.Key;
+            //    float distance = HexGridUtil.CubeDistance(HexGridUtil.AxialToCubeCoord(coordinate), Vector3Int.zero);
+            //    if (Mathf.Abs(mapNoise1) * distance >= mapSettings.M_DistanceThreshold)
+            //    {
+            //        continue;
+            //    }
+
+            //    // Fill Map with Ressources
+            //    Ressource res;
+            //    if (noise1 > 0f && noise2 >= 0f)
+            //    {
+            //        res = Ressource.ressourceA;
+            //        // ressource a
+            //    }
+            //    else if (noise1 > 0f && noise2 < 0f)
+            //    {
+            //        res = Ressource.ressourceB;
+            //        // ressource b
+            //    }
+            //    else if (noise1 <= 0f && noise2 >= 0f)
+            //    {
+            //        res = Ressource.ressourceC;
+            //        // ressource c
+            //    }
+            //    else if (noise1 <= 0f && noise2 < 0f)
+            //    {
+            //        res = Ressource.resscoureD;
+            //        //ressource d
+            //    }
+            //    else
+            //    {
+            //        res = Ressource.ressourceA;
+            //    }
+            //    coordRessourceDict.Add(coordinate, res);
+            //}
+
+            //// Take out Tiles unreachable
+            //List<Vector2Int> reachableCoords = HexGridUtil.CubeToAxialCoord(HexGridUtil.CoordinatesReachable(Vector3Int.zero, mapSettings.NoiseDataSize.x, HexGridUtil.AxialToCubeCoord(coordRessourceDict.Keys.ToList<Vector2Int>())));
 
 
-            foreach (KeyValuePair<Vector2Int, float> kvp in gridNoise1)
-            {
-                float noise1 = kvp.Value;
-                float noise2 = gridNoise2[kvp.Key];
-                float mapNoise1 = mapNoise[kvp.Key];
-                float mapHillNoise1 = mapHillNoise[kvp.Key];
 
-                // Take out tiles as Hills
-                if (mapHillNoise1 > mapSettings.M_HillNoiseThresholds.y && kvp.Key != Vector2Int.zero)
-                {
-                    continue;
-                }
-                else if (mapHillNoise1 < mapSettings.M_HillNoiseThresholds.x && kvp.Key != Vector2Int.zero)
-                {
-                    continue;
-                }
-
-                // Take out Tiles with Distance to form a Shaped Map
-                Vector2Int coordinate = kvp.Key;
-                float distance = HexGridUtil.CubeDistance(HexGridUtil.AxialToCubeCoord(coordinate), Vector3Int.zero);
-                if (Mathf.Abs(mapNoise1) * distance >= mapSettings.M_DistanceThreshold)
-                {
-                    continue;
-                }
-
-                // Fill Map with Ressources
-                Ressource res;
-                if (noise1 > 0f && noise2 >= 0f)
-                {
-                    res = Ressource.ressourceA;
-                    // ressource a
-                }
-                else if (noise1 > 0f && noise2 < 0f)
-                {
-                    res = Ressource.ressourceB;
-                    // ressource b
-                }
-                else if (noise1 <= 0f && noise2 >= 0f)
-                {
-                    res = Ressource.ressourceC;
-                    // ressource c
-                }
-                else if (noise1 <= 0f && noise2 < 0f)
-                {
-                    res = Ressource.resscoureD;
-                    //ressource d
-                }
-                else
-                {
-                    res = Ressource.ressourceA;
-                }
-                coordRessourceDict.Add(coordinate, res);
-            }
-
-            // Take out Tiles unreachable
-            List<Vector2Int> reachableCoords = HexGridUtil.CubeToAxialCoord(HexGridUtil.CoordinatesReachable(Vector3Int.zero, mapSettings.NoiseDataSize.x, HexGridUtil.AxialToCubeCoord(coordRessourceDict.Keys.ToList<Vector2Int>())));
-
-            foreach (Vector2Int coordinates in reachableCoords)
+            foreach (ProceduralTileInfo tileinfo in tileInfos)
             {
                 GridTile newTile = Instantiate(GridTilePrefab);
-                newTile.Setup(coordinates, coordRessourceDict[coordinates]);
+                newTile.Setup(tileinfo.coord, tileinfo.resource);
                 newTile.transform.parent = transform;
-                newTile.transform.position = HexGridUtil.AxialHexToPixel(coordinates, 1);
+                newTile.transform.position = HexGridUtil.AxialHexToPixel(tileinfo.coord, 1);
 
-                Grid.Add(coordinates, newTile);
+                Grid.Add(tileinfo.coord, newTile);
             }
         }
 
