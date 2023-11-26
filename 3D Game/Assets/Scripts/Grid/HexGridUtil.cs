@@ -804,22 +804,26 @@ public static class HexGridUtil
         return cube;
     }
 
-    public static List<Vector3Int> Ring(Vector3Int center, int radius, List<Vector2Int> coords)
+    public static List<Vector2Int> Ring(Vector3Int center, int radius)
     {
-        List<Vector3Int> cubeRing = new List<Vector3Int>();
+        List<Vector2Int> cubeRing = new List<Vector2Int>();
         Vector3Int hex = CubeAdd(center, CubeScale(cubeDirectionVectors[4], radius));
 
         for (int i = 0; i < 6; i++)
         {
             for (int j = 0; j < radius; j++)
             {
-                if (coords.Contains(CubeToAxialCoord(hex)))
+              if (GridManager.Instance.Grid.Keys.Contains(CubeToAxialCoord(hex)))
                 {
-                    cubeRing.Add(hex);
-                    hex = CubeAdd(hex, cubeDirectionVectors[i]);
+                    
+                       cubeRing.Add(CubeToAxialCoord(hex));
+                       
                 }
+                hex = CubeAdd(hex, cubeDirectionVectors[i]);
+
             }
         }
+     
         return cubeRing;
     }
 

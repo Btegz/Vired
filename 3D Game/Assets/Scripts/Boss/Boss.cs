@@ -30,11 +30,10 @@ public class Boss : MonoBehaviour
 
     private void Start()
     {
-
         EventManager.OnEndTurnEvent += BossNeighbors;
-        EventManager.OnEndTurnEvent += TriggerSpread;
+        
 
-   
+
 
     }
 
@@ -48,7 +47,8 @@ public class Boss : MonoBehaviour
 
     public void BossNeighbors()
     {
-       
+
+
         foreach (Vector2Int loc in location)
         {
 
@@ -87,14 +87,16 @@ public class Boss : MonoBehaviour
 
     public void TriggerSpread()
     {
+        Debug.Log("test");
+
         if (turnCounter % everyXRounds == 0)
-         {
-        for (int i = 0; i < BossSpreads.Count; i++)
         {
-           
-            BossSpreads[i].TargetTile(HexGridUtil.AxialToCubeCoord(location[0]), out Vector3Int target, PlayerManager.Instance.playerPosition);
+            for (int i = 0; i < BossSpreads.Count; i++)
+            {
+
+                BossSpreads[i].TargetTile(HexGridUtil.AxialToCubeCoord(location[0]), out Vector3Int target, PlayerManager.Instance.playerPosition);
+            }
         }
-         }
     }
 
     /* public void BossEnemyPhase2(Vector2Int location)
@@ -135,7 +137,7 @@ public class Boss : MonoBehaviour
                 Instantiate(blueParticle, boss.gameObject.transform.position, Quaternion.identity, boss.transform.parent);
                 break;
             case Ressource.ressourceB:
-                Instantiate(orangeParticle, boss.gameObject.transform.position,Quaternion.identity, boss.transform.parent);
+                Instantiate(orangeParticle, boss.gameObject.transform.position, Quaternion.identity, boss.transform.parent);
                 break;
             case Ressource.ressourceC:
                 Instantiate(redParticle, boss.gameObject.transform.position, Quaternion.identity, boss.transform.parent);
@@ -143,7 +145,7 @@ public class Boss : MonoBehaviour
             case Ressource.resscoureD:
                 Instantiate(greenParticle, boss.gameObject.transform.position, Quaternion.identity, boss.transform.parent);
                 break;
-         
+
 
         }
 
@@ -155,12 +157,12 @@ public class Boss : MonoBehaviour
         //if (GetComponent<Enemy>().mr.material == GetComponent<Enemy>().BMAterial)
         //{
         //    Debug.Log("test");
-            
+
         //}
         //if (GetComponent<Enemy>().mr.material == GetComponent<Enemy>().CMAterial)
         //{
         //    Debug.Log("test");
-            
+
         //}
         //if (GetComponent<Enemy>().mr.material == GetComponent<Enemy>().DMAterial)
         //{

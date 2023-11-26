@@ -2,96 +2,130 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System.Threading;
 
-
-[CreateAssetMenu(fileName ="BossSpread")]
+[CreateAssetMenu(fileName = "BossSpread")]
 public class Phase1Boss_SpreadBehaviour : Spreadbehaviours
-{    Dictionary<float, Player> sortedDict;
+{
+    Dictionary<float, Vector2Int> sortedDict;
     public float rotationFactor;
 
     public HexShape SpreadShape;
+    List<Vector2Int> PlayerPosition = new List<Vector2Int>();
+    int counter;
+    int ringCount;
+
 
     public override bool TargetTile(Vector3Int enemyPosition, out Vector3Int target, Vector2Int playerPosition)
     {
-        List<Vector3Int> ring = HexGridUtil.Ring(enemyPosition, 4, GridManager.Instance.Grid.Keys.ToList()); ;
-        Dictionary<float, Player> PlayerDistances =new Dictionary<float, Player>();
-        Dictionary<float, Vector2Int> targetTile = new Dictionary<float, Vector2Int>();
-        
+        List<Vector2Int> ring = HexGridUtil.Ring(enemyPosition, 4); ;
+        List<Vector2Int> targetTile = new List<Vector2Int>();
+        List<Vector3Int> possibleTargets = new List<Vector3Int>();
+        int maxDistance = int.MaxValue;
+        int maxD = int.MaxValue;
 
         /// Player Distanzen zum Boss werden in einer Liste gespeichert 
         for (int i = 0; i < PlayerManager.Instance.Players.Count; i++)
         {
-            float PlayerDistanceToBoss = HexGridUtil.CubeDistance(HexGridUtil.AxialToCubeCoord(PlayerManager.Instance.Players[i].CoordinatePosition), enemyPosition);
-            PlayerDistances.Add(PlayerDistanceToBoss, PlayerManager.Instance.Players[i]);
+            //Distanz Player zu Boss
+            int PlayerDistanceToBoss = HexGridUtil.CubeDistance(HexGridUtil.AxialToCubeCoord(PlayerManager.Instance.Players[i].CoordinatePosition), enemyPosition);
+
+            if (PlayerDistanceToBoss < maxDistance)
+            {
+                counter = i;
+                maxDistance = PlayerDistanceToBoss;
+                Debug.Log(PlayerDistanceToBoss);
+                Debug.Log(PlayerManager.Instance.Players[i].CoordinatePosition);
+                Debug.Log(PlayerManager.Instance.Players[i]);
+            }
+         
         }
 
-        sortedDict = PlayerDistances.OrderBy(pair => pair.Key).ToDictionary(pair => pair.Key, pair => pair.Value);
-        
-        /// Player mit der kürzesten Distanz zum Boss wird genutzt
-        /// Von diesem Player werden die Distanzen zum Ring außerhalb der Boss negative Spread Area in einer Liste gespeichert
-        for (int i=0; i<ring.Count; i++)
-        {
-            float PlayerDistanceToTargetTile = HexGridUtil.CubeDistance(HexGridUtil.AxialToCubeCoord(sortedDict[0].CoordinatePosition), ring[i]);
-            targetTile.Add(PlayerDistanceToTargetTile, PlayerDistances[0].CoordinatePosition);
-        }
+            for (int j = 0; j < ring.Count; j++)
+            {
 
-        var sortedTargetTileDict = targetTile.OrderBy(pair => pair.Key).ToDictionary(pair => pair.Key, pair => pair.Value);
+                int PlayerDistanceToTargetTile = HexGridUtil.CubeDistance(HexGridUtil.AxialToCubeCoord(PlayerManager.Instance.Players[counter].CoordinatePosition), HexGridUtil.AxialToCubeCoord(ring[j]));
+                if (PlayerDistanceToTargetTile < maxD)
+                {
+                    ringCount = j;
+                    maxD = PlayerDistanceToTargetTile;
+                }
+                else
+                    break;
 
-        /// target ist das Tile, welches die kürzeste Distanz zum Player besitzt 
-        target = HexGridUtil.AxialToCubeCoord(sortedTargetTileDict[0]);
+            }
 
-       
-        List<Vector3Int> Shape = RotateTowards(HexGridUtil.CubeToAxialCoord(target), sortedDict[0].CoordinatePosition, HexGridUtil.AxialToCubeCoord(SpreadShape.Coordinates));
-        List<Vector3Int> WorldShapeCoordinates = new List<Vector3Int>();
 
-        foreach (Vector3Int coord in Shape)
-        {
-            WorldShapeCoordinates.Add(HexGridUtil.CubeAdd(target, coord));
+            /// target ist das Tile, welches die kürzeste Distanz zum Player besitzt 
+
+            target = HexGridUtil.AxialToCubeCoord(ring[ringCount]);
+        Debug.Log(target);
+
+            //target = possibleTargets[0];
+            List<Vector3Int> Shape = RotateTowards(HexGridUtil.CubeToAxialCoord(target), PlayerManager.Instance.Players[counter].CoordinatePosition, HexGridUtil.AxialToCubeCoord(SpreadShape.Coordinates));
+            List<Vector3Int> WorldShapeCoordinates = new List<Vector3Int>();
+
+
+            foreach (Vector3Int coord in SpreadShape.Coordinates)
+            {
+                WorldShapeCoordinates.Add(HexGridUtil.CubeAdd(target, coord));
+            }
+
+
             foreach (Vector3Int worldCoord in WorldShapeCoordinates)
             {
-                GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(worldCoord)].currentGridState = GridManager.Instance.gS_BossNegative;
-                
+                GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(worldCoord)].ChangeCurrentState(GridManager.Instance.gS_Negative);
+               
             }
+            return false;
         }
-
-        return false;
-    }
+     
+    
 
     public List<Vector3Int> RotateTowards(Vector2Int target, Vector2Int playerPosition, List<Vector3Int> shapeToRotate)
-    {
-        // target alle neighbors
-        // je nachdem welcher es ist i * 60°
-        // welcher ist i=0
 
+    {
+
+        List<Vector3Int> neighbors = new List<Vector3Int>();
         List<Vector3Int> targetNeighbors = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(target));
+       
+        foreach (Vector3Int neighbor in targetNeighbors)
+        {
+            if (GridManager.Instance.Grid.Keys.Contains(HexGridUtil.CubeToAxialCoord(neighbor)))
+            {
+                neighbors.Add(neighbor);
+            }
+        } 
+     
+       
         List<Vector3Int> rotatedShape = shapeToRotate;
 
         //List<int> distances = new List<int>();
         int rotationAmount = 0;
         int maxDist = int.MaxValue;
-        for (int i = 0; i < targetNeighbors.Count; i++)
+        for (int i = 0; i < neighbors.Count; i++)
         {
-            int dist = HexGridUtil.CubeDistance(targetNeighbors[i], HexGridUtil.AxialToCubeCoord(playerPosition));
+            int dist = HexGridUtil.CubeDistance(neighbors[i], HexGridUtil.AxialToCubeCoord(PlayerManager.Instance.Players[counter].CoordinatePosition));
             if (dist < maxDist)
             {
-                rotatedShape= HexGridUtil.RotateRangeClockwise(HexGridUtil.AxialToCubeCoord(target), rotatedShape, 1);
+                rotatedShape = HexGridUtil.RotateRangeClockwise(HexGridUtil.AxialToCubeCoord(target), rotatedShape, rotationAmount);
                 rotationAmount++;
                 maxDist = dist;
             }
             else
             {
-                rotatedShape = HexGridUtil.RotateRangeCounterClockwise(HexGridUtil.AxialToCubeCoord(target), rotatedShape, 1);
-                rotationAmount--; 
+                rotatedShape = HexGridUtil.RotateRangeCounterClockwise(HexGridUtil.AxialToCubeCoord(target), rotatedShape, rotationAmount);
+                rotationAmount--;
                 break;
             }
         }
         return rotatedShape;
-        
+
     }
 
 
-    
-    
 
-  
+
+
+
 }

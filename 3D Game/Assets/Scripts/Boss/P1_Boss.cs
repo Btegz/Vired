@@ -12,32 +12,34 @@ public class P1_Boss : Boss
         EventManager.OnEndTurnEvent += BossNeighbors;
 
         location = new List<Vector2Int>();
-
+        EventManager.OnEndTurnEvent += TriggerSpread;
         enemy.Setup(GridManager.Instance.BossEnemySO, GridManager.Instance.Grid[GridManager.Instance.BossSpawn]);
         Spawn(GridManager.Instance.BossSpawn, gameObject);
         location.Add(GridManager.Instance.BossSpawn);
         BossNeighbors();
         enemy.currentHealth = 5;
         BossParticle(this.gameObject);
-/*
-        for (int i = 0; i < PlayerManager.Instance.Players.Count; i++)
-        {
-            float PlayerDistanceToBoss = HexGridUtil.CubeDistance(HexGridUtil.AxialToCubeCoord(PlayerManager.Instance.Players[i].CoordinatePosition), Vector3Int.zero);
-            PlayerDistances.Add(PlayerDistanceToBoss);
-        }
+        
 
-        PlayerDistances.Sort();
+        /*
+                for (int i = 0; i < PlayerManager.Instance.Players.Count; i++)
+                {
+                    float PlayerDistanceToBoss = HexGridUtil.CubeDistance(HexGridUtil.AxialToCubeCoord(PlayerManager.Instance.Players[i].CoordinatePosition), Vector3Int.zero);
+                    PlayerDistances.Add(PlayerDistanceToBoss);
+                }
 
-        Debug.Log(PlayerDistances[0]);
-        Debug.Log(PlayerDistances[1]);
-        Debug.Log(PlayerDistances[2]);
-*/
+                PlayerDistances.Sort();
+
+                Debug.Log(PlayerDistances[0]);
+                Debug.Log(PlayerDistances[1]);
+                Debug.Log(PlayerDistances[2]);
+        */
 
     }
 
-    
 
-   
+
+
 
 
     public void OnDestroy()
