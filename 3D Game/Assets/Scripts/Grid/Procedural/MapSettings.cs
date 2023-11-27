@@ -226,9 +226,9 @@ public class MapSettings : ScriptableObject
 
     public List<ProceduralTileInfo> NoiseData()
     {
-        List<ProceduralTileInfo> tiles = MakeTiles();
-        tiles = FixTileCount(tiles);
-        FixUnreachableTiles(tiles);
+        List<ProceduralTileInfo> tiles = MakeTilesWithCorrectAmount();
+        //tiles = FixTileCount(tiles);
+        //FixUnreachableTiles(tiles);
         return tiles;
     }
 
@@ -265,6 +265,40 @@ public class MapSettings : ScriptableObject
         //    Debug.Log("Coordinate: " + pti.coord + ", Distance: " + pti.distance + ", Noise: " + pti.noiseValue + ", NoiseDistanceFactor: " + pti.noiseDistanceFactor+", Validity: "+pti.valid);
         //}
         return result;
+    }
+
+    public List<ProceduralTileInfo> MakeTilesWithCorrectAmount()
+    {
+        SetTheNoises();
+        List<ProceduralTileInfo> result = new List<ProceduralTileInfo>();
+        result.Add(new ProceduralTileInfo(Vector2Int.zero,noise1.GetNoise(0,0),noise2.GetNoise(0,0),worldNoise.GetNoise(0,0)));
+
+        for(int i = 1;i<=myTileCount;i++)
+        {
+            List<ProceduralTileInfo> newNeighbors = neighbors(result);
+            newNeighbors.Sort();
+            result.Add(newNeighbors[0]);
+        }
+        return result;
+    }
+
+    public List<ProceduralTileInfo> neighbors(List<ProceduralTileInfo> input)
+    {
+        List<Vector2Int> originals = new List<Vector2Int>();
+        List<ProceduralTileInfo> newNeighbors = new List<ProceduralTileInfo>();
+        foreach(ProceduralTileInfo tile in input)
+        {
+            originals.Add(tile.coord);
+        }
+
+        List<Vector2Int> neighborCoords = HexGridUtil.AxialNeighbors(originals);
+        foreach(Vector2Int neighborCoord in neighborCoords)
+        {
+            Vector3 worldPos = HexGridUtil.AxialHexToPixel(neighborCoord, 1f);
+            ProceduralTileInfo newTileInfo = new ProceduralTileInfo(neighborCoord, noise1.GetNoise(worldPos.x, worldPos.z), noise2.GetNoise(worldPos.x, worldPos.z), worldNoise.GetNoise(worldPos.x, worldPos.z));
+            newNeighbors.Add(newTileInfo);
+        }
+        return newNeighbors;
     }
 
     public void SetTheNoises()
