@@ -271,9 +271,9 @@ public class MapSettings : ScriptableObject
     {
         SetTheNoises();
         List<ProceduralTileInfo> result = new List<ProceduralTileInfo>();
-        result.Add(new ProceduralTileInfo(Vector2Int.zero,noise1.GetNoise(0,0),noise2.GetNoise(0,0),worldNoise.GetNoise(0,0)));
+        result.Add(new ProceduralTileInfo(Vector2Int.zero, noise1.GetNoise(0, 0), noise2.GetNoise(0, 0), worldNoise.GetNoise(0, 0)));
 
-        for(int i = 1;i<=myTileCount;i++)
+        for (int i = 1; i <= myTileCount; i++)
         {
             List<ProceduralTileInfo> newNeighbors = neighbors(result);
             newNeighbors.Sort();
@@ -285,7 +285,7 @@ public class MapSettings : ScriptableObject
             result.Add(newNeighbors[0]);
         }
 
-        foreach(ProceduralTileInfo tile in result)
+        foreach (ProceduralTileInfo tile in result)
         {
             Debug.Log(tile.noiseDistanceFactor);
         }
@@ -298,19 +298,40 @@ public class MapSettings : ScriptableObject
     {
         List<Vector2Int> originals = new List<Vector2Int>();
         List<ProceduralTileInfo> newNeighbors = new List<ProceduralTileInfo>();
-        foreach(ProceduralTileInfo tile in input)
+        foreach (ProceduralTileInfo tile in input)
         {
             originals.Add(tile.coord);
         }
 
         List<Vector2Int> neighborCoords = HexGridUtil.AxialNeighbors(originals);
-        foreach(Vector2Int neighborCoord in neighborCoords)
+        foreach (Vector2Int neighborCoord in neighborCoords)
         {
             Vector3 worldPos = HexGridUtil.AxialHexToPixel(neighborCoord, 1f);
             ProceduralTileInfo newTileInfo = new ProceduralTileInfo(neighborCoord, noise1.GetNoise(worldPos.x, worldPos.z), noise2.GetNoise(worldPos.x, worldPos.z), worldNoise.GetNoise(worldPos.x, worldPos.z));
             newNeighbors.Add(newTileInfo);
         }
         return newNeighbors;
+    }
+
+    public List<Vector2Int> GetOuterBorder(List<ProceduralTileInfo> input)
+    {
+        List<Vector2Int> result = new List<Vector2Int>();
+        List<Vector2Int> init = new List<Vector2Int>();
+        foreach (ProceduralTileInfo tile in input)
+        { 
+            init.Add(tile.coord); 
+        }
+
+        List<Vector2Int> outerNeighbors = HexGridUtil.AxialNeighbors(init);
+        List<Vector2Int> neighborsNeighbors = HexGridUtil.AxialNeighbors(outerNeighbors);
+        foreach(Vector2Int neighborCoord in neighborsNeighbors)
+        {
+            if (init.Contains(neighborCoord))
+            {
+                result.Add(neighborCoord);
+            }
+        }
+        return result;
     }
 
     public void SetTheNoises()
@@ -406,9 +427,9 @@ public class MapSettings : ScriptableObject
                 List<ProceduralTileInfo> island = FindIslandOfTile(resultTest, tiles);
                 Debug.Log("found an Island its " + island.Count + " big");
                 islands.Add(island);
-                foreach(ProceduralTileInfo pti in island)
+                foreach (ProceduralTileInfo pti in island)
                 {
-                    if(unreachableCoords.Contains(pti.coord))
+                    if (unreachableCoords.Contains(pti.coord))
                     {
                         Debug.Log("everything fine");
                     }
@@ -420,12 +441,12 @@ public class MapSettings : ScriptableObject
                     unreachableCoords.Remove(pti.coord);
                 }
             }
-            Debug.Log("unreachableCoords is now "+unreachableCoords.Count+" big.");
+            Debug.Log("unreachableCoords is now " + unreachableCoords.Count + " big.");
         }
 
-        foreach(List<ProceduralTileInfo> island in islands)
+        foreach (List<ProceduralTileInfo> island in islands)
         {
-            Debug.Log("Time to move an Island of the size of "+island.Count);
+            Debug.Log("Time to move an Island of the size of " + island.Count);
             List<Vector2Int> islandCoords = new List<Vector2Int>();
             foreach (ProceduralTileInfo pti in island)
             {
@@ -445,9 +466,9 @@ public class MapSettings : ScriptableObject
 
         Debug.Log("reachable Tiles now has" + reachableCoords.Count);
 
-        foreach(Vector2Int coordinate in reachableCoords)
+        foreach (Vector2Int coordinate in reachableCoords)
         {
-            if(GetTileFromCoord(coordinate,tiles,out ProceduralTileInfo result))
+            if (GetTileFromCoord(coordinate, tiles, out ProceduralTileInfo result))
             {
                 result.valid = true;
             }
@@ -482,7 +503,7 @@ public class MapSettings : ScriptableObject
         //}
 
         int validNumber = 0;
-        foreach(ProceduralTileInfo pti in tiles)
+        foreach (ProceduralTileInfo pti in tiles)
         {
             if (reachableCoords.Contains(pti.coord))
             {
@@ -529,18 +550,18 @@ public class MapSettings : ScriptableObject
             Debug.Log("-----------------------------------------------");
             foreach (Vector2Int frontierItem in frontier)
             {
-                Debug.Log("I loop through frontier. currently at: "+frontierItem);
+                Debug.Log("I loop through frontier. currently at: " + frontierItem);
                 Debug.Log("-----------------------------------------------");
                 List<Vector2Int> neighbors = HexGridUtil.AxialNeighbors(frontierItem);
                 foreach (Vector2Int neighbor in neighbors)
                 {
-                    Debug.Log("I loop through the neighbors of current frontierItem "+frontierItem+", neighbor: "+neighbor);
+                    Debug.Log("I loop through the neighbors of current frontierItem " + frontierItem + ", neighbor: " + neighbor);
                     Debug.Log("-----------------------------------------------");
                     if (GetTileFromCoord(neighbor, input, out ProceduralTileInfo result))
                     {
                         if (!newFrontier.Contains(neighbor) && result.valid && !island.Contains(neighbor) && !frontier.Contains(neighbor))
                         {
-                            Debug.Log("I found a new valid tile in the frontier Neighbors "+neighbor);
+                            Debug.Log("I found a new valid tile in the frontier Neighbors " + neighbor);
                             Debug.Log("-----------------------------------------------");
                             island.Add(neighbor);
                             newFrontier.Add(neighbor);
@@ -571,7 +592,7 @@ public class MapSettings : ScriptableObject
             }
         }
         Debug.Log("My Search for the Island is done. The Island is " + islandTiles.Count + " tiles big:");
-        foreach(ProceduralTileInfo coordinate in islandTiles)
+        foreach (ProceduralTileInfo coordinate in islandTiles)
         {
             Debug.Log(coordinate.coord);
         }
