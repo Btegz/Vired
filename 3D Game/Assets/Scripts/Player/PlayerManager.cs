@@ -330,6 +330,10 @@ public class PlayerManager : MonoBehaviour
             //Quaternion indicatorRotation = Quaternion.Euler(0, 30, 0);
             //indicatorPrefabClone = Instantiate(indicatorPrefab, selectedPlayer.transform.position, indicatorRotation);
         }
+        move = true;
+        moving = true;
+
+
     }
 
     public bool InventoryCheck(Ability ability, Player player)

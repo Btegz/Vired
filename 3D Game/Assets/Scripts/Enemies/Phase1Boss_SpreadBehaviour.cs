@@ -34,9 +34,7 @@ public class Phase1Boss_SpreadBehaviour : Spreadbehaviours
             {
                 counter = i;
                 maxDistance = PlayerDistanceToBoss;
-                Debug.Log(PlayerDistanceToBoss);
-                Debug.Log(PlayerManager.Instance.Players[i].CoordinatePosition);
-                Debug.Log(PlayerManager.Instance.Players[i]);
+               
             }
          
         }
@@ -50,9 +48,7 @@ public class Phase1Boss_SpreadBehaviour : Spreadbehaviours
                     ringCount = j;
                     maxD = PlayerDistanceToTargetTile;
                 }
-                else
-                    break;
-
+                
             }
 
 
@@ -74,7 +70,15 @@ public class Phase1Boss_SpreadBehaviour : Spreadbehaviours
 
             foreach (Vector3Int worldCoord in WorldShapeCoordinates)
             {
-                GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(worldCoord)].ChangeCurrentState(GridManager.Instance.gS_Negative);
+            if (GridManager.Instance.Grid.Keys.Contains(HexGridUtil.CubeToAxialCoord(worldCoord)))
+            {
+                if (GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(worldCoord)].currentGridState != GridManager.Instance.gS_Negative && GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(worldCoord)].currentGridState != GridManager.Instance.gS_BossNegative)
+                {
+                    GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(worldCoord)].ChangeCurrentState(GridManager.Instance.gS_Negative);
+                    GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)].ChangeCurrentState(GridManager.Instance.gS_Negative);
+
+                }
+            }
                
             }
             return false;
@@ -87,6 +91,8 @@ public class Phase1Boss_SpreadBehaviour : Spreadbehaviours
     {
 
         List<Vector3Int> neighbors = new List<Vector3Int>();
+
+        
         List<Vector3Int> targetNeighbors = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(target));
        
         foreach (Vector3Int neighbor in targetNeighbors)

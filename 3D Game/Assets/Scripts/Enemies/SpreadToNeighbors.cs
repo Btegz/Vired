@@ -22,7 +22,7 @@ public class SpreadToNeighbors : Spreadbehaviours
             try
             {
                 if (GridManager.Instance.Grid[axialNeighbor].currentGridState == GridManager.Instance.gS_Neutral ||
-                  GridManager.Instance.Grid[axialNeighbor].currentGridState == GridManager.Instance.gS_Positive)
+                    GridManager.Instance.Grid[axialNeighbor].currentGridState == GridManager.Instance.gS_Positive)
                 {
                     if (!PlayerManager.Instance.PlayerPositions().Contains(axialNeighbor))
                     {
