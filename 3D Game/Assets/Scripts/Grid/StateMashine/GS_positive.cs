@@ -25,7 +25,10 @@ public class GS_positive : GridState
             case Ressource.resscoureD:
                 parent.meshRenderer.material = parent.gridTileSO.resourceDMaterial; break;
         }
+        parent.transform.DOComplete();
+
         parent.transform.DOPunchRotation(Vector3.one * TweenScale, .5f);
+
     }
 
     public override void ExitState(GridTile parent)
