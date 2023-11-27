@@ -14,6 +14,7 @@ public class Phase1Boss_SpreadBehaviour : Spreadbehaviours
     List<Vector2Int> PlayerPosition = new List<Vector2Int>();
     int counter;
     int ringCount;
+    int RotationCount;
 
 
     public override bool TargetTile(Vector3Int enemyPosition, out Vector3Int target, Vector2Int playerPosition)
@@ -65,6 +66,8 @@ public class Phase1Boss_SpreadBehaviour : Spreadbehaviours
             foreach (Vector3Int coord in SpreadShape.Coordinates)
             {
                 WorldShapeCoordinates.Add(HexGridUtil.CubeAdd(target, coord));
+            
+           
             }
 
 
@@ -76,6 +79,8 @@ public class Phase1Boss_SpreadBehaviour : Spreadbehaviours
                 {
                     GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(worldCoord)].ChangeCurrentState(GridManager.Instance.gS_Negative);
                     GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)].ChangeCurrentState(GridManager.Instance.gS_Negative);
+                    Debug.Log(target);
+                    Debug.Log(worldCoord);
 
                 }
             }
@@ -95,12 +100,14 @@ public class Phase1Boss_SpreadBehaviour : Spreadbehaviours
         
         List<Vector3Int> targetNeighbors = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(target));
        
+
         foreach (Vector3Int neighbor in targetNeighbors)
         {
             if (GridManager.Instance.Grid.Keys.Contains(HexGridUtil.CubeToAxialCoord(neighbor)))
             {
                 neighbors.Add(neighbor);
             }
+            
         } 
      
        
@@ -113,15 +120,15 @@ public class Phase1Boss_SpreadBehaviour : Spreadbehaviours
         {
             int dist = HexGridUtil.CubeDistance(neighbors[i], HexGridUtil.AxialToCubeCoord(PlayerManager.Instance.Players[counter].CoordinatePosition));
             if (dist < maxDist)
-            {
-                rotatedShape = HexGridUtil.RotateRangeClockwise(HexGridUtil.AxialToCubeCoord(target), rotatedShape, rotationAmount);
-                rotationAmount++;
+            {   
+                RotationCount = i;
+                rotatedShape = HexGridUtil.RotateRangeClockwise(HexGridUtil.AxialToCubeCoord(target), rotatedShape, RotationCount);
                 maxDist = dist;
             }
             else
-            {
-                rotatedShape = HexGridUtil.RotateRangeCounterClockwise(HexGridUtil.AxialToCubeCoord(target), rotatedShape, rotationAmount);
-                rotationAmount--;
+            {   
+                RotationCount = i;
+                rotatedShape = HexGridUtil.RotateRangeCounterClockwise(HexGridUtil.AxialToCubeCoord(target), rotatedShape, RotationCount);
                 break;
             }
         }
