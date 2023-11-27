@@ -112,6 +112,11 @@ public static class HexGridUtil
         return result;
     }
 
+    public static List<Vector2Int> AxialAddRange(List<Vector2Int> range, Vector2Int b)
+    {
+        return CubeToAxialCoord(CubeAddRange(AxialToCubeCoord(range),AxialToCubeCoord(b)));
+    }
+
     /// <summary>
     /// Substracts two Vectors.
     /// </summary>
@@ -842,6 +847,14 @@ public static class HexGridUtil
             }
         }
         return neighbors;
+    }
+
+    public static List<Vector2Int> AxialNeighbors(Vector2Int coordinate)
+    {
+        List<Vector2Int> result = new List<Vector2Int>();
+        Vector3Int cubeInput = AxialToCubeCoord(coordinate);
+        result = CubeToAxialCoord(CubeNeighbors(cubeInput));
+        return result; 
     }
 
 }
