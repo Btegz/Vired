@@ -277,8 +277,20 @@ public class MapSettings : ScriptableObject
         {
             List<ProceduralTileInfo> newNeighbors = neighbors(result);
             newNeighbors.Sort();
+            Debug.Log("----------------------------------------------------------------------------");
+            foreach (ProceduralTileInfo tile in newNeighbors)
+            {
+                Debug.Log(tile.noiseDistanceFactor);
+            }
             result.Add(newNeighbors[0]);
         }
+
+        foreach(ProceduralTileInfo tile in result)
+        {
+            Debug.Log(tile.noiseDistanceFactor);
+        }
+
+
         return result;
     }
 
