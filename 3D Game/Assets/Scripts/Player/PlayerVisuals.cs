@@ -9,6 +9,7 @@ public class PlayerVisuals : MonoBehaviour
 
     [SerializeField] Player playwer;
     Tweener tween;
+    public Material SelectedMaterial;
 
     public void Start()
     {
@@ -16,10 +17,6 @@ public class PlayerVisuals : MonoBehaviour
     
     }
 
-   
-
-
-  
     public void Movement(Player player)
     {
         try
@@ -37,5 +34,10 @@ public class PlayerVisuals : MonoBehaviour
            
         }
 
+    }
+
+    public void PlayerSelection()
+    {
+        GetComponentInParent<MeshRenderer>().material = SelectedMaterial; 
     }
 }
