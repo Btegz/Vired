@@ -483,9 +483,9 @@ public class PlayerManager : MonoBehaviour
         CameraRotation.Instance.MainCam = true;
 
         PlayerManager.Instance.selectedPlayer = player/*PlayerManager.Instance.Players[(int)keyPressed]*/;
-        //EventManager.OnSelectPlayer(selectedPlayer);
+        // EventManager.OnSelectPlayer(selectedPlayer);
 
-
+        
         CameraRotation.Instance.Playercam.LookAt = PlayerManager.Instance.selectedPlayer.transform;
         CameraRotation.Instance.Playercam.Follow = PlayerManager.Instance.selectedPlayer.transform;
         CameraRotation.Instance.SwitchToPlayer();

@@ -37,6 +37,10 @@ public class CameraRotation : MonoBehaviour
     [SerializeField] float MouseScrollDistance;
     TMP_Dropdown dropdown;
     public CameraDropDown cameraDropDown;
+    public CinemachineRecomposer worldcamRecomposer;
+    public CinemachineRecomposer playercamRecomposer;
+    public CinemachineRecomposer topdowncamRecomposer;
+
 
 
     private float mouseScrollY;
@@ -49,7 +53,7 @@ public class CameraRotation : MonoBehaviour
     private Vector3 camPosition;
     private Vector3 startingPosition;
 
-    
+
     [HideInInspector][SerializeField] public bool MainCam = true;
     private Vector3 WorldcamStart;
 
@@ -63,8 +67,8 @@ public class CameraRotation : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
-        
+
+
 
         rotatoAction.action.Enable();
         rotatoAction.action.started += StartRotato;
@@ -79,14 +83,14 @@ public class CameraRotation : MonoBehaviour
 
         switchAction.action.Enable();
         switchAction.action.performed += _ => SwitchtoMain();
-        
+
 
         playerswitchAction.action.Enable();
         playerswitchAction.action.performed += _ => PlayerManager.Instance.PlayerSelect(PlayerManager.Instance.Players[(int)_.ReadValue<float>()]);
 
         topDownAction.action.Enable();
         topDownAction.action.performed += _ => SwitchToTopDown();
-        
+
 
     }
 
@@ -96,7 +100,7 @@ public class CameraRotation : MonoBehaviour
         startingPosition = cam.transform.localPosition;
         startMovementSpeed = maxMovementSpeed;
         dropdown = cameraDropDown.dropdown;
-       
+
 
     }
 
@@ -130,69 +134,75 @@ public class CameraRotation : MonoBehaviour
 
         /// Zoom +
         /// Lerp von der Kamera Position durch die End Positon mit dem Scroll Input 
-      
 
 
-        if (mouseScrollY > 0)
+        if (PlayerManager.Instance.abilityActivated == false)
         {
-            MouseScrollDistance += MouseScrollStep;
-            MouseScrollDistance = Mathf.Clamp(MouseScrollDistance, 0, 1);
 
-            cam.transform.localPosition = Vector3.Lerp(camPosition, endPosition, MouseScrollDistance);
-            maxMovementSpeed = Mathf.Lerp(maxMovementSpeed, minMovementSpeed, MouseScrollDistance);
-
-
-
-            if (Worldcam.Priority == 2 && MainCam == true)
+            if (mouseScrollY > 0)
             {
-                Worldcam.transform.LookAt(cam.transform.position);
-                if (Worldcam.m_Lens.FieldOfView > MaxZoom)
-               Worldcam.m_Lens.FieldOfView -= MouseScrollDistance;
+                MouseScrollDistance += MouseScrollStep;
+                MouseScrollDistance = Mathf.Clamp(MouseScrollDistance, 0, 1);
+
+                cam.transform.localPosition = Vector3.Lerp(camPosition, endPosition, MouseScrollDistance);
+                maxMovementSpeed = Mathf.Lerp(maxMovementSpeed, minMovementSpeed, MouseScrollDistance);
+
+
+
+                if (Worldcam.Priority == 2 && MainCam == true)
+                {
+                    Worldcam.transform.LookAt(cam.transform.position);
+                    if (worldcamRecomposer.m_ZoomScale > MaxZoom)
+                        worldcamRecomposer.m_ZoomScale -= 0.1f;
+                }
+
+                else if (Playercam.Priority == 2)
+                {
+                    Playercam.transform.LookAt(Playercam.transform.position);
+                    if (playercamRecomposer.m_ZoomScale > MaxZoom)
+                        playercamRecomposer.m_ZoomScale -= 0.1f;
+                }
+
+                else
+                {
+                    TopDownCam.transform.LookAt(TopDownCam.transform.position);
+                    if (topdowncamRecomposer.m_ZoomScale > MaxZoom)
+                        topdowncamRecomposer.m_ZoomScale -= 0.1f;
+                }
             }
 
-            else if (Playercam.Priority == 2)
+            /// Zoom -
+            /// Lerp von der anfangs Kamera Position durch die aktuelle KameraPosition mit dem Scroll Input 
+            if (mouseScrollY < 0)
             {
-                Playercam.transform.LookAt(Playercam.transform.position);
-                if (Playercam.m_Lens.FieldOfView > MaxZoom)
-                Playercam.m_Lens.FieldOfView -= MouseScrollDistance;
-            }
-
-            else
-            {
-                TopDownCam.transform.LookAt(TopDownCam.transform.position);
-                TopDownCam.m_Lens.FieldOfView -= MouseScrollDistance;
-            }
-        }
-
-        /// Zoom -
-        /// Lerp von der anfangs Kamera Position durch die aktuelle KameraPosition mit dem Scroll Input 
-        if (mouseScrollY < 0)
-        {
-            MouseScrollDistance += MouseScrollStep;
-            MouseScrollDistance = Mathf.Clamp(MouseScrollDistance, 0, 1);
-            cam.transform.localPosition = Vector3.Lerp(camPosition, startingPosition, MouseScrollDistance);
-            maxMovementSpeed = Mathf.Lerp(startMovementSpeed, maxMovementSpeed, MouseScrollDistance);
+                MouseScrollDistance += MouseScrollStep;
+                MouseScrollDistance = Mathf.Clamp(MouseScrollDistance, 0, 1);
+                cam.transform.localPosition = Vector3.Lerp(camPosition, startingPosition, MouseScrollDistance);
+                maxMovementSpeed = Mathf.Lerp(startMovementSpeed, maxMovementSpeed, MouseScrollDistance);
 
 
-            if (Worldcam.Priority == 2 && MainCam == true)
-            {
-                Worldcam.transform.LookAt(cam.transform.position);
-                if (Worldcam.m_Lens.FieldOfView < MinZoom)
-                Worldcam.m_Lens.FieldOfView += MouseScrollDistance;
-            }
+                if (Worldcam.Priority == 2 && MainCam == true)
+                {
+                    Worldcam.transform.LookAt(cam.transform.position);
+                    if (worldcamRecomposer.m_ZoomScale < MinZoom)
+                        worldcamRecomposer.m_ZoomScale += 0.1f;
+                   
+                }
 
-            else if (Playercam.Priority == 2)
-            {
-                Playercam.transform.LookAt(Playercam.transform.position);
-                if (Playercam.m_Lens.FieldOfView < MinZoom)
-                Playercam.m_Lens.FieldOfView += MouseScrollDistance;       
+                else if (Playercam.Priority == 2)
+                {
+                    Playercam.transform.LookAt(Playercam.transform.position);
+                    if (playercamRecomposer.m_ZoomScale < MinZoom)
+                        playercamRecomposer.m_ZoomScale += 0.1f;
 
-            }
+                }
 
-            else
-            {
-                TopDownCam.transform.LookAt(TopDownCam.transform.position);
-                TopDownCam.m_Lens.FieldOfView += MouseScrollDistance;
+                else
+                {
+                    TopDownCam.transform.LookAt(TopDownCam.transform.position);
+                    if (topdowncamRecomposer.m_ZoomScale  < MinZoom) 
+                    topdowncamRecomposer.m_ZoomScale += 0.1f;
+                }
             }
         }
     }
@@ -228,7 +238,7 @@ public class CameraRotation : MonoBehaviour
 
             }
         }
-        
+
     }
 
     /// <summary>
@@ -245,7 +255,7 @@ public class CameraRotation : MonoBehaviour
                 CameraRotation.Instance.Playercam.LookAt = null;
                 CameraRotation.Instance.Playercam.Follow = null;
             }
-        
+
 
             var pointerWorldRay = cam.ScreenPointToRay(previousMousePosition);
             Plane groundPlane = new Plane(Vector3.up, 1);
@@ -304,14 +314,14 @@ public class CameraRotation : MonoBehaviour
 
     public void SwitchToTopDown()
     {
-        
+
         Worldcam.Priority = 0;
         Playercam.Priority = 1;
         TopDownCam.Priority = 2;
         transform.position = WorldcamStart;
-        if(dropdown.value != 1)
-        dropdown.value = 1;
-        
+        if (dropdown.value != 1)
+            dropdown.value = 1;
+
 
     }
 }
