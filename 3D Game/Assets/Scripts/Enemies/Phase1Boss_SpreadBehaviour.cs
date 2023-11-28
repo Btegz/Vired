@@ -26,6 +26,7 @@ public class Phase1Boss_SpreadBehaviour : Spreadbehaviours
         int maxD = int.MaxValue;
 
         /// Player Distanzen zum Boss werden in einer Liste gespeichert 
+        /// MaxDistance i wird als counter gespeichert 
         for (int i = 0; i < PlayerManager.Instance.Players.Count; i++)
         {
             //Distanz Player zu Boss
@@ -37,9 +38,11 @@ public class Phase1Boss_SpreadBehaviour : Spreadbehaviours
                 maxDistance = PlayerDistanceToBoss;
                
             }
-         
         }
 
+        /// Distanzen vom Player i zum Ring um den negative Boss Spread 
+        /// kleinste Distanz wird abgespeichert 
+        /// j als counter 
             for (int j = 0; j < ring.Count; j++)
             {
 
@@ -56,7 +59,7 @@ public class Phase1Boss_SpreadBehaviour : Spreadbehaviours
             /// target ist das Tile, welches die kürzeste Distanz zum Player besitzt 
 
             target = HexGridUtil.AxialToCubeCoord(ring[ringCount]);
-        Debug.Log(target);
+        
 
             //target = possibleTargets[0];
             List<Vector3Int> Shape = RotateTowards(HexGridUtil.CubeToAxialCoord(target), PlayerManager.Instance.Players[counter].CoordinatePosition, HexGridUtil.AxialToCubeCoord(SpreadShape.Coordinates));
@@ -66,10 +69,7 @@ public class Phase1Boss_SpreadBehaviour : Spreadbehaviours
             foreach (Vector3Int coord in SpreadShape.Coordinates)
             {
                 WorldShapeCoordinates.Add(HexGridUtil.CubeAdd(target, coord));
-            
-           
             }
-
 
             foreach (Vector3Int worldCoord in WorldShapeCoordinates)
             {
@@ -79,8 +79,7 @@ public class Phase1Boss_SpreadBehaviour : Spreadbehaviours
                 {
                     GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(worldCoord)].ChangeCurrentState(GridManager.Instance.gS_Negative);
                     GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)].ChangeCurrentState(GridManager.Instance.gS_Negative);
-                    Debug.Log(target);
-                    Debug.Log(worldCoord);
+                    
 
                 }
             }

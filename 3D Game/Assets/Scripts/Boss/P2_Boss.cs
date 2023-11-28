@@ -60,12 +60,13 @@ public class P2_Boss : Boss
 
     public void Death()
     {
-        PlayerManager.Instance.SkillPoints += 2;
         if (Boss1 != null && Boss1.GetComponent<Enemy>().currentHealth <= 0)
         {
             BossAlive--;
             BossDeath(possibleTiles[randomTile1]);
             location.Remove(possibleTiles[randomTile1]);
+            PlayerManager.Instance.SkillPoints += 2;
+
         }
 
         if (Boss2 != null && Boss2.GetComponent<Enemy>().currentHealth <= 0)
@@ -73,6 +74,8 @@ public class P2_Boss : Boss
             BossAlive--;
             BossDeath(possibleTiles[randomTile2]);
             location.Remove(possibleTiles[randomTile2]);
+            PlayerManager.Instance.SkillPoints += 2;
+
 
         }
 
@@ -81,6 +84,8 @@ public class P2_Boss : Boss
             BossAlive--;
             BossDeath(possibleTiles[randomTile3]);
             location.Remove(possibleTiles[randomTile3]);
+            PlayerManager.Instance.SkillPoints += 2;
+
 
         }
 
