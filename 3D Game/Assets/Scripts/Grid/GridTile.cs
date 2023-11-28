@@ -9,7 +9,7 @@ public struct Face
 {
     public List<Vector3> vertices;
     public List<int> triangles;
-    public List<Vector2> uvs;
+    //public List<Vector2> uvs;
 
     /// <summary>
     /// This constructor creates a face with given vertices, triangles and uvs
@@ -17,11 +17,11 @@ public struct Face
     /// <param name="vertices">Locations where the edges meet, making a corner</param>
     /// <param name="triangles">Indexes for vertices to make an edges.</param>
     /// <param name="uvs">markerpoints that control which pixels on a texture correspond to which verex.</param>
-    public Face(List<Vector3> vertices, List<int> triangles, List<Vector2> uvs)
+    public Face(List<Vector3> vertices, List<int> triangles/*, List<Vector2> uvs*/)
     {
         this.vertices = vertices;
         this.triangles = triangles;
-        this.uvs = uvs;
+        //this.uvs = uvs;
     }
 }
 
@@ -42,6 +42,8 @@ public class GridTile : MonoBehaviour
     public MeshRenderer meshRenderer;
     MeshCollider meshCollider;
     List<Face> faces;
+
+    bool withWalls = false;
 
     [Header("Tile Statestuff")]
     public GridState currentGridState;
@@ -87,8 +89,9 @@ public class GridTile : MonoBehaviour
     /// <param name="cellCoordinate">Axial Coordinate in the the Grid.</param>
     /// <param name="resource">Type of Ressource for the Tile.</param>
     /// <param name="gridstate">The Gridstate to start with.</param>
-    public void Setup(Vector2Int cellCoordinate, GridTileSO gridTileSO, GridState gridstate)
+    public void Setup(Vector2Int cellCoordinate, GridTileSO gridTileSO, GridState gridstate, bool withWalls)
     {
+        this.withWalls = withWalls;
         this.gridTileSO = gridTileSO;
         meshCollider = GetComponent<MeshCollider>();
         meshFilter = GetComponent<MeshFilter>();
@@ -111,12 +114,12 @@ public class GridTile : MonoBehaviour
                     case Ressource.ressourceB:
                         meshRenderer.material = gridTileSO.resourceBMaterial;
                         ressource = Ressource.ressourceB;
-                        break;                  
-                    case Ressource.ressourceC:  
+                        break;
+                    case Ressource.ressourceC:
                         meshRenderer.material = gridTileSO.resourceCMaterial;
                         ressource = Ressource.ressourceC;
-                        break;                  
-                    case Ressource.resscoureD:  
+                        break;
+                    case Ressource.resscoureD:
                         meshRenderer.material = gridTileSO.resourceDMaterial;
                         ressource = Ressource.resscoureD;
                         break;
@@ -135,8 +138,9 @@ public class GridTile : MonoBehaviour
 
     }
 
-    public void Setup(Vector2Int cellCoordinate, GridTileSO gridTileSO)
+    public void Setup(Vector2Int cellCoordinate, GridTileSO gridTileSO, bool withWalls)
     {
+        this.withWalls = withWalls;
         this.gridTileSO = gridTileSO;
         meshCollider = GetComponent<MeshCollider>();
         meshFilter = GetComponent<MeshFilter>();
@@ -167,8 +171,9 @@ public class GridTile : MonoBehaviour
         DrawMesh();
     }
 
-    public void Setup(Vector2Int coordinate, Ressource ressource)
+    public void Setup(Vector2Int coordinate, Ressource ressource, bool withWalls)
     {
+        this.withWalls = withWalls;
         meshCollider = GetComponent<MeshCollider>();
         meshFilter = GetComponent<MeshFilter>();
         meshRenderer = GetComponent<MeshRenderer>();
@@ -203,11 +208,11 @@ public class GridTile : MonoBehaviour
     /// </summary>
     public void SpawnEnemy()
     {
-        if(GetComponentInChildren<Enemy>() == null)
+        if (GetComponentInChildren<Enemy>() == null)
         {
             GridManager gridManagerInstance = GridManager.Instance;
             Enemy newEnemy = Instantiate(gridManagerInstance.enemyPrefab);
-            newEnemy.Setup(gridManagerInstance.enemySOs[Random.Range(0, gridManagerInstance.enemySOs.Count)],this);
+            newEnemy.Setup(gridManagerInstance.enemySOs[Random.Range(0, gridManagerInstance.enemySOs.Count)], this);
             newEnemy.transform.parent = transform;
             newEnemy.transform.position = transform.position;
         }
@@ -257,7 +262,7 @@ public class GridTile : MonoBehaviour
         for (int i = 0; i < faces.Count; i++)
         {
             vertices.AddRange(faces[i].vertices);
-            uvs.AddRange(faces[i].uvs);
+            //uvs.AddRange(faces[i].uvs);
 
             int offset = 4 * i;
             foreach (int tris in faces[i].triangles)
@@ -285,25 +290,27 @@ public class GridTile : MonoBehaviour
     private Face CreateFace(float innerRad, float outerRad, float heightA, float heightB, int point, bool reverse = false)
     {
         // 4 Points to form the Face.
-        // 
         Vector3 p1 = GetPoint(innerRad, heightB, point);
         Vector3 p2 = GetPoint(innerRad, heightB, (point < 5) ? point + 1 : 0);
         Vector3 p3 = GetPoint(outerRad, heightA, (point < 5) ? point + 1 : 0);
         Vector3 p4 = GetPoint(outerRad, heightA, point);
-
-        List<Vector3> vertices = new List<Vector3>() { p1, p2, p3, p4 };
+        //Vector3 p5 = p3 - new Vector3(0, .5f, 0);
+        //Vector3 p6 = p4 - new Vector3(0, .5f, 0);
+        List<Vector3> vertices = new List<Vector3>() { /*0*/p1, /*1*/p2,/*2*/ p3, /*3*/p4 };
         List<int> triangles = new List<int>()
         {
             0, 1, 2,
-            2, 3, 0
+            2, 3, 0,
+
         };
-        List<Vector2> uvs = new List<Vector2>() { new Vector2(0, 0), new Vector2(1, 0), new Vector2(1, 1), new Vector2(0, 1) };
+
+        //List<Vector2> uvs = new List<Vector2>() { new Vector2(0, 0), new Vector2(1, 0), new Vector2(1, 1), new Vector2(0, 1) };
         if (reverse)
         {
             vertices.Reverse();
         }
 
-        return new Face(vertices, triangles, uvs);
+        return new Face(vertices, triangles/*, uvs*/);
     }
 
     /// <summary>
