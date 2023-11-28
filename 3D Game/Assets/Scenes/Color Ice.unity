@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -442,6 +442,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 6993991225135169736, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
+      propertyPath: BossPrefab
+      value: 
+      objectReference: {fileID: 2148683299467376766, guid: e13a1787b2f38954a9c3564a1770be7c, type: 3}
+    - target: {fileID: 6993991225135169736, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
       propertyPath: mainCanvas
       value: 
       objectReference: {fileID: 1286135613}
@@ -449,6 +453,10 @@ PrefabInstance:
       propertyPath: BossEnemySO
       value: 
       objectReference: {fileID: 11400000, guid: 835522eebbfc13c4e922c45e683ba113, type: 2}
+    - target: {fileID: 6993991225135169736, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
+      propertyPath: enemyPrefab
+      value: 
+      objectReference: {fileID: 2148683299467376766, guid: 58615be762ea82342a06799dbd31b44a, type: 3}
     - target: {fileID: 6993991225135169736, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
       propertyPath: GridTilePrefab
       value: 
