@@ -164,7 +164,7 @@ public class GridManager : MonoBehaviour
                 if (tileinfo.valid)
                 {
                     GridTile newTile = Instantiate(GridTilePrefab);
-                    newTile.Setup(tileinfo.coord, tileinfo.resource);
+                    newTile.Setup(tileinfo.coord, tileinfo.resource,true);
                     newTile.transform.parent = transform;
                     newTile.transform.position = HexGridUtil.AxialHexToPixel(tileinfo.coord, 1);
                     Grid.Add(tileinfo.coord, newTile);
@@ -188,10 +188,25 @@ public class GridManager : MonoBehaviour
 
         List<GridTile> reachableTiles = new List<GridTile>();
 
+        List<Vector2Int> unerlaubteFelder = new List<Vector2Int>();
+        foreach(Player p in PlayerManager.Instance.Players)
+        {
+            unerlaubteFelder.Add(p.CoordinatePosition);
+        }
+        unerlaubteFelder.Add(BossSpawn);
+        foreach(Vector2Int coordinate in HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(BossSpawn), 3))
+        {
+            unerlaubteFelder.Add(coordinate);
+        }
+
 
         reachableTiles = GridManager.Instance.GetTilesWithState(gS_Positive);
 
         GridTile targetLocation = reachableTiles[Random.Range(0, reachableTiles.Count)];
+        while (unerlaubteFelder.Contains(targetLocation.AxialCoordinate))
+        {
+            targetLocation = reachableTiles[Random.Range(0, reachableTiles.Count)];
+        }
         enemy.Setup(enemySOs[Random.Range(0, enemySOs.Count)], targetLocation);
         targetLocation.ChangeCurrentState(gS_Enemy);
         enemy.transform.parent = targetLocation.transform;
@@ -256,7 +271,7 @@ public class GridManager : MonoBehaviour
             if (!Grid.ContainsKey(coordinate))
             {
                 GridTile newTile = Instantiate(GridTilePrefab);
-                newTile.Setup(coordinate, Ressource.ressourceA);
+                newTile.Setup(coordinate, (Ressource) Random.Range(0,4),true);
                 newTile.transform.parent = transform;
                 newTile.transform.position = HexGridUtil.AxialHexToPixel(coordinate, 1);
                 newTile.currentGridState = gS_BossNegative;
@@ -299,7 +314,7 @@ public class GridManager : MonoBehaviour
         foreach (Vector2Int coord in coords)
         {
             GridTile tile = Instantiate(GridTilePrefab, HexGridUtil.AxialHexToPixel(coord, outerSize), Quaternion.identity, transform);
-            tile.Setup(coord, gridTileSOs[Random.Range(0, gridTileSOs.Count)], gS_Enemy);
+            tile.Setup(coord, gridTileSOs[Random.Range(0, gridTileSOs.Count)], gS_Enemy,true);
             tile.name = $"Hex{coord.x},{coord.y}";
             tile.innerSize = innerSize;
             tile.outerSize = outerSize;
@@ -319,7 +334,7 @@ public class GridManager : MonoBehaviour
                 foreach (Vector2Int coord in shape)
                 {
                     GridTile tile = Instantiate(GridTilePrefab, HexGridUtil.AxialHexToPixel(coord, outerSize), Quaternion.identity, transform);
-                    tile.Setup(coord, hsw.MyGridTileSO, hsw.MyGridTileSO.initialGridState);
+                    tile.Setup(coord, hsw.MyGridTileSO, hsw.MyGridTileSO.initialGridState,true);
                     tile.name = $"{hsw.MyGridTileSO.ressource} Hex ({coord.x},{coord.y})";
                     tile.innerSize = innerSize;
                     tile.outerSize = outerSize;
