@@ -9,12 +9,14 @@ public class PlayerVisuals : MonoBehaviour
 
     [SerializeField] Player playwer;
     Tweener tween;
-    public Material SelectedMaterial;
+    public Material PlayerMaterial;
+    public Material Outline;
 
     public void Start()
     {
         EventManager.OnMoveEvent += Movement;
-    
+        EventManager.OnSelectPlayerEvent += PlayerSelection;
+
     }
 
     public void Movement(Player player)
@@ -24,20 +26,47 @@ public class PlayerVisuals : MonoBehaviour
             if (player == playwer)
             {
                 ParticleSystem landingCloud = GetComponentInChildren<ParticleSystem>();
-                transform.DOLocalJump(Vector3.up*0.45f, 2, 1, .25f);
+                transform.DOLocalJump(Vector3.up * 0.45f, 2, 1, .25f);
                 transform.DOPunchScale(Vector3.one * .1f, .25f).OnComplete(landingCloud.Play);
             }
 
         }
         catch
         {
-           
+
         }
 
     }
 
-    public void PlayerSelection()
+    public void PlayerSelection(Player player)
     {
-        GetComponentInParent<MeshRenderer>().material = SelectedMaterial; 
+
+        if (player == playwer)
+        {
+
+            Material[] PlayerVisuals =
+        {
+            PlayerMaterial,
+            Outline
+        };
+            MeshRenderer mr = GetComponentInParent<MeshRenderer>();
+
+            mr.materials = PlayerVisuals;
+        }
+
+        else
+        {
+            Material[] PlayerVisual =
+            {
+                    PlayerMaterial
+            };
+
+            MeshRenderer mr = GetComponentInParent<MeshRenderer>();
+
+            mr.materials = PlayerVisual;
+        }
+            
+
+        
     }
 }
