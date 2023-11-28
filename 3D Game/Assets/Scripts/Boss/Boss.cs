@@ -135,16 +135,16 @@ public class Boss : MonoBehaviour
         switch (ressource)
         {
             case Ressource.ressourceA:
-                Instantiate(blueParticle, boss.gameObject.transform.position, Quaternion.identity, boss.transform.parent);
+                Instantiate(blueParticle, boss.gameObject.transform.position, Quaternion.identity, boss.transform);
                 break;
             case Ressource.ressourceB:
-                Instantiate(orangeParticle, boss.gameObject.transform.position, Quaternion.identity, boss.transform.parent);
+                Instantiate(orangeParticle, boss.gameObject.transform.position, Quaternion.identity, boss.transform);
                 break;
             case Ressource.ressourceC:
-                Instantiate(redParticle, boss.gameObject.transform.position, Quaternion.identity, boss.transform.parent);
+                Instantiate(redParticle, boss.gameObject.transform.position, Quaternion.identity, boss.transform);
                 break;
             case Ressource.resscoureD:
-                Instantiate(greenParticle, boss.gameObject.transform.position, Quaternion.identity, boss.transform.parent);
+                Instantiate(greenParticle, boss.gameObject.transform.position, Quaternion.identity, boss.transform);
                 break;
 
 
