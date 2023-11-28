@@ -12,7 +12,7 @@ public class P1_Boss : Boss
         EventManager.OnEndTurnEvent += BossNeighbors;
 
         location = new List<Vector2Int>();
-        EventManager.OnEndTurnEvent += TriggerSpread;
+        //EventManager.OnEndTurnEvent += TriggerSpread;
         enemy.Setup(GridManager.Instance.BossEnemySO, GridManager.Instance.Grid[GridManager.Instance.BossSpawn]);
         Spawn(GridManager.Instance.BossSpawn, gameObject);
         location.Add(GridManager.Instance.BossSpawn);
