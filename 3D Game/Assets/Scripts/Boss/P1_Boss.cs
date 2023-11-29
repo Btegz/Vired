@@ -48,7 +48,5 @@ public class P1_Boss : Boss
         BossDeath(location[0]);      
         PlayerManager.Instance.SkillPoints += 2;
         EventManager.OnEndTurnEvent -= BossNeighbors;
-
-
     }
 }
