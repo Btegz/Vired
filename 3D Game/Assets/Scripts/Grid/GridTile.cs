@@ -305,8 +305,8 @@ public class GridTile : MonoBehaviour
         Vector3 p2 = GetPoint(innerRad, heightB, (point < 5) ? point + 1 : 0);
         Vector3 p3 = GetPoint(outerRad, heightA, (point < 5) ? point + 1 : 0);
         Vector3 p4 = GetPoint(outerRad, heightA, point);
-        Vector3 p5 = p3 - new Vector3(0, 100, 0);
-        Vector3 p6 = p4 - new Vector3(0, 100, 0);
+        Vector3 p5 = p3 - new Vector3(0, 1, 0);
+        Vector3 p6 = p4 - new Vector3(0, 1, 0);
         
         List<Vector3> vertices = new List<Vector3>();
         List<int> triangles = new List<int>();
