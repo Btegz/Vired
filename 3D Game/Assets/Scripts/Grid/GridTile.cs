@@ -247,16 +247,16 @@ public class GridTile : MonoBehaviour
         {
             Face newFace = CreateFace(innerSize, outerSize, height / 2f, height / 2f, i);
             faces.Add(newFace);
-            Debug.Log("FACE -:--------------------------------------------------------------------------------------------------------------------");
-            foreach (Vector3 vertex in newFace.vertices)
-            {
-                Debug.Log(vertex);
-            }
-            foreach (int triangle in newFace.triangles)
-            {
-                Debug.Log(triangle);
-            }
-            Debug.Log("FACE -:--------------------------------------------------------------------------------------------------------------------");
+            //Debug.Log("FACE -:--------------------------------------------------------------------------------------------------------------------");
+            //foreach (Vector3 vertex in newFace.vertices)
+            //{
+            //    Debug.Log(vertex);
+            //}
+            //foreach (int triangle in newFace.triangles)
+            //{
+            //    Debug.Log(triangle);
+            //}
+            //Debug.Log("FACE -:--------------------------------------------------------------------------------------------------------------------");
         }
     }
 

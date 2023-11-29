@@ -167,6 +167,7 @@ public class GridManager : MonoBehaviour
                     newTile.Setup(tileinfo.coord, tileinfo.resource,true);
                     newTile.transform.parent = transform;
                     newTile.transform.position = HexGridUtil.AxialHexToPixel(tileinfo.coord, 1);
+                  //  newTile.transform.position += Vector3.up * (1 + tileinfo.noiseValue);
                     Grid.Add(tileinfo.coord, newTile);
                 }
             }
@@ -192,6 +193,7 @@ public class GridManager : MonoBehaviour
         foreach(Player p in PlayerManager.Instance.Players)
         {
             unerlaubteFelder.Add(p.CoordinatePosition);
+            Debug.Log(p.CoordinatePosition);
         }
         unerlaubteFelder.Add(BossSpawn);
         foreach(Vector2Int coordinate in HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(BossSpawn), 3))
@@ -264,6 +266,10 @@ public class GridManager : MonoBehaviour
         players[0].SpawnPoint = Border[Border.Count / 4 * 1];
         players[1].SpawnPoint = Border[Border.Count / 4 * 2];
         players[2].SpawnPoint = Border[Border.Count / 4 * 3];
+
+        players[0].CoordinatePosition = Border[Border.Count / 4 * 1];
+        players[1].CoordinatePosition = Border[Border.Count / 4 * 2];
+        players[2].CoordinatePosition = Border[Border.Count / 4 * 3];
 
         List<Vector2Int> newBossTiles = HexGridUtil.AxialNeighbors(BossSpawn);
         foreach(Vector2Int coordinate in newBossTiles)
