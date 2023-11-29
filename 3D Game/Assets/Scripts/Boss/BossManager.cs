@@ -12,7 +12,7 @@ public class BossManager : MonoBehaviour
     public void Start()
     { 
         EventManager.PhaseChangeEvent += Phase;
-        Instantiate(BossList[1]);
+        Instantiate(BossList[0]);
         
         
 
