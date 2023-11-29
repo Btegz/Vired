@@ -26,6 +26,8 @@ public class P3_Boss : Boss
         GridManager.Instance.GameWon();
         BossDeath(location[0]);  
         PlayerManager.Instance.SkillPoints += 2;
-        
+        EventManager.OnEndTurnEvent -= BossNeighbors;
+
+
     }
 }
