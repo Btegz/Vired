@@ -9,7 +9,7 @@ public struct Face
 {
     public List<Vector3> vertices;
     public List<int> triangles;
-    //public List<Vector2> uvs;
+    public List<Vector2> uvs;
 
     /// <summary>
     /// This constructor creates a face with given vertices, triangles and uvs
@@ -17,11 +17,11 @@ public struct Face
     /// <param name="vertices">Locations where the edges meet, making a corner</param>
     /// <param name="triangles">Indexes for vertices to make an edges.</param>
     /// <param name="uvs">markerpoints that control which pixels on a texture correspond to which verex.</param>
-    public Face(List<Vector3> vertices, List<int> triangles/*, List<Vector2> uvs*/)
+    public Face(List<Vector3> vertices, List<int> triangles, List<Vector2> uvs)
     {
         this.vertices = vertices;
         this.triangles = triangles;
-        //this.uvs = uvs;
+        this.uvs = uvs;
     }
 }
 
@@ -245,7 +245,18 @@ public class GridTile : MonoBehaviour
         faces = new List<Face>();
         for (int i = 0; i < 6; i++)
         {
-            faces.Add(CreateFace(innerSize, outerSize, height / 2f, height / 2f, i));
+            Face newFace = CreateFace(innerSize, outerSize, height / 2f, height / 2f, i);
+            faces.Add(newFace);
+            Debug.Log("FACE -:--------------------------------------------------------------------------------------------------------------------");
+            foreach (Vector3 vertex in newFace.vertices)
+            {
+                Debug.Log(vertex);
+            }
+            foreach (int triangle in newFace.triangles)
+            {
+                Debug.Log(triangle);
+            }
+            Debug.Log("FACE -:--------------------------------------------------------------------------------------------------------------------");
         }
     }
 
@@ -264,7 +275,7 @@ public class GridTile : MonoBehaviour
             vertices.AddRange(faces[i].vertices);
             //uvs.AddRange(faces[i].uvs);
 
-            int offset = 4 * i;
+            int offset = (withWalls ? 8 : 4) * i;
             foreach (int tris in faces[i].triangles)
             {
                 triangles.Add(tris + offset);
@@ -294,23 +305,40 @@ public class GridTile : MonoBehaviour
         Vector3 p2 = GetPoint(innerRad, heightB, (point < 5) ? point + 1 : 0);
         Vector3 p3 = GetPoint(outerRad, heightA, (point < 5) ? point + 1 : 0);
         Vector3 p4 = GetPoint(outerRad, heightA, point);
-        //Vector3 p5 = p3 - new Vector3(0, .5f, 0);
-        //Vector3 p6 = p4 - new Vector3(0, .5f, 0);
-        List<Vector3> vertices = new List<Vector3>() { /*0*/p1, /*1*/p2,/*2*/ p3, /*3*/p4 };
-        List<int> triangles = new List<int>()
+        Vector3 p5 = p3 - new Vector3(0, 100, 0);
+        Vector3 p6 = p4 - new Vector3(0, 100, 0);
+        
+        List<Vector3> vertices = new List<Vector3>();
+        List<int> triangles = new List<int>();
+        if (withWalls)
         {
-            0, 1, 2,
-            2, 3, 0,
+            vertices.AddRange( new List<Vector3>() { /*0*/p1, /*1*/p2,/*2*/ p3, /*3*/p4,/*4*/ p3,/*5*/ p4,/*6*/ p5,/*7*/ p6 });
+            triangles.AddRange(new List<int>()
+            {
+                0, 1, 2,
+                2, 3, 0,
+                5,4,6,
+                5,6,7
+            });
+        }
+        else
+        {
+            vertices.AddRange(new List<Vector3>() { /*0*/p1, /*1*/p2,/*2*/ p3, /*3*/p4 });
+            triangles.AddRange(new List<int>()
+            {
+                0, 1, 2,
+                2, 3, 0
+            });
+        }
 
-        };
 
-        //List<Vector2> uvs = new List<Vector2>() { new Vector2(0, 0), new Vector2(1, 0), new Vector2(1, 1), new Vector2(0, 1) };
+        List<Vector2> uvs = new List<Vector2>() { new Vector2(0, 0), new Vector2(1, 0), new Vector2(1, 1), new Vector2(0, 1) };
         if (reverse)
         {
             vertices.Reverse();
         }
 
-        return new Face(vertices, triangles/*, uvs*/);
+        return new Face(vertices, triangles, uvs);
     }
 
     /// <summary>
