@@ -7,6 +7,7 @@ public class P1_Boss : Boss
     public Enemy enemy;
     public BossManager bossManager;
     List<float> PlayerDistances = new List<float>();
+    
     private void Start()
     {
         EventManager.OnEndTurnEvent += BossNeighbors;
@@ -19,8 +20,8 @@ public class P1_Boss : Boss
         BossNeighbors();
         enemy.currentHealth = 5;
         BossParticle(gameObject);
-        
 
+        Debug.Log(bossManager.Playtesting);
         /*
                 for (int i = 0; i < PlayerManager.Instance.Players.Count; i++)
                 {
@@ -44,9 +45,21 @@ public class P1_Boss : Boss
 
     public void OnDestroy()
      {
-        EventManager.OnPhaseChange();
-        BossDeath(location[0]);      
-        PlayerManager.Instance.SkillPoints += 2;
-        EventManager.OnEndTurnEvent -= BossNeighbors;
+        if (bossManager.Playtesting == true)
+        {
+           
+            GridManager.Instance.GameWon();
+            BossDeath(location[0]);
+            PlayerManager.Instance.SkillPoints += 2;
+            EventManager.OnEndTurnEvent -= BossNeighbors;
+        }
+
+        else
+        {
+            EventManager.OnPhaseChange();
+            BossDeath(location[0]);
+            PlayerManager.Instance.SkillPoints += 2;
+            EventManager.OnEndTurnEvent -= BossNeighbors;
+        }
     }
 }

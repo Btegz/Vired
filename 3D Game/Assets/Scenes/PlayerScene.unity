@@ -123,6 +123,26 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &68441151 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2107920981151160867, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+  m_PrefabInstance: {fileID: 1013245897}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &68441153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 68441151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipUI: {fileID: 505696319}
+  Header: 'Movement '
+  Content: Is shared by all player characters.
 --- !u!1 &149689343 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7766636002038032911, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
@@ -274,6 +294,17 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+--- !u!114 &505696319 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9061300316798316828, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+  m_PrefabInstance: {fileID: 1013245897}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ecbaa1c9672d984189bd38e76bf8d02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!20 &652675123 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 1365018791435240836, guid: 11b34f7d6d9bf504e95faf77866c009c, type: 3}
@@ -503,6 +534,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5558005925352120035, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+      propertyPath: Content
+      value: Enemy-inflicted negativity fills this bar.
+      objectReference: {fileID: 0}
     - target: {fileID: 5625125876915822905, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -519,6 +554,38 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6575421729049475163, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 288.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6698215219358271527, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6698215219358271527, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6698215219358271527, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920483899509144069, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+      propertyPath: m_fontSize
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920483899509144069, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 80c5939f1b9bfb74994229fbf808c226, type: 2}
+    - target: {fileID: 6920483899509144069, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920483899509144069, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 6281483510453475471, guid: 80c5939f1b9bfb74994229fbf808c226, type: 2}
     - target: {fileID: 6945604712595559757, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -779,9 +846,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8125810615693072998, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8438455357962992458, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
       propertyPath: m_RootOrder
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9061300316798316828, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+      propertyPath: offset.x
+      value: 110
+      objectReference: {fileID: 0}
+    - target: {fileID: 9222912928797314904, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+      propertyPath: Content
+      value: Can be used to upgrade abilities.
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
@@ -807,6 +886,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5646f4832f3320c4e82a2c35091a4008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1407370079 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7721379056093608750, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+  m_PrefabInstance: {fileID: 1013245897}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1407370083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407370079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipUI: {fileID: 505696319}
+  Header: Negative Bar
+  Content: Enemy-inflicted negativity fills this bar.
 --- !u!1001 &1465398064
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1142,6 +1241,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69f8512ab9e1bdb4890b070348722e51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1793935663 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2221458318231825978, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+  m_PrefabInstance: {fileID: 1013245897}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1793935667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1793935663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipUI: {fileID: 505696319}
+  Header: 'GameOver Warning:'
+  Content: Game will end due to excessive negativity!
 --- !u!1 &1825301632 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3755195926075778337, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
