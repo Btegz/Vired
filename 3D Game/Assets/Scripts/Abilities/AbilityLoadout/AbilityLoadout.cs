@@ -86,7 +86,7 @@ public class AbilityLoadout : MonoBehaviour
                     break;
                 default: instance = null; break;
             }
-            
+
             instance.ability.StarterAbility();
         }
         EventManager.OnAbilityChosenEvent += AddAbilityChoice;
@@ -101,26 +101,31 @@ public class AbilityLoadout : MonoBehaviour
 
     public void AddAbilityChoice(AbilityLoadoutButton abilityLoadoutButton)
     {
-        if (ChosenAbilityList.Count < amountToChoose)
+        if (!ChosenAbilityList.Contains(abilityLoadoutButton.ability))
         {
             //abilityLoadoutButton.transform.SetParent(ChosenAbilitiesLayout.transform);
             abilityLoadoutButton.GetComponent<Button>().enabled = false;
             ChosenAbilityList.Add(abilityLoadoutButton.ability);
-            if (ChosenAbilityList.Count == amountToChoose)
-            {
-                ConfirmButton.gameObject.SetActive(true);
-            }
-            else
-            {
-                ConfirmButton.gameObject.SetActive(false);
-            }
+        }
+        if (ChosenAbilityList.Count == amountToChoose)
+        {
+            ConfirmButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("I SHOULD BE DISABLED");
+            ConfirmButton.gameObject.SetActive(false);
         }
     }
 
     public void RemoveAbilityChoice(AbilityLoadoutButton abilityLoadoutButton)
     {
         ChosenAbilityList.Remove(abilityLoadoutButton.ability);
-        if (ConfirmButton.gameObject.activeSelf)
+        if (ChosenAbilityList.Count == amountToChoose)
+        {
+            ConfirmButton.gameObject.SetActive(true);
+        }
+        else
         {
             ConfirmButton.gameObject.SetActive(false);
         }
@@ -141,7 +146,7 @@ public class AbilityLoadout : MonoBehaviour
             MinMapImage.rectTransform.DOAnchorPos(new Vector2(646f, -237.83f), .5f);
             //MinMapImage.rectTransform.DOMove(new Vector3(646f, -237.83f, 0f), .5f);
             //MinMapImage.transform.DOMove(new Vector3(646f, -237.83f,0f), .5f);
-            MinMapImage.rectTransform.DOScale(Vector3.one, .5f).OnComplete(()=>miniMapIsZoomed=false);
+            MinMapImage.rectTransform.DOScale(Vector3.one, .5f).OnComplete(() => miniMapIsZoomed = false);
         }
         else
         {
