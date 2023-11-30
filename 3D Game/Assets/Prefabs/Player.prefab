@@ -46,7 +46,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &141612170120246660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,7 +161,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playwer: {fileID: 141612170120246660}
-  SelectedMaterial: {fileID: 2100000, guid: 9ac76da6630cc664db5e38fce01f86d1, type: 2}
+  PlayerMaterial: {fileID: 0}
+  Outline: {fileID: 0}
 --- !u!1001 &7275479254789717186
 PrefabInstance:
   m_ObjectHideFlags: 0
