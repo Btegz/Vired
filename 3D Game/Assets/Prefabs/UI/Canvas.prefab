@@ -3551,7 +3551,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 4254820645494908250}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.81333333
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4026,6 +4026,22 @@ PrefabInstance:
       propertyPath: canvas
       value: 
       objectReference: {fileID: 7721379056699693293}
+    - target: {fileID: 9131545313871283534, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+      propertyPath: m_fontSize
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 9131545313871283534, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 80c5939f1b9bfb74994229fbf808c226, type: 2}
+    - target: {fileID: 9131545313871283534, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 9131545313871283534, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
 --- !u!224 &6698215219358271527 stripped
