@@ -271,6 +271,7 @@ GameObject:
   - component: {fileID: 312694852}
   - component: {fileID: 312694851}
   - component: {fileID: 312694854}
+  - component: {fileID: 312694855}
   m_Layer: 5
   m_Name: PositiveHex
   m_TagString: Untagged
@@ -368,6 +369,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b19911b8687a49b409a8f25ecafd0fec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &312694855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312694849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipUI: {fileID: 813214857}
+  Header: 
+  Content: Positive effect.
 --- !u!1 &368940996
 GameObject:
   m_ObjectHideFlags: 0
@@ -837,6 +853,7 @@ GameObject:
   - component: {fileID: 540857918}
   - component: {fileID: 540857920}
   - component: {fileID: 540857921}
+  - component: {fileID: 540857922}
   m_Layer: 5
   m_Name: SkillPoints (TMP)
   m_TagString: Untagged
@@ -903,6 +920,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &540857922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540857917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipUI: {fileID: 813214857}
+  Header: 
+  Content: Skillpoints are used for payment.
 --- !u!1 &620829513
 GameObject:
   m_ObjectHideFlags: 0
@@ -1261,6 +1293,123 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 738764102}
   m_CullTransparentMesh: 1
+--- !u!1001 &813214856
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2002578636}
+    m_Modifications:
+    - target: {fileID: 20560469857489536, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+      propertyPath: m_Name
+      value: TooltipUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 4775904834296756076, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4775904834296756076, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+      propertyPath: m_Pivot.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4775904834296756076, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4775904834296756076, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4775904834296756076, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4775904834296756076, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4775904834296756076, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4775904834296756076, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 4775904834296756076, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4775904834296756076, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4775904834296756076, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4775904834296756076, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4775904834296756076, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4775904834296756076, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4775904834296756076, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4775904834296756076, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4775904834296756076, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4775904834296756076, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 4775904834296756076, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4775904834296756076, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4775904834296756076, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7166229509862510167, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 2002578635}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+--- !u!114 &813214857 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7166229509862510167, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+  m_PrefabInstance: {fileID: 813214856}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ecbaa1c9672d984189bd38e76bf8d02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!224 &813214858 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4775904834296756076, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
+  m_PrefabInstance: {fileID: 813214856}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &979756501
 GameObject:
   m_ObjectHideFlags: 0
@@ -1613,6 +1762,7 @@ GameObject:
   - component: {fileID: 1340449165}
   - component: {fileID: 1340449164}
   - component: {fileID: 1340449168}
+  - component: {fileID: 1340449169}
   m_Layer: 5
   m_Name: UPgradedRange
   m_TagString: Untagged
@@ -1752,6 +1902,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b19911b8687a49b409a8f25ecafd0fec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1340449169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1340449162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipUI: {fileID: 813214857}
+  Header: 
+  Content: Upgrade the range of the ability.
 --- !u!1 &1374622290
 GameObject:
   m_ObjectHideFlags: 0
@@ -2119,6 +2284,7 @@ GameObject:
   - component: {fileID: 1599024661}
   - component: {fileID: 1599024660}
   - component: {fileID: 1599024663}
+  - component: {fileID: 1599024664}
   m_Layer: 5
   m_Name: DamageHex
   m_TagString: Untagged
@@ -2216,6 +2382,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b19911b8687a49b409a8f25ecafd0fec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1599024664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1599024658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipUI: {fileID: 813214857}
+  Header: 
+  Content: Negative effect.
 --- !u!1 &1605712733
 GameObject:
   m_ObjectHideFlags: 0
@@ -2936,6 +3117,7 @@ RectTransform:
   - {fileID: 698949641}
   - {fileID: 1730215571}
   - {fileID: 1605712734}
+  - {fileID: 813214858}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2970,6 +3152,7 @@ GameObject:
   - component: {fileID: 2012646657}
   - component: {fileID: 2012646659}
   - component: {fileID: 2012646658}
+  - component: {fileID: 2012646660}
   m_Layer: 5
   m_Name: ShopBackGround
   m_TagString: Untagged
@@ -3035,6 +3218,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2012646656}
   m_CullTransparentMesh: 1
+--- !u!114 &2012646660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2012646656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipUI: {fileID: 813214857}
+  Header: 
+  Content: Drag & Drop tile into the grid to upgrade the ability.
 --- !u!1 &2103904818
 GameObject:
   m_ObjectHideFlags: 0
