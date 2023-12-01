@@ -22,7 +22,7 @@ public class EventButton : MonoBehaviour
             gameObject.transform.GetChild(PofI.pofi1).gameObject.SetActive(true);
         }
 
-        if (CompareTag("Event2"))
+        else if (CompareTag("Event2"))
         {
             Option2.onClick.AddListener(() => PofI.PofIEvent(PofI.pofiEvent2));
             gameObject.transform.GetChild(PofI.pofi2).gameObject.SetActive(true);
