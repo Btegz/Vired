@@ -123,26 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &68441151 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2107920981151160867, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
-  m_PrefabInstance: {fileID: 1013245897}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &68441153
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 68441151}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tooltipUI: {fileID: 505696319}
-  Header: 'Movement '
-  Content: Is shared by all player characters.
 --- !u!1 &149689343 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7766636002038032911, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
@@ -305,31 +285,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ecbaa1c9672d984189bd38e76bf8d02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &512764165 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7721379057070288161, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
-  m_PrefabInstance: {fileID: 1013245897}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &512764168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 512764165}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tooltipUI: {fileID: 505696319}
-  Header: Ability inventory
-  Content: Character specific abilities.
---- !u!1 &603527952 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6384642938588873367, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
-  m_PrefabInstance: {fileID: 1013245897}
-  m_PrefabAsset: {fileID: 0}
 --- !u!20 &652675123 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 1365018791435240836, guid: 11b34f7d6d9bf504e95faf77866c009c, type: 3}
@@ -340,26 +295,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2102879718667982839, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
   m_PrefabInstance: {fileID: 1013245897}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &705470276 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7721379057308959061, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
-  m_PrefabInstance: {fileID: 1013245897}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &705470279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 705470276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tooltipUI: {fileID: 505696319}
-  Header: Resource inventory
-  Content: Shared by all characters.
 --- !u!1 &813588030 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4893431847849536756, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
@@ -905,9 +840,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9222912928797314904, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
       propertyPath: Content
-      value: Can be used to upgrade abilities.
+      value: Skillpoints are used for payment.
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5558005925352120035, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
+    - {fileID: 9222912928797314904, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
 --- !u!114 &1192876668 stripped
 MonoBehaviour:
@@ -925,27 +862,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6305799397501531269, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
   m_PrefabInstance: {fileID: 1013245897}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 603527952}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5646f4832f3320c4e82a2c35091a4008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1261989901
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 603527952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tooltipUI: {fileID: 505696319}
-  Header: 
-  Content: Switch through perspectives.
 --- !u!1 &1407370079 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7721379056093608750, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
@@ -1167,26 +1089,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2b9ce677b1d0944e8af9dc8b4cdc1af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1523859062 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7721379057128779522, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
-  m_PrefabInstance: {fileID: 1013245897}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1523859068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1523859062}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tooltipUI: {fileID: 505696319}
-  Header: 
-  Content: Trigger next turn.
 --- !u!1 &1664074758 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1123690678265827422, guid: b0e9453b78cdd034a83d872938dd5631, type: 3}
