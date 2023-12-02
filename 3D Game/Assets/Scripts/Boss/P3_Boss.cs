@@ -33,7 +33,7 @@ public class P3_Boss : Boss
         PlayerManager.Instance.SkillPoints += 2;
         EventManager.OnEndTurnEvent -= BossNeighbors;
         EventManager.OnEndTurnEvent -= TriggerSpread;
-        PE_EnemySpawn.everyXRounds = 2;
+        PE_EnemySpawn.everyXRounds = 3;
         Phase.myPhaseEffects.Add(PE_EnemySpawn);
 
     }

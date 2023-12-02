@@ -179,7 +179,7 @@ public class P2_Boss : Boss
             Phase.myPhaseEffects.Remove(PE_MiniEnemySpawn);
 
         }
-        PE_EnemySpawn.everyXRounds = 1;
+        PE_EnemySpawn.everyXRounds = 2;
 
 
     }
