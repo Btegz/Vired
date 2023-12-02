@@ -287,7 +287,7 @@ public class MapSettings : ScriptableObject
 
         foreach (ProceduralTileInfo tile in result)
         {
-            Debug.Log(tile.noiseDistanceFactor);
+       //     Debug.Log(tile.noiseDistanceFactor);
         }
 
 

@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour
 
 
     [SerializeField] GameObject Particle_EnemyDeath;
+    public int SkillPointReward;
 
     public MeshRenderer mr;
     private void Awake()
@@ -76,9 +77,8 @@ public class Enemy : MonoBehaviour
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
-            PlayerManager.Instance.SkillPoints++;
+            PlayerManager.Instance.SkillPoints += SkillPointReward;
             GetComponentInParent<GridTile>().ChangeCurrentState(GridManager.Instance.gS_Negative);
-            PlayerManager.Instance.SkillPoints++;
             Instantiate(Particle_EnemyDeath, transform.position, Quaternion.Euler(-90, 0, 0));
             Destroy(gameObject);
         }

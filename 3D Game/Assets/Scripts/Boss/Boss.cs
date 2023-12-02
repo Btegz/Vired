@@ -89,9 +89,7 @@ public class Boss : MonoBehaviour
 
     public void TriggerSpread()
     {
-        Debug.Log("test");
-
-        if (turnCounter % everyXRounds == 0)
+       // if (turnCounter % everyXRounds == 0)
         {
             for (int i = 0; i < BossSpreads.Count; i++)
             {

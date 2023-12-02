@@ -193,7 +193,6 @@ public class GridManager : MonoBehaviour
         foreach(Player p in PlayerManager.Instance.Players)
         {
             unerlaubteFelder.Add(p.CoordinatePosition);
-            Debug.Log(p.CoordinatePosition);
         }
         unerlaubteFelder.Add(BossSpawn);
         foreach(Vector2Int coordinate in HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(BossSpawn), 3))

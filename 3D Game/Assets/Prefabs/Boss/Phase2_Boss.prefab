@@ -57,6 +57,7 @@ MonoBehaviour:
   HealthpointPrefab: {fileID: 0}
   healthpoints: []
   Particle_EnemyDeath: {fileID: 726535386845715946, guid: 005fc7e0d2c6e1247b7b8880e93a8099, type: 3}
+  SkillPointReward: 0
   mr: {fileID: 0}
 --- !u!114 &-6124643049886693301
 MonoBehaviour:
@@ -72,8 +73,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BossReachableTiles: []
   BossTiles: []
-  BossSpread: []
+  BossSpreads:
+  - {fileID: 11400000, guid: 0d765faaefb738d469120073c71e776d, type: 2}
   AbilityLoadout: 0
+  everyXRounds: 0
+  turnCounter: 0
   location: []
   SpawnRange: 3
   Enemy2Prefab: {fileID: 0}
@@ -84,6 +88,10 @@ MonoBehaviour:
   Boss1: {fileID: 4784703169308235399, guid: 518c8a4c86cd99948a0c3fa2efcf5436, type: 3}
   Boss2: {fileID: 3330919580862709941, guid: 0c562a2fedc3a5345bdc1c7f4c5b6dc1, type: 3}
   Boss3: {fileID: 4027204570549402153, guid: 430ba50fd7255e740a11acf26087b0cc, type: 3}
+  PE_EnemySpawn: {fileID: 11400000, guid: ae682841cdd8b6b41a5302af9e8295ed, type: 2}
+  PE_MiniEnemySpawn: {fileID: 11400000, guid: 844476e3386089c4ab2036d13528ecbf, type: 2}
+  Phase: {fileID: 11400000, guid: 8c459dee471d3cb4c9ff117d3bbc02a7, type: 2}
+  BossMinisAmount: 2
   enemy: {fileID: 8722108006677765001}
   possibleTiles: []
   randomTile1: 0
