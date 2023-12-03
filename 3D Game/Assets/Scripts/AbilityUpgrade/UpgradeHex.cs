@@ -21,6 +21,8 @@ public class UpgradeHex : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     [SerializeField] TMP_Text CostText;
 
+    [SerializeField] GameObject particle;
+
     public int Cost;
 
     Image image;
@@ -42,6 +44,8 @@ public class UpgradeHex : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         {
             gridHex = Instantiate(gridHexPrefab, this.transform);
             gridHex.Initialize(upgradeHexGrid, newHex,Cost);
+            Debug.Log("Star sparkling");
+            particle.SetActive(true);
         }
 
     }
@@ -56,6 +60,7 @@ public class UpgradeHex : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         try
         {
             gridHex.Place();
+            particle.SetActive(false);
         }
         catch
         {
