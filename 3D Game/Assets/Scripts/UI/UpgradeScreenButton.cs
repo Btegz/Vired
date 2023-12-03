@@ -2,21 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 
 public class UpgradeScreenButton : MonoBehaviour, IPointerClickHandler
 {
+    [SerializeField] UpgradeManager AbilityUpgradeObj;
     public void OnPointerClick(PointerEventData eventData)
     {
-        Scene upgradeScene = SceneManager.GetSceneByName("AbilityUpgradeScene");
-
-        if (upgradeScene.isLoaded)
+        if (!AbilityUpgradeObj.gameObject.activeSelf)
         {
-            SceneManager.UnloadSceneAsync("AbilityUpgradeScene");
+            AbilityUpgradeObj.gameObject.SetActive(true);
         }
         else
         {
-            SceneManager.LoadScene("AbilityUpgradeScene", LoadSceneMode.Additive);
+            AbilityUpgradeObj.gameObject.SetActive(false);
         }
     }
 }
