@@ -747,7 +747,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipUI: {fileID: 0}
   Header: Upgrade menu
   Content: Open ability upgrade menu.
 --- !u!1 &1592673695741182489
@@ -1189,7 +1188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipUI: {fileID: 0}
   Header: 'Movement '
   Content: Shared by all characters.
 --- !u!1 &2221458318231825978
@@ -1281,7 +1279,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipUI: {fileID: 0}
   Header: 'GameOver Warning:'
   Content: Game will end due to excessive negativity!
 --- !u!1 &2785086937464693852
@@ -2444,7 +2441,6 @@ GameObject:
   - component: {fileID: 7142925010491975116}
   - component: {fileID: 3864346188475844457}
   - component: {fileID: 4096749407747362803}
-  - component: {fileID: 9222912928797314904}
   - component: {fileID: 7899524958610032970}
   m_Layer: 5
   m_Name: Skillpoints Image
@@ -2512,21 +2508,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &9222912928797314904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4159630590339698672}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tooltipUI: {fileID: 0}
-  Header: SkillPoints
-  Content: whoooooooo
 --- !u!114 &7899524958610032970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2539,7 +2520,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipUI: {fileID: 0}
   Header: SkillPoints
   Content: Skillpoints are used for payment.
 --- !u!1 &4248136217410889294
@@ -3482,7 +3462,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipUI: {fileID: 0}
   Header: 
   Content: Positive effect.
 --- !u!1 &5195142185605666397
@@ -3495,7 +3474,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7373056583968789445}
   m_Layer: 5
-  m_Name: GameObject (1)
+  m_Name: Placeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3841,7 +3820,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipUI: {fileID: 0}
   Header: 
   Content: Negative effect.
 --- !u!1 &5376794429625048251
@@ -4411,7 +4389,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipUI: {fileID: 0}
   Header: 'Camera '
   Content: Switch through perspectives.
 --- !u!1 &6404616614035813437
@@ -5046,7 +5023,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipUI: {fileID: 0}
   Header: 
   Content: Drag & Drop tile into the grid to upgrade the ability.
 --- !u!1 &7017274090587393717
@@ -5230,7 +5206,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipUI: {fileID: 0}
   Header: 
   Content: Skillpoints are used for payment.
 --- !u!1 &7486903487726780809
@@ -5415,7 +5390,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipUI: {fileID: 0}
   Header: Negative Bar
   Content: Enemy-inflicted negativity fills this bar.
 --- !u!1 &7721379056209153564
@@ -5888,7 +5862,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipUI: {fileID: 0}
   Header: Ability inventory
   Content: Character specific abilities.
 --- !u!1 &7721379057128779522
@@ -6051,7 +6024,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipUI: {fileID: 0}
   Header: Turn button
   Content: Trigger next turn.
 --- !u!1 &7721379057273316715
@@ -6270,7 +6242,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipUI: {fileID: 0}
   Header: Resource inventory
   Content: Shared by all characters.
 --- !u!1 &7721379057501786780
@@ -6512,14 +6483,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding:
     m_Left: 0
-    m_Right: 30
+    m_Right: 0
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
+  m_ChildControlWidth: 1
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
@@ -7024,7 +6995,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 4254820645494908250}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.81333333
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7759,7 +7730,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipUI: {fileID: 0}
   Header: 
   Content: Upgrade the range of the ability.
 --- !u!1 &9146863850940671188
@@ -8599,11 +8569,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4571000926686109881, guid: ccdee08f3d1e5714093149d5b64750d0, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 130.9521
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4571000926686109881, guid: ccdee08f3d1e5714093149d5b64750d0, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 137.5411
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4571000926686109881, guid: ccdee08f3d1e5714093149d5b64750d0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8712,11 +8682,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4571000926686109881, guid: ccdee08f3d1e5714093149d5b64750d0, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 130.9521
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4571000926686109881, guid: ccdee08f3d1e5714093149d5b64750d0, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 137.5411
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4571000926686109881, guid: ccdee08f3d1e5714093149d5b64750d0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8833,11 +8803,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4571000926686109881, guid: ccdee08f3d1e5714093149d5b64750d0, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 130.9521
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4571000926686109881, guid: ccdee08f3d1e5714093149d5b64750d0, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 137.5411
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4571000926686109881, guid: ccdee08f3d1e5714093149d5b64750d0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9060,11 +9030,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4571000926686109881, guid: ccdee08f3d1e5714093149d5b64750d0, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 130.9521
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4571000926686109881, guid: ccdee08f3d1e5714093149d5b64750d0, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 137.5411
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4571000926686109881, guid: ccdee08f3d1e5714093149d5b64750d0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9472,11 +9442,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4571000926686109881, guid: ccdee08f3d1e5714093149d5b64750d0, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 130.9521
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4571000926686109881, guid: ccdee08f3d1e5714093149d5b64750d0, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 137.5411
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4571000926686109881, guid: ccdee08f3d1e5714093149d5b64750d0, type: 3}
       propertyPath: m_LocalPosition.x

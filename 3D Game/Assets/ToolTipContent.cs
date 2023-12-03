@@ -5,17 +5,16 @@ using UnityEngine.EventSystems;
 
 public class ToolTipContent : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] TooltipUI tooltipUI;
     public string Header;
     public string Content;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        tooltipUI.DisplayTooltip(Header, Content);
+        TooltipUI.Instance.DisplayTooltip(Header, Content);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        tooltipUI.HideTooltip();
+        TooltipUI.Instance.HideTooltip();
     }
 }

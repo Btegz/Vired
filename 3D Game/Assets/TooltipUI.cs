@@ -7,17 +7,32 @@ using UnityEngine.InputSystem;
 
 public class TooltipUI : MonoBehaviour
 {
+    public static TooltipUI Instance;
+
     [SerializeField] TMP_Text TooltipText;
     [SerializeField] Vector2 offset;
 
-    [SerializeField]Canvas canvas; 
-    [SerializeField]RectTransform rect;
+    [SerializeField] Canvas canvas;
+    [SerializeField] RectTransform rect;
+
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
 
     public void DisplayTooltip(string header, string content)
     {
         gameObject.SetActive(true);
-        TooltipText.text = "<b>"+header+ "</b>";
-        TooltipText.text += "<br>"+content.Replace("\\n", "\n");
+        TooltipText.text = "<b>" + header + "</b>";
+        TooltipText.text += "<br>" + content.Replace("\\n", "\n");
     }
 
     public void HideTooltip()

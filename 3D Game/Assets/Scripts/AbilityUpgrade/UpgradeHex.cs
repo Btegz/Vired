@@ -27,7 +27,7 @@ public class UpgradeHex : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     Image image;
 
-    private void Start()
+    private void OnEnable()
     {
         image = GetComponent<Image>();
         EventManager.UpgradeAbilitySelectEvent += UpdateCost;
@@ -38,14 +38,26 @@ public class UpgradeHex : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         catch { }
     }
 
+    private void OnDisable()
+    {
+        EventManager.UpgradeAbilitySelectEvent -= UpdateCost;
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (PlayerManager.Instance.SkillPoints >= Cost)
         {
             gridHex = Instantiate(gridHexPrefab, this.transform);
             gridHex.Initialize(upgradeHexGrid, newHex,Cost);
-            Debug.Log("Star sparkling");
-            particle.SetActive(true);
+            try
+            {
+                particle.SetActive(true);
+            }
+            catch
+            {
+                Debug.Log("I am trying to play a particle effect.");
+            }
+            
         }
 
     }
