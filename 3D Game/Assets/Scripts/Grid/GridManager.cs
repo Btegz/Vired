@@ -8,6 +8,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static PofIManager;
 using Random = UnityEngine.Random;
 
 /// <summary>
@@ -38,6 +39,10 @@ public class GridManager : MonoBehaviour
     [SerializeField][HideInInspector] public Enemy Boss1Phase2;
     [SerializeField][HideInInspector] public Enemy Boss2Phase2;
     [SerializeField][HideInInspector] public Enemy Boss3Phase2;
+    [SerializeField] public GameObject PofIPrefab;
+    [SerializeField][HideInInspector] public GameObject pofi;
+    private List<Vector2Int> PofIList = new List<Vector2Int>(); 
+    private int randomPofI;
 
     public Vector2Int BossSpawn;
     public int random;
@@ -164,10 +169,10 @@ public class GridManager : MonoBehaviour
                 if (tileinfo.valid)
                 {
                     GridTile newTile = Instantiate(GridTilePrefab);
-                    newTile.Setup(tileinfo.coord, tileinfo.resource,true);
+                    newTile.Setup(tileinfo.coord, tileinfo.resource, true);
                     newTile.transform.parent = transform;
                     newTile.transform.position = HexGridUtil.AxialHexToPixel(tileinfo.coord, 1);
-                  //  newTile.transform.position += Vector3.up * (1 + tileinfo.noiseValue);
+                    //  newTile.transform.position += Vector3.up * (1 + tileinfo.noiseValue);
                     Grid.Add(tileinfo.coord, newTile);
                 }
             }
@@ -190,12 +195,12 @@ public class GridManager : MonoBehaviour
         List<GridTile> reachableTiles = new List<GridTile>();
 
         List<Vector2Int> unerlaubteFelder = new List<Vector2Int>();
-        foreach(Player p in PlayerManager.Instance.Players)
+        foreach (Player p in PlayerManager.Instance.Players)
         {
             unerlaubteFelder.Add(p.CoordinatePosition);
         }
         unerlaubteFelder.Add(BossSpawn);
-        foreach(Vector2Int coordinate in HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(BossSpawn), 3))
+        foreach (Vector2Int coordinate in HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(BossSpawn), 3))
         {
             unerlaubteFelder.Add(coordinate);
         }
@@ -271,12 +276,12 @@ public class GridManager : MonoBehaviour
         players[2].CoordinatePosition = Border[Border.Count / 4 * 3];
 
         List<Vector2Int> newBossTiles = HexGridUtil.AxialNeighbors(BossSpawn);
-        foreach(Vector2Int coordinate in newBossTiles)
+        foreach (Vector2Int coordinate in newBossTiles)
         {
             if (!Grid.ContainsKey(coordinate))
             {
                 GridTile newTile = Instantiate(GridTilePrefab);
-                newTile.Setup(coordinate, (Ressource) Random.Range(0,4),true);
+                newTile.Setup(coordinate, (Ressource)Random.Range(0, 4), true);
                 newTile.transform.parent = transform;
                 newTile.transform.position = HexGridUtil.AxialHexToPixel(coordinate, 1);
                 newTile.currentGridState = gS_BossNegative;
@@ -298,12 +303,18 @@ public class GridManager : MonoBehaviour
                 possibleTiles.Add(kvp.Key);
             }
         }
-
         for (int i = 0; i < 4; i++)
         {
-            Grid[possibleTiles[Random.Range(0, possibleTiles.Count)]].ChangeCurrentState(gS_PofI);
+            randomPofI = Random.Range(0, possibleTiles.Count);
+            Grid[possibleTiles[randomPofI]].ChangeCurrentState(gS_PofI);
+            PofIList.Add(possibleTiles[randomPofI]);
         }
+       /* foreach (Vector2Int pofI in PofIList)
+        {
+            pofi = Instantiate(PofIPrefab,HexGridUtil.AxialToCubeCoord(pofI), Quaternion.identity, Grid[pofI].transform);
+        }*/
     }
+
 
     /// <summary>
     /// Generates a Grid

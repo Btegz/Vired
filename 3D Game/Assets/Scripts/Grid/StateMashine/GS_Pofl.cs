@@ -30,6 +30,7 @@ public class GS_Pofl : GridState
         PlayerManager.Instance.move = false;
         pofi = Instantiate(PointOfInterest, PointOfInterest.transform.position, Quaternion.identity);
         parent.ChangeCurrentState(GridManager.Instance.gS_Neutral);
+        
   
     }
 
