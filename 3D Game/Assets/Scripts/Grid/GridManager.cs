@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Cryptography;
+using DG.Tweening;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static PofIManager;
+using static UnityEngine.EventSystems.EventTrigger;
 using Random = UnityEngine.Random;
 
 /// <summary>
@@ -39,14 +41,18 @@ public class GridManager : MonoBehaviour
     [SerializeField][HideInInspector] public Enemy Boss1Phase2;
     [SerializeField][HideInInspector] public Enemy Boss2Phase2;
     [SerializeField][HideInInspector] public Enemy Boss3Phase2;
-    [SerializeField] public GameObject PofIPrefab;
-    [SerializeField][HideInInspector] public GameObject pofi;
-    private List<Vector2Int> PofIList = new List<Vector2Int>(); 
-    private int randomPofI;
+
 
     public Vector2Int BossSpawn;
     public int random;
     public new Vector2Int[] coords = new Vector2Int[3];
+
+    [Header("PofIs")]
+    [SerializeField] public GameObject PofIPrefab;
+    [SerializeField][HideInInspector] public GameObject pofi;
+    private List<Vector2Int> PofIList = new List<Vector2Int>(); 
+    private int randomPofI;
+    public int pofIOffset;
 
     [Header("Map")]
     [SerializeField] public MapSettings mapSettings;
@@ -309,10 +315,15 @@ public class GridManager : MonoBehaviour
             Grid[possibleTiles[randomPofI]].ChangeCurrentState(gS_PofI);
             PofIList.Add(possibleTiles[randomPofI]);
         }
-       /* foreach (Vector2Int pofI in PofIList)
+        foreach (Vector2Int pofI in PofIList)
         {
-            pofi = Instantiate(PofIPrefab,HexGridUtil.AxialToCubeCoord(pofI), Quaternion.identity, Grid[pofI].transform);
-        }*/
+            GridTile targetLocation = GridManager.Instance.Grid[pofI];
+            pofi = Instantiate(PofIPrefab);
+            pofi.transform.parent = targetLocation.transform;
+            pofi.transform.position = new Vector3(targetLocation.transform.position.x, pofIOffset, targetLocation.transform.position.z);
+
+            
+        }
     }
 
 

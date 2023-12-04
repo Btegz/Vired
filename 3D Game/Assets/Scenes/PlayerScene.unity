@@ -326,17 +326,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &858591501 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5357543653835728221, guid: 710f2ec76b3e94748b37e8a3f9bb820e, type: 3}
-  m_PrefabInstance: {fileID: 5357543654056260688}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba6c3cbce086b2d4f974232f846dc96d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &882246480
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,17 +402,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 6993991225135169736, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
-      propertyPath: PofIPrefab
-      value: 
-      objectReference: {fileID: 5730689215906992844, guid: cdc085cf39f64a74cb5ec35f995ef18c, type: 3}
-    - target: {fileID: 6993991225135169736, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
       propertyPath: mainCanvas
       value: 
       objectReference: {fileID: 820957795}
-    - target: {fileID: 6993991225135169736, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
-      propertyPath: bossmanager
-      value: 
-      objectReference: {fileID: 858591501}
     - target: {fileID: 6993991225135169737, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
       propertyPath: m_Name
       value: GridManager
