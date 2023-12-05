@@ -21,7 +21,6 @@ public class P1_Boss : Boss
         enemy.currentHealth = 5;
         BossParticle(gameObject);
 
-        Debug.Log(bossManager.Playtesting);
         /*
                 for (int i = 0; i < PlayerManager.Instance.Players.Count; i++)
                 {
@@ -45,21 +44,12 @@ public class P1_Boss : Boss
 
     public void OnDestroy()
      {
-        if (bossManager.Playtesting == true)
-        {
-           
-            GridManager.Instance.GameWon();
+        
             BossDeath(location[0]);
-            PlayerManager.Instance.SkillPoints += 2;
-            EventManager.OnEndTurnEvent -= BossNeighbors;
-        }
-
-        else
-        {
+        Debug.Log(location[0]);
             EventManager.OnPhaseChange();
-            BossDeath(location[0]);
             PlayerManager.Instance.SkillPoints += 2;
             EventManager.OnEndTurnEvent -= BossNeighbors;
-        }
+        
     }
 }
