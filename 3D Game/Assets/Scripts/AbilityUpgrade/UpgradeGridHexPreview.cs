@@ -20,6 +20,7 @@ public class UpgradeGridHexPreview : UpgradeGridHex
 
     private void Start()
     {
+        // hier der Particle Effekt, der für das Hex ist, das du drag & dropst
         previousPosition = Vector3.zero;
         coordinateToPlace = Vector2Int.zero;
     }

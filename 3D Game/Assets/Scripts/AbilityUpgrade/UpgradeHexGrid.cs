@@ -137,6 +137,7 @@ public class UpgradeHexGrid : MonoBehaviour
 
     public void UpgradeAbility(Vector2Int coord, Effect effect)
     {
+        
         Effect newEffect = effect;
         if (AbilityGrid.ContainsKey(coord) && newEffect == Effect.Negative100)
         {
@@ -148,10 +149,14 @@ public class UpgradeHexGrid : MonoBehaviour
                 case Effect.Negative400: newEffect = Effect.Negative500; break;
             }
             AbilityGrid[coord] = newEffect;
+            // Hier kannst du wackeln für Schadenseffekte
+            // Particle Effekte kannste hier auch machen
         }
         else
         {
             AbilityGrid.Add(coord, newEffect);
+            //Hier kannst du wackeln für PositivEffekte
+            //Particle Effekte kannste hier auch machen
         }
         Sprite newFill = GetFittingSprite(newEffect, out string text);
 

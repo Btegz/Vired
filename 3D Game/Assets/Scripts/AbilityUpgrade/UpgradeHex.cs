@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class UpgradeHex : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerDownHandler
+public class UpgradeHex : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] public Effect effect;
 
@@ -29,6 +29,7 @@ public class UpgradeHex : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     private void OnEnable()
     {
+        // hier particles abspielen 
         image = GetComponent<Image>();
         EventManager.UpgradeAbilitySelectEvent += UpdateCost;
         try
@@ -57,9 +58,7 @@ public class UpgradeHex : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
             {
                 Debug.Log("I am trying to play a particle effect.");
             }
-            
         }
-
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -102,5 +101,16 @@ public class UpgradeHex : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
             image.rectTransform.DOComplete();
             image.rectTransform.DOPunchRotation(Vector3.back * 30, .25f).SetEase(Ease.OutExpo);
         }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        // Hier on Mouse Over Particle Effekt abspielen
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        // hier Das particle Effect stoppen
+        // es kann sein, dass der Particle Effect nicht vernünftig gestoppt wird
     }
 }

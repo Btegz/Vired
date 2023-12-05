@@ -32,6 +32,7 @@ public class GS_Pofl : GridState
         parent.ChangeCurrentState(GridManager.Instance.gS_Neutral);
         Destroy(parent.gameObject.GetComponentInChildren<PofIVisuals>().gameObject);
         
+        Destroy(parent.gameObject.GetComponentInChildren<Transform>().gameObject);
   
     }
 
