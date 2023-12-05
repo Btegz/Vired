@@ -20,11 +20,13 @@ public class TooltipUI : MonoBehaviour
         if(Instance == null)
         {
             Instance = this;
+            gameObject.SetActive(false);
         }
         else
         {
             Destroy(gameObject);
         }
+        
     }
 
 

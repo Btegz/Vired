@@ -38,7 +38,6 @@ public class UIManager : MonoBehaviour
         }
         EndTurnButton.onClick.AddListener(EndTurn);
         EndTurnButton.onClick.AddListener(GridManager.Instance.TriggerPhase);
-        EventManager.OnSelectPlayerEvent += UpdateAbilityInventory;
         //AbilitiesInventoryButton.onClick.AddListener(ExpandAbilityInventory);
     }
 
@@ -75,7 +74,6 @@ public class UIManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        EventManager.OnSelectPlayerEvent -= UpdateAbilityInventory;
     }
 
     // Update is called once per frame
