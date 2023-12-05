@@ -19,11 +19,13 @@ public class UpgradeHexGrid : MonoBehaviour
     public int AbilityTierLevel;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         if (PlayerManager.Instance.selectedPlayer != null)
         {
             Player selectedPlayer = PlayerManager.Instance.selectedPlayer;
+            EventManager.OnSelectPlayerEvent += x => MakeAbilityToGrid(x.AbilityInventory.Count>0?x.AbilityInventory[0]:loadedAbility);
+            EventManager.OnAbilityButtonEvent += MakeAbilityToGrid;
             if (selectedPlayer.AbilityInventory[0] != null)
             {
                 MakeAbilityToGrid(selectedPlayer.AbilityInventory[0]);
@@ -33,6 +35,12 @@ public class UpgradeHexGrid : MonoBehaviour
                 MakeGrid(3);
             }
         }
+    }
+
+    private void OnDisable()
+    {
+        EventManager.OnAbilityButtonEvent += MakeAbilityToGrid;
+        EventManager.OnSelectPlayerEvent -= x => MakeAbilityToGrid(x.AbilityInventory[0]);
     }
 
     public void MakeGrid(int radius)
@@ -65,6 +73,11 @@ public class UpgradeHexGrid : MonoBehaviour
 
     public void MakeAbilityToGrid(Ability ability)
     {
+        if(ability == null)
+        {
+            MakeGrid(0);
+            return;
+        }
         MakeGrid(ability.MyTierLevel);
         if(AbilityGrid != null)
         {

@@ -16,16 +16,10 @@ public class UpgradeGridHexPreview : UpgradeGridHex
 
     Vector3 previousPosition;
 
-    Vector2 previousMousePosition;
-
     int cost;
 
     private void Start()
     {
-        Debug.Log("prefab position: "+ transform.position+ ", mouse position: "+ Pointer.current.position.ReadValue()+", mouseWorldPosition: "+Camera.main.ScreenToWorldPoint(Pointer.current.position.ReadValue()));
-
-        previousMousePosition = Pointer.current.position.ReadValue();
-
         previousPosition = Vector3.zero;
         coordinateToPlace = Vector2Int.zero;
     }
@@ -43,8 +37,6 @@ public class UpgradeGridHexPreview : UpgradeGridHex
     private void Update()
     {
         Vector2 mousePos = Pointer.current.position.ReadValue();
-
-        Vector2 mousePositionDelta = previousMousePosition- mousePos;
 
         Vector2 SceenCenter = mousePos - (Vector2)upgradeHexGrid.transform.position;
 
@@ -67,7 +59,7 @@ public class UpgradeGridHexPreview : UpgradeGridHex
         else
         {
             coordinateToPlace = Vector2Int.zero;
-            transform.position = new Vector2();
+            transform.position = mousePos;
         }
     }
 
