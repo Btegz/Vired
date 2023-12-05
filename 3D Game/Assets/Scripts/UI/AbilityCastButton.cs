@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,9 +9,11 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler
 {
     public void AssignAbility(Player player)
     {
+        Debug.Log("Assign Ability Is called with player reference");
         if (player.AbilityInventory.Count > index)
         {
             ability = player.AbilityInventory[index];
+            Debug.Log("I Am AbilityButton number " + index + ", and i will show Ability" + player.AbilityInventory[index]);
             MakeAbilityToGrid();
             CorrectBackground();
         }
@@ -22,11 +25,10 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler
 
     public void AssignAbility()
     {
+        Debug.Log("Assign Ability Is called without player reference");
         try
         {
             ability = PlayerManager.Instance.selectedPlayer.AbilityInventory[index];
-            MakeAbilityToGrid();
-            CorrectBackground();
         }
         catch
         {
@@ -36,7 +38,21 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler
             {
                 Destroy(rt.gameObject);
             }
+            ResetButton();
+            return;
         }
+            MakeAbilityToGrid();
+            CorrectBackground();
+        //catch
+        //{
+        //    ability = null;
+        //    UpgradeGridHex[] children = GetComponentsInChildren<UpgradeGridHex>();
+        //    foreach (UpgradeGridHex rt in children)
+        //    {
+        //        Destroy(rt.gameObject);
+        //    }
+        //    ResetButton();
+        //}
     }
 
     // Start is called before the first frame update
@@ -50,7 +66,19 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler
 
     public void clicked()
     {
-        EventManager.OnAbilityButtonClicked(ability);
+        if(PlayerManager.Instance.InventoryCheck(ability, PlayerManager.Instance.selectedPlayer))
+        {
+            EventManager.OnAbilityButtonClicked(ability);
+
+        }
+        else
+        {
+            RectTransform thisRectT = GetComponent<RectTransform>();
+            thisRectT.DOComplete();
+            thisRectT.DOPunchRotation(Vector3.back * 30, .25f).SetEase(Ease.OutExpo);
+
+            
+        }
     }
 
     private void OnDestroy()

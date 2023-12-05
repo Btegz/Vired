@@ -53,11 +53,14 @@ public class AbilityButton : MonoBehaviour
             UIGrid = Grid;
             foreach (KeyValuePair<Vector2Int, UpgradeGridHex> kvp in UIGrid)
             {
+                if(kvp.Value.effect == Effect.Neutral)
+                {
+                    continue;
+                }
                 UpgradeGridHex newHex = Instantiate(kvp.Value);
                 newHex.transform.SetParent(this.transform, false);
                 newHex.transform.localScale = Vector2.one * 0.2f;
                 Vector3 wordPos = HexGridUtil.AxialHexToPixel(kvp.Key, 10);
-
                 newHex.transform.localPosition = new Vector2(wordPos.x, wordPos.z);
                 CostText.text = ability.MyCostAmount.ToString();
             }
@@ -66,7 +69,14 @@ public class AbilityButton : MonoBehaviour
 
     public void MakeAbilityToGrid()
     {
+        if(ability==null)
+        {
+            Debug.Log("no ability to make to grid");
+            return;
+        }
         ResetButton();
+
+
         //MakeGrid(ability.MyTierLevel);
         if (UIGrid != null)
         {
@@ -74,6 +84,7 @@ public class AbilityButton : MonoBehaviour
             {
                 if (kvp.Value != null)
                 {
+                    Debug.Log("I DESTROY");
                     Destroy(kvp.Value.gameObject);
                 }
             }
@@ -86,6 +97,7 @@ public class AbilityButton : MonoBehaviour
 
         for (int i = 0; i < ability.Coordinates.Count; i++)
         {
+            //Debug.Log("I make a tile of the ability now");
             Sprite sp = GetFittingSprite(ability.Effects[i], out string text);
             if (UIGrid.ContainsKey(ability.Coordinates[i]))
             {
@@ -94,6 +106,7 @@ public class AbilityButton : MonoBehaviour
             }
             else
             {
+                Debug.Log("I instantiate a Tile now");
                 UpgradeGridHex newHex = Instantiate(upgradeHexPrefab, this.transform);
                 newHex.transform.localScale = Vector2.one * 0.2f;
                 Vector3 wordPos = HexGridUtil.AxialHexToPixel(ability.Coordinates[i], 10);
@@ -150,12 +163,14 @@ public class AbilityButton : MonoBehaviour
 
     public void ResetButton()
     {
+        Debug.Log("reset Button is beeing called. This is destroying my Ability Preview");
         UpgradeGridHex[] children = GetComponentsInChildren<UpgradeGridHex>();
         foreach (UpgradeGridHex rt in children)
         {
             Destroy(rt.gameObject);
         }
         GetComponent<Image>().sprite = emptyAbilitySlotSprite;
+        //UIGrid.Clear();
         CostText.text = "";
     }
 }

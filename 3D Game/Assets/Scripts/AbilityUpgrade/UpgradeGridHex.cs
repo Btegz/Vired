@@ -38,4 +38,9 @@ public class UpgradeGridHex : MonoBehaviour
         image.sprite = sprite;
         this.text.text = text;
     }
+
+    private void OnDestroy()
+    {
+        Debug.Log("I dont know why but im beeing destroyed");
+    }
 }

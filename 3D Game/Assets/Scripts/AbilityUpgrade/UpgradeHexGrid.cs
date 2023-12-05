@@ -24,7 +24,7 @@ public class UpgradeHexGrid : MonoBehaviour
         if (PlayerManager.Instance.selectedPlayer != null)
         {
             Player selectedPlayer = PlayerManager.Instance.selectedPlayer;
-            EventManager.OnSelectPlayerEvent += x => MakeAbilityToGrid(x.AbilityInventory.Count>0?x.AbilityInventory[0]:loadedAbility);
+            EventManager.OnSelectPlayerEvent += UpdateLoadedAbilityFromPlayerSwitch;
             EventManager.OnAbilityButtonEvent += MakeAbilityToGrid;
             if (selectedPlayer.AbilityInventory[0] != null)
             {
@@ -39,8 +39,16 @@ public class UpgradeHexGrid : MonoBehaviour
 
     private void OnDisable()
     {
-        EventManager.OnAbilityButtonEvent += MakeAbilityToGrid;
-        EventManager.OnSelectPlayerEvent -= x => MakeAbilityToGrid(x.AbilityInventory[0]);
+        EventManager.OnAbilityButtonEvent -= MakeAbilityToGrid;
+        EventManager.OnSelectPlayerEvent -=  UpdateLoadedAbilityFromPlayerSwitch;
+    }
+
+    public void UpdateLoadedAbilityFromPlayerSwitch(Player player)
+    {
+        if(player.AbilityInventory.Count>0)
+        {
+            MakeAbilityToGrid(player.AbilityInventory[0]);
+        }
     }
 
     public void MakeGrid(int radius)
@@ -181,6 +189,10 @@ public class UpgradeHexGrid : MonoBehaviour
         {
             foreach (KeyValuePair<Vector2Int, Effect> upgradedAbilityGrid in AbilityGrid)
             {
+                if(upgradedAbilityGrid.Value == Effect.Neutral)
+                {
+                    continue;
+                }
                 if (!loadedAbility.Coordinates.Contains(upgradedAbilityGrid.Key))
                 {
                     loadedAbility.Coordinates.Add(upgradedAbilityGrid.Key);
