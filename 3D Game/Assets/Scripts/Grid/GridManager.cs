@@ -306,6 +306,7 @@ public class GridManager : MonoBehaviour
         {
             if (kvp.Value.currentGridState == gS_Positive && kvp.Key != PlayerManager.Instance.Players[0].CoordinatePosition && kvp.Key != PlayerManager.Instance.Players[1].CoordinatePosition && kvp.Key != PlayerManager.Instance.Players[2].CoordinatePosition)
             {
+                if(kvp.Value.currentGridState != gS_BossNegative && kvp.Value.currentGridState != gS_Negative && kvp.Value.currentGridState != gS_Enemy && kvp.Value.currentGridState != gS_Boss)
                 possibleTiles.Add(kvp.Key);
             }
         }
