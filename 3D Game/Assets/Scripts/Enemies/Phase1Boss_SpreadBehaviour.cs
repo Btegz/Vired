@@ -72,7 +72,7 @@ public class Phase1Boss_SpreadBehaviour : Spreadbehaviours
 
             if (GridManager.Instance.Grid.Keys.Contains(HexGridUtil.CubeToAxialCoord(Coord)))
             {
-                if (GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(Coord)].currentGridState != GridManager.Instance.gS_Negative && GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(Coord)].currentGridState != GridManager.Instance.gS_BossNegative && GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(Coord)].AxialCoordinate != PlayerManager.Instance.Players[counter].CoordinatePosition)
+                if (GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(Coord)].currentGridState != GridManager.Instance.gS_Negative && GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(Coord)].currentGridState != GridManager.Instance.gS_Boss&&  GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(Coord)].currentGridState != GridManager.Instance.gS_BossNegative && GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(Coord)].AxialCoordinate != PlayerManager.Instance.Players[counter].CoordinatePosition)
                 {
                     GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(Coord)].ChangeCurrentState(GridManager.Instance.gS_Negative);
                     GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)].ChangeCurrentState(GridManager.Instance.gS_Negative);
