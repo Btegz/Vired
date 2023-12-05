@@ -46,6 +46,7 @@ public class UpgradeHex : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        // hier könntest du auch den On MouseEnter Particle Effect stoppen
         if (PlayerManager.Instance.SkillPoints >= Cost)
         {
             gridHex = Instantiate(gridHexPrefab, this.transform);
