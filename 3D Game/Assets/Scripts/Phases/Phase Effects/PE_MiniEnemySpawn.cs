@@ -10,6 +10,16 @@ public class PE_MiniEnemySpawn : PhaseEffect
 
     [SerializeField] private List<EnemySO> enemySOs;
 
+    [SerializeField] private List<Vector3Int> Zerklings;
+    [SerializeField] private List<Vector3Int> ZerklingNeighbor;
+    [SerializeField] private List<Vector3Int> possibleTiles;
+    [SerializeField] private List<Vector3Int> possibleNeighbors;
+    [SerializeField] private List<Vector3Int> ZerklingSpawn;
+
+    Dictionary<Vector2Int, GridTile> grid = GridManager.Instance.Grid;
+
+
+
     public List<EnemySO> myEnemySoList
     {
         get { return enemySOs; }
@@ -36,7 +46,7 @@ public class PE_MiniEnemySpawn : PhaseEffect
     {
         if (turnCounter % everyXRounds == 0)
         {
-                 for (int i = 0; i < SpreadBehaviours.Count; i++)
+            for (int i = 0; i < SpreadBehaviours.Count; i++)
             {
                 Vector3Int target;
                 if (SpreadBehaviours[i].TargetTile(Vector3Int.zero, out target, PlayerManager.Instance.playerPosition))
@@ -48,7 +58,56 @@ public class PE_MiniEnemySpawn : PhaseEffect
                     targetLocation.ChangeCurrentState(gridManager.gS_Enemy);
                     enemy1.transform.parent = targetLocation.transform;
                     enemy1.transform.position = targetLocation.transform.position;
+
+                   /* Zerklings = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(targetLocation.AxialCoordinate));
+
+                    foreach (Vector3Int zerkling in Zerklings)
+                    {
+
+                        if (GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(zerkling)].currentGridState == GridManager.Instance.gS_Positive && GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(zerkling)].AxialCoordinate != PlayerManager.Instance.playerPosition)
+                        {
+
+                            possibleTiles.Add(zerkling);
+
+                        }
+                    }
+                    Vector3Int neighbor = possibleTiles[Random.RandomRange(0, possibleTiles.Count)];
+
+                    ZerklingNeighbor = HexGridUtil.CubeNeighbors(neighbor);
+
+                    foreach (Vector3Int neighbour in ZerklingNeighbor)
+                    {
+                        if (GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbour)].currentGridState == GridManager.Instance.gS_Positive && GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbour)].AxialCoordinate != PlayerManager.Instance.playerPosition)
+                        {
+                            possibleNeighbors.Add(neighbour);
+                        }
+                    }
+                    Vector3Int neighboringNeighbor = possibleNeighbors[Random.Range(0, possibleNeighbors.Count)];
+
+
+
+                    Enemy enemy2 = Instantiate(enemyPrefab);
+                    GridTile targetlocato = GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighboringNeighbor)];
+                    enemy2.Setup(enemySOs[Random.Range(0, enemySOs.Count)], targetlocato);
+                    enemy2.currentHealth = 1;
+                    targetlocato.ChangeCurrentState(gridManager.gS_Enemy);
+                    enemy2.transform.parent = targetlocato.transform;
+                    enemy2.transform.position = targetlocato.transform.position;
+
+                    Enemy enemy3 = Instantiate(enemyPrefab);
+                    GridTile targetlocatio = GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)];
+                    enemy3.Setup(enemySOs[Random.Range(0, enemySOs.Count)], targetlocatio);
+                    enemy3.currentHealth = 1;
+                    targetlocatio.ChangeCurrentState(gridManager.gS_Enemy);
+                    enemy3.transform.parent = targetlocatio.transform;
+                    enemy3.transform.position = targetlocatio.transform.position;
+                    break;
+
+                    */
+
                 }
+
+
             }
         }
     }
