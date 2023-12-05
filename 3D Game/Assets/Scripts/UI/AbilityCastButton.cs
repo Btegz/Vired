@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -65,7 +66,19 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler
 
     public void clicked()
     {
-        EventManager.OnAbilityButtonClicked(ability);
+        if(PlayerManager.Instance.InventoryCheck(ability, PlayerManager.Instance.selectedPlayer))
+        {
+            EventManager.OnAbilityButtonClicked(ability);
+
+        }
+        else
+        {
+            RectTransform thisRectT = GetComponent<RectTransform>();
+            thisRectT.DOComplete();
+            thisRectT.DOPunchRotation(Vector3.back * 30, .25f).SetEase(Ease.OutExpo);
+
+            
+        }
     }
 
     private void OnDestroy()
