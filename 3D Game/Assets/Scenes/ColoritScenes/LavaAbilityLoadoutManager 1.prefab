@@ -976,8 +976,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4286864728
-  m_fontColor: {r: 0.34509805, g: 0.3647059, b: 0.5176471, a: 1}
+    rgba: 4283387727
+  m_fontColor: {r: 0.31132078, g: 0.31132078, b: 0.31132078, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1197,7 +1197,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75107f0c49ebebc40880ee30241df6dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipUI: {fileID: 1635340324767712385}
   Header: zoom
   Content: Change the size of the map.
 --- !u!1 &6533470304886163943
@@ -1965,7 +1964,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.008009964, g: 0.026076872, b: 0.18867922, a: 1}
+  m_Color: {r: 0.254717, g: 0.254717, b: 0.254717, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2125,17 +2124,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
---- !u!114 &1635340324767712385 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7166229509862510167, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}
-  m_PrefabInstance: {fileID: 8485461854135519958}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ecbaa1c9672d984189bd38e76bf8d02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &4000611255687855546 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4775904834296756076, guid: b8264d213eeb24d4a97f1bfe27ca3009, type: 3}

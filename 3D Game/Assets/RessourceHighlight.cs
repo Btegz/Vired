@@ -21,10 +21,4 @@ public class RessourceHighlight : MonoBehaviour
         sequence.Play();
 
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
