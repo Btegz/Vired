@@ -304,6 +304,14 @@ public class PlayerManager : MonoBehaviour
         AbilityPreview.ShowMesh(chosenAbility, selectedPoint, playerPos);
     }
 
+    public void AbilityClicked(Ability ability,AbilityButton button)
+    {
+        if(button.currentState == ButtonState.inMainScene)
+        {
+            AbilityClicked(ability);
+        }
+    }
+
     /// <summary>
     /// Called in OnClick of an AbilityButton.
     /// determins whether player has enough Ressources for the Ability
@@ -311,7 +319,6 @@ public class PlayerManager : MonoBehaviour
     /// <param name="index">index of the Ability Clicked</param>
     public void AbilityClicked(Ability ability)
     {
-        Debug.Log("I am AbilityClicked and i got called from the AbilityButtonClickEvent. Currdently, abilityActivated is: " + abilityActivated);
         // sets the "abilityAcitvated" bool to true, so player cant move anymore after choosing a Ability
         if (abilityActivated == false && InventoryCheck(ability, selectedPlayer))
         {

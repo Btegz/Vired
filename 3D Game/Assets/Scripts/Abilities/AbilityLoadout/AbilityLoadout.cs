@@ -86,6 +86,7 @@ public class AbilityLoadout : MonoBehaviour
                     break;
                 default: instance = null; break;
             }
+            instance.currentState = ButtonState.inLoadout;
 
             instance.ability.StarterAbility();
         }

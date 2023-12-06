@@ -11,10 +11,12 @@ public class UpgradeScreenButton : MonoBehaviour, IPointerClickHandler
         if (!AbilityUpgradeObj.gameObject.activeSelf)
         {
             AbilityUpgradeObj.gameObject.SetActive(true);
+            EventManager.OnAbilityUpgrade(ButtonState.inUpgrade);
         }
         else
         {
             AbilityUpgradeObj.gameObject.SetActive(false);
+            EventManager.OnAbilityUpgrade(ButtonState.inMainScene);
         }
     }
 }

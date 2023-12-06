@@ -28,12 +28,12 @@ public class EventManager
         OnConfirmButtonEvent?.Invoke();
     }
 
-    public delegate void AbilityButtonDelegate(Ability ability);
+    public delegate void AbilityButtonDelegate(Ability ability, AbilityButton button);
     public static event AbilityButtonDelegate OnAbilityButtonEvent;
 
-    public static void OnAbilityButtonClicked(Ability ability)
+    public static void OnAbilityButtonClicked(Ability ability, AbilityButton button)
     {
-        OnAbilityButtonEvent?.Invoke(ability);
+        OnAbilityButtonEvent?.Invoke(ability, button);
     }
 
     public delegate void LoadOutAbilityChosen(AbilityLoadoutButton abilityButton);
@@ -92,5 +92,12 @@ public class EventManager
         PhaseChangeEvent?.Invoke();
     }
 
+    public delegate void AbilityUpgradeDelegate(ButtonState newState);
+    public static event AbilityUpgradeDelegate AbilityUpgradeEvent;
+
+    public static void OnAbilityUpgrade(ButtonState newState)
+    {
+        AbilityUpgradeEvent?.Invoke(newState);
+    }
 
 }

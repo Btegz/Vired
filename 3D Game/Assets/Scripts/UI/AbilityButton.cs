@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum ButtonState { inLoadout, inMainScene, inUpgrade}
+
 public class AbilityButton : MonoBehaviour
 {
     [SerializeField] protected Sprite EmptyHexSprite;
@@ -23,8 +25,17 @@ public class AbilityButton : MonoBehaviour
     [SerializeField] protected Sprite emptyAbilitySlotSprite;
     [SerializeField] TMP_Text CostText;
 
+    [SerializeField] public InfoTextPopUp infoTextPopUp;
+
+    [SerializeField] public ButtonState currentState;
+
     public Dictionary<Vector2Int, UpgradeGridHex> UIGrid;
 
+    public void ChangeCurrentState(ButtonState newState)
+    {
+        Debug.Log("Changing Buttonstate from " + currentState + ", to " + newState);
+        currentState = newState;
+    }
 
     public void CorrectBackground()
     {

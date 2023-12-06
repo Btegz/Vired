@@ -9,14 +9,16 @@ using Unity.VisualScripting;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager Instance;
+
     [SerializeField] Button EndTurnButton;
     [SerializeField] Button AbilitiesInventoryButton;
     [SerializeField] Image negativeFillBar;
 
-    [SerializeField] TMP_Text ressourceAText;
-    [SerializeField] TMP_Text ressourceBText;
-    [SerializeField] TMP_Text ressourceCText;
-    [SerializeField] TMP_Text ressourceDText;
+    [SerializeField] public TMP_Text ressourceAText;
+    [SerializeField] public TMP_Text ressourceBText;
+    [SerializeField] public TMP_Text ressourceCText;
+    [SerializeField] public TMP_Text ressourceDText;
 
     [SerializeField] GameObject AbilitiesInventory;
 
@@ -27,6 +29,20 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject PlayerButtonParent;
     [SerializeField] PlayerButton playerButtonPrefab;
     [SerializeField] public List<PlayerButton> playerButtons;
+
+    [SerializeField] public RessourceHighlight ressourceHighlight;
+
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()

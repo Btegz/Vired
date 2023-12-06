@@ -5,15 +5,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class AbilityCastButton : AbilityButton, IPointerClickHandler
+public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public void AssignAbility(Player player)
     {
-        Debug.Log("Assign Ability Is called with player reference");
         if (player.AbilityInventory.Count > index)
         {
             ability = player.AbilityInventory[index];
-            Debug.Log("I Am AbilityButton number " + index + ", and i will show Ability" + player.AbilityInventory[index]);
             MakeAbilityToGrid();
             CorrectBackground();
         }
@@ -25,7 +23,6 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler
 
     public void AssignAbility()
     {
-        Debug.Log("Assign Ability Is called without player reference");
         try
         {
             ability = PlayerManager.Instance.selectedPlayer.AbilityInventory[index];
@@ -41,8 +38,8 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler
             ResetButton();
             return;
         }
-            MakeAbilityToGrid();
-            CorrectBackground();
+        MakeAbilityToGrid();
+        CorrectBackground();
         //catch
         //{
         //    ability = null;
@@ -58,27 +55,30 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler
     // Start is called before the first frame update
     void Start()
     {
+        currentState = ButtonState.inMainScene;
+        EventManager.AbilityUpgradeEvent += ChangeCurrentState;
         EventManager.OnSelectPlayerEvent += AssignAbility;
         //GetComponent<Button>().onClick.AddListener(clicked);
         EventManager.OnConfirmButtonEvent += AssignAbility;
-        EventManager.AbilityChangeEvent += UpdateUI;
+        //EventManager.AbilityChangeEvent += UpdateUI;
     }
 
     public void clicked()
     {
-        if(PlayerManager.Instance.InventoryCheck(ability, PlayerManager.Instance.selectedPlayer))
+        if (ability == null)
         {
-            EventManager.OnAbilityButtonClicked(ability);
-
+            return;
         }
-        else
+        if (!PlayerManager.Instance.InventoryCheck(ability, PlayerManager.Instance.selectedPlayer) && currentState == ButtonState.inMainScene)
         {
+            InfoTextPopUp newthing = Instantiate(infoTextPopUp, transform.position+Vector3.up*100, Quaternion.identity, UIManager.Instance.transform);
+            newthing.Text = "Not enough Ressource";
             RectTransform thisRectT = GetComponent<RectTransform>();
             thisRectT.DOComplete();
             thisRectT.DOPunchRotation(Vector3.back * 30, .25f).SetEase(Ease.OutExpo);
-
-            
+            return;
         }
+        EventManager.OnAbilityButtonClicked(ability,this);
     }
 
     private void OnDestroy()
@@ -86,11 +86,77 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler
         GetComponent<Button>().onClick.RemoveListener(clicked);
         EventManager.OnSelectPlayerEvent -= AssignAbility;
         EventManager.OnConfirmButtonEvent -= AssignAbility;
-        EventManager.AbilityChangeEvent -= UpdateUI;
+        EventManager.AbilityChangeEvent -= UpdateUI; 
+        EventManager.AbilityUpgradeEvent -= ChangeCurrentState;
+
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         clicked();
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (ability == null)
+        {
+            return;
+        }
+        if (currentState != ButtonState.inMainScene)
+        {
+            return;
+        }
+        GameObject currentRessourceTextHighlight = UIManager.Instance.ressourceAText.gameObject;
+        switch (ability.MyCostRessource)
+        {
+            case Ressource.ressourceA:
+                currentRessourceTextHighlight = UIManager.Instance.ressourceAText.gameObject;
+                break;
+            case Ressource.ressourceB:
+                currentRessourceTextHighlight = UIManager.Instance.ressourceBText.gameObject;
+                break;
+            case Ressource.ressourceC:
+                currentRessourceTextHighlight = UIManager.Instance.ressourceCText.gameObject;
+                break;
+            case Ressource.resscoureD:
+                currentRessourceTextHighlight = UIManager.Instance.ressourceDText.gameObject;
+                break;
+        }
+        foreach(RessourceHighlight rsh in currentRessourceTextHighlight.GetComponentsInChildren<RessourceHighlight>())
+        {
+            Destroy(rsh.gameObject);
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (ability == null)
+        {
+            return;
+        }
+        if (currentState != ButtonState.inMainScene)
+        {
+            return;
+        }
+        RessourceHighlight RessourceHighlight = Instantiate(UIManager.Instance.ressourceHighlight);
+        switch (ability.MyCostRessource)
+        {
+            case Ressource.ressourceA:
+                RessourceHighlight.transform.position = UIManager.Instance.ressourceAText.transform.position;
+                RessourceHighlight.transform.SetParent(UIManager.Instance.ressourceAText.transform);
+                break;
+            case Ressource.ressourceB:
+                RessourceHighlight.transform.position = UIManager.Instance.ressourceBText.transform.position;
+                RessourceHighlight.transform.SetParent(UIManager.Instance.ressourceBText.transform);
+                break;
+            case Ressource.ressourceC:
+                RessourceHighlight.transform.position = UIManager.Instance.ressourceCText.transform.position;
+                RessourceHighlight.transform.SetParent(UIManager.Instance.ressourceCText.transform);
+                break;
+            case Ressource.resscoureD:
+                RessourceHighlight.transform.position = UIManager.Instance.ressourceDText.transform.position;
+                RessourceHighlight.transform.SetParent(UIManager.Instance.ressourceDText.transform);
+                break;
+        }
     }
 }

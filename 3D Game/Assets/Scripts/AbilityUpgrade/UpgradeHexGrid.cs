@@ -79,6 +79,11 @@ public class UpgradeHexGrid : MonoBehaviour
         Grid[Vector2Int.zero].Fill(PlayerHexSprite, "Player");
     }
 
+    public void MakeAbilityToGrid(Ability ability,AbilityButton button)
+    {
+        MakeAbilityToGrid(ability);
+    }
+
     public void MakeAbilityToGrid(Ability ability)
     {
         if(ability == null)
