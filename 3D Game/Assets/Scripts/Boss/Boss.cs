@@ -68,8 +68,7 @@ public class Boss : MonoBehaviour
 
     public void BossDeath(Vector2Int location)
     {
-
-        if (GetComponent<Enemy>().currentHealth == 0)
+        if (GetComponent<Enemy>().currentHealth <= 0)
         {
             BossTiles = HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(location), SpawnRange, HexGridUtil.AxialToCubeCoord(GridManager.Instance.Grid.Keys.ToList<Vector2Int>()));
             BossTiles.Remove(HexGridUtil.AxialToCubeCoord(location));
@@ -84,6 +83,13 @@ public class Boss : MonoBehaviour
             }
 
         }
+        if (GetComponent<Enemy>().FirstAndLast)
+        {
+            EventManager.OnPhaseChange();
+        }
+        PlayerManager.Instance.SkillPoints += 2;
+        EventManager.OnEndTurnEvent -= BossNeighbors;
+       
     }
 
 

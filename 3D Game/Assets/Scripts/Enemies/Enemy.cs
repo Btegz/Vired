@@ -27,6 +27,8 @@ public class Enemy : MonoBehaviour
     public int SkillPointReward;
 
     public MeshRenderer mr;
+
+    [HideInInspector] public bool FirstAndLast = true;
     private void Awake()
     {
 
@@ -77,6 +79,16 @@ public class Enemy : MonoBehaviour
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
+            if (gameObject.TryGetComponent<Boss>(out Boss boss))
+            {
+                boss.BossDeath(boss.location[0]);
+                if (FirstAndLast)
+                {
+                    Destroy(gameObject);
+                }
+
+                return;
+            }
             PlayerManager.Instance.SkillPoints += SkillPointReward;
             GetComponentInParent<GridTile>().ChangeCurrentState(GridManager.Instance.gS_Negative);
             Instantiate(Particle_EnemyDeath, transform.position, Quaternion.Euler(-90, 0, 0));

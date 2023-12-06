@@ -21,19 +21,8 @@ public class P1_Boss : Boss
         enemy.currentHealth = 5;
         BossParticle(gameObject);
 
-        /*
-                for (int i = 0; i < PlayerManager.Instance.Players.Count; i++)
-                {
-                    float PlayerDistanceToBoss = HexGridUtil.CubeDistance(HexGridUtil.AxialToCubeCoord(PlayerManager.Instance.Players[i].CoordinatePosition), Vector3Int.zero);
-                    PlayerDistances.Add(PlayerDistanceToBoss);
-                }
-
-                PlayerDistances.Sort();
-
-                Debug.Log(PlayerDistances[0]);
-                Debug.Log(PlayerDistances[1]);
-                Debug.Log(PlayerDistances[2]);
-        */
+       
+   
 
     }
 
@@ -45,11 +34,11 @@ public class P1_Boss : Boss
     public void OnDestroy()
      {
         
-            BossDeath(location[0]);
-        Debug.Log(location[0]);
-            EventManager.OnPhaseChange();
-            PlayerManager.Instance.SkillPoints += 2;
-            EventManager.OnEndTurnEvent -= BossNeighbors;
-        
+        //    BossDeath(location[0]);
+        //    Debug.Log("location" + location[0]);
+        //EventManager.OnPhaseChange();
+        //PlayerManager.Instance.SkillPoints += 2;
+        //EventManager.OnEndTurnEvent -= BossNeighbors;
+
     }
 }
