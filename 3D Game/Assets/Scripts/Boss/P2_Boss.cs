@@ -12,7 +12,6 @@ public class P2_Boss : Boss
     public PE_EnemySpawn PE_EnemySpawn;
     public PE_MiniEnemySpawn PE_MiniEnemySpawn;
     public Phase Phase;
-    public int BossMinisAmount;
 
 
     public Enemy enemy;
@@ -54,7 +53,7 @@ public class P2_Boss : Boss
         Spawn(possibleTiles[randomTile3], Boss3);
         BossNeighbors();
         BossParticle(Boss3);
-        for(int i=0; i<(BossMinisAmount +4); i++)
+        for(int i=0; i<3; i++)
         {
             Phase.myPhaseEffects.Add(PE_MiniEnemySpawn);
         }
@@ -79,7 +78,7 @@ public class P2_Boss : Boss
             BossDeath(possibleTiles[randomTile1]);
             location.Remove(possibleTiles[randomTile1]);
             PlayerManager.Instance.SkillPoints += 2;
-            for (int i = 0; i < BossMinisAmount; i++)
+            for (int i = 0; i < 1; i++)
             {
                 Phase.myPhaseEffects.Remove(PE_MiniEnemySpawn);
 
@@ -92,7 +91,7 @@ public class P2_Boss : Boss
             BossDeath(possibleTiles[randomTile2]);
             location.Remove(possibleTiles[randomTile2]);
             PlayerManager.Instance.SkillPoints += 2;
-            for (int i = 0; i < BossMinisAmount; i++)
+            for (int i = 0; i <1; i++)
             {
                 Phase.myPhaseEffects.Remove(PE_MiniEnemySpawn);
 
@@ -106,7 +105,7 @@ public class P2_Boss : Boss
             BossDeath(possibleTiles[randomTile3]);
             location.Remove(possibleTiles[randomTile3]);
             PlayerManager.Instance.SkillPoints += 2;
-            for (int i = 0; i < BossMinisAmount; i++)
+            for (int i = 0; i < 1; i++)
             {
                 Phase.myPhaseEffects.Remove(PE_MiniEnemySpawn);
 
@@ -174,7 +173,7 @@ public class P2_Boss : Boss
     public void OnDestroy()
     {
         EventManager.OnPhaseChange();
-        for (int i = 0; i < (BossMinisAmount +4); i++)
+        for (int i = 0; i <3; i++)
         {
             Phase.myPhaseEffects.Remove(PE_MiniEnemySpawn);
 
