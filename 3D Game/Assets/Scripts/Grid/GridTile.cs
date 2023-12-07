@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// This struct holds, vertices, triangles and uvs of a Face
@@ -29,7 +30,7 @@ public struct Face
 /// MonoBehaviour Class to hold Information and provide functions of a hexagonal Cell.
 /// It also generates it's mesh.
 /// </summary>
-public class GridTile : MonoBehaviour
+public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public GridTileSO gridTileSO;
     public Vector2Int AxialCoordinate;
@@ -48,6 +49,7 @@ public class GridTile : MonoBehaviour
     [Header("Tile Statestuff")]
     public GridState currentGridState;
     public Ressource ressource;
+    public TileHighlight tileHighlightPrefab;
 
     private void Start()
     {
@@ -360,5 +362,26 @@ public class GridTile : MonoBehaviour
         // the x coordinate needs to multiply cos of the radial angle with size.
         // the z coordinate needs to multiply sin of the radial angle with size.
         return new Vector3((size * Mathf.Cos(angle_rad)), height, size * Mathf.Sin(angle_rad));
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if(PlayerManager.Instance.movementAction > 0 && !PlayerManager.Instance.abilityActivated && currentGridState.StateValue() >= 0)
+        {
+            List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(PlayerManager.Instance.selectedPlayer.CoordinatePosition));
+
+            if (neighbors.Contains(HexGridUtil.AxialToCubeCoord(AxialCoordinate)))
+            {
+                Instantiate(tileHighlightPrefab, transform.position, Quaternion.identity, transform);
+            }
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        foreach(TileHighlight tileHighlightInstance in GetComponentsInChildren<TileHighlight>())
+        {
+            Destroy(tileHighlightInstance.gameObject);
+        }
     }
 }

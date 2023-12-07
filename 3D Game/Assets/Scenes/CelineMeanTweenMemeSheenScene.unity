@@ -704,15 +704,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 36613880768237425, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 184.38
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 36613880768237425, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -682.20667
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 461383044875159407, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
+      propertyPath: m_ResetScaleOnEnable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 461383044875159407, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
+      propertyPath: m_Particles.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 461383044875159407, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
+      propertyPath: m_Particles.Array.data[0]
+      value: 
+      objectReference: {fileID: 1239626425}
+    - target: {fileID: 463677335640474660, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 463677335640474663, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 886145878456113720, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1396180682763605625, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
       propertyPath: m_RootOrder
@@ -984,7 +1004,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6475241302724791550, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -315
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7987108492086968014, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1012,11 +1032,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8653770393832371549, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 184.38174
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8653770393832371549, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -775.03156
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9140244726746120409, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1032,14 +1052,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9140244726746120409, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -530
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9199924830701646468, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
+--- !u!198 &1239626425 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 463677335640474661, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
+  m_PrefabInstance: {fileID: 1239626424}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1397901885 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4886585584104240934, guid: 11b34f7d6d9bf504e95faf77866c009c, type: 3}
@@ -1490,6 +1515,7 @@ MonoBehaviour:
   RessourceBInventory: 0
   RessourceCInventory: 0
   RessourceDInventory: 0
+  ressourceGainEffect: {fileID: 597970138054513854, guid: 3252c3ee4ee1a7a459e954aa47b08cc8, type: 3}
   cancelAbilityInputActionReference: {fileID: 2201862511427077551, guid: 26454fd94e486c84595f431522cf20cf, type: 3}
 --- !u!4 &2032763746
 Transform:
