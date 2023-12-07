@@ -38,24 +38,35 @@ public class GS_positive : GridState
 
     public override void PlayerEnters(GridTile parent)
     {
-        RessourceGainEffect rsg = Instantiate(PlayerManager.Instance.ressourceGainEffect);
+        RessourceGainEffect rsg = Instantiate(PlayerManager.Instance.ressourceGainEffect,UIManager.Instance.transform);
+        Ressource res = Ressource.resscoureD;
+        Vector2 startPoint = Camera.main.WorldToScreenPoint(parent.transform.position);
+        Vector2 goalPoint = new Vector2();
         switch (parent.ressource)
         {
             case Ressource.ressourceA:
                 PlayerManager.Instance.RessourceAInventory++;
-                
+                goalPoint = UIManager.Instance.ressourceAText.transform.position;
+                res = Ressource.ressourceA;
                 break;
             case Ressource.ressourceB:
                 PlayerManager.Instance.RessourceBInventory++;
+                goalPoint = UIManager.Instance.ressourceBText.transform.position;
+                res = Ressource.ressourceB;
                 break;
             case Ressource.ressourceC:
                 PlayerManager.Instance.RessourceCInventory++;
+                goalPoint = UIManager.Instance.ressourceCText.transform.position;
+                res = Ressource.ressourceC;
                 break;
             case Ressource.resscoureD:
                 PlayerManager.Instance.RessourceDInventory++;
+                goalPoint = UIManager.Instance.ressourceDText.transform.position;
+                res = Ressource.resscoureD;
                 break;
         }
         parent.ChangeCurrentState(GridManager.Instance.gS_Neutral);
+        rsg.Initialize(res, startPoint, goalPoint);
     }
 
     public override int StateValue()

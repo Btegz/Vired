@@ -30,7 +30,7 @@ public class RessourceGainEffect : MonoBehaviour
                 break;
         }
 
-        transform.DOJump(goal, 50,1, 2f).OnComplete(()=>Destroy(gameObject));
+        transform.DOJump(goal, 200,1, 2f).OnComplete(()=>Destroy(gameObject));
 
     }
 }
