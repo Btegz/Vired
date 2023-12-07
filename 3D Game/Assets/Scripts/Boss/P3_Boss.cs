@@ -30,9 +30,9 @@ public class P3_Boss : Boss
     public void OnDestroy()
     {
         GridManager.Instance.GameWon();
-        BossDeath(location[0]);  
-        PlayerManager.Instance.SkillPoints += 2;
-        EventManager.OnEndTurnEvent -= BossNeighbors;
+      //  BossDeath(location[0]);  
+      //  PlayerManager.Instance.SkillPoints += 2;
+     //   EventManager.OnEndTurnEvent -= BossNeighbors;
         EventManager.OnEndTurnEvent -= TriggerSpread;
         PE_EnemySpawn.everyXRounds = 3;
         Phase.myPhaseEffects.Add(PE_EnemySpawn);
