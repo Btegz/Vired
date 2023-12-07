@@ -38,10 +38,12 @@ public class GS_positive : GridState
 
     public override void PlayerEnters(GridTile parent)
     {
+        RessourceGainEffect rsg = Instantiate(PlayerManager.Instance.ressourceGainEffect);
         switch (parent.ressource)
         {
             case Ressource.ressourceA:
                 PlayerManager.Instance.RessourceAInventory++;
+                
                 break;
             case Ressource.ressourceB:
                 PlayerManager.Instance.RessourceBInventory++;

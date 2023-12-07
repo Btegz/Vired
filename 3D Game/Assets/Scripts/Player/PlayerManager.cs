@@ -51,6 +51,7 @@ public class PlayerManager : MonoBehaviour
     public int RessourceBInventory;
     public int RessourceCInventory;
     public int RessourceDInventory;
+    public RessourceGainEffect ressourceGainEffect;
 
 
     [SerializeField] InputActionReference cancelAbilityInputActionReference;
