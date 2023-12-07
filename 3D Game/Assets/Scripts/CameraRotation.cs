@@ -92,15 +92,18 @@ public class CameraRotation : MonoBehaviour
         topDownAction.action.Enable();
         topDownAction.action.performed += _ => SwitchToTopDown();
 
+        EventManager.OnSelectPlayerEvent += CameraCenterToPlayer;
 
     }
 
     void Start()
-    {
+    {   
+        Worldcam.Follow = transform; 
         WorldcamStart = transform.position;
         startingPosition = cam.transform.localPosition;
         startMovementSpeed = maxMovementSpeed;
         dropdown = cameraDropDown.dropdown;
+        
 
 
     }
@@ -110,6 +113,7 @@ public class CameraRotation : MonoBehaviour
         try
         {
             StopCoroutine(rotationCoroutine);
+
         }
         catch { }
     }
@@ -125,6 +129,7 @@ public class CameraRotation : MonoBehaviour
     void StopMovement(InputAction.CallbackContext obj)
     {
         StopCoroutine(movementCoroutine);
+
     }
 
 
@@ -187,7 +192,7 @@ public class CameraRotation : MonoBehaviour
                     Worldcam.transform.LookAt(cam.transform.position);
                     if (worldcamRecomposer.m_ZoomScale < MinZoom)
                         worldcamRecomposer.m_ZoomScale += 0.1f;
-                   
+
                 }
 
                 else if (Playercam.Priority == 2)
@@ -201,8 +206,8 @@ public class CameraRotation : MonoBehaviour
                 else
                 {
                     TopDownCam.transform.LookAt(TopDownCam.transform.position);
-                    if (topdowncamRecomposer.m_ZoomScale  < MinZoom) 
-                    topdowncamRecomposer.m_ZoomScale += 0.1f;
+                    if (topdowncamRecomposer.m_ZoomScale < MinZoom)
+                        topdowncamRecomposer.m_ZoomScale += 0.1f;
                 }
             }
         }
@@ -217,23 +222,53 @@ public class CameraRotation : MonoBehaviour
         Vector2 previousMousePosition = Pointer.current.position.ReadValue();
         if (Playercam.Priority == 2)
         {
-            CameraRotation.Instance.Playercam.LookAt = null;
+          CameraRotation.Instance.Playercam.LookAt = null;
             CameraRotation.Instance.Playercam.Follow = null;
-            while (true)
-            {
-                Vector2 currentMousePosition = Pointer.current.position.ReadValue();
-                transform.RotateAround(PlayerManager.Instance.selectedPlayer.transform.position, Vector3.up, ((currentMousePosition - previousMousePosition).x / Screen.width) * rotationSpeed);
-                previousMousePosition = currentMousePosition;
-                yield return null;
-
-            }
-        }
-        else
+        while (true)
         {
+            Vector2 currentMousePosition = Pointer.current.position.ReadValue();
+            transform.RotateAround(PlayerManager.Instance.selectedPlayer.transform.position, Vector3.up, ((currentMousePosition - previousMousePosition).x / Screen.width) * rotationSpeed);
+            previousMousePosition = currentMousePosition;
+            yield return null;
+
+             }
+        }
+
+        else
+        { 
+            if (Worldcam.Priority == 2)
+            {
+                Worldcam.LookAt = null;
+                Worldcam.Follow = null;
+            }
+
+            else if (TopDownCam.Priority == 2)
+            {
+                TopDownCam.LookAt = null;
+                TopDownCam.Follow = null;
+            }
             while (true)
             {
                 Vector2 currentMousePosition = Pointer.current.position.ReadValue();
-                transform.Rotate(Vector3.up, ((currentMousePosition - previousMousePosition).x / Screen.width) * rotationSpeed);
+
+                //Wir erstellen uns ein Quad das auf 0 liegt und nach x und z sich ausdehnt(das ist der Boden)
+
+                // wir schießen einen Ray von Cam durch Screenmittelpunkt
+
+                // wir holen uns den Punkt wo der Ray das Quad trifft und rotieren um diesen Punkt yo
+
+                Plane boden = new Plane(Vector3.up, 0);
+
+                Vector2 screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
+
+                var pointerWorldRay = Camera.main.ScreenPointToRay(screenCenter);
+
+                boden.Raycast(pointerWorldRay, out float enterDistance);
+
+                var previousPointerWorldPos = pointerWorldRay.GetPoint(enterDistance);
+
+
+                transform.RotateAround(previousPointerWorldPos, Vector3.up, ((currentMousePosition - previousMousePosition).x / Screen.width) * rotationSpeed);
                 previousMousePosition = currentMousePosition;
                 yield return null;
 
@@ -249,12 +284,27 @@ public class CameraRotation : MonoBehaviour
     IEnumerator Movement()
     {
         Vector3 previousMousePosition = Pointer.current.position.ReadValue();
+        
+
         while (true)
         {
-            if (Playercam.Priority == 2)
+            if (Worldcam.Priority == 2)
             {
-                CameraRotation.Instance.Playercam.LookAt = null;
-                CameraRotation.Instance.Playercam.Follow = null;
+                
+                Worldcam.LookAt = null;
+                Worldcam.Follow = transform;
+     
+            }
+
+            else if (TopDownCam.Priority == 2)
+            {
+                TopDownCam.LookAt = null;
+                TopDownCam.Follow = transform;
+            }
+
+            else if (Playercam.Priority == 2)
+            {
+                break;
             }
 
 
@@ -299,17 +349,23 @@ public class CameraRotation : MonoBehaviour
     public void SwitchToPlayer()
     {
 
-        if (CameraRotation.Instance.TopDownCam.Priority < 2)
-        {
-            Worldcam.Priority = 0;
-            TopDownCam.Priority = 1;
-            Playercam.Priority = 2;
+        /* if (TopDownCam.Priority == 2 || Worldcam.Priority == 2)
+         {
+             return;
+         }
 
-            MainCam = false;
-            if (dropdown.value != 2)
-                dropdown.value = 2;
-            dropdown.RefreshShownValue();
-        }
+         else 
+         { */
+        Worldcam.Priority = 0;
+        TopDownCam.Priority = 1;
+        Playercam.Priority = 2;
+
+        MainCam = false;
+        if (dropdown.value != 2)
+            dropdown.value = 2;
+        dropdown.RefreshShownValue();
+
+        //}
 
     }
 
@@ -325,4 +381,30 @@ public class CameraRotation : MonoBehaviour
 
 
     }
+
+
+    public void CameraCenterToPlayer(Player player)
+    {
+        if (Playercam.Priority == 2)
+        {
+            Playercam.LookAt = PlayerManager.Instance.selectedPlayer.transform;
+            Playercam.Follow = PlayerManager.Instance.selectedPlayer.transform;
+
+
+        }
+
+        else if (Worldcam.Priority == 2)
+        {
+            Worldcam.LookAt = PlayerManager.Instance.selectedPlayer.transform;
+            Worldcam.Follow = PlayerManager.Instance.selectedPlayer.transform;
+        }
+
+        else
+        {
+            //TopDownCam.LookAt = PlayerManager.Instance.selectedPlayer.transform;
+            TopDownCam.Follow = PlayerManager.Instance.selectedPlayer.transform;
+        }
+
+    }
+
 }

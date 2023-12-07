@@ -22,7 +22,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
         EventManager.OnSelectPlayer(this);
         PlayerCam.LookAt = PlayerManager.Instance.selectedPlayer.transform;
         PlayerCam.Follow = PlayerManager.Instance.selectedPlayer.transform;
-        CameraRotation.Instance.SwitchToPlayer();
+        //CameraRotation.Instance.SwitchToPlayer();
     }
 }
 

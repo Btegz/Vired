@@ -41,6 +41,6 @@ public class UpgradeGridHex : MonoBehaviour
 
     private void OnDestroy()
     {
-        Debug.Log("I dont know why but im beeing destroyed");
+      //  Debug.Log("I dont know why but im beeing destroyed");
     }
 }
