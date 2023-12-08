@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -368,7 +368,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainCameraParent
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 1365018792038288500, guid: 11b34f7d6d9bf504e95faf77866c009c, type: 3}
+      propertyPath: m_FollowOffset.y
+      value: 10
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1365018792038288500, guid: 11b34f7d6d9bf504e95faf77866c009c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 11b34f7d6d9bf504e95faf77866c009c, type: 3}
 --- !u!223 &488724404 stripped
 Canvas:
@@ -1270,6 +1275,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2b9ce677b1d0944e8af9dc8b4cdc1af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1571063349 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1365018792038288502, guid: 11b34f7d6d9bf504e95faf77866c009c, type: 3}
+  m_PrefabInstance: {fileID: 455924852}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1571063354
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571063349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BindingMode: 1
+  m_FollowOffset: {x: 0, y: 0, z: -10}
+  m_XDamping: 1
+  m_YDamping: 1
+  m_ZDamping: 1
+  m_AngularDampingMode: 0
+  m_PitchDamping: 0
+  m_YawDamping: 0
+  m_RollDamping: 0
+  m_AngularDamping: 0
 --- !u!114 &1688233350 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 141612170120246660, guid: 035a5f621b3605341a971c308f6e86ad, type: 3}

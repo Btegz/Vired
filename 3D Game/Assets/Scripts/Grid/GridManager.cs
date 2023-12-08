@@ -74,11 +74,6 @@ public class GridManager : MonoBehaviour
 
     [Header("Phases")]
     [SerializeField] public int TurnCounter;
-    [SerializeField] Phase currentPhase;
-    [SerializeField] List<Phase> phases;
-
-    [Header("UI")]
-    [SerializeField] public Canvas mainCanvas;
 
 
     private void Awake()
@@ -96,9 +91,9 @@ public class GridManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentPhase = phases[0];
-        currentPhase.myPhaseTransition.InitPhaseTransitionCheck();
-        TriggerPhase();
+        //currentPhase = phases[0];
+        //currentPhase.myPhaseTransition.InitPhaseTransitionCheck();
+        //TriggerPhase();
         EventManager.OnEndTurnEvent += EndTurn;
         TransferGridSOData();
 
@@ -380,10 +375,10 @@ public class GridManager : MonoBehaviour
         TurnCounter++;
     }
 
-    public void TriggerPhase()
-    {
-        currentPhase.TriggerPhaseEffects(TurnCounter, this);
-    }
+    //public void TriggerPhase()
+    //{
+    //    currentPhase.TriggerPhaseEffects(TurnCounter, this);
+    //}
 
 
     /// <summary>
@@ -415,16 +410,16 @@ public class GridManager : MonoBehaviour
         return enemies;
     }
 
-    public void PhaseTransition()
-    {
-        phases.RemoveAt(0);
-        if (phases.Count <= 0)
-        {
-            //GameWon();
-            return;
-        }
-        currentPhase = phases[0];
-        currentPhase.myPhaseTransition.InitPhaseTransitionCheck();
-        currentPhase.TriggerPhaseEffects(TurnCounter, this);
-    }
+    //public void PhaseTransition()
+    //{
+    //    phases.RemoveAt(0);
+    //    if (phases.Count <= 0)
+    //    {
+    //        //GameWon();
+    //        return;
+    //    }
+    //    currentPhase = phases[0];
+    //    currentPhase.myPhaseTransition.InitPhaseTransitionCheck();
+    //    currentPhase.TriggerPhaseEffects(TurnCounter, this);
+    //}
 }
