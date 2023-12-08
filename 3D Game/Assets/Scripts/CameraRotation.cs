@@ -21,7 +21,7 @@ public class CameraRotation : MonoBehaviour
     [SerializeField] InputActionReference playerswitchAction;
     [SerializeField] InputActionReference topDownAction;
     [SerializeField] InputAction playerAction;
-    [SerializeField] Camera cam;
+    [SerializeField] public Camera cam;
     [SerializeField] public CinemachineVirtualCamera Playercam;
     [SerializeField] public CinemachineVirtualCamera Worldcam;
     [SerializeField] public CinemachineVirtualCamera TopDownCam;
@@ -98,7 +98,7 @@ public class CameraRotation : MonoBehaviour
 
     void Start()
     {   
-        Worldcam.Follow = transform; 
+       // Worldcam.Follow = transform; 
         WorldcamStart = transform.position;
         startingPosition = cam.transform.localPosition;
         startMovementSpeed = maxMovementSpeed;
@@ -230,8 +230,10 @@ public class CameraRotation : MonoBehaviour
             transform.RotateAround(PlayerManager.Instance.selectedPlayer.transform.position, Vector3.up, ((currentMousePosition - previousMousePosition).x / Screen.width) * rotationSpeed);
             previousMousePosition = currentMousePosition;
             yield return null;
+                
 
              }
+        
         }
 
         else
@@ -267,10 +269,18 @@ public class CameraRotation : MonoBehaviour
 
                 var previousPointerWorldPos = pointerWorldRay.GetPoint(enterDistance);
 
-
-                transform.RotateAround(previousPointerWorldPos, Vector3.up, ((currentMousePosition - previousMousePosition).x / Screen.width) * rotationSpeed);
-                previousMousePosition = currentMousePosition;
-                yield return null;
+                if (Worldcam.Priority == 2)
+                {
+                    Worldcam.transform.RotateAround(previousPointerWorldPos, Vector3.up, ((currentMousePosition - previousMousePosition).x / Screen.width) * rotationSpeed);
+                    previousMousePosition = currentMousePosition;
+                    yield return null;
+                }
+                else if (TopDownCam.Priority == 2)
+                {
+                    TopDownCam.transform.RotateAround(previousPointerWorldPos, Vector3.up, ((currentMousePosition - previousMousePosition).x / Screen.width) * rotationSpeed);
+                    previousMousePosition = currentMousePosition;
+                    yield return null;
+                }
 
             }
         }
@@ -288,9 +298,8 @@ public class CameraRotation : MonoBehaviour
 
         while (true)
         {
-            if (Worldcam.Priority == 2)
+           if (Worldcam.Priority == 2)
             {
-                
                 Worldcam.LookAt = null;
                 Worldcam.Follow = transform;
      
@@ -302,7 +311,7 @@ public class CameraRotation : MonoBehaviour
                 TopDownCam.Follow = transform;
             }
 
-            else if (Playercam.Priority == 2)
+             if (Playercam.Priority == 2)
             {
                 break;
             }
@@ -401,6 +410,8 @@ public class CameraRotation : MonoBehaviour
 
         else
         {
+            cam.gameObject.transform.position = TopDownCam.transform.position;
+
             //TopDownCam.LookAt = PlayerManager.Instance.selectedPlayer.transform;
             TopDownCam.Follow = PlayerManager.Instance.selectedPlayer.transform;
         }

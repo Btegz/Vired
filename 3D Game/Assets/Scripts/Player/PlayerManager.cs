@@ -11,6 +11,7 @@ using DG.Tweening;
 using UnityEngine.SceneManagement;
 using UnityEditor.PackageManager.Requests;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -53,7 +54,12 @@ public class PlayerManager : MonoBehaviour
     public int RessourceDInventory;
     public RessourceGainEffect ressourceGainEffect;
 
+    [Header("Audio")]
+    [SerializeField] AudioData movementSound;
+    [SerializeField] AudioData noMovementSound;
 
+
+    public Button EndTurnButton;
     [SerializeField] InputActionReference cancelAbilityInputActionReference;
 
     private void Awake()
@@ -84,6 +90,9 @@ public class PlayerManager : MonoBehaviour
         EventManager.OnAbilityButtonEvent += AbilityClicked;
         EventManager.OnSelectPlayerEvent += PlayerSelect;
         EventManager.OnMoveEvent += _ => StartCoroutine(Move(clickedTile));
+        EventManager.OnMoveEvent += Audio;
+
+        //Audio(selectedPlayer);
     }
 
     private void OnDestroy()
@@ -94,6 +103,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
+
         if (!AbilityLoadoutActive)
         {
             // takes mouse positition
@@ -153,10 +163,11 @@ public class PlayerManager : MonoBehaviour
                 }
             }
 
-            if ((PlayerManager.Instance.movementAction == 0 && Mouse.current.leftButton.wasPressedThisFrame && !PlayerManager.Instance.abilityActivated && PlayerManager.Instance.extraMovement == 0))
+            if ((PlayerManager.Instance.movementAction == 0 && Mouse.current.leftButton.wasPressedThisFrame && !PlayerManager.Instance.abilityActivated && PlayerManager.Instance.extraMovement == 0 ))
             {
                 selectedPlayer.gameObject.transform.GetChild(0).transform.DOComplete();
                 selectedPlayer.gameObject.transform.GetChild(0).transform.DOPunchRotation(new Vector3(10f, 2f), 1f);
+                AudioManager.Instance.PlaySoundAtLocation(noMovementSound);
             }
 
 
@@ -186,15 +197,20 @@ public class PlayerManager : MonoBehaviour
 
                                 EventManager.OnMove(selectedPlayer);
 
-                            else
+                           /* else
                             {
                                 selectedPlayer.gameObject.transform.GetChild(0).transform.DOComplete();
                                 selectedPlayer.gameObject.transform.GetChild(0).transform.DOPunchRotation(new Vector3(10f, 2f), .5f);
-                            }
+                                
+                            }*/
 
                         }
                     }
                 }
+
+                
+                    
+
             }
         }
 
@@ -254,7 +270,6 @@ public class PlayerManager : MonoBehaviour
     /// <returns></returns>
     IEnumerator Move(Vector2Int moveTo)
     {
-
         target = GridManager.Instance.Grid[moveTo];
 
 
@@ -500,5 +515,9 @@ public class PlayerManager : MonoBehaviour
 
 
 
+    }
+    public void Audio(Player player)
+    {
+        AudioManager.Instance.PlaySoundAtLocation(movementSound);
     }
 }

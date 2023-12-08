@@ -32,6 +32,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] public RessourceHighlight ressourceHighlight;
 
+
     private void Awake()
     {
         if(Instance == null)
@@ -56,6 +57,7 @@ public class UIManager : MonoBehaviour
         EndTurnButton.onClick.AddListener(GridManager.Instance.TriggerPhase);
         //AbilitiesInventoryButton.onClick.AddListener(ExpandAbilityInventory);
     }
+
 
 
     private void EndTurn()
@@ -95,6 +97,8 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       
+
         List<GridTile> negativeTiles = GridManager.Instance.GetTilesWithState(GridManager.Instance.gS_Negative);
         if (negativeTiles.Count > 0)
         {

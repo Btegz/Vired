@@ -28,6 +28,9 @@ public class Enemy : MonoBehaviour
 
     public MeshRenderer mr;
 
+    [SerializeField] public AudioData audioData;
+    public AudioData death;
+
     [HideInInspector] public bool FirstAndLast = true;
     private void Awake()
     {
@@ -37,7 +40,6 @@ public class Enemy : MonoBehaviour
     public void Setup(EnemySO enemySO, GridTile tile)
     {
         this.enemySO = enemySO;
-
         //currentHealth = enemySO.myCurrentHealth;
         maxHealth = enemySO.mymaxHealth;
         ressource = tile.ressource;
@@ -46,6 +48,7 @@ public class Enemy : MonoBehaviour
         meshFilter.mesh = enemySO.myMesh;
         MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
         meshRenderer.material = enemySO.myMaterial;
+   
 
         transform.DOPunchScale(Vector3.one * Random.Range(0.5f, 1), 1f);
 
@@ -85,14 +88,18 @@ public class Enemy : MonoBehaviour
                 if (FirstAndLast)
                 {
                     Destroy(gameObject);
+
                 }
 
                 return;
             }
+
             PlayerManager.Instance.SkillPoints += SkillPointReward;
             GetComponentInParent<GridTile>().ChangeCurrentState(GridManager.Instance.gS_Negative);
             Instantiate(Particle_EnemyDeath, transform.position, Quaternion.Euler(-90, 0, 0));
             Destroy(gameObject);
+            AudioManager.Instance.PlaySoundAtLocation(death);
+
         }
         else
         {

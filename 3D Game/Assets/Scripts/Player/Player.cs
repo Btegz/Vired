@@ -13,7 +13,9 @@ public class Player : MonoBehaviour, IPointerClickHandler
 
     public Vector2Int SpawnPoint;
 
+
     [SerializeField] CinemachineVirtualCamera PlayerCam;
+
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -24,6 +26,9 @@ public class Player : MonoBehaviour, IPointerClickHandler
         PlayerCam.Follow = PlayerManager.Instance.selectedPlayer.transform;
         //CameraRotation.Instance.SwitchToPlayer();
     }
+
+ 
+
 }
 
 

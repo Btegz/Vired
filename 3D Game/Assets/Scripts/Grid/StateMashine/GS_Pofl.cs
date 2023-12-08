@@ -8,6 +8,7 @@ public class GS_Pofl : GridState
 {
     [SerializeField] GameObject PointOfInterest;
     [SerializeField] public GameObject pofi;
+    public AudioData PofISound;
  
     public override GridState CurrentState()
     {
@@ -31,6 +32,7 @@ public class GS_Pofl : GridState
         pofi = Instantiate(PointOfInterest, PointOfInterest.transform.position, Quaternion.identity);
         parent.ChangeCurrentState(GridManager.Instance.gS_Neutral);
         Destroy(parent.gameObject.GetComponentInChildren<PofIVisuals>().gameObject);
+        AudioManager.Instance.PlaySoundAtLocation(PofISound);
         
        
   
