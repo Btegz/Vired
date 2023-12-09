@@ -214,7 +214,7 @@ public class GridManager : MonoBehaviour
         {
             targetLocation = reachableTiles[Random.Range(0, reachableTiles.Count)];
         }
-        enemy.Setup(enemySOs[Random.Range(0, enemySOs.Count)], targetLocation);
+        enemy.Setup(/*enemySOs[Random.Range(0, enemySOs.Count)],*/ targetLocation);
         targetLocation.ChangeCurrentState(gS_Enemy);
         enemy.transform.parent = targetLocation.transform;
         enemy.transform.position = targetLocation.transform.position;
