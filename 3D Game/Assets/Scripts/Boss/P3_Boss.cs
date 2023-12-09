@@ -15,7 +15,7 @@ public class P3_Boss : Boss
         location.Add(Vector2Int.zero);
        
         GetComponent<Enemy>().Setup(/*GridManager.Instance.BossEnemySO, */GridManager.Instance.Grid[Vector2Int.zero]);
-        Spawn(Vector2Int.zero, gameObject);
+        //Spawn(Vector2Int.zero, gameObject);
         BossNeighbors();
         GetComponent<Enemy>().currentHealth = 8;
         BossParticle(this.gameObject);

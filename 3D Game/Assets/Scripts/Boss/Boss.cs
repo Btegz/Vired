@@ -24,7 +24,10 @@ public class Boss : Enemy
     [SerializeField] List<Enemy> enemyPrefabPool;
     [SerializeField] int EnemySpawnAmount;
     [SerializeField] int everyXTurns;
+
+
     [SerializeField] List<Boss> NextBosses;
+    [SerializeField] Spreadbehaviours nextBossSpawnPattern;
     [SerializeField] int AbilityLoadoutReward;
 
 
@@ -35,13 +38,18 @@ public class Boss : Enemy
     public GameObject redParticle;
     public GameObject greenParticle;
 
-
-
     private void Start()
     {
         EventManager.OnEndTurnEvent += BossNeighbors;
         EventManager.OnEndTurnEvent += Spread;
-        
+    }
+
+    public override void Setup(GridTile tile)
+    {
+        base.Setup(tile);
+        tile.ChangeCurrentState(GridManager.Instance.gS_Boss);
+        BossNeighbors();
+        EventManager.OnEndTurnEvent += BossNeighbors;
     }
 
     override public void Spread()
@@ -57,7 +65,7 @@ public class Boss : Enemy
             {
                 if (sb.TargetTile(HexGridUtil.AxialToCubeCoord(axialLocation), out Vector3Int target, FindClosestPlayer().CoordinatePosition))
                 {
-                    Enemy newEnemy = Instantiate(enemyPrefabPool[Random.Range(0,enemyPrefabPool.Count)]);
+                    Enemy newEnemy = Instantiate(enemyPrefabPool[Random.Range(0,enemyPrefabPool.Count)], GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)].transform);
                     newEnemy.Setup(GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)]);
                 }
                 else
@@ -70,26 +78,69 @@ public class Boss : Enemy
 
     public override void Death()
     {
+        if(NextBosses == null || NextBosses.Count==0)
+        {
+            GridManager.Instance.GameWon();
+        }
+
+        foreach (Vector3Int neighbor in BossReachableTiles)
+        {
+            GridManager.Instance.Grid[axialLocation].ChangeCurrentState(GridManager.Instance.gS_Positive);
+            if (GridManager.Instance.Grid.ContainsKey(HexGridUtil.CubeToAxialCoord(neighbor)))
+            {
+                GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].ChangeCurrentState(GridManager.Instance.gS_Positive);
+            }
+        }
+
+        if (GridManager.Instance.transform.GetComponentsInChildren<Boss>().Length > 1)
+        {
+            base.Death();
+            return;
+        }
+
+        //    foreach (KeyValuePair<Vector2Int, GridTile> kvp in GridManager.Instance.Grid)
+        //{
+        //    if(kvp.Value.gameObject.GetComponentsInChildren<Boss>().Length >0)
+        //    {
+                
+        //    }
+        //}
+
+        foreach(Boss b in NextBosses)
+        {
+            if(nextBossSpawnPattern == null)
+            {
+                Boss newBoss = Instantiate(b);
+                newBoss.Setup(GridManager.Instance.Grid[Vector2Int.zero]);
+                break;
+            }
+            if(nextBossSpawnPattern.TargetTiles(Vector3Int.zero,out List<Vector3Int> targets, Vector2Int.zero))
+            {
+                Boss newBoss = Instantiate(b);
+                newBoss.Setup(GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(targets[Random.Range(0,targets.Count)])]);
+            }
+        }
+
+        PlayerManager.Instance.abilityLoadout.amountToChoose = AbilityLoadoutReward;
+        PlayerManager.Instance.abilityLoadout.gameObject.SetActive(true);
+
         base.Death();   
     }
 
-    public void Spawn(Vector2Int location, GameObject boss)
-    {
+    //public void Spawn(Vector2Int location, GameObject boss)
+    //{
 
-        boss.transform.parent = GridManager.Instance.Grid[location].transform;
-        boss.transform.position = GridManager.Instance.Grid[location].transform.position;
-        GridManager.Instance.Grid[location].ChangeCurrentState(GridManager.Instance.gS_Boss);
-    }
+    //    boss.transform.parent = GridManager.Instance.Grid[location].transform;
+    //    boss.transform.position = GridManager.Instance.Grid[location].transform.position;
+    //    GridManager.Instance.Grid[location].ChangeCurrentState(GridManager.Instance.gS_Boss);
+    //}
 
     public void BossNeighbors()
     {
-
-
-        foreach (Vector2Int loc in location)
-        {
-
-            BossReachableTiles = HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(loc), SpawnRange, HexGridUtil.AxialToCubeCoord(GridManager.Instance.Grid.Keys.ToList<Vector2Int>()));
-            BossReachableTiles.Remove(HexGridUtil.AxialToCubeCoord(loc));
+    //    foreach (Vector2Int loc in location)
+    //    {
+            BossReachableTiles = HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(axialLocation), SpawnRange, HexGridUtil.AxialToCubeCoord(GridManager.Instance.Grid.Keys.ToList<Vector2Int>()));
+            BossReachableTiles.Remove(HexGridUtil.AxialToCubeCoord(axialLocation));
 
             foreach (Vector3Int neighbor in BossReachableTiles)
             {
@@ -99,7 +150,7 @@ public class Boss : Enemy
                         GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].ChangeCurrentState(GridManager.Instance.gS_BossNegative);
                 }
             }
-        }
+        //}
     }
 
     public void BossDeath(Vector2Int location)
@@ -127,7 +178,6 @@ public class Boss : Enemy
         EventManager.OnEndTurnEvent -= BossNeighbors;
 
     }
-
 
     public void TriggerSpread()
     {
@@ -187,31 +237,6 @@ public class Boss : Enemy
             case Ressource.resscoureD:
                 Instantiate(greenParticle, boss.gameObject.transform.position, Quaternion.identity, boss.transform);
                 break;
-
-
         }
-
-        //if (GetComponent<Enemy>().ressource)
-        //{
-        //    Instantiate(blueParticle);
-        //}
-
-        //if (GetComponent<Enemy>().mr.material == GetComponent<Enemy>().BMAterial)
-        //{
-        //    Debug.Log("test");
-
-        //}
-        //if (GetComponent<Enemy>().mr.material == GetComponent<Enemy>().CMAterial)
-        //{
-        //    Debug.Log("test");
-
-        //}
-        //if (GetComponent<Enemy>().mr.material == GetComponent<Enemy>().DMAterial)
-        //{
-        //    Debug.Log("test");
-        //    Instantiate(greenParticle);
-        //}
-
     }
-
 }

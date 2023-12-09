@@ -46,7 +46,7 @@ public class P2_Boss : Boss
            
             kvp.Value.GetComponent<Enemy>().currentHealth = 4;
             kvp.Value.GetComponent<Enemy>().Setup(/*GridManager.Instance.BossEnemySO, */GridManager.Instance.Grid[kvp.Key]);
-            Spawn(kvp.Key, kvp.Value);
+            //Spawn(kvp.Key, kvp.Value);
             BossNeighbors();
             BossParticle(kvp.Value);
         }

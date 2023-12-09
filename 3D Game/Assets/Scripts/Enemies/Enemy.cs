@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] GameObject Particle_EnemyDeath;
     public int SkillPointReward;
 
-    public MeshRenderer mr;
+    MeshRenderer mr;
 
     [SerializeField] public List<Spreadbehaviours> spreadbehaviours;
     public Vector2Int axialLocation;
@@ -42,19 +42,14 @@ public class Enemy : MonoBehaviour
         EventManager.OnEndTurnEvent -= Spread;
     }
 
-    public void Setup(/*EnemySO enemySO, */GridTile tile)
+    virtual public void Setup(GridTile tile)
     {
-        //this.enemySO = enemySO;
-
-        //currentHealth = enemySO.myCurrentHealth;
-        //maxHealth = enemySO.mymaxHealth;
         ressource = tile.ressource;
         axialLocation = tile.AxialCoordinate;
-
-        MeshFilter meshFilter = GetComponent<MeshFilter>();
-        //meshFilter.mesh = enemySO.myMesh;
-        MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
-        //meshRenderer.material = enemySO.myMaterial;
+        transform.position = tile.transform.position;
+        //transform.parent = tile.transform;
+        transform.SetParent(tile.gameObject.transform);
+        mr = GetComponent<MeshRenderer>();
 
         transform.DOPunchScale(Vector3.one * Random.Range(0.5f, 1), 1f);
 
@@ -77,10 +72,11 @@ public class Enemy : MonoBehaviour
 
         for (int i = 0; i < currentHealth; i++)
         {
-            Image hpp = Instantiate(HealthpointPrefab);
+            Image hpp = Instantiate(HealthpointPrefab, HealthPointsLayout.transform);
             healthpoints.Add(hpp);
-            hpp.transform.SetParent(HealthPointsLayout.transform);
         }
+
+        tile.ChangeCurrentState(GridManager.Instance.gS_Negative);
     }
 
     public void TakeDamage(int damage)
@@ -88,16 +84,6 @@ public class Enemy : MonoBehaviour
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
-            //if (gameObject.TryGetComponent<Boss>(out Boss boss))
-            //{
-            //    boss.BossDeath(boss.location[0]);
-            //    if (FirstAndLast)
-            //    {
-            //        Destroy(gameObject);
-            //    }
-
-            //    return;
-            //}
             Death();
         }
         else
@@ -121,11 +107,11 @@ public class Enemy : MonoBehaviour
 
     public virtual void Spread()
     {
-        foreach(Spreadbehaviours sb in spreadbehaviours)
+        foreach (Spreadbehaviours sb in spreadbehaviours)
         {
-            if(sb.TargetTile(HexGridUtil.AxialToCubeCoord(axialLocation), out Vector3Int target, FindClosestPlayer().CoordinatePosition))
+            if (sb.TargetTile(HexGridUtil.AxialToCubeCoord(axialLocation), out Vector3Int target, FindClosestPlayer().CoordinatePosition))
             {
-                GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)].ChangeCurrentState(GridManager.Instance.gS_Negative); 
+                GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)].ChangeCurrentState(GridManager.Instance.gS_Negative);
                 break;
             }
         }
@@ -134,10 +120,10 @@ public class Enemy : MonoBehaviour
     public Player FindClosestPlayer()
     {
         Player closestPlayer = PlayerManager.Instance.Players[0];
-        int Distance = HexGridUtil.CubeDistance(HexGridUtil.AxialToCubeCoord(axialLocation),HexGridUtil.AxialToCubeCoord(closestPlayer.CoordinatePosition));
-        for(int i = 1; i < PlayerManager.Instance.Players.Count; i++)
+        int Distance = HexGridUtil.CubeDistance(HexGridUtil.AxialToCubeCoord(axialLocation), HexGridUtil.AxialToCubeCoord(closestPlayer.CoordinatePosition));
+        for (int i = 1; i < PlayerManager.Instance.Players.Count; i++)
         {
-            Player player = PlayerManager.Instance.Players[i];  
+            Player player = PlayerManager.Instance.Players[i];
             int newDistance = HexGridUtil.CubeDistance(HexGridUtil.AxialToCubeCoord(axialLocation), HexGridUtil.AxialToCubeCoord(player.CoordinatePosition));
             if (newDistance < Distance)
             {
