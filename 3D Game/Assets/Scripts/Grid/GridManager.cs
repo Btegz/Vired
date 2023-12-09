@@ -85,7 +85,12 @@ public class GridManager : MonoBehaviour
     {
         if (Instance == null)
         {
-            Instance = this;
+            Instance = this; 
+            currentPhase = phases[0];
+            currentPhase.myPhaseTransition.InitPhaseTransitionCheck();
+            TriggerPhase();
+            EventManager.OnEndTurnEvent += EndTurn;
+            TransferGridSOData();
         }
         else
         {
@@ -96,11 +101,7 @@ public class GridManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentPhase = phases[0];
-        currentPhase.myPhaseTransition.InitPhaseTransitionCheck();
-        TriggerPhase();
-        EventManager.OnEndTurnEvent += EndTurn;
-        TransferGridSOData();
+       
 
 
 
