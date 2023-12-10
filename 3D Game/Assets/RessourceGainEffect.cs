@@ -11,6 +11,8 @@ public class RessourceGainEffect : MonoBehaviour
     [SerializeField]UIParticle RessourceCPart;
     [SerializeField]UIParticle RessourceDPart;
 
+    public AudioData collectResource;
+
     public void Initialize(Ressource ressource, Vector2 start, Vector2 goal)
     {
         transform.position = start;
@@ -30,6 +32,7 @@ public class RessourceGainEffect : MonoBehaviour
                 break;
         }
 
+        AudioManager.Instance.PlaySoundAtLocation(collectResource);
         transform.DOJump(goal, 200,1, 2f).OnComplete(()=>Destroy(gameObject));
 
     }

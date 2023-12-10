@@ -30,11 +30,13 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] public AudioData audioData;
     public AudioData death;
+    public AudioData spawn;
 
     [HideInInspector] public bool FirstAndLast = true;
+
     private void Awake()
     {
-
+        AudioManager.Instance.PlaySoundAtLocation(spawn);
     }
 
     public void Setup(EnemySO enemySO, GridTile tile)
