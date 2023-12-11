@@ -156,7 +156,7 @@ public class P2_Boss : Boss
       
         foreach (KeyValuePair<Vector2Int, GridTile> kvp in GridManager.Instance.Grid)
         {
-            if (kvp.Value.currentGridState == GridManager.Instance.gS_Negative || kvp.Value.currentGridState == GridManager.Instance.gS_Enemy || kvp.Value.currentGridState == GridManager.Instance.gS_Boss || kvp.Value.currentGridState == GridManager.Instance.gS_BossNegative)
+            if (kvp.Value.currentGridState == GridManager.Instance.gS_Negative || kvp.Value.currentGridState == GridManager.Instance.gS_Enemy || kvp.Value.currentGridState == GridManager.Instance.gS_Boss || kvp.Value.currentGridState == GridManager.Instance.gS_BossNegative || kvp.Value.currentGridState == GridManager.Instance.gS_PofI)
             {
                 continue;
             }

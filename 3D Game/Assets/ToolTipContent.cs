@@ -8,7 +8,7 @@ public class ToolTipContent : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public string Header;
     public string Content;
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public virtual void OnPointerEnter(PointerEventData eventData)
     {
         TooltipUI.Instance.DisplayTooltip(Header, Content);
     }
