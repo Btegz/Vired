@@ -29,7 +29,16 @@ public class Enemy : MonoBehaviour
     MeshRenderer mr;
 
     [SerializeField] public List<Spreadbehaviours> spreadbehaviours;
-    public Vector2Int axialLocation;
+    public Vector2Int axialLocation; 
+    
+    [SerializeField] public AudioData audioData;
+    public AudioData death;
+    public AudioData spawn; 
+    
+    private void Awake()
+    {
+        AudioManager.Instance.PlaySoundAtLocation(spawn);
+    }
 
     [HideInInspector] public bool FirstAndLast = true;
     private void Start()
