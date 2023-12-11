@@ -277,11 +277,11 @@ public class MapSettings : ScriptableObject
         {
             List<ProceduralTileInfo> newNeighbors = neighbors(result);
             newNeighbors.Sort();
-            Debug.Log("----------------------------------------------------------------------------");
-            foreach (ProceduralTileInfo tile in newNeighbors)
-            {
-                Debug.Log(tile.noiseDistanceFactor);
-            }
+            //Debug.Log("----------------------------------------------------------------------------");
+            //foreach (ProceduralTileInfo tile in newNeighbors)
+            //{
+            //    Debug.Log(tile.noiseDistanceFactor);
+            //}
             result.Add(newNeighbors[0]);
         }
 
@@ -405,7 +405,7 @@ public class MapSettings : ScriptableObject
         // takes every unreachable coord into "unreachableCoords" List.
         List<Vector2Int> unreachableCoords = new List<Vector2Int>();
         List<Vector2Int> reachableCoords = HexGridUtil.CubeToAxialCoord(HexGridUtil.CoordinatesReachable(Vector3Int.zero, noiseDataSize.x, HexGridUtil.AxialToCubeCoord(tileCoords)));
-        Debug.Log("reachable Coords is now: " + reachableCoords.Count);
+        //Debug.Log("reachable Coords is now: " + reachableCoords.Count);
         //Debug.Log("This is how many reachable coords i have: " + reachableCoords.Count + " this is how many should be unreachable" + (myTileCount - reachableCoords.Count)+".");
         foreach (Vector2Int coord in tileCoords)
         {
@@ -421,32 +421,32 @@ public class MapSettings : ScriptableObject
 
         for (int i = 0; i < unreachableCoords.Count;)
         {
-            Debug.Log("unreachableCoords is now " + unreachableCoords.Count + " big.");
+            //Debug.Log("unreachableCoords is now " + unreachableCoords.Count + " big.");
             if (GetTileFromCoord(unreachableCoords[i], tiles, out ProceduralTileInfo resultTest))
             {
                 List<ProceduralTileInfo> island = FindIslandOfTile(resultTest, tiles);
-                Debug.Log("found an Island its " + island.Count + " big");
+                //Debug.Log("found an Island its " + island.Count + " big");
                 islands.Add(island);
                 foreach (ProceduralTileInfo pti in island)
                 {
-                    if (unreachableCoords.Contains(pti.coord))
-                    {
-                        Debug.Log("everything fine");
-                    }
-                    else
-                    {
-                        Debug.Log("wtfffffffffff????");
-                    }
+                    //if (unreachableCoords.Contains(pti.coord))
+                    //{
+                    //    Debug.Log("everything fine");
+                    //}
+                    //else
+                    //{
+                    //    Debug.Log("wtfffffffffff????");
+                    //}
                     pti.valid = false;
                     unreachableCoords.Remove(pti.coord);
                 }
             }
-            Debug.Log("unreachableCoords is now " + unreachableCoords.Count + " big.");
+            //Debug.Log("unreachableCoords is now " + unreachableCoords.Count + " big.");
         }
 
         foreach (List<ProceduralTileInfo> island in islands)
         {
-            Debug.Log("Time to move an Island of the size of " + island.Count);
+            //Debug.Log("Time to move an Island of the size of " + island.Count);
             List<Vector2Int> islandCoords = new List<Vector2Int>();
             foreach (ProceduralTileInfo pti in island)
             {
@@ -455,16 +455,16 @@ public class MapSettings : ScriptableObject
             }
             List<Vector2Int> zeroedIsland = HexGridUtil.AxialAddRange(islandCoords, islandCoords[0] * -1);
             //Debug.Log("i have zeroed out the Island on its first Index. The Index now has the coordinate of " + zeroedIsland[0]);
-            Debug.Log("reachable Coords is now" + reachableCoords.Count + " big.");
+            //Debug.Log("reachable Coords is now" + reachableCoords.Count + " big.");
             reachableCoords = HexGridUtil.CombineGridsAlongAxis(reachableCoords, zeroedIsland, HexGridUtil.cubeDirectionVectors[UnityEngine.Random.Range(0, HexGridUtil.cubeDirectionVectors.Length)], out List<Vector2Int> movedGrid);
-            Debug.Log("After moving Island reachable Coords is now" + reachableCoords.Count + " big.");
+            //Debug.Log("After moving Island reachable Coords is now" + reachableCoords.Count + " big.");
             //foreach (Vector2Int coord in movedGrid)
             //{
             //    Debug.Log("moved islandcoordinate now is " + coord);
             //}
         }
 
-        Debug.Log("reachable Tiles now has" + reachableCoords.Count);
+        //Debug.Log("reachable Tiles now has" + reachableCoords.Count);
 
         foreach (Vector2Int coordinate in reachableCoords)
         {
@@ -474,7 +474,7 @@ public class MapSettings : ScriptableObject
             }
         }
 
-        Debug.Log("reachable Tiles now has" + reachableCoords.Count);
+        //Debug.Log("reachable Tiles now has" + reachableCoords.Count);
         //if (unreachableCoords.Count > 0)
         //{
         //    if (GetTileFromCoord(unreachableCoords[0], tiles, out ProceduralTileInfo resultTest))
@@ -515,7 +515,7 @@ public class MapSettings : ScriptableObject
                 pti.valid = false;
             }
         }
-        Debug.Log("I now have " + validNumber + " valid Tiles that should be attached to each other");
+        //Debug.Log("I now have " + validNumber + " valid Tiles that should be attached to each other");
     }
 
     public bool GetTileFromCoord(Vector2Int coord, List<ProceduralTileInfo> input, out ProceduralTileInfo result)
@@ -543,42 +543,42 @@ public class MapSettings : ScriptableObject
         List<Vector2Int> frontier = new List<Vector2Int>() { tile.coord };
         List<Vector2Int> newFrontier = new List<Vector2Int>();
         int i = 0;
-        Debug.Log("-----------------------------------------------");
+        //Debug.Log("-----------------------------------------------");
         while (i < 50)
         {
-            Debug.Log("i expand my Frontier currently consisting of " + frontier.Count + " items.");
-            Debug.Log("-----------------------------------------------");
+            //Debug.Log("i expand my Frontier currently consisting of " + frontier.Count + " items.");
+            //Debug.Log("-----------------------------------------------");
             foreach (Vector2Int frontierItem in frontier)
             {
-                Debug.Log("I loop through frontier. currently at: " + frontierItem);
-                Debug.Log("-----------------------------------------------");
+                //Debug.Log("I loop through frontier. currently at: " + frontierItem);
+                //Debug.Log("-----------------------------------------------");
                 List<Vector2Int> neighbors = HexGridUtil.AxialNeighbors(frontierItem);
                 foreach (Vector2Int neighbor in neighbors)
                 {
-                    Debug.Log("I loop through the neighbors of current frontierItem " + frontierItem + ", neighbor: " + neighbor);
-                    Debug.Log("-----------------------------------------------");
+                    //Debug.Log("I loop through the neighbors of current frontierItem " + frontierItem + ", neighbor: " + neighbor);
+                    //Debug.Log("-----------------------------------------------");
                     if (GetTileFromCoord(neighbor, input, out ProceduralTileInfo result))
                     {
                         if (!newFrontier.Contains(neighbor) && result.valid && !island.Contains(neighbor) && !frontier.Contains(neighbor))
                         {
-                            Debug.Log("I found a new valid tile in the frontier Neighbors " + neighbor);
-                            Debug.Log("-----------------------------------------------");
+                            //Debug.Log("I found a new valid tile in the frontier Neighbors " + neighbor);
+                            //Debug.Log("-----------------------------------------------");
                             island.Add(neighbor);
                             newFrontier.Add(neighbor);
                         }
                     }
                 }
-                Debug.Log("I am done with frontierItem " + frontierItem + ".");
+                //Debug.Log("I am done with frontierItem " + frontierItem + ".");
             }
             if (newFrontier.Count > 0)
             {
-                Debug.Log("i have found Items so i form a new frontier");
+                //Debug.Log("i have found Items so i form a new frontier");
                 frontier = newFrontier;
                 newFrontier.Clear();
             }
             else
             {
-                Debug.Log("i have not found any new items in the Frontier Neighbors so i am Done");
+                //Debug.Log("i have not found any new items in the Frontier Neighbors so i am Done");
                 break;
             }
         }
@@ -591,12 +591,12 @@ public class MapSettings : ScriptableObject
                 islandTiles.Add(result);
             }
         }
-        Debug.Log("My Search for the Island is done. The Island is " + islandTiles.Count + " tiles big:");
+        //Debug.Log("My Search for the Island is done. The Island is " + islandTiles.Count + " tiles big:");
         foreach (ProceduralTileInfo coordinate in islandTiles)
         {
             Debug.Log(coordinate.coord);
         }
-        Debug.Log("--------------------------------------------------------------------");
+        //Debug.Log("--------------------------------------------------------------------");
         return islandTiles;
     }
 }

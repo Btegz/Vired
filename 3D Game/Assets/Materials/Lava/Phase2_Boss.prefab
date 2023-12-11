@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 8254572460369654825}
   - component: {fileID: 727153629572622436}
   m_Layer: 0
-  m_Name: Phase1_Boss
+  m_Name: Phase2_Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -302,17 +302,15 @@ MonoBehaviour:
   BossSpreads:
   - {fileID: 11400000, guid: 0d765faaefb738d469120073c71e776d, type: 2}
   location: []
-  SpawnRange: 4
+  SpawnRange: 3
   enemyPrefabPool:
   - {fileID: 2148683299467376766, guid: 46ce70d7f7b651c4d85ca32bf76de3f9, type: 3}
-  EnemySpawnAmount: 2
+  EnemySpawnAmount: 1
   everyXTurns: 2
   NextBosses:
-  - {fileID: -6124643049886693301, guid: 2d0ee97a0b8759c4598533384064e7bc, type: 3}
-  - {fileID: -6124643049886693301, guid: 2d0ee97a0b8759c4598533384064e7bc, type: 3}
-  - {fileID: -6124643049886693301, guid: 2d0ee97a0b8759c4598533384064e7bc, type: 3}
-  nextBossSpawnPattern: {fileID: 0}
-  AbilityLoadoutReward: 2
+  - {fileID: 727153629572622436, guid: 142324f65a91d6e4a89974f161cf67f3, type: 3}
+  nextBossSpawnPattern: {fileID: 11400000, guid: 2af563a854034da44903fc202dcce818, type: 2}
+  AbilityLoadoutReward: 1
   Enemy2Prefab: {fileID: 0}
   blueParticle: {fileID: 6837410471105182777, guid: 17a752188eb6cb9498862a5490c0a5f5, type: 3}
   orangeParticle: {fileID: 6707404070419994156, guid: 8c4efcf0b610937448491cceb36e3a12, type: 3}

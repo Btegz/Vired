@@ -130,7 +130,7 @@ public class CameraRotation : MonoBehaviour
                 minZ = currentCoord.z;
             }
         }
-        Debug.Log($"minX: {minX}, maxX: {maxX}, minZ: {minZ}, maxZ: {maxZ}");
+        //Debug.Log($"minX: {minX}, maxX: {maxX}, minZ: {minZ}, maxZ: {maxZ}");
         //jetzt ham wa die größen Distanzen
 
 

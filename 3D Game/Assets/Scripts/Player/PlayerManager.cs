@@ -47,6 +47,8 @@ public class PlayerManager : MonoBehaviour
     [HideInInspector] public Vector2Int playerPosition;
     public List<Sprite> PlayerSprites;
 
+    public AbilityLoadout abilityLoadout;
+
     [Header("Resources")]
     public int RessourceAInventory;
     public int RessourceBInventory;
@@ -68,6 +70,7 @@ public class PlayerManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            AbilityLoadoutActive = true;
         }
         else
         {
@@ -77,8 +80,6 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
-        //playerPosition = PlayerSpawnPoint;
-        //selectedPlayer.transform.position = GridManager.Instance.Grid[PlayerSpawnPoint].transform.position;
         foreach (Player p in Players)
         {
             p.transform.position = GridManager.Instance.Grid[p.SpawnPoint].transform.position;
@@ -92,6 +93,9 @@ public class PlayerManager : MonoBehaviour
         EventManager.OnSelectPlayerEvent += PlayerSelect;
         EventManager.OnMoveEvent += _ => StartCoroutine(Move(clickedTile));
         EventManager.OnMoveEvent += Audio;
+        //playerPosition = PlayerSpawnPoint;
+        //selectedPlayer.transform.position = GridManager.Instance.Grid[PlayerSpawnPoint].transform.position;
+
 
         //Audio(selectedPlayer);
     }
@@ -164,7 +168,7 @@ public class PlayerManager : MonoBehaviour
                 }
             }
 
-            if ((PlayerManager.Instance.movementAction == 0 && Mouse.current.leftButton.wasPressedThisFrame && !PlayerManager.Instance.abilityActivated && PlayerManager.Instance.extraMovement == 0 ))
+            if ((PlayerManager.Instance.movementAction == 0 && Mouse.current.leftButton.wasPressedThisFrame && !PlayerManager.Instance.abilityActivated && PlayerManager.Instance.extraMovement == 0))
             {
                 selectedPlayer.gameObject.transform.GetChild(0).transform.DOComplete();
                 selectedPlayer.gameObject.transform.GetChild(0).transform.DOPunchRotation(new Vector3(10f, 2f), 1f);
@@ -209,8 +213,8 @@ public class PlayerManager : MonoBehaviour
                     }
                 }
 
-                
-                    
+
+
 
             }
         }
@@ -321,9 +325,9 @@ public class PlayerManager : MonoBehaviour
         AbilityPreview.ShowMesh(chosenAbility, selectedPoint, playerPos);
     }
 
-    public void AbilityClicked(Ability ability,AbilityButton button)
+    public void AbilityClicked(Ability ability, AbilityButton button)
     {
-        if(button.currentState == ButtonState.inMainScene)
+        if (button.currentState == ButtonState.inMainScene)
         {
             AbilityClicked(ability);
         }
@@ -510,10 +514,10 @@ public class PlayerManager : MonoBehaviour
         PlayerManager.Instance.selectedPlayer = player/*PlayerManager.Instance.Players[(int)keyPressed]*/;
         // EventManager.OnSelectPlayer(selectedPlayer);
 
-        
+
         CameraRotation.Instance.Playercam.LookAt = PlayerManager.Instance.selectedPlayer.transform;
         CameraRotation.Instance.Playercam.Follow = PlayerManager.Instance.selectedPlayer.transform;
-       // CameraRotation.Instance.SwitchToPlayer();
+        // CameraRotation.Instance.SwitchToPlayer();
 
 
 

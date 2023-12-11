@@ -27,7 +27,7 @@ public class P2_Boss : Boss
 
     private void Start()
     {
-        enemy.FirstAndLast = false;
+        //enemy.FirstAndLast = false;
         location = new List<Vector2Int>();
         EventManager.OnEndTurnEvent += BossNeighbors;
         PE_EnemySpawn.everyXRounds = 2;
@@ -46,7 +46,7 @@ public class P2_Boss : Boss
            
             kvp.Value.GetComponent<Enemy>().currentHealth = 4;
             kvp.Value.GetComponent<Enemy>().Setup(/*GridManager.Instance.BossEnemySO, */GridManager.Instance.Grid[kvp.Key]);
-            Spawn(kvp.Key, kvp.Value);
+            //Spawn(kvp.Key, kvp.Value);
             BossNeighbors();
             BossParticle(kvp.Value);
         }
@@ -208,7 +208,7 @@ public class P2_Boss : Boss
             Phase.myPhaseEffects.Remove(PE_MiniEnemySpawn);
 
         }
-        enemy.FirstAndLast = true;
+        //enemy.FirstAndLast = true;
         PE_EnemySpawn.everyXRounds = 2;
 
 

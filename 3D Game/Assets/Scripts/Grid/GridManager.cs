@@ -67,13 +67,18 @@ public class GridManager : MonoBehaviour
     [SerializeField] List<HS_World> RessourceShapes;
 
     [Header("Enemy Ressources")]
-    [SerializeField] public Enemy enemyPrefab;
-    [SerializeField] public List<EnemySO> enemySOs;
-    [SerializeField] public EnemySO BossEnemySO;
-    [SerializeField] public Enemy BossPrefab;
+    [SerializeField] public List<Enemy> StartEnemyPrefabs;
+    //[SerializeField] public List<EnemySO> enemySOs;
+    //[SerializeField] public EnemySO BossEnemySO;
+    [SerializeField] public Boss BossPrefab;
 
     [Header("Phases")]
     [SerializeField] public int TurnCounter;
+    //[SerializeField] Phase currentPhase;
+    //[SerializeField] List<Phase> phases;
+
+    [Header("UI")]
+    [SerializeField] public Canvas mainCanvas;
 
 
     private void Awake()
@@ -81,11 +86,14 @@ public class GridManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this; 
-            currentPhase = phases[0];
-            currentPhase.myPhaseTransition.InitPhaseTransitionCheck();
-            TriggerPhase();
             EventManager.OnEndTurnEvent += EndTurn;
             TransferGridSOData();
+            PlayerManager.Instance.abilityLoadout.amountToChoose = 3;
+            PlayerManager.Instance.abilityLoadout.gameObject.SetActive(true);
+            //currentPhase = phases[0];
+            //currentPhase.myPhaseTransition.InitPhaseTransitionCheck();
+            //TriggerPhase();
+
         }
         else
         {
@@ -96,7 +104,6 @@ public class GridManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
 
 
 
@@ -192,7 +199,7 @@ public class GridManager : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        Enemy enemy = Instantiate(enemyPrefab);
+        Enemy enemy = Instantiate(StartEnemyPrefabs[Random.Range(0,StartEnemyPrefabs.Count)]);
 
         List<GridTile> reachableTiles = new List<GridTile>();
 
@@ -215,59 +222,58 @@ public class GridManager : MonoBehaviour
         {
             targetLocation = reachableTiles[Random.Range(0, reachableTiles.Count)];
         }
-        enemy.Setup(/*enemySOs[Random.Range(0, enemySOs.Count)],*/ targetLocation);
+        enemy.Setup(/*enemySOs[Random.Range(0, enemySOs.Count)], */targetLocation);
         targetLocation.ChangeCurrentState(gS_Enemy);
         enemy.transform.parent = targetLocation.transform;
         enemy.transform.position = targetLocation.transform.position;
     }
     private void SpawnBossAndPlayer(List<Vector2Int> Border)
     {
+        //Vector3Int maxX = new Vector3Int();
+        //Vector3Int maxY = new Vector3Int();
+        //Vector3Int maxZ = new Vector3Int();
+        //Vector3Int minX = new Vector3Int();
+        //Vector3Int minY = new Vector3Int();
+        //Vector3Int minZ = new Vector3Int();
 
-        Vector3Int maxX = new Vector3Int();
-        Vector3Int maxY = new Vector3Int();
-        Vector3Int maxZ = new Vector3Int();
-        Vector3Int minX = new Vector3Int();
-        Vector3Int minY = new Vector3Int();
-        Vector3Int minZ = new Vector3Int();
+        //List<Vector3Int> CubeCoords = HexGridUtil.AxialToCubeCoord(Grid.Keys.ToList<Vector2Int>());
 
-        List<Vector3Int> CubeCoords = HexGridUtil.AxialToCubeCoord(Grid.Keys.ToList<Vector2Int>());
+        //foreach (Vector3Int coord in CubeCoords)
+        //{
+        //    if (coord.x > maxX.x)
+        //    {
+        //        maxX = coord;
+        //    }
 
-        foreach (Vector3Int coord in CubeCoords)
-        {
-            if (coord.x > maxX.x)
-            {
-                maxX = coord;
-            }
+        //    if (coord.x < minX.x)
+        //    {
+        //        minX = coord;
+        //    }
 
-            if (coord.x < minX.x)
-            {
-                minX = coord;
-            }
+        //    if (coord.y > maxY.y)
+        //    {
+        //        maxY = coord;
+        //    }
 
-            if (coord.y > maxY.y)
-            {
-                maxY = coord;
-            }
+        //    if (coord.y < minY.y)
+        //    {
+        //        minY = coord;
+        //    }
 
-            if (coord.y < minY.y)
-            {
-                minY = coord;
-            }
+        //    if (coord.z > maxZ.z)
+        //    {
+        //        maxZ = coord;
+        //    }
 
-            if (coord.z > maxZ.z)
-            {
-                maxZ = coord;
-            }
+        //    if ((coord.z < minZ.z))
+        //    {
+        //        minZ = coord;
+        //    }
+        //}
 
-            if ((coord.z < minZ.z))
-            {
-                minZ = coord;
-            }
-        }
-
-        Vector3Int[] coords = { minY, minX, minZ };
-        random = Random.Range(0, coords.Length);
-        BossSpawn = Border[0];
+        //Vector3Int[] coords = { minY, minX, minZ };
+        //random = Random.Range(0, coords.Length);
+        //BossSpawn = Border[0];
         List<Player> players = PlayerManager.Instance.Players;
         players[0].SpawnPoint = Border[Border.Count / 4 * 1];
         players[1].SpawnPoint = Border[Border.Count / 4 * 2];
@@ -276,6 +282,9 @@ public class GridManager : MonoBehaviour
         players[0].CoordinatePosition = Border[Border.Count / 4 * 1];
         players[1].CoordinatePosition = Border[Border.Count / 4 * 2];
         players[2].CoordinatePosition = Border[Border.Count / 4 * 3];
+
+        Boss newBoss = Instantiate(BossPrefab);
+        newBoss.Setup(Grid[Border[0]]);
 
         List<Vector2Int> newBossTiles = HexGridUtil.AxialNeighbors(BossSpawn);
         foreach (Vector2Int coordinate in newBossTiles)

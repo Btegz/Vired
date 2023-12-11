@@ -36,12 +36,12 @@ public class EventManager
         OnAbilityButtonEvent?.Invoke(ability, button);
     }
 
-    public delegate void LoadOutAbilityChosen(AbilityLoadoutButton abilityButton);
+    public delegate void LoadOutAbilityChosen(AbilityLoadoutButton abilityButton,Player player);
     public static event LoadOutAbilityChosen OnAbilityChosenEvent;
 
-    public static void OnAbilityChosen(AbilityLoadoutButton abilityLoadoutButton)
+    public static void OnAbilityChosen(AbilityLoadoutButton abilityLoadoutButton, Player player)
     {
-        OnAbilityChosenEvent?.Invoke(abilityLoadoutButton);
+        OnAbilityChosenEvent?.Invoke(abilityLoadoutButton, player);
     }
 
     public delegate void LoadOutAbilityChoiceRemoveDelegate(AbilityLoadoutButton abilityButton);

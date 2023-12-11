@@ -213,7 +213,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if (GetComponentInChildren<Enemy>() == null)
         {
             GridManager gridManagerInstance = GridManager.Instance;
-            Enemy newEnemy = Instantiate(gridManagerInstance.enemyPrefab);
+            Enemy newEnemy = Instantiate(gridManagerInstance.StartEnemyPrefabs[Random.Range(0, gridManagerInstance.StartEnemyPrefabs.Count)]);
             newEnemy.Setup(/*gridManagerInstance.enemySOs[Random.Range(0, gridManagerInstance.enemySOs.Count)], */this);
             newEnemy.transform.parent = transform;
             newEnemy.transform.position = transform.position;

@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum ButtonState { inLoadout, inMainScene, inUpgrade}
+public enum ButtonState { newInLoadout,fixedInLoadout, inMainScene, inUpgrade}
 
 public class AbilityButton : MonoBehaviour
 {

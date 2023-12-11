@@ -279,7 +279,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac40004989043c74bac78dc94d695d48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySO: {fileID: 11400000, guid: 624febcbbbfddfa4b9507611ba2f9bd1, type: 2}
   currentHealth: 2
   maxHealth: 2
   ressource: 1
@@ -292,8 +291,11 @@ MonoBehaviour:
   healthpoints: []
   Particle_EnemyDeath: {fileID: 260696148355967348, guid: 971d1dd4df5430645ae993043a70b5a8, type: 3}
   SkillPointReward: 2
-  mr: {fileID: 0}
+  spreadbehaviours:
+  - {fileID: 11400000, guid: 36e1b6eb070f48842ad428e9b27eeae5, type: 2}
+  - {fileID: 11400000, guid: ab7ddd9a180f3884899cb7ed093172ce, type: 2}
+  - {fileID: 11400000, guid: cc14b309b15ea324aa4ac59fee75e705, type: 2}
+  axialLocation: {x: 0, y: 0}
   audioData: {fileID: 0}
   death: {fileID: 11400000, guid: 52c5c7a45c8060342836570eb8ce113a, type: 2}
   spawn: {fileID: 11400000, guid: cf068642af0e61e4c879e07d4cb7df86, type: 2}
-  FirstAndLast: 1

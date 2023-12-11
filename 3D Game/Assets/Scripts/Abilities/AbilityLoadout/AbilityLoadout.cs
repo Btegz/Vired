@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using DG.Tweening;
+using Unity.VisualScripting;
 
 public class AbilityLoadout : MonoBehaviour
 {
@@ -33,34 +34,60 @@ public class AbilityLoadout : MonoBehaviour
     [SerializeField] Image MinMapImage;
     bool miniMapIsZoomed;
 
+    private void OnEnable()
+    {
+        if(PlayerManager.Instance != null)
+        {
+            PlayerManager.Instance.AbilityLoadoutActive = true;
+        }
+        
+        ChosenAbilityList = new List<Ability>();
 
+        if(ChosenAbilityList.Count != amountToChoose)
+        {
+            ConfirmButton.gameObject.SetActive(false);
+        }
+
+
+        //if (playersArea.GetComponentsInChildren<UI_PlayerABLInventory>().Length <= 0)
+        //{
+        //    foreach (Player player in playerManager.Players)
+        //    {
+        //        UI_PlayerABLInventory ini = Instantiate(playerABLInventoryPrefab, playersArea.transform);
+
+        //        ini.Setup(player);
+
+        //        foreach (Ability ability in player.AbilityInventory)
+        //        {
+        //            ChosenAbilityList.Add(ability);
+        //            abilityCollection.Remove(ability);
+        //            AbilityLoadoutButton button = Instantiate(abloadoutButton);
+        //            button.transform.SetParent(ini.InventoryArea.transform);
+        //            button.Setup(ability, ini.InventoryArea);
+        //        }
+        //    }
+        //}
+
+        //foreach(AbilityLoadoutButton abl in transform.GetComponentsInChildren<AbilityLoadoutButton>())
+        //{
+        //    Destroy(abl.gameObject);
+        //}
+
+
+        EventManager.OnAbilityChosenEvent += AddAbilityChoice;
+        EventManager.LoadOutAbilityChoiseRemoveEvent += RemoveAbilityChoice;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.OnAbilityChosenEvent -= AddAbilityChoice;
+        EventManager.LoadOutAbilityChoiseRemoveEvent -= RemoveAbilityChoice;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         MinimapCam.orthographicSize = GridManager.Instance.mapSettings.NoiseDataSize.x;
-
-        PlayerManager playerManager = PlayerManager.Instance;
-
-        playerManager.AbilityLoadoutActive = true;
-
-        ChosenAbilityList = new List<Ability>();
-
-        foreach (Player player in playerManager.Players)
-        {
-            UI_PlayerABLInventory ini = Instantiate(playerABLInventoryPrefab, playersArea.transform);
-
-            ini.Setup(player);
-
-            foreach (Ability ability in player.AbilityInventory)
-            {
-                ChosenAbilityList.Add(ability);
-                abilityCollection.Remove(ability);
-                AbilityLoadoutButton button = Instantiate(abloadoutButton);
-                button.transform.SetParent(ini.InventoryArea.transform);
-                button.Setup(ability, ini.InventoryArea);
-            }
-        }
 
         AbilityLoadoutButton instance;
         foreach (Ability ability in abilityCollection)
@@ -86,21 +113,69 @@ public class AbilityLoadout : MonoBehaviour
                     break;
                 default: instance = null; break;
             }
-            instance.currentState = ButtonState.inLoadout;
+            instance.currentState = ButtonState.newInLoadout;
 
-            instance.ability.StarterAbility();
+            //instance.ability.StarterAbility();
         }
-        EventManager.OnAbilityChosenEvent += AddAbilityChoice;
-        EventManager.LoadOutAbilityChoiseRemoveEvent += RemoveAbilityChoice;
+        //playerManager.AbilityLoadoutActive = true;
+
+        //ChosenAbilityList = new List<Ability>();
+
+        //foreach (Player player in playerManager.Players)
+        //{
+        //    UI_PlayerABLInventory ini = Instantiate(playerABLInventoryPrefab, playersArea.transform);
+
+        //    ini.Setup(player);
+
+        //    foreach (Ability ability in player.AbilityInventory)
+        //    {
+        //        ChosenAbilityList.Add(ability);
+        //        abilityCollection.Remove(ability);
+        //        AbilityLoadoutButton button = Instantiate(abloadoutButton);
+        //        button.transform.SetParent(ini.InventoryArea.transform);
+        //        button.Setup(ability, ini.InventoryArea);
+        //    }
+        //}
+
+        //AbilityLoadoutButton instance;
+        //foreach (Ability ability in abilityCollection)
+        //{
+        //    ability.StarterAbility();
+        //    switch (ability.MyCostRessource)
+        //    {
+        //        case Ressource.ressourceA:
+        //            instance = Instantiate(abloadoutButton, BlueAbilityLayout.transform);
+        //            instance.Setup(ability, BlueAbilityLayout);
+        //            break;
+        //        case Ressource.ressourceB:
+        //            instance = Instantiate(abloadoutButton, OrangeAbilityLayout.transform);
+        //            instance.Setup(ability, OrangeAbilityLayout);
+        //            break;
+        //        case Ressource.ressourceC:
+        //            instance = Instantiate(abloadoutButton, RedAbilityLayout.transform);
+        //            instance.Setup(ability, RedAbilityLayout);
+        //            break;
+        //        case Ressource.resscoureD:
+        //            instance = Instantiate(abloadoutButton, GreenAbilityLayout.transform);
+        //            instance.Setup(ability, GreenAbilityLayout);
+        //            break;
+        //        default: instance = null; break;
+        //    }
+        //    instance.currentState = ButtonState.inLoadout;
+
+        //    instance.ability.StarterAbility();
+        //}
+        //EventManager.OnAbilityChosenEvent += AddAbilityChoice;
+        //EventManager.LoadOutAbilityChoiseRemoveEvent += RemoveAbilityChoice;
     }
 
     private void OnDestroy()
     {
-        EventManager.OnAbilityChosenEvent -= AddAbilityChoice;
-        EventManager.LoadOutAbilityChoiseRemoveEvent -= RemoveAbilityChoice;
+        //EventManager.OnAbilityChosenEvent -= AddAbilityChoice;
+        //EventManager.LoadOutAbilityChoiseRemoveEvent -= RemoveAbilityChoice;
     }
 
-    public void AddAbilityChoice(AbilityLoadoutButton abilityLoadoutButton)
+    public void AddAbilityChoice(AbilityLoadoutButton abilityLoadoutButton, Player player)
     {
         if (!ChosenAbilityList.Contains(abilityLoadoutButton.ability))
         {
@@ -114,7 +189,7 @@ public class AbilityLoadout : MonoBehaviour
         }
         else
         {
-            Debug.Log("I SHOULD BE DISABLED");
+            //Debug.Log("I SHOULD BE DISABLED");
             ConfirmButton.gameObject.SetActive(false);
         }
     }
@@ -137,7 +212,16 @@ public class AbilityLoadout : MonoBehaviour
         PlayerManager.Instance.AbilityLoadoutActive = false;
         PlayerManager.Instance.abilitInventory.AddRange(ChosenAbilityList);
         EventManager.OnConfirmButton();
-        Destroy(gameObject);
+
+        foreach (UI_PlayerABLInventory aBLInventory in PlayerInventoryAreas)
+        {
+            foreach (AbilityLoadoutButton ablB in aBLInventory.AbilityLoadoutButtonInstances)
+            {
+                ablB.currentState = ButtonState.fixedInLoadout;
+            }
+        }
+
+        gameObject.SetActive(false);
     }
 
     public void ToggleMiniMapZoom()
