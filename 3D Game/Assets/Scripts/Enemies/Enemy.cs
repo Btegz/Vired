@@ -76,7 +76,7 @@ public class Enemy : MonoBehaviour
             healthpoints.Add(hpp);
         }
 
-        tile.ChangeCurrentState(GridManager.Instance.gS_Negative);
+        tile.ChangeCurrentState(GridManager.Instance.gS_Enemy);
     }
 
     public void TakeDamage(int damage)

@@ -69,7 +69,7 @@ public class PlayerManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-
+            AbilityLoadoutActive = true;
         }
         else
         {

@@ -49,7 +49,7 @@ public class Boss : Enemy
         base.Setup(tile);
         tile.ChangeCurrentState(GridManager.Instance.gS_Boss);
         BossNeighbors();
-        EventManager.OnEndTurnEvent += BossNeighbors;
+        //EventManager.OnEndTurnEvent += BossNeighbors;
     }
 
     override public void Spread()
@@ -82,6 +82,9 @@ public class Boss : Enemy
         {
             GridManager.Instance.GameWon();
         }
+
+        PlayerManager.Instance.abilityLoadout.amountToChoose = AbilityLoadoutReward;
+        PlayerManager.Instance.abilityLoadout.gameObject.SetActive(true);
 
         foreach (Vector3Int neighbor in BossReachableTiles)
         {
@@ -121,8 +124,8 @@ public class Boss : Enemy
             }
         }
 
-        PlayerManager.Instance.abilityLoadout.amountToChoose = AbilityLoadoutReward;
-        PlayerManager.Instance.abilityLoadout.gameObject.SetActive(true);
+        EventManager.OnEndTurnEvent -= BossNeighbors;
+
 
         base.Death();   
     }

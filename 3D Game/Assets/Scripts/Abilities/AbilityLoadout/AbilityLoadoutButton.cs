@@ -13,6 +13,10 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
     [SerializeField] GridLayoutGroup currentParent;
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (currentState != ButtonState.newInLoadout)
+        {
+            return;
+        }
         transform.SetParent(originalParent.GetComponentInParent<Canvas>().transform);
 
         foreach (Player p in PlayerManager.Instance.Players)
@@ -28,6 +32,10 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (currentState != ButtonState.newInLoadout)
+        {
+            return;
+        }
         Vector2 mousePos = Pointer.current.position.ReadValue();
 
         transform.position = new Vector3(mousePos.x, mousePos.y, 0);
@@ -35,6 +43,10 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (currentState != ButtonState.newInLoadout)
+        {
+            return;
+        }
         GameObject pointedObj = eventData.pointerCurrentRaycast.gameObject;
         bool inPlayerArea = false;
         if (pointedObj.GetComponentInParent<UI_PlayerABLInventory>())
@@ -43,9 +55,9 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
             if (!playerArea.player.AbilityInventory.Contains(ability))
             {
                 inPlayerArea = true;
-                playerArea.player.AbilityInventory.Add(ability);
+                //playerArea.player.AbilityInventory.Add(ability);
                 transform.SetParent(playerArea.InventoryArea.transform);
-                EventManager.OnAbilityChosen(this);
+                EventManager.OnAbilityChosen(this,playerArea.player);
                 currentParent = playerArea.InventoryArea;
             }
         }
