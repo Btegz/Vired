@@ -31,7 +31,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] public List<Spreadbehaviours> spreadbehaviours;
     public Vector2Int axialLocation; 
     
-    [SerializeField] public AudioData audioData;
     public AudioData death;
     public AudioData spawn; 
     

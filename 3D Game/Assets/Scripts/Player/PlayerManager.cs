@@ -168,12 +168,6 @@ public class PlayerManager : MonoBehaviour
                 }
             }
 
-            if ((PlayerManager.Instance.movementAction == 0 && Mouse.current.leftButton.wasPressedThisFrame && !PlayerManager.Instance.abilityActivated && PlayerManager.Instance.extraMovement == 0))
-            {
-                selectedPlayer.gameObject.transform.GetChild(0).transform.DOComplete();
-                selectedPlayer.gameObject.transform.GetChild(0).transform.DOPunchRotation(new Vector3(10f, 2f), 1f);
-                AudioManager.Instance.PlaySoundAtLocation(noMovementSound);
-            }
 
 
 
@@ -181,13 +175,19 @@ public class PlayerManager : MonoBehaviour
             if (Mouse.current.leftButton.wasPressedThisFrame)
             {
                 // checks whether movement points are available or if a Ability is activated
-                if (movementAction > 0 || abilityActivated || ((movementAction == 0) && (extraMovement > 0)))
+                if (MouseCursorPosition(out clickedTile))
                 {
+                    if (movementAction == 0 && extraMovement == 0)
+                    {
+                        selectedPlayer.gameObject.transform.GetChild(0).transform.DOComplete();
+                        selectedPlayer.gameObject.transform.GetChild(0).transform.DOPunchRotation(new Vector3(10f, 2f), 1f);
+                        AudioManager.Instance.PlaySoundAtLocation(noMovementSound);
+                    }
                     // saves the Grid Tile Location that was clicked
 
 
                     // enters if a tile was clicked
-                    if (MouseCursorPosition(out clickedTile))
+                    if (movementAction > 0 || abilityActivated || ((movementAction == 0) && (extraMovement > 0)))
                     {
 
                         // enters if Players Neighbors contains the clicked Tile
