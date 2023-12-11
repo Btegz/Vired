@@ -59,6 +59,7 @@ public class PlayerManager : MonoBehaviour
     [Header("Audio")]
     [SerializeField] AudioData movementSound;
     [SerializeField] AudioData noMovementSound;
+    [SerializeField] AudioData switchPlayer;
 
 
     public Button EndTurnButton;
@@ -507,8 +508,9 @@ public class PlayerManager : MonoBehaviour
 
     public void PlayerSelect(Player player)
     {
+        
         CameraRotation.Instance.MainCam = true;
-
+        AudioManager.Instance.PlaySoundAtLocation(switchPlayer);
         PlayerManager.Instance.selectedPlayer = player/*PlayerManager.Instance.Players[(int)keyPressed]*/;
         // EventManager.OnSelectPlayer(selectedPlayer);
 

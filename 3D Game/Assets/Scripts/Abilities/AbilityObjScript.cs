@@ -26,6 +26,8 @@ public class AbilityObjScript : MonoBehaviour
     [SerializeField] GameObject particle_AbilityPositive;
     [SerializeField] GameObject particle_AbilityNegative;
 
+    public AudioData abilityCast;
+
 
     Camera cam;
 
@@ -304,6 +306,7 @@ public class AbilityObjScript : MonoBehaviour
             {
                 gridTile = GridManager.Instance.Grid[AbilityShapeLocation[i]];
                 UsingEffect(ability.Effects[i]);
+                AudioManager.Instance.PlaySoundAtLocation(abilityCast);
             }
         }
         Payment();
