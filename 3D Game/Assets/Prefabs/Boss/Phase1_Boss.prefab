@@ -280,7 +280,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac40004989043c74bac78dc94d695d48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySO: {fileID: 11400000, guid: 835522eebbfc13c4e922c45e683ba113, type: 2}
   currentHealth: 5
   maxHealth: 5
   ressource: 0
@@ -294,7 +293,9 @@ MonoBehaviour:
   Particle_EnemyDeath: {fileID: 726535386845715946, guid: 005fc7e0d2c6e1247b7b8880e93a8099, type: 3}
   SkillPointReward: 0
   mr: {fileID: 0}
-  death: {fileID: 11400000, guid: 52c5c7a45c8060342836570eb8ce113a, type: 2}
+  spreadbehaviours:
+  - {fileID: 11400000, guid: cc14b309b15ea324aa4ac59fee75e705, type: 2}
+  axialLocation: {x: 0, y: 0}
   FirstAndLast: 1
 --- !u!114 &4900118087047907613
 MonoBehaviour:
@@ -308,14 +309,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ccc260dd5a3be14fbd846ded292f46a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHealth: 0
+  maxHealth: 0
+  ressource: 0
+  AMAterial: {fileID: 0}
+  BMAterial: {fileID: 0}
+  CMAterial: {fileID: 0}
+  DMAterial: {fileID: 0}
+  HealthPointsLayout: {fileID: 0}
+  HealthpointPrefab: {fileID: 0}
+  healthpoints: []
+  Particle_EnemyDeath: {fileID: 0}
+  SkillPointReward: 0
+  mr: {fileID: 0}
+  spreadbehaviours: []
+  axialLocation: {x: 0, y: 0}
+  FirstAndLast: 1
   BossReachableTiles: []
   BossTiles: []
   BossSpreads: []
-  AbilityLoadout: 0
-  everyXRounds: 4
-  turnCounter: 1
   location: []
   SpawnRange: 4
+  enemyPrefabPool: []
+  EnemySpawnAmount: 0
+  everyXTurns: 0
+  NextBosses: []
+  AbilityLoadoutReward: 0
   Enemy2Prefab: {fileID: 0}
   blueParticle: {fileID: 6837410471105182777, guid: 17a752188eb6cb9498862a5490c0a5f5, type: 3}
   orangeParticle: {fileID: 6707404070419994156, guid: 8c4efcf0b610937448491cceb36e3a12, type: 3}

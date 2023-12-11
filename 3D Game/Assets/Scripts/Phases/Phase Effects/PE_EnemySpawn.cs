@@ -60,7 +60,7 @@ public class PE_EnemySpawn : PhaseEffect
                 {
                     Enemy enemy = Instantiate(enemyPrefab);
                     GridTile targetLocation = GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)];
-                    enemy.Setup(enemySOs[Random.Range(0, enemySOs.Count)], targetLocation);
+                    enemy.Setup(/*enemySOs[Random.Range(0, enemySOs.Count)], */targetLocation);
                     targetLocation.ChangeCurrentState(gridManager.gS_Enemy);
                     enemy.transform.parent = targetLocation.transform;
                     enemy.transform.position = targetLocation.transform.position;

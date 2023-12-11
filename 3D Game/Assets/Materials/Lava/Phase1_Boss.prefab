@@ -193,8 +193,7 @@ GameObject:
   - component: {fileID: 8254572460369654827}
   - component: {fileID: 8254572460369654826}
   - component: {fileID: 8254572460369654825}
-  - component: {fileID: 2148683299467376766}
-  - component: {fileID: 4900118087047907613}
+  - component: {fileID: 727153629572622436}
   m_Layer: 0
   m_Name: Phase1_Boss
   m_TagString: Untagged
@@ -268,7 +267,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2148683299467376766
+--- !u!114 &727153629572622436
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -277,10 +276,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8254572460369654823}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac40004989043c74bac78dc94d695d48, type: 3}
+  m_Script: {fileID: 11500000, guid: e358582cacc8867449f787d0154c3002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySO: {fileID: 11400000, guid: 835522eebbfc13c4e922c45e683ba113, type: 2}
   currentHealth: 5
   maxHealth: 5
   ressource: 0
@@ -292,32 +290,29 @@ MonoBehaviour:
   HealthpointPrefab: {fileID: 4546101371875049633, guid: 653162b7ccefd14408d3d51e5851e964, type: 3}
   healthpoints: []
   Particle_EnemyDeath: {fileID: 726535386845715946, guid: 005fc7e0d2c6e1247b7b8880e93a8099, type: 3}
+  SkillPointReward: 2
   mr: {fileID: 0}
---- !u!114 &4900118087047907613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8254572460369654823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ccc260dd5a3be14fbd846ded292f46a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  spreadbehaviours:
+  - {fileID: 11400000, guid: 2af563a854034da44903fc202dcce818, type: 2}
+  axialLocation: {x: 0, y: 0}
+  FirstAndLast: 1
   BossReachableTiles: []
   BossTiles: []
   BossSpreads:
   - {fileID: 11400000, guid: 0d765faaefb738d469120073c71e776d, type: 2}
-  AbilityLoadout: 0
-  everyXRounds: 2
-  turnCounter: 2
   location: []
   SpawnRange: 4
+  enemyPrefabPool:
+  - {fileID: 2148683299467376766, guid: 46ce70d7f7b651c4d85ca32bf76de3f9, type: 3}
+  EnemySpawnAmount: 2
+  everyXTurns: 2
+  NextBosses:
+  - {fileID: -6124643049886693301, guid: 2d0ee97a0b8759c4598533384064e7bc, type: 3}
+  - {fileID: -6124643049886693301, guid: 2d0ee97a0b8759c4598533384064e7bc, type: 3}
+  - {fileID: -6124643049886693301, guid: 2d0ee97a0b8759c4598533384064e7bc, type: 3}
+  AbilityLoadoutReward: 2
   Enemy2Prefab: {fileID: 0}
   blueParticle: {fileID: 6837410471105182777, guid: 17a752188eb6cb9498862a5490c0a5f5, type: 3}
   orangeParticle: {fileID: 6707404070419994156, guid: 8c4efcf0b610937448491cceb36e3a12, type: 3}
   redParticle: {fileID: 5178700602397541970, guid: d59862047bedbe94ead0e08a1166598f, type: 3}
   greenParticle: {fileID: 2702663329028805863, guid: 150fa3cf7e0a94743a4315636f07bb13, type: 3}
-  enemy: {fileID: 2148683299467376766}
-  bossManager: {fileID: 5357543653835728221, guid: 710f2ec76b3e94748b37e8a3f9bb820e, type: 3}

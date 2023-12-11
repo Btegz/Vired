@@ -54,7 +54,7 @@ public class UIManager : MonoBehaviour
             playerButton.Setup(player);
         }
         EndTurnButton.onClick.AddListener(EndTurn);
-        EndTurnButton.onClick.AddListener(GridManager.Instance.TriggerPhase);
+        //EndTurnButton.onClick.AddListener(GridManager.Instance.TriggerPhase);
         //AbilitiesInventoryButton.onClick.AddListener(ExpandAbilityInventory);
     }
 

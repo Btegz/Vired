@@ -4,21 +4,30 @@ using UnityEngine;
 using DG.Tweening;
 using System.Linq;
 
-public class Boss : MonoBehaviour
+public class Boss : Enemy
 {
-
-
     [SerializeField] List<Vector3Int> BossReachableTiles;
     [SerializeField] List<Vector3Int> BossTiles;
     [SerializeField] public List<Spreadbehaviours> BossSpreads;
-    [SerializeField] int AbilityLoadout;
+
     //[SerializeField] List<GridTile> GridEnemies;   
     //[SerializeField] List<Vector3Int> ReachableTiles;
-    public int everyXRounds;
-    public int turnCounter;
+    //public int everyXRounds;
+    //public int turnCounter;
 
     public List<Vector2Int> location;
+
+
     [SerializeField] int SpawnRange;
+
+
+    [SerializeField] List<Enemy> enemyPrefabPool;
+    [SerializeField] int EnemySpawnAmount;
+    [SerializeField] int everyXTurns;
+    [SerializeField] List<Boss> NextBosses;
+    [SerializeField] int AbilityLoadoutReward;
+
+
     public GameObject Enemy2Prefab;
 
     public GameObject blueParticle;
@@ -31,10 +40,37 @@ public class Boss : MonoBehaviour
     private void Start()
     {
         EventManager.OnEndTurnEvent += BossNeighbors;
+        EventManager.OnEndTurnEvent += Spread;
         
+    }
 
+    override public void Spread()
+    {
+        if (GridManager.Instance.TurnCounter % everyXTurns != 0)
+        {
+            return;
+        }
 
+        foreach (Spreadbehaviours sb in spreadbehaviours)
+        {
+            for (int i = 0; i < EnemySpawnAmount; i++)
+            {
+                if (sb.TargetTile(HexGridUtil.AxialToCubeCoord(axialLocation), out Vector3Int target, FindClosestPlayer().CoordinatePosition))
+                {
+                    Enemy newEnemy = Instantiate(enemyPrefabPool[Random.Range(0,enemyPrefabPool.Count)]);
+                    newEnemy.Setup(GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)]);
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+    }
 
+    public override void Death()
+    {
+        base.Death();   
     }
 
     public void Spawn(Vector2Int location, GameObject boss)
@@ -59,8 +95,8 @@ public class Boss : MonoBehaviour
             {
                 if (GridManager.Instance.Grid.ContainsKey(HexGridUtil.CubeToAxialCoord(neighbor)))
                 {
-                    if(GridManager.Instance.Grid[ HexGridUtil.CubeToAxialCoord(neighbor)].currentGridState != GridManager.Instance.gS_Enemy)
-                    GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].ChangeCurrentState(GridManager.Instance.gS_BossNegative);
+                    if (GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].currentGridState != GridManager.Instance.gS_Enemy)
+                        GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].ChangeCurrentState(GridManager.Instance.gS_BossNegative);
                 }
             }
         }
@@ -78,7 +114,7 @@ public class Boss : MonoBehaviour
                 if (GridManager.Instance.Grid.ContainsKey(HexGridUtil.CubeToAxialCoord(neighbor)))
                 {
                     GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].ChangeCurrentState(GridManager.Instance.gS_Positive);
-                  
+
                 }
             }
 
@@ -89,13 +125,13 @@ public class Boss : MonoBehaviour
         }
         PlayerManager.Instance.SkillPoints += 2;
         EventManager.OnEndTurnEvent -= BossNeighbors;
-       
+
     }
 
 
     public void TriggerSpread()
     {
-       // if (turnCounter % everyXRounds == 0)
+        // if (turnCounter % everyXRounds == 0)
         {
             for (int i = 0; i < BossSpreads.Count; i++)
             {

@@ -115,9 +115,8 @@ public class Phase1Boss_SpreadBehaviour : Spreadbehaviours
 
     }
 
-
-
-
-
-
+    public override bool TargetTiles(Vector3Int origin, out List<Vector3Int> targets, Vector2Int closestPlayerPosition)
+    {
+        throw new System.NotImplementedException();
+    }
 }

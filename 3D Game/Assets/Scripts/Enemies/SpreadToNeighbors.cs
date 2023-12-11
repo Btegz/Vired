@@ -11,9 +11,19 @@ public class SpreadToNeighbors : Spreadbehaviours
 
     public override bool TargetTile(Vector3Int enemyPosition, out Vector3Int target, Vector2Int playerPosition)
     {
-        List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(enemyPosition);
+        if(TargetTiles(enemyPosition, out List<Vector3Int> targets, playerPosition))
+        {
+            target = targets[Random.Range(0,targets.Count)];
+            return true;
+        }
+        target = Vector3Int.zero;
+        return false;
+    }
+
+    public override bool TargetTiles(Vector3Int origin, out List<Vector3Int> targets, Vector2Int closestPlayerPosition)
+    {
+        List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(origin);
         List<Vector2Int> possibleTargets = new List<Vector2Int>();
-        playerPosition = PlayerManager.Instance.playerPosition;
 
         foreach (Vector3Int neighbor in neighbors)
         {
@@ -37,13 +47,13 @@ public class SpreadToNeighbors : Spreadbehaviours
 
         if (possibleTargets.Count == 0)
         {
-            target = Vector3Int.zero;
+            targets = new List<Vector3Int>();
             return false;
         }
 
         else
         {
-            target = HexGridUtil.AxialToCubeCoord(possibleTargets[Random.Range(0, possibleTargets.Count)]);
+            targets = HexGridUtil.AxialToCubeCoord(possibleTargets);
             return true;
         }
     }

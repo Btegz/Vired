@@ -11,7 +11,7 @@ public class PT_AllEnemiesDefeated : PhaseTransition
         {
           /*  EventManager.OnAbilityCastEvent -= ConditionFullfilledCheck;
             EventManager.OnEndTurnEvent -= ConditionFullfilledCheck;*/
-            GridManager.Instance.PhaseTransition();
+            //GridManager.Instance.PhaseTransition();
         }
     }
 

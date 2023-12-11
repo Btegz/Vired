@@ -55,7 +55,7 @@ public class PE_MiniEnemySpawn : PhaseEffect
                     enemyPosition = target;
                     Enemy enemy1 = Instantiate(enemyPrefab);
                     GridTile targetLocation = GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)];
-                    enemy1.Setup(enemySOs[Random.Range(0, enemySOs.Count)], targetLocation);
+                    enemy1.Setup(/*enemySOs[Random.Range(0, enemySOs.Count)], */targetLocation);
                     enemy1.currentHealth = 1;
                     targetLocation.ChangeCurrentState(gridManager.gS_Enemy);
                     enemy1.transform.parent = targetLocation.transform;
@@ -96,7 +96,7 @@ public class PE_MiniEnemySpawn : PhaseEffect
 
                     Enemy enemy2 = Instantiate(enemyPrefab);
                     GridTile targetlocato = GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighboringNeighbor)];
-                    enemy2.Setup(enemySOs[Random.Range(0, enemySOs.Count)], targetlocato);
+                    enemy2.Setup(/*enemySOs[Random.Range(0, enemySOs.Count)], */targetlocato);
                     enemy2.currentHealth = 1;
                     targetlocato.ChangeCurrentState(gridManager.gS_Enemy);
                     enemy2.transform.parent = targetlocato.transform;
@@ -104,7 +104,7 @@ public class PE_MiniEnemySpawn : PhaseEffect
 
                     Enemy enemy3 = Instantiate(enemyPrefab);
                     GridTile targetlocatio = GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)];
-                    enemy3.Setup(enemySOs[Random.Range(0, enemySOs.Count)], targetlocatio);
+                    enemy3.Setup(/*enemySOs[Random.Range(0, enemySOs.Count)], */targetlocatio);
                     enemy3.currentHealth = 1;
                     targetlocatio.ChangeCurrentState(gridManager.gS_Enemy);
                     enemy3.transform.parent = targetlocatio.transform;

@@ -10,8 +10,8 @@ public class PT_ConfirmButton : PhaseTransition
         EventManager.OnAbilityCastEvent -= ConditionFullfilledCheck;
         EventManager.OnEndTurnEvent -= ConditionFullfilledCheck;
         EventManager.OnConfirmButtonEvent -= ConditionFullfilledCheck;
-        GridManager.Instance.mainCanvas.gameObject.SetActive(true);
-        GridManager.Instance.PhaseTransition();
+        //GridManager.Instance.mainCanvas.gameObject.SetActive(true);
+        //GridManager.Instance.PhaseTransition();
     }
 
     public override void InitPhaseTransitionCheck()
