@@ -107,7 +107,6 @@ public class GridManager : MonoBehaviour
 
 
 
-
         //GenerateGrid();
 
         // Das ist nur spielerei.
