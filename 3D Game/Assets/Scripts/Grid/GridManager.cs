@@ -86,6 +86,10 @@ public class GridManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this; 
+            EventManager.OnEndTurnEvent += EndTurn;
+            TransferGridSOData();
+            PlayerManager.Instance.abilityLoadout.amountToChoose = 3;
+            PlayerManager.Instance.abilityLoadout.gameObject.SetActive(true);
             //currentPhase = phases[0];
             //currentPhase.myPhaseTransition.InitPhaseTransitionCheck();
             //TriggerPhase();
@@ -100,10 +104,7 @@ public class GridManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        EventManager.OnEndTurnEvent += EndTurn;
-        TransferGridSOData();
-        PlayerManager.Instance.abilityLoadout.amountToChoose = 3;
-        PlayerManager.Instance.abilityLoadout.gameObject.SetActive(true);
+
 
 
 
