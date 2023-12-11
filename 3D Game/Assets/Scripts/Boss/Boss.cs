@@ -173,10 +173,10 @@ public class Boss : Enemy
             }
 
         }
-        if (GetComponent<Enemy>().FirstAndLast)
-        {
-            EventManager.OnPhaseChange();
-        }
+        //if (GetComponent<Enemy>().FirstAndLast)
+        //{
+        //    EventManager.OnPhaseChange();
+        //}
         PlayerManager.Instance.SkillPoints += 2;
         EventManager.OnEndTurnEvent -= BossNeighbors;
 
