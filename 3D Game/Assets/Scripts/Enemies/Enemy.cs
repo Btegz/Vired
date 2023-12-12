@@ -108,7 +108,7 @@ public class Enemy : MonoBehaviour
     public virtual void Death()
     {
         PlayerManager.Instance.SkillPoints += SkillPointReward;
-        GetComponentInParent<GridTile>().ChangeCurrentState(GridManager.Instance.gS_Neutral);
+        GetComponentInParent<GridTile>().ChangeCurrentState(GridManager.Instance.gS_Negative);
         Instantiate(Particle_EnemyDeath, transform.position, Quaternion.Euler(-90, 0, 0));
         Destroy(gameObject);
     }

@@ -17,19 +17,15 @@ public class Boss : Enemy
 
     public List<Vector2Int> location;
 
-
     [SerializeField] int SpawnRange;
-
 
     [SerializeField] List<Enemy> enemyPrefabPool;
     [SerializeField] int EnemySpawnAmount;
     [SerializeField] int everyXTurns;
 
-
     [SerializeField] List<Boss> NextBosses;
     [SerializeField] Spreadbehaviours nextBossSpawnPattern;
     [SerializeField] int AbilityLoadoutReward;
-
 
     public GameObject Enemy2Prefab;
 
@@ -82,6 +78,7 @@ public class Boss : Enemy
         if(NextBosses == null || NextBosses.Count==0)
         {
             GridManager.Instance.GameWon();
+            return;
         }
 
         PlayerManager.Instance.abilityLoadout.amountToChoose = AbilityLoadoutReward;
