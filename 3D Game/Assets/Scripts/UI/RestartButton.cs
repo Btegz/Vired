@@ -32,6 +32,6 @@ public class RestartButton : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene("ColoritPickScene");
+        SceneManager.LoadScene("MainScene");
     }
 }

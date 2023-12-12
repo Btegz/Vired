@@ -5,7 +5,7 @@ using DG.Tweening;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class Enemy : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler
+public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     //[SerializeField] public EnemySO enemySO;
 
@@ -32,11 +32,13 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler
     MeshRenderer mr;
 
     [SerializeField] public List<Spreadbehaviours> spreadbehaviours;
-    public Vector2Int axialLocation; 
-    
+    [SerializeField] public int SpreadAmount;
+    [SerializeField] public int everyXTurns;
+    public Vector2Int axialLocation;
+
     public AudioData death;
-    public AudioData spawn; 
-    
+    public AudioData spawn;
+
     private void Awake()
     {
         AudioManager.Instance.PlaySoundAtLocation(spawn);
@@ -62,7 +64,7 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler
         transform.SetParent(tile.gameObject.transform);
         mr = GetComponent<MeshRenderer>();
 
-        
+
         //transform.DOScale(transform.localScale, 0.5f).From(Vector3.one * 0.3f);
         //transform.DOPunchScale(Vector3.one * Random.Range(0.5f, 1), 1f);
         ParticleSystem landingCloud = GetComponentInChildren<ParticleSystem>();
@@ -76,7 +78,7 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler
         {
 
         }
-        
+
 
 
         mr = GetComponent<MeshRenderer>();
@@ -133,12 +135,19 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler
 
     public virtual void Spread()
     {
-        foreach (Spreadbehaviours sb in spreadbehaviours)
+        if (GridManager.Instance.TurnCounter % everyXTurns != 0)
         {
-            if (sb.TargetTile(HexGridUtil.AxialToCubeCoord(axialLocation), out Vector3Int target, FindClosestPlayer().CoordinatePosition))
+            return;
+        }
+        for (int i = 0; i < SpreadAmount; i++)
+        {
+            foreach (Spreadbehaviours sb in spreadbehaviours)
             {
-                GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)].ChangeCurrentState(GridManager.Instance.gS_Negative);
-                break;
+                if (sb.TargetTile(HexGridUtil.AxialToCubeCoord(axialLocation), out Vector3Int target, FindClosestPlayer().CoordinatePosition))
+                {
+                    GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)].ChangeCurrentState(GridManager.Instance.gS_Negative);
+                    break;
+                }
             }
         }
     }
@@ -150,7 +159,7 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler
             if (sb.TargetTiles(HexGridUtil.AxialToCubeCoord(axialLocation), out List<Vector3Int> targets, FindClosestPlayer().CoordinatePosition))
             {
                 List<GridTile> result = new List<GridTile>();
-                foreach(Vector3Int coord in targets)
+                foreach (Vector3Int coord in targets)
                 {
                     if (GridManager.Instance.Grid.ContainsKey(HexGridUtil.CubeToAxialCoord(coord)))
                     {
@@ -200,5 +209,14 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler
                 tile.HighlightEnemySpreadPrediction();
             }
         }
+    }
+
+    public int AmountSpreadNextTurn()
+    {
+        if ((GridManager.Instance.TurnCounter+1) % everyXTurns == 0)
+        {
+            return SpreadAmount;
+        }
+        return 0;
     }
 }

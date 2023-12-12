@@ -326,6 +326,8 @@ MonoBehaviour:
   SkillPointReward: 2
   spreadbehaviours:
   - {fileID: 11400000, guid: d85918d28f53bb740a2d5a37c7cb7737, type: 2}
+  SpreadAmount: 1
+  everyXTurns: 3
   axialLocation: {x: 0, y: 0}
   death: {fileID: 11400000, guid: 52c5c7a45c8060342836570eb8ce113a, type: 2}
   spawn: {fileID: 11400000, guid: cf068642af0e61e4c879e07d4cb7df86, type: 2}
@@ -338,12 +340,11 @@ MonoBehaviour:
   SpawnRange: 3
   enemyPrefabPool:
   - {fileID: 3100616434115519233, guid: cabbc71739fe3234dad54da0242d3aa2, type: 3}
-  EnemySpawnAmount: 1
-  everyXTurns: 3
   NextBosses:
   - {fileID: 727153629572622436, guid: 142324f65a91d6e4a89974f161cf67f3, type: 3}
   nextBossSpawnPattern: {fileID: 11400000, guid: 2af563a854034da44903fc202dcce818, type: 2}
   AbilityLoadoutReward: 1
+  Enemy2Prefab: {fileID: 0}
   blueParticle: {fileID: 6837410471105182777, guid: 17a752188eb6cb9498862a5490c0a5f5, type: 3}
   orangeParticle: {fileID: 6707404070419994156, guid: 8c4efcf0b610937448491cceb36e3a12, type: 3}
   redParticle: {fileID: 5178700602397541970, guid: d59862047bedbe94ead0e08a1166598f, type: 3}
