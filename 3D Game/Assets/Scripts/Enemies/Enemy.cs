@@ -61,14 +61,14 @@ public class Enemy : MonoBehaviour
         transform.SetParent(tile.gameObject.transform);
         mr = GetComponent<MeshRenderer>();
 
-        transform.DOComplete();
+        
         //transform.DOScale(transform.localScale, 0.5f).From(Vector3.one * 0.3f);
         //transform.DOPunchScale(Vector3.one * Random.Range(0.5f, 1), 1f);
         ParticleSystem landingCloud = GetComponentInChildren<ParticleSystem>();
         try
         {
 
-
+            transform.DOComplete();
             transform.DOJump(tile.transform.position, 5, 1, .4f)/*.SetEase(SpawnJumpAnimationCurve)*/.OnComplete(() => transform.DOPunchScale(Vector3.down * 0.7f, .2f)).OnComplete(landingCloud.Play);
         }
         catch
