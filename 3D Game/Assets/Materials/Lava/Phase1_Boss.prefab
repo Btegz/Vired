@@ -289,12 +289,19 @@ MonoBehaviour:
   HealthPointsLayout: {fileID: 2703274353667822884}
   HealthpointPrefab: {fileID: 4546101371875049633, guid: 653162b7ccefd14408d3d51e5851e964, type: 3}
   healthpoints: []
+  SpawnJumpAnimationCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   Particle_EnemyDeath: {fileID: 726535386845715946, guid: 005fc7e0d2c6e1247b7b8880e93a8099, type: 3}
   SkillPointReward: 2
   spreadbehaviours:
   - {fileID: 11400000, guid: 2af563a854034da44903fc202dcce818, type: 2}
+  SpreadAmount: 2
+  everyXTurns: 2
   axialLocation: {x: 0, y: 0}
-  audioData: {fileID: 0}
   death: {fileID: 11400000, guid: 52c5c7a45c8060342836570eb8ce113a, type: 2}
   spawn: {fileID: 11400000, guid: cf068642af0e61e4c879e07d4cb7df86, type: 2}
   FirstAndLast: 1
@@ -306,8 +313,6 @@ MonoBehaviour:
   SpawnRange: 4
   enemyPrefabPool:
   - {fileID: 2148683299467376766, guid: a3c744c9134300b47a6ec1a3133932af, type: 3}
-  EnemySpawnAmount: 2
-  everyXTurns: 2
   NextBosses:
   - {fileID: 727153629572622436, guid: 62916eb2304e6f7438570faeac502cdb, type: 3}
   - {fileID: 727153629572622436, guid: 62916eb2304e6f7438570faeac502cdb, type: 3}

@@ -20,8 +20,7 @@ public class Boss : Enemy
     [SerializeField] int SpawnRange;
 
     [SerializeField] List<Enemy> enemyPrefabPool;
-    [SerializeField] int EnemySpawnAmount;
-    [SerializeField] int everyXTurns;
+
 
     [SerializeField] List<Boss> NextBosses;
     [SerializeField] Spreadbehaviours nextBossSpawnPattern;
@@ -58,7 +57,7 @@ public class Boss : Enemy
 
         foreach (Spreadbehaviours sb in spreadbehaviours)
         {
-            for (int i = 0; i < EnemySpawnAmount; i++)
+            for (int i = 0; i < SpreadAmount; i++)
             {
                 if (sb.TargetTile(HexGridUtil.AxialToCubeCoord(axialLocation), out Vector3Int target, FindClosestPlayer().CoordinatePosition))
                 {
