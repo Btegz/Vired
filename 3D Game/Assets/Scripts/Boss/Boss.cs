@@ -42,6 +42,7 @@ public class Boss : Enemy
     {
         EventManager.OnEndTurnEvent += BossNeighbors;
         EventManager.OnEndTurnEvent += Spread;
+        BossParticle(gameObject);
     }
 
     public override void Setup(GridTile tile)
