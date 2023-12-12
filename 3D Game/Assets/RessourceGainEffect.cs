@@ -43,8 +43,8 @@ public class RessourceGainEffect : MonoBehaviour
 
     public void completedRessourceGain()
     {
-        
-        UIParticle gain = Instantiate(EffectAfterRessourceGain, GridManager.Instance.Grid[PlayerManager.Instance.selectedPlayer.CoordinatePosition].transform);
+        UIParticle gain = Instantiate(EffectAfterRessourceGain, UIManager.Instance.transform);
+        //UIParticle gain = Instantiate(EffectAfterRessourceGain, GridManager.Instance.Grid[PlayerManager.Instance.selectedPlayer.CoordinatePosition].transform);
         GridTile parent = GridManager.Instance.Grid[PlayerManager.Instance.selectedPlayer.CoordinatePosition];
 
         switch (parent.ressource)

@@ -21,7 +21,6 @@ public class GS_neutral : GridState
 
     public override void ExitState(GridTile parent)
     {
-        //throw new System.NotImplementedException();
     }
 
     public override void PlayerEnters(GridTile parent)

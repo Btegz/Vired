@@ -50,7 +50,7 @@ public class UpgradeAbilityButton : AbilityButton, IPointerClickHandler
     {
         if(this.ability != null)
         {
-            upgradeHexGrid.LoadAbility(this.ability);
+            //upgradeHexGrid.LoadAbility(this.ability);
         }
     }
 }

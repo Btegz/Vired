@@ -61,20 +61,21 @@ public class AbilityButton : MonoBehaviour
     {
         if (ability == this.ability)
         {
-            UIGrid = Grid;
-            foreach (KeyValuePair<Vector2Int, UpgradeGridHex> kvp in UIGrid)
-            {
-                if(kvp.Value.effect == Effect.Neutral)
-                {
-                    continue;
-                }
-                UpgradeGridHex newHex = Instantiate(kvp.Value);
-                newHex.transform.SetParent(this.transform, false);
-                newHex.transform.localScale = Vector2.one * 0.2f;
-                Vector3 wordPos = HexGridUtil.AxialHexToPixel(kvp.Key, 10);
-                newHex.transform.localPosition = new Vector2(wordPos.x, wordPos.z);
-                CostText.text = ability.MyCostAmount.ToString();
-            }
+            //UIGrid = Grid;
+            //foreach (KeyValuePair<Vector2Int, UpgradeGridHex> kvp in UIGrid)
+            //{
+            //    if(kvp.Value.effect == Effect.Neutral)
+            //    {
+            //        continue;
+            //    }
+            //    UpgradeGridHex newHex = Instantiate(kvp.Value);
+            //    newHex.transform.SetParent(this.transform, false);
+            //    newHex.transform.localScale = Vector2.one * 0.2f;
+            //    Vector3 wordPos = HexGridUtil.AxialHexToPixel(kvp.Key, 10);
+            //    newHex.transform.localPosition = new Vector2(wordPos.x, wordPos.z);
+            //    CostText.text = ability.MyCostAmount.ToString();
+            //}
+            MakeAbilityToGrid();
         }
     }
 
@@ -137,6 +138,7 @@ public class AbilityButton : MonoBehaviour
         UIGrid[Vector2Int.zero].Fill(PlayerHexSprite, "Player");
 
         CostText.text = ability.MyCostAmount.ToString();
+        CorrectBackground();
     }
     public Sprite GetFittingSprite(Effect effect, out string text)
     {

@@ -34,8 +34,11 @@ public class UpgradeAbilityRange : MonoBehaviour, IPointerClickHandler
             if (PlayerManager.Instance.SkillPoints >= UpgradeCost)
             {
                 PlayerManager.Instance.SkillPoints -= UpgradeCost;
+                upgradeHexGrid.pointsSpent += UpgradeCost; 
                 upgradeHexGrid.loadedAbility.MyTierLevel++;
-                upgradeHexGrid.LoadAbility(upgradeHexGrid.loadedAbility);
+                upgradeHexGrid.UpdateGrid();
+                upgradeHexGrid.TierUPgrades++;
+                UpdateCost(upgradeHexGrid.loadedAbility);
             }
             else
             {

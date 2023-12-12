@@ -105,8 +105,10 @@ MonoBehaviour:
   meshRenderer: {fileID: 0}
   currentGridState: {fileID: 0}
   ressource: 0
-  GridTileprefab: {fileID: 4670653473229717276}
-  tileHighlightPrefab: {fileID: 2524305631397293867, guid: 95fccca7aa4b9bf4cb75947aaff5ebc5, type: 3}
+  moveTileHighlightPrefab: {fileID: 2524305631397293867, guid: 95fccca7aa4b9bf4cb75947aaff5ebc5, type: 3}
+  enemySpreadTileHighlightPrefab: {fileID: 2524305631397293867, guid: 0e8b69e34b3095045b03272dd55ce44d, type: 3}
+  neutralTurnCounter: 0
+  NeutralRegenerationTime: 2
 --- !u!64 &4399077779113277783
 MeshCollider:
   m_ObjectHideFlags: 0

@@ -16,6 +16,7 @@ public class UpgradeScreenButton : MonoBehaviour, IPointerClickHandler
         else
         {
             AbilityUpgradeObj.gameObject.SetActive(false);
+            AbilityUpgradeObj.GetComponentInChildren<UpgradeHexGrid>().ConfirmAbilityUpgrade();
             EventManager.OnAbilityUpgrade(ButtonState.inMainScene);
         }
     }
