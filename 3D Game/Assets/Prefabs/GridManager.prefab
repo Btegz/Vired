@@ -65,7 +65,7 @@ MonoBehaviour:
   - {x: 0, y: 0}
   PofIPrefab: {fileID: 5730689215906992844, guid: cdc085cf39f64a74cb5ec35f995ef18c, type: 3}
   pofi: {fileID: 0}
-  pofIOffset: 4
+  pofIOffset: 3
   mapSettings: {fileID: 11400000, guid: 31b30a2f7c42db94190378dde8218266, type: 2}
   innerSize: 0.5
   outerSize: 1
@@ -80,16 +80,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f4d4fa9137607484aab99afde74b78fc, type: 2}
   - {fileID: 11400000, guid: a7244dd35c7c4584ead7a387ddb2339a, type: 2}
   - {fileID: 11400000, guid: c50908c4a29b8dc41971853a993f5797, type: 2}
-  enemyPrefab: {fileID: 2148683299467376766, guid: 46ce70d7f7b651c4d85ca32bf76de3f9, type: 3}
-  enemySOs:
-  - {fileID: 11400000, guid: 624febcbbbfddfa4b9507611ba2f9bd1, type: 2}
-  BossEnemySO: {fileID: 11400000, guid: 835522eebbfc13c4e922c45e683ba113, type: 2}
-  BossPrefab: {fileID: 2148683299467376766, guid: cb3ffeb04c339524d80d5f80ea01af82, type: 3}
+  StartEnemyPrefabs: []
+  BossPrefab: {fileID: 0}
   TurnCounter: 1
-  currentPhase: {fileID: 0}
-  phases:
-  - {fileID: 11400000, guid: 7009bdc355cc7684ea63bc92d6a1b537, type: 2}
-  - {fileID: 11400000, guid: 8c459dee471d3cb4c9ff117d3bbc02a7, type: 2}
-  - {fileID: 11400000, guid: c9cf539afa54efa488b254a0f86a630c, type: 2}
-  - {fileID: 11400000, guid: e91e6de84199b6641a2229fb69d4ab04, type: 2}
   mainCanvas: {fileID: 0}

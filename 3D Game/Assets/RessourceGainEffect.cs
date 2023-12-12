@@ -6,10 +6,12 @@ using DG.Tweening;
 
 public class RessourceGainEffect : MonoBehaviour
 {
-    [SerializeField]UIParticle RessourceAPart;
-    [SerializeField]UIParticle RessourceBPart;
-    [SerializeField]UIParticle RessourceCPart;
-    [SerializeField]UIParticle RessourceDPart;
+    [SerializeField] UIParticle RessourceAPart;
+    [SerializeField] UIParticle RessourceBPart;
+    [SerializeField] UIParticle RessourceCPart;
+    [SerializeField] UIParticle RessourceDPart;
+
+    [SerializeField] UIParticle EffectAfterRessourceGain;
 
     public AudioData collectResource;
 
@@ -33,7 +35,34 @@ public class RessourceGainEffect : MonoBehaviour
         }
 
         AudioManager.Instance.PlaySoundAtLocation(collectResource);
-        transform.DOJump(goal, 200,1, 2f).OnComplete(()=>Destroy(gameObject));
+        transform.DOJump(goal, 200,1, 2f).OnComplete(()=> Destroy(gameObject));
+
+        Invoke("completedRessourceGain", 1.5f);
+
+    }
+
+    public void completedRessourceGain()
+    {
+        
+        UIParticle gain = Instantiate(EffectAfterRessourceGain, GridManager.Instance.Grid[PlayerManager.Instance.selectedPlayer.CoordinatePosition].transform);
+        GridTile parent = GridManager.Instance.Grid[PlayerManager.Instance.selectedPlayer.CoordinatePosition];
+
+        switch (parent.ressource)
+        {
+            case Ressource.ressourceA:
+                
+                gain.transform.position = UIManager.Instance.ressourceAText.transform.position;
+                break;
+            case Ressource.ressourceB:
+                gain.transform.position = UIManager.Instance.ressourceBText.transform.position;
+                break;
+            case Ressource.ressourceC:
+                gain.transform.position = UIManager.Instance.ressourceCText.transform.position;
+                break;
+            case Ressource.resscoureD:
+                gain.transform.position = UIManager.Instance.ressourceDText.transform.position;
+                break;
+        }
 
     }
 }

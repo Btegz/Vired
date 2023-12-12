@@ -17,20 +17,17 @@ public class Boss : Enemy
 
     public List<Vector2Int> location;
 
-
     [SerializeField] int SpawnRange;
-
 
     [SerializeField] List<Enemy> enemyPrefabPool;
     [SerializeField] int EnemySpawnAmount;
     [SerializeField] int everyXTurns;
 
-
     [SerializeField] List<Boss> NextBosses;
     [SerializeField] Spreadbehaviours nextBossSpawnPattern;
     [SerializeField] int AbilityLoadoutReward;
 
-
+    public GameObject Enemy2Prefab;
 
     public GameObject blueParticle;
     public GameObject orangeParticle;
@@ -41,7 +38,7 @@ public class Boss : Enemy
     {
         EventManager.OnEndTurnEvent += BossNeighbors;
         EventManager.OnEndTurnEvent += Spread;
-       
+        BossParticle(gameObject);
     }
 
     public override void Setup(GridTile tile)
@@ -82,6 +79,7 @@ public class Boss : Enemy
         if(NextBosses == null || NextBosses.Count==0)
         {
             GridManager.Instance.GameWon();
+            return;
         }
 
         PlayerManager.Instance.abilityLoadout.amountToChoose = AbilityLoadoutReward;
