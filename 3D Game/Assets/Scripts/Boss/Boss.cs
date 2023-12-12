@@ -31,7 +31,6 @@ public class Boss : Enemy
     [SerializeField] int AbilityLoadoutReward;
 
 
-    public GameObject Enemy2Prefab;
 
     public GameObject blueParticle;
     public GameObject orangeParticle;
@@ -42,6 +41,7 @@ public class Boss : Enemy
     {
         EventManager.OnEndTurnEvent += BossNeighbors;
         EventManager.OnEndTurnEvent += Spread;
+       
     }
 
     public override void Setup(GridTile tile)
@@ -66,6 +66,7 @@ public class Boss : Enemy
                 if (sb.TargetTile(HexGridUtil.AxialToCubeCoord(axialLocation), out Vector3Int target, FindClosestPlayer().CoordinatePosition))
                 {
                     Enemy newEnemy = Instantiate(enemyPrefabPool[Random.Range(0,enemyPrefabPool.Count)], GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)].transform);
+                    newEnemy.transform.position = transform.position;
                     newEnemy.Setup(GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)]);
                 }
                 else

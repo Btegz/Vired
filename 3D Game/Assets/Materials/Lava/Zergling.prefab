@@ -193,9 +193,9 @@ GameObject:
   - component: {fileID: 8254572460369654827}
   - component: {fileID: 8254572460369654826}
   - component: {fileID: 8254572460369654825}
-  - component: {fileID: 2148683299467376766}
+  - component: {fileID: 3100616434115519233}
   m_Layer: 0
-  m_Name: MiniEnemyPrefab
+  m_Name: Zergling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -267,7 +267,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2148683299467376766
+--- !u!114 &3100616434115519233
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -276,12 +276,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8254572460369654823}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac40004989043c74bac78dc94d695d48, type: 3}
+  m_Script: {fileID: 11500000, guid: d86d9af24f630d4488caf19deb638579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 1
-  maxHealth: 1
-  ressource: 1
+  currentHealth: 0
+  maxHealth: 0
+  ressource: 0
   AMAterial: {fileID: 2100000, guid: 418edcc1881116d49a7f077b0bb080e4, type: 2}
   BMAterial: {fileID: 2100000, guid: a6a2bf096af777a4c863878c5eaa7137, type: 2}
   CMAterial: {fileID: 2100000, guid: e4c2b7c645ddbb042a24261a293053c4, type: 2}
@@ -289,11 +289,22 @@ MonoBehaviour:
   HealthPointsLayout: {fileID: 7073082774712012848}
   HealthpointPrefab: {fileID: 4546101371875049633, guid: 653162b7ccefd14408d3d51e5851e964, type: 3}
   healthpoints: []
-  Particle_EnemyDeath: {fileID: 260696148355967348, guid: 971d1dd4df5430645ae993043a70b5a8, type: 3}
-  SkillPointReward: 1
-  spreadbehaviours: []
+  Particle_EnemyDeath: {fileID: 726535386845715946, guid: 005fc7e0d2c6e1247b7b8880e93a8099, type: 3}
+  SkillPointReward: 0
+  spreadbehaviours:
+  - {fileID: 11400000, guid: 36e1b6eb070f48842ad428e9b27eeae5, type: 2}
+  - {fileID: 11400000, guid: ab7ddd9a180f3884899cb7ed093172ce, type: 2}
+  - {fileID: 11400000, guid: cc14b309b15ea324aa4ac59fee75e705, type: 2}
   axialLocation: {x: 0, y: 0}
-  audioData: {fileID: 0}
   death: {fileID: 11400000, guid: 52c5c7a45c8060342836570eb8ce113a, type: 2}
   spawn: {fileID: 11400000, guid: cf068642af0e61e4c879e07d4cb7df86, type: 2}
   FirstAndLast: 1
+  isFirstZergling: 1
+  zerglingPrefab: {fileID: 3100616434115519233}
+  SpreadBehaviours: []
+  enemySOs: []
+  Zerklings: []
+  ZerklingNeighbor: []
+  possibleTiles: []
+  possibleNeighbors: []
+  ZerklingSpawn: []

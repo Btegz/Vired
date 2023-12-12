@@ -22,6 +22,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] Image HealthpointPrefab;
     [SerializeField] List<Image> healthpoints;
 
+    [SerializeField] AnimationCurve SpawnJumpAnimationCurve;
+
 
     [SerializeField] GameObject Particle_EnemyDeath;
     public int SkillPointReward;
@@ -54,12 +56,16 @@ public class Enemy : MonoBehaviour
     {
         ressource = tile.ressource;
         axialLocation = tile.AxialCoordinate;
-        transform.position = tile.transform.position;
+        //transform.position = tile.transform.position;
         //transform.parent = tile.transform;
         transform.SetParent(tile.gameObject.transform);
         mr = GetComponent<MeshRenderer>();
 
-        transform.DOPunchScale(Vector3.one * Random.Range(0.5f, 1), 1f);
+        transform.DOComplete();
+        //transform.DOScale(transform.localScale, 0.5f).From(Vector3.one * 0.3f);
+        //transform.DOPunchScale(Vector3.one * Random.Range(0.5f, 1), 1f);
+        transform.DOJump(tile.transform.position, 5, 1, .5f)/*.SetEase(SpawnJumpAnimationCurve)*/.OnComplete(()=> transform.DOPunchScale(Vector3.up*0.5f,.2f)); 
+        
 
         mr = GetComponent<MeshRenderer>();
         switch (ressource)

@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: deafd7f11bec3974b981f3db81cb007f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -105,6 +105,7 @@ MonoBehaviour:
   meshRenderer: {fileID: 0}
   currentGridState: {fileID: 0}
   ressource: 0
+  GridTileprefab: {fileID: 4670653473229717276}
   tileHighlightPrefab: {fileID: 2524305631397293867, guid: 95fccca7aa4b9bf4cb75947aaff5ebc5, type: 3}
 --- !u!64 &4399077779113277783
 MeshCollider:

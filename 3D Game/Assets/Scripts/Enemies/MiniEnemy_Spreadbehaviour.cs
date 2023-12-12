@@ -28,7 +28,7 @@ public class MiniEnemy_Spreadbehaviour : Spreadbehaviours
 
         foreach (KeyValuePair<Vector2Int, GridTile> kvp in grid)
         {
-            if (kvp.Value.currentGridState.StateValue() >= 0 && !PlayerManager.Instance.PlayerPositions().Contains(kvp.Key))
+            if (kvp.Value.currentGridState.StateValue() >= 0 && !PlayerManager.Instance.PlayerPositions().Contains(kvp.Key)&& kvp.Value.currentGridState.StateValue() <4)
             {
                 possibleTargets.Add(HexGridUtil.AxialToCubeCoord(kvp.Key));
             }

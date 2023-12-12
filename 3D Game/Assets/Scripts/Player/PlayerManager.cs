@@ -526,4 +526,6 @@ public class PlayerManager : MonoBehaviour
     {
         AudioManager.Instance.PlaySoundAtLocation(movementSound);
     }
+
+   
 }

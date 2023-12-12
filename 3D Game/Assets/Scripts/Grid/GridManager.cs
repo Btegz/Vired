@@ -187,12 +187,13 @@ public class GridManager : MonoBehaviour
             }
             // Fill Map with Things
             SpawnBossAndPlayer(border);
-            SpawnPofIs();
+            
 
             for (int i = 0; i < 3; i++)
             {
                 SpawnEnemy();
             }
+            SpawnPofIs();
         }
     }
 
