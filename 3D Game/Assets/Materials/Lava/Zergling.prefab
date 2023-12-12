@@ -214,6 +214,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3030240812595376349}
+  - {fileID: 4219718371085094357}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 30, z: 0}
@@ -289,6 +290,12 @@ MonoBehaviour:
   HealthPointsLayout: {fileID: 7073082774712012848}
   HealthpointPrefab: {fileID: 4546101371875049633, guid: 653162b7ccefd14408d3d51e5851e964, type: 3}
   healthpoints: []
+  SpawnJumpAnimationCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   Particle_EnemyDeath: {fileID: 726535386845715946, guid: 005fc7e0d2c6e1247b7b8880e93a8099, type: 3}
   SkillPointReward: 0
   spreadbehaviours:
@@ -301,10 +308,65 @@ MonoBehaviour:
   FirstAndLast: 1
   isFirstZergling: 1
   zerglingPrefab: {fileID: 3100616434115519233}
-  SpreadBehaviours: []
-  enemySOs: []
-  Zerklings: []
-  ZerklingNeighbor: []
-  possibleTiles: []
-  possibleNeighbors: []
-  ZerklingSpawn: []
+--- !u!1001 &6171485079364510646
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 8254572460369654827}
+    m_Modifications:
+    - target: {fileID: 8010486995766914659, guid: 1e08c3727971f5f419f8a7ec078058c9, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8010486995766914659, guid: 1e08c3727971f5f419f8a7ec078058c9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8010486995766914659, guid: 1e08c3727971f5f419f8a7ec078058c9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8010486995766914659, guid: 1e08c3727971f5f419f8a7ec078058c9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8010486995766914659, guid: 1e08c3727971f5f419f8a7ec078058c9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8010486995766914659, guid: 1e08c3727971f5f419f8a7ec078058c9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8010486995766914659, guid: 1e08c3727971f5f419f8a7ec078058c9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8010486995766914659, guid: 1e08c3727971f5f419f8a7ec078058c9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8010486995766914659, guid: 1e08c3727971f5f419f8a7ec078058c9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8010486995766914659, guid: 1e08c3727971f5f419f8a7ec078058c9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8010486995766914659, guid: 1e08c3727971f5f419f8a7ec078058c9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8010486995766914668, guid: 1e08c3727971f5f419f8a7ec078058c9, type: 3}
+      propertyPath: m_Name
+      value: SmokeCloudeParticleEffect
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1e08c3727971f5f419f8a7ec078058c9, type: 3}
+--- !u!4 &4219718371085094357 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8010486995766914659, guid: 1e08c3727971f5f419f8a7ec078058c9, type: 3}
+  m_PrefabInstance: {fileID: 6171485079364510646}
+  m_PrefabAsset: {fileID: 0}
