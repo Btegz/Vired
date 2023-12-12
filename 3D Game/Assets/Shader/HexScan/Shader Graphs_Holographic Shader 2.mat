@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_Holographic Shader
+  m_Name: Shader Graphs_Holographic Shader 2
   m_Shader: {fileID: -6465566751694194690, guid: e2032efc60dfb494aa813395574e542d, type: 3}
   m_ValidKeywords:
   - _USING
@@ -41,34 +41,34 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _EdgeGlowStrength: 1.38
+    - _EdgeGlowStrength: 1.19
     - _EdgeThickness: 0.1
     - _Epsilon: 0.001
-    - _Glow_Noise_Scale: 4.45
-    - _Glow_Speed: 0.32
+    - _Glow_Noise_Scale: 5.69
+    - _Glow_Speed: 0.5
     - _Height: 1
     - _HeightmapStrength: 0.05
-    - _Metallic: 0.15
+    - _Metallic: -0.43
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Radius: 1
-    - _Smoothness: 1.02
-    - _Speed: 0.32
+    - _Smoothness: 4.03
+    - _Speed: 0.8
     - _Strength: 0.5
     - _Thickness: 0.13
     - _USING: 1
     - _USING_HEXGLOW: 1
     - _USING_SCANLINE: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 0.3843137}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 0.4745098}
     - _DirectionToEdge: {r: 0, g: 0, b: 1, a: 0}
-    - _EdgeGlowThickness: {r: 0.4, g: 0.1, b: 0, a: 0}
-    - _EmissionColor: {r: 0.8331594, g: 1.090835, b: 1.535911, a: 1}
-    - _GlowStrength_MinMax: {r: 0.1, g: 0.3, b: 0, a: 0}
+    - _EdgeGlowThickness: {r: 0.1, g: 0.1, b: 0, a: 0}
+    - _EmissionColor: {r: 1.209058, g: 1.518577, b: 2.050562, a: 1}
+    - _GlowStrength_MinMax: {r: -0.95, g: 1, b: 0, a: 0}
     - _Up: {r: 0, g: 1, b: 0, a: 0}
     - _Velocity: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &7204658992480838123
+--- !u!114 &3625703164539249712
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
