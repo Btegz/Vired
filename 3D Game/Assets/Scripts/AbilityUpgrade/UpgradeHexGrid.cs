@@ -16,6 +16,9 @@ public class UpgradeHexGrid : MonoBehaviour
 
     [SerializeField] public Ability loadedAbility;
 
+    public int pointsSpent = 0;
+    public int TierUPgrades = 0;
+
     public int AbilityTierLevel;
 
     // Start is called before the first frame update
@@ -47,7 +50,7 @@ public class UpgradeHexGrid : MonoBehaviour
     {
         if(player.AbilityInventory.Count>0)
         {
-            MakeAbilityToGrid(player.AbilityInventory[0]);
+            LoadAbility(player.AbilityInventory[0]);
         }
     }
 
@@ -79,14 +82,36 @@ public class UpgradeHexGrid : MonoBehaviour
         Grid[Vector2Int.zero].Fill(PlayerHexSprite, "Player");
     }
 
+    public void UpdateGrid()
+    {
+        if(Grid == null)
+        {
+            return;
+        }
+        foreach(Vector2Int coordinate in HexGridUtil.Ring(Vector3Int.zero, loadedAbility.MyTierLevel))
+        {
+            UpgradeGridHex newHex = Instantiate(upgradeHexPrefab, this.transform);
+            Vector3 wordPos = HexGridUtil.AxialHexToPixel(coordinate, 50);
+            newHex.transform.localPosition = new Vector2(wordPos.x, wordPos.z);
+            newHex.coordinate = coordinate;
+            Grid.Add(coordinate, newHex);
+        }
+    }
+
     public void MakeAbilityToGrid(Ability ability,AbilityButton button)
     {
+        //pointsSpent = 0;
+        //TierUPgrades = 0;
         MakeAbilityToGrid(ability);
     }
 
     public void MakeAbilityToGrid(Ability ability)
     {
-        if(ability == null)
+
+
+        pointsSpent = 0;
+        TierUPgrades = 0;
+        if (ability == null)
         {
             MakeGrid(0);
             return;
@@ -150,7 +175,7 @@ public class UpgradeHexGrid : MonoBehaviour
 
     public void UpgradeAbility(Vector2Int coord, Effect effect)
     {
-        
+        pointsSpent++;
         Effect newEffect = effect;
         if (AbilityGrid.ContainsKey(coord) && newEffect == Effect.Negative100)
         {
@@ -183,9 +208,12 @@ public class UpgradeHexGrid : MonoBehaviour
         {
             ConfirmAbilityUpgrade();
         }
+        if(loadedAbility == ability)
+        {
+            return;
+        }
         loadedAbility = ability;
-        MakeAbilityToGrid(ability);
-        
+        MakeAbilityToGrid(loadedAbility);
     }
 
     public void ConfirmAbilityUpgrade()
@@ -215,12 +243,17 @@ public class UpgradeHexGrid : MonoBehaviour
             loadedAbility.RecalculatePreviewMesh(AbilityGrid);
             EventManager.OnAbilityChange(Grid,loadedAbility);
         }
+        //loadedAbility = null;
     }
     
     public void CancelAbilityUpgrade()
     {
         if(loadedAbility != null)
         {
+            PlayerManager.Instance.SkillPoints += pointsSpent;
+            loadedAbility.MyTierLevel -= TierUPgrades;
+            pointsSpent = 0;
+            TierUPgrades = 0;
             MakeAbilityToGrid(loadedAbility);
         }
     }

@@ -21,7 +21,7 @@ public class Phase1Boss_SpreadBehaviour : Spreadbehaviours
 
     public override bool TargetTile(Vector3Int enemyPosition, out Vector3Int target, Vector2Int playerPosition)
     {
-        List<Vector2Int> ring = HexGridUtil.Ring(enemyPosition, 2); ;
+        List<Vector2Int> ring = HexGridUtil.Ring(enemyPosition, 2,GridManager.Instance.Grid);
         List<Vector2Int> targetTile = new List<Vector2Int>();
         List<Vector3Int> possibleTargets = new List<Vector3Int>();
         int maxDistance = int.MaxValue;

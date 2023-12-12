@@ -114,7 +114,7 @@ public static class HexGridUtil
 
     public static List<Vector2Int> AxialAddRange(List<Vector2Int> range, Vector2Int b)
     {
-        return CubeToAxialCoord(CubeAddRange(AxialToCubeCoord(range),AxialToCubeCoord(b)));
+        return CubeToAxialCoord(CubeAddRange(AxialToCubeCoord(range), AxialToCubeCoord(b)));
     }
 
     /// <summary>
@@ -818,17 +818,35 @@ public static class HexGridUtil
         {
             for (int j = 0; j < radius; j++)
             {
-              if (GridManager.Instance.Grid.Keys.Contains(CubeToAxialCoord(hex)))
+                cubeRing.Add(CubeToAxialCoord(hex));
+                hex = CubeAdd(hex, cubeDirectionVectors[i]);
+
+            }
+        }
+
+        return cubeRing;
+    }
+
+    public static List<Vector2Int> Ring(Vector3Int center, int radius, Dictionary<Vector2Int, GridTile> Grid)
+    {
+        List<Vector2Int> cubeRing = new List<Vector2Int>();
+        Vector3Int hex = CubeAdd(center, CubeScale(cubeDirectionVectors[4], radius));
+
+        for (int i = 0; i < 6; i++)
+        {
+            for (int j = 0; j < radius; j++)
+            {
+                if (Grid.Keys.Contains(CubeToAxialCoord(hex)))
                 {
-                    
-                       cubeRing.Add(CubeToAxialCoord(hex));
-                       
+
+                    cubeRing.Add(CubeToAxialCoord(hex));
+
                 }
                 hex = CubeAdd(hex, cubeDirectionVectors[i]);
 
             }
         }
-     
+
         return cubeRing;
     }
 
@@ -838,7 +856,7 @@ public static class HexGridUtil
         foreach (Vector2Int coordinate in coordinates)
         {
             List<Vector2Int> localNeighbors = CubeToAxialCoord(CubeNeighbors(AxialToCubeCoord(coordinate)));
-            foreach(Vector2Int neighbor in localNeighbors)
+            foreach (Vector2Int neighbor in localNeighbors)
             {
                 if (!neighbors.Contains(neighbor) && !coordinates.Contains(neighbor))
                 {
@@ -854,7 +872,7 @@ public static class HexGridUtil
         List<Vector2Int> result = new List<Vector2Int>();
         Vector3Int cubeInput = AxialToCubeCoord(coordinate);
         result = CubeToAxialCoord(CubeNeighbors(cubeInput));
-        return result; 
+        return result;
     }
 
 }

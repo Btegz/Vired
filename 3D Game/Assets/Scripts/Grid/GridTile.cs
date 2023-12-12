@@ -49,10 +49,15 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [Header("Tile Statestuff")]
     public GridState currentGridState;
     public Ressource ressource;
-    public TileHighlight tileHighlightPrefab;
+    public TileHighlight moveTileHighlightPrefab;
+    public TileHighlight enemySpreadTileHighlightPrefab;
+
+    public int neutralTurnCounter = 0;
+    public int NeutralRegenerationTime;
 
     private void Start()
     {
+        EventManager.OnEndTurnEvent += neutralRegeneration;
         switch (currentGridState)
         {
             case GS_positive:
@@ -83,6 +88,11 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             case GS_BossNegative: meshRenderer.material = gridTileSO.negativeMaterial; break;
             case GS_Pofl: meshRenderer.material = gridTileSO.PofIMaterial; break;
         }
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.OnEndTurnEvent -= neutralRegeneration;
     }
 
     /// <summary>
@@ -140,6 +150,11 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     }
 
+    public void HighlightEnemySpreadPrediction()
+    {
+        Instantiate(enemySpreadTileHighlightPrefab,transform.position,Quaternion.identity,transform);
+    }
+
     public void Setup(Vector2Int cellCoordinate, GridTileSO gridTileSO, bool withWalls)
     {
         this.withWalls = withWalls;
@@ -189,7 +204,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         meshFilter.mesh = DrawMesh();
 
     }
-
+    
     // STATE MASHINE STUFF ----------------------------------------------------------------------------------------------------------
 
     /// <summary>
@@ -198,6 +213,10 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     /// <param name="newState">State to change into.</param>
     public void ChangeCurrentState(GridState newState)
     {
+        if(newState == GridManager.Instance.gS_Neutral)
+        {
+            neutralTurnCounter = 0;
+        }
         currentGridState.ExitState(this);
         currentGridState = newState;
         currentGridState.EnterState(this);
@@ -372,7 +391,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
             if (neighbors.Contains(HexGridUtil.AxialToCubeCoord(AxialCoordinate)))
             {
-                Instantiate(tileHighlightPrefab, transform.position, Quaternion.identity, transform);
+                Instantiate(moveTileHighlightPrefab, transform.position, Quaternion.identity, transform);
             }
         }
     }
@@ -382,6 +401,19 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         foreach(TileHighlight tileHighlightInstance in GetComponentsInChildren<TileHighlight>())
         {
             Destroy(tileHighlightInstance.gameObject);
+        }
+    }
+
+    public void neutralRegeneration()
+    {
+        if(currentGridState == GridManager.Instance.gS_Neutral)
+        {
+            neutralTurnCounter++;
+            if (neutralTurnCounter >= NeutralRegenerationTime)
+            {
+                neutralTurnCounter = 0;
+                ChangeCurrentState(GridManager.Instance.gS_Positive);
+            }
         }
     }
 }

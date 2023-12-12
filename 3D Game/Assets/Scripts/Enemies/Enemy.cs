@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler
 {
     //[SerializeField] public EnemySO enemySO;
 
@@ -142,6 +143,27 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public List<GridTile> SpreadTiles()
+    {
+        foreach (Spreadbehaviours sb in spreadbehaviours)
+        {
+            if (sb.TargetTiles(HexGridUtil.AxialToCubeCoord(axialLocation), out List<Vector3Int> targets, FindClosestPlayer().CoordinatePosition))
+            {
+                List<GridTile> result = new List<GridTile>();
+                foreach(Vector3Int coord in targets)
+                {
+                    if (GridManager.Instance.Grid.ContainsKey(HexGridUtil.CubeToAxialCoord(coord)))
+                    {
+                        result.Add(GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(coord)]);
+                    }
+                }
+                return result;
+
+            }
+        }
+        return new List<GridTile>();
+    }
+
     public Player FindClosestPlayer()
     {
         Player closestPlayer = PlayerManager.Instance.Players[0];
@@ -157,5 +179,26 @@ public class Enemy : MonoBehaviour
             }
         }
         return closestPlayer;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        foreach (TileHighlight tileHighlight in GridManager.Instance.gameObject.GetComponentsInChildren<TileHighlight>())
+        {
+            Destroy(tileHighlight.gameObject);
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        List<GridTile> potentialSpreadTiles = SpreadTiles();
+        if (potentialSpreadTiles.Count > 0)
+        {
+            Debug.Log("I should have some tiles to highlight the potential Spread");
+            foreach (GridTile tile in potentialSpreadTiles)
+            {
+                tile.HighlightEnemySpreadPrediction();
+            }
+        }
     }
 }

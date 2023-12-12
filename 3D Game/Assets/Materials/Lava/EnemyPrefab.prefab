@@ -194,6 +194,7 @@ GameObject:
   - component: {fileID: 8254572460369654826}
   - component: {fileID: 8254572460369654825}
   - component: {fileID: 2148683299467376766}
+  - component: {fileID: 5662607046732415275}
   m_Layer: 0
   m_Name: EnemyPrefab
   m_TagString: Untagged
@@ -324,6 +325,19 @@ MonoBehaviour:
   death: {fileID: 11400000, guid: 52c5c7a45c8060342836570eb8ce113a, type: 2}
   spawn: {fileID: 11400000, guid: cf068642af0e61e4c879e07d4cb7df86, type: 2}
   FirstAndLast: 1
+--- !u!65 &5662607046732415275
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8254572460369654823}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.3683201, y: 0.96686375, z: 1.5799999}
+  m_Center: {x: 0, y: 0.47766334, z: 0}
 --- !u!1001 &815630487181665089
 PrefabInstance:
   m_ObjectHideFlags: 0

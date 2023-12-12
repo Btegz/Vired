@@ -60,7 +60,7 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
         EventManager.OnSelectPlayerEvent += AssignAbility;
         //GetComponent<Button>().onClick.AddListener(clicked);
         EventManager.OnConfirmButtonEvent += AssignAbility;
-        //EventManager.AbilityChangeEvent += UpdateUI;
+        EventManager.AbilityChangeEvent += UpdateUI;
     }
 
     public void clicked()
@@ -79,6 +79,7 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
             return;
         }
         EventManager.OnAbilityButtonClicked(ability,this);
+        
     }
 
     private void OnDestroy()
