@@ -85,7 +85,7 @@ public class GridManager : MonoBehaviour
     {
         if (Instance == null)
         {
-            //Time.timeScale = .5f;
+            Time.timeScale = 1.5f;
             Instance = this; 
             EventManager.OnEndTurnEvent += EndTurn;
             TransferGridSOData();
