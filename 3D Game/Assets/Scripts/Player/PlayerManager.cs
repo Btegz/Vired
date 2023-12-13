@@ -9,7 +9,6 @@ using Unity.VisualScripting;
 using UnityEngine.InputSystem;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -91,7 +90,7 @@ public class PlayerManager : MonoBehaviour
         EventManager.OnEndTurnEvent += resetMovementPoints;
         EventManager.OnAbilityButtonEvent += AbilityClicked;
         EventManager.OnSelectPlayerEvent += PlayerSelect;
-        EventManager.OnMoveEvent += _ => StartCoroutine(Move(clickedTile));
+        EventManager.OnMoveEvent += startMoveCoroutine;
         EventManager.OnMoveEvent += Audio;
         //playerPosition = PlayerSpawnPoint;
         //selectedPlayer.transform.position = GridManager.Instance.Grid[PlayerSpawnPoint].transform.position;
@@ -100,10 +99,21 @@ public class PlayerManager : MonoBehaviour
         //Audio(selectedPlayer);
     }
 
+    public void startMoveCoroutine(Player player)
+    {
+        StartCoroutine(Move(clickedTile));
+    }
+
     private void OnDestroy()
     {
+        StopAllCoroutines();
+        EventManager.OnEndTurnEvent -= resetMovementPoints;
+        EventManager.OnAbilityButtonEvent -= AbilityClicked; 
         EventManager.OnEndTurnEvent -= resetMovementPoints;
         EventManager.OnAbilityButtonEvent -= AbilityClicked;
+        EventManager.OnSelectPlayerEvent -= PlayerSelect;
+        EventManager.OnMoveEvent -= startMoveCoroutine;
+        EventManager.OnMoveEvent -= Audio;
     }
 
     private void Update()
@@ -492,6 +502,7 @@ public class PlayerManager : MonoBehaviour
     public void CancelAbilityChoice()
     {
         abilityActivated = false;
+        EventManager.OnAbilityCastEvent -= AbilityCasted;
         cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice;
         Destroy(indicatorPrefabClone);
     }

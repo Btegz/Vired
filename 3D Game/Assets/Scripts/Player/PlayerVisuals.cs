@@ -19,6 +19,12 @@ public class PlayerVisuals : MonoBehaviour
 
     }
 
+    private void OnDestroy()
+    {
+        EventManager.OnMoveEvent -= Movement;
+        EventManager.OnSelectPlayerEvent -= PlayerSelection;
+    }
+
     public void Movement(Player player)
     {
         try

@@ -6,8 +6,8 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
-using static UnityEditor.Experimental.GraphView.GraphView;
 using TMPro;
+using System;
 
 public class CameraRotation : MonoBehaviour
 {
@@ -80,25 +80,46 @@ public class CameraRotation : MonoBehaviour
         rotatoAction.action.canceled += StopRotato;
 
         zoomAction.action.Enable();
-        zoomAction.action.performed += x => mouseScrollY = x.ReadValue<float>();
+        zoomAction.action.performed += ChangeMouseScrollY;
 
         movementAction.action.Enable();
         movementAction.action.started += StartMovement;
         movementAction.action.canceled += StopMovement;
 
         switchAction.action.Enable();
-        switchAction.action.performed += _ => SwitchtoMain();
+        switchAction.action.performed += SwitchtoMain;
 
 
         playerswitchAction.action.Enable();
-        playerswitchAction.action.performed += _ => PlayerManager.Instance.PlayerSelect(PlayerManager.Instance.Players[(int)_.ReadValue<float>()]);
-        playerswitchAction.action.performed += _ => EventManager.OnSelectPlayer(PlayerManager.Instance.Players[(int)_.ReadValue<float>()]);
+        playerswitchAction.action.performed += playerSelection;
+        //playerswitchAction.action.performed += _ => EventManager.OnSelectPlayer(PlayerManager.Instance.Players[(int)_.ReadValue<float>()]);
 
         topDownAction.action.Enable();
-        topDownAction.action.performed += _ => SwitchToTopDown();
+        topDownAction.action.performed += SwitchToTopDown;
 
         EventManager.OnSelectPlayerEvent += CameraCenterToPlayer;
 
+    }
+
+    private void ChangeMouseScrollY(InputAction.CallbackContext context)
+    {
+        mouseScrollY = context.ReadValue<float>();
+    }
+
+    private void SwitchToTopDown(InputAction.CallbackContext context)
+    {
+        SwitchtoMain();
+    }
+
+    private void playerSelection(InputAction.CallbackContext context)
+    {
+        PlayerManager.Instance.PlayerSelect(PlayerManager.Instance.Players[(int)context.ReadValue<float>()]);
+        EventManager.OnSelectPlayer(PlayerManager.Instance.Players[(int)context.ReadValue<float>()]);
+    }
+
+    private void SwitchtoMain(InputAction.CallbackContext context)
+    {
+        SwitchtoMain();
     }
 
     void Start()
@@ -134,6 +155,34 @@ public class CameraRotation : MonoBehaviour
         //jetzt ham wa die größen Distanzen
 
 
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
+        EventManager.OnSelectPlayerEvent -= CameraCenterToPlayer;
+
+        rotatoAction.action.Disable();
+        rotatoAction.action.started -= StartRotato;
+        rotatoAction.action.canceled -= StopRotato;
+
+        zoomAction.action.Disable();
+        zoomAction.action.performed -= ChangeMouseScrollY;
+
+        movementAction.action.Disable();
+        movementAction.action.started -= StartMovement;
+        movementAction.action.canceled -= StopMovement;
+
+        switchAction.action.Disable();
+        switchAction.action.performed -= SwitchtoMain;
+
+
+        playerswitchAction.action.Disable();
+        playerswitchAction.action.performed -= playerSelection;
+        //playerswitchAction.action.performed += _ => EventManager.OnSelectPlayer(PlayerManager.Instance.Players[(int)_.ReadValue<float>()]);
+
+        topDownAction.action.Disable();
+        topDownAction.action.performed -= SwitchToTopDown;
     }
 
     void StopRotato(InputAction.CallbackContext obj)

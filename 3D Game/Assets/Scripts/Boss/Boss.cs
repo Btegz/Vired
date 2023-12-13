@@ -40,6 +40,12 @@ public class Boss : Enemy
         BossParticle(gameObject);
     }
 
+    private void OnDestroy()
+    {
+        EventManager.OnEndTurnEvent -= Spread;
+        EventManager.OnEndTurnEvent -= BossNeighbors;
+    }
+
     public override void Setup(GridTile tile)
     {
         base.Setup(tile);
@@ -75,7 +81,9 @@ public class Boss : Enemy
 
     public override void Death()
     {
-        if(NextBosses == null || NextBosses.Count==0)
+        Debug.Log("I have died");
+
+        if (NextBosses == null || NextBosses.Count==0)
         {
             GridManager.Instance.GameWon();
             return;
@@ -122,7 +130,6 @@ public class Boss : Enemy
             }
         }
 
-        EventManager.OnEndTurnEvent -= BossNeighbors;
 
 
         base.Death();   
@@ -138,8 +145,8 @@ public class Boss : Enemy
 
     public void BossNeighbors()
     {
-    //    foreach (Vector2Int loc in location)
-    //    {
+        //    foreach (Vector2Int loc in location)
+        //    {
             BossReachableTiles = HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(axialLocation), SpawnRange, HexGridUtil.AxialToCubeCoord(GridManager.Instance.Grid.Keys.ToList<Vector2Int>()));
             BossReachableTiles.Remove(HexGridUtil.AxialToCubeCoord(axialLocation));
 
@@ -154,31 +161,31 @@ public class Boss : Enemy
         //}
     }
 
-    public void BossDeath(Vector2Int location)
-    {
-        if (GetComponent<Enemy>().currentHealth <= 0)
-        {
-            BossTiles = HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(location), SpawnRange, HexGridUtil.AxialToCubeCoord(GridManager.Instance.Grid.Keys.ToList<Vector2Int>()));
-            BossTiles.Remove(HexGridUtil.AxialToCubeCoord(location));
+    //public void BossDeath(Vector2Int location)
+    //{
+    //    if (GetComponent<Enemy>().currentHealth <= 0)
+    //    {
+    //        BossTiles = HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(location), SpawnRange, HexGridUtil.AxialToCubeCoord(GridManager.Instance.Grid.Keys.ToList<Vector2Int>()));
+    //        BossTiles.Remove(HexGridUtil.AxialToCubeCoord(location));
 
-            foreach (Vector3Int neighbor in BossTiles)
-            {
-                if (GridManager.Instance.Grid.ContainsKey(HexGridUtil.CubeToAxialCoord(neighbor)))
-                {
-                    GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].ChangeCurrentState(GridManager.Instance.gS_Positive);
+    //        foreach (Vector3Int neighbor in BossTiles)
+    //        {
+    //            if (GridManager.Instance.Grid.ContainsKey(HexGridUtil.CubeToAxialCoord(neighbor)))
+    //            {
+    //                GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].ChangeCurrentState(GridManager.Instance.gS_Positive);
 
-                }
-            }
+    //            }
+    //        }
 
-        }
-        //if (GetComponent<Enemy>().FirstAndLast)
-        //{
-        //    EventManager.OnPhaseChange();
-        //}
-        PlayerManager.Instance.SkillPoints += 2;
-        EventManager.OnEndTurnEvent -= BossNeighbors;
+    //    }
+    //    //if (GetComponent<Enemy>().FirstAndLast)
+    //    //{
+    //    //    EventManager.OnPhaseChange();
+    //    //}
+    //    PlayerManager.Instance.SkillPoints += 2;
+    //    EventManager.OnEndTurnEvent -= BossNeighbors;
 
-    }
+    //}
 
     public void TriggerSpread()
     {

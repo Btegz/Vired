@@ -85,6 +85,7 @@ public class GridManager : MonoBehaviour
     {
         if (Instance == null)
         {
+            //Time.timeScale = .5f;
             Instance = this; 
             EventManager.OnEndTurnEvent += EndTurn;
             TransferGridSOData();
@@ -142,6 +143,10 @@ public class GridManager : MonoBehaviour
 
     }
 
+    private void OnDestroy()
+    {
+        EventManager.OnEndTurnEvent -= EndTurn;
+    }
 
     public void GameWon()
     {
@@ -284,10 +289,8 @@ public class GridManager : MonoBehaviour
         players[1].CoordinatePosition = Border[Border.Count / 4 * 2];
         players[2].CoordinatePosition = Border[Border.Count / 4 * 3];
 
-        Boss newBoss = Instantiate(BossPrefab);
-        newBoss.Setup(Grid[Border[0]]);
-
-        List<Vector2Int> newBossTiles = HexGridUtil.AxialNeighbors(BossSpawn);
+        Boss newBoss = Instantiate(BossPrefab); 
+        List<Vector2Int> newBossTiles = HexGridUtil.AxialNeighbors(Border[0]);
         foreach (Vector2Int coordinate in newBossTiles)
         {
             if (!Grid.ContainsKey(coordinate))
@@ -300,6 +303,9 @@ public class GridManager : MonoBehaviour
                 Grid.Add(coordinate, newTile);
             }
         }
+        newBoss.Setup(Grid[Border[0]]);
+
+
     }
 
 
