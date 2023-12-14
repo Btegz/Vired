@@ -34,6 +34,20 @@ public class Ability : HexShape
         set { myCostAmount = value; }
     }
 
+    [SerializeField] private int myStartCostAmount;
+    public int MyStartCostAmount
+    {
+        get { return myStartCostAmount; }
+        set { myStartCostAmount = value; }
+    }
+
+    [SerializeField] private int myCostAmountIncreaseEveryXUpgrades;
+
+    public int MyCostAmountIncreaseEveryXUpgrades
+    {
+        get { return myCostAmountIncreaseEveryXUpgrades; }
+        set { myCostAmountIncreaseEveryXUpgrades = value; }
+    }
 
 
     //[SerializeField] public List<Ressource> costs;
@@ -146,10 +160,10 @@ public class Ability : HexShape
         Coordinates.Clear();
         Effects.Clear();
         MyTierLevel = MyStartTierLevel;
-        List<Vector2Int> possibleTiles = HexGridUtil.CubeToAxialCoord(HexGridUtil.CoordinatesReachable(Vector3Int.zero, MyStartTierLevel+1));
+        List<Vector2Int> possibleTiles = HexGridUtil.CubeToAxialCoord(HexGridUtil.CoordinatesReachable(Vector3Int.zero, MyStartTierLevel + 1));
 
         Dictionary<Vector2Int, Effect> newShape = new Dictionary<Vector2Int, Effect>();
-        if(MyStartAmountPositive > 0)
+        if (MyStartAmountPositive > 0)
         {
             Vector2Int coord = new Vector2Int(1, 0);
             newShape.Add(coord, Effect.Positive);
@@ -157,7 +171,7 @@ public class Ability : HexShape
 
         for (int i = 1; i < MyStartAmountPositive; i++)
         {
-            Vector2Int randomTile = possibleTiles[Random.Range(0, possibleTiles.Count-1)];
+            Vector2Int randomTile = possibleTiles[Random.Range(0, possibleTiles.Count - 1)];
             while (newShape.ContainsKey(randomTile))
             {
                 randomTile = possibleTiles[Random.Range(0, possibleTiles.Count)];
@@ -179,6 +193,33 @@ public class Ability : HexShape
 
     public void RecalculateCost()
     {
-        MyCostAmount = 2 + (Coordinates.Count / 4);
+        int newCost = 0;
+        foreach (Effect tile in Effects)
+        {
+            switch (tile)
+            {
+                case Effect.Positive:
+                    newCost++;
+                    break;
+                case Effect.Negative100:
+                    newCost++;
+                    break;
+                case Effect.Negative200:
+                    newCost += 2;
+                    break;
+                case Effect.Negative300:
+                    newCost += 3; 
+                    break;
+                case Effect.Negative400:
+                    newCost += 4;
+                    break;
+                case Effect.Negative500:
+                    newCost += 5;
+                    break;
+            }
+        }
+        newCost /= myCostAmountIncreaseEveryXUpgrades;
+
+        MyCostAmount = newCost+myStartCostAmount;
     }
 }

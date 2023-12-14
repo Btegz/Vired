@@ -68,6 +68,7 @@ public class GridManager : MonoBehaviour
 
     [Header("Enemy Ressources")]
     [SerializeField] public List<Enemy> StartEnemyPrefabs;
+    [SerializeField] int startEnemyCount;
     //[SerializeField] public List<EnemySO> enemySOs;
     //[SerializeField] public EnemySO BossEnemySO;
     [SerializeField] public Boss BossPrefab;
@@ -194,7 +195,7 @@ public class GridManager : MonoBehaviour
             SpawnBossAndPlayer(border);
             
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < startEnemyCount; i++)
             {
                 SpawnEnemy();
             }
