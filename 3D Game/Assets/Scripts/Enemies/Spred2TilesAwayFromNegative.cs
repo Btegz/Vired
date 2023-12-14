@@ -25,7 +25,7 @@ public class Spred2TilesAwayFromNegative : Spreadbehaviours
 
         foreach (KeyValuePair<Vector2Int, GridTile> kvp in grid)
         {
-            if (kvp.Value.currentGridState == GridManager.Instance.gS_Negative || kvp.Value.currentGridState == GridManager.Instance.gS_Enemy || kvp.Value.currentGridState == GridManager.Instance.gS_Boss || kvp.Value.currentGridState == GridManager.Instance.gS_BossNegative)
+            if (kvp.Value.currentGridState == GridManager.Instance.gS_Negative || kvp.Value.currentGridState == GridManager.Instance.gS_Enemy || kvp.Value.currentGridState == GridManager.Instance.gS_Boss || kvp.Value.currentGridState == GridManager.Instance.gS_BossNegative || kvp.Value.currentGridState == GridManager.Instance.gS_PofI)
             {
                 continue;
             }

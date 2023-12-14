@@ -67,7 +67,7 @@ public class Boss : Enemy
             {
                 if (sb.TargetTile(HexGridUtil.AxialToCubeCoord(axialLocation), out Vector3Int target, FindClosestPlayer().CoordinatePosition))
                 {
-                    Enemy newEnemy = Instantiate(enemyPrefabPool[Random.Range(0,enemyPrefabPool.Count)], GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)].transform);
+                    Enemy newEnemy = Instantiate(enemyPrefabPool[Random.Range(0, enemyPrefabPool.Count)], GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)].transform);
                     newEnemy.transform.position = transform.position;
                     newEnemy.Setup(GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)]);
                 }
@@ -83,7 +83,7 @@ public class Boss : Enemy
     {
         Debug.Log("I have died");
 
-        if (NextBosses == null || NextBosses.Count==0)
+        if (NextBosses == null || NextBosses.Count == 0)
         {
             GridManager.Instance.GameWon();
             return;
@@ -111,28 +111,28 @@ public class Boss : Enemy
         //{
         //    if(kvp.Value.gameObject.GetComponentsInChildren<Boss>().Length >0)
         //    {
-                
+
         //    }
         //}
 
-        foreach(Boss b in NextBosses)
+        foreach (Boss b in NextBosses)
         {
-            if(nextBossSpawnPattern == null)
+            if (nextBossSpawnPattern == null)
             {
                 Boss newBoss = Instantiate(b);
                 newBoss.Setup(GridManager.Instance.Grid[Vector2Int.zero]);
                 break;
             }
-            if(nextBossSpawnPattern.TargetTiles(Vector3Int.zero,out List<Vector3Int> targets, Vector2Int.zero))
+            if (nextBossSpawnPattern.TargetTiles(Vector3Int.zero, out List<Vector3Int> targets, Vector2Int.zero))
             {
                 Boss newBoss = Instantiate(b);
-                newBoss.Setup(GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(targets[Random.Range(0,targets.Count)])]);
+                newBoss.Setup(GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(targets[Random.Range(0, targets.Count)])]);
             }
         }
 
 
 
-        base.Death();   
+        base.Death();
     }
 
     //public void Spawn(Vector2Int location, GameObject boss)
@@ -147,17 +147,19 @@ public class Boss : Enemy
     {
         //    foreach (Vector2Int loc in location)
         //    {
-            BossReachableTiles = HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(axialLocation), SpawnRange, HexGridUtil.AxialToCubeCoord(GridManager.Instance.Grid.Keys.ToList<Vector2Int>()));
-            BossReachableTiles.Remove(HexGridUtil.AxialToCubeCoord(axialLocation));
+        BossReachableTiles = HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(axialLocation), SpawnRange, HexGridUtil.AxialToCubeCoord(GridManager.Instance.Grid.Keys.ToList<Vector2Int>()));
+        BossReachableTiles.Remove(HexGridUtil.AxialToCubeCoord(axialLocation));
 
-            foreach (Vector3Int neighbor in BossReachableTiles)
+        foreach (Vector3Int neighbor in BossReachableTiles)
+        {
+            if (GridManager.Instance.Grid.ContainsKey(HexGridUtil.CubeToAxialCoord(neighbor)))
             {
-                if (GridManager.Instance.Grid.ContainsKey(HexGridUtil.CubeToAxialCoord(neighbor)))
+                if (GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].currentGridState != GridManager.Instance.gS_Enemy && GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].currentGridState != GridManager.Instance.gS_PofI && !PlayerManager.Instance.PlayerPositions().Contains(HexGridUtil.CubeToAxialCoord(neighbor)))
                 {
-                    if (GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].currentGridState != GridManager.Instance.gS_Enemy)
-                        GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].ChangeCurrentState(GridManager.Instance.gS_BossNegative);
+                    GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].ChangeCurrentState(GridManager.Instance.gS_BossNegative);
                 }
             }
+        }
         //}
     }
 
