@@ -26,13 +26,13 @@ public class Zerglings : Enemy
             {
                 if (GridManager.Instance.Grid.ContainsKey(zerkling))
                 {
-                    if (GridManager.Instance.Grid[zerkling].currentGridState == GridManager.Instance.gS_Positive && GridManager.Instance.Grid[zerkling].AxialCoordinate != PlayerManager.Instance.playerPosition)
+                    if (GridManager.Instance.Grid[zerkling].currentGridState == GridManager.Instance.gS_Neutral ||GridManager.Instance.Grid[zerkling].currentGridState == GridManager.Instance.gS_Positive && !PlayerManager.Instance.PlayerPositions().Contains(zerkling))
                     {
                         possibleTiles.Add(zerkling);
                     }
                 }
             }
-            Vector2Int neighbor = possibleTiles[Random.RandomRange(0, possibleTiles.Count)];
+            Vector2Int neighbor = possibleTiles[Random.Range(0, possibleTiles.Count)];
             ZerklingNeighbor = new List<Vector2Int>();
             ZerklingNeighbor = HexGridUtil.AxialNeighbors(neighbor);
 
@@ -41,12 +41,11 @@ public class Zerglings : Enemy
             {
                 if (GridManager.Instance.Grid.ContainsKey(neighbour))
                 {
-                    if (GridManager.Instance.Grid[neighbour].currentGridState == GridManager.Instance.gS_Positive && GridManager.Instance.Grid[neighbour].AxialCoordinate != PlayerManager.Instance.playerPosition)
+                    if (GridManager.Instance.Grid[neighbor].currentGridState == GridManager.Instance.gS_Neutral || GridManager.Instance.Grid[neighbor].currentGridState == GridManager.Instance.gS_Positive && !PlayerManager.Instance.PlayerPositions().Contains(neighbor))
                     {
                         if (neighbour != axialLocation)
 
                             possibleNeighbors.Add(neighbour);
-
                     }
                 }
             }
@@ -59,19 +58,19 @@ public class Zerglings : Enemy
                 enemy2.isFirstZergling = false;
 
                 enemy2.Setup(/*enemySOs[Random.Range(0, enemySOs.Count)], */targetlocato);
-                enemy2.currentHealth = 1;
-                targetlocato.ChangeCurrentState(GridManager.Instance.gS_Enemy);
-                enemy2.transform.parent = targetlocato.transform;
-                enemy2.transform.position = targetlocato.transform.position;
+                //enemy2.currentHealth = 1;
+                //targetlocato.ChangeCurrentState(GridManager.Instance.gS_Enemy);
+                //enemy2.transform.parent = targetlocato.transform;
+                //enemy2.transform.position = targetlocato.transform.position;
 
                 Zerglings enemy3 = Instantiate(zerglingPrefab);
                 GridTile targetlocatio = GridManager.Instance.Grid[neighbor];
                 enemy3.isFirstZergling = false;
                 enemy3.Setup(/*enemySOs[Random.Range(0, enemySOs.Count)], */targetlocatio);
-                enemy3.currentHealth = 1;
-                targetlocatio.ChangeCurrentState(GridManager.Instance.gS_Enemy);
-                enemy3.transform.parent = targetlocatio.transform;
-                enemy3.transform.position = targetlocatio.transform.position;
+                //enemy3.currentHealth = 1;
+                //targetlocatio.ChangeCurrentState(GridManager.Instance.gS_Enemy);
+                //enemy3.transform.parent = targetlocatio.transform;
+                //enemy3.transform.position = targetlocatio.transform.position;
 
 
 

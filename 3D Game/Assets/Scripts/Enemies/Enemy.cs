@@ -57,6 +57,7 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     virtual public void Setup(GridTile tile)
     {
+        currentHealth = maxHealth;
         ressource = tile.ressource;
         axialLocation = tile.AxialCoordinate;
         //transform.position = tile.transform.position;

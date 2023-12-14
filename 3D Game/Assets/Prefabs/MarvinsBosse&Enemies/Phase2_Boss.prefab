@@ -279,8 +279,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e358582cacc8867449f787d0154c3002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 5
-  maxHealth: 5
+  currentHealth: 1
+  maxHealth: 1
   ressource: 0
   AMAterial: {fileID: 2100000, guid: 418edcc1881116d49a7f077b0bb080e4, type: 2}
   BMAterial: {fileID: 2100000, guid: a6a2bf096af777a4c863878c5eaa7137, type: 2}
@@ -293,15 +293,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
       time: 0.45809776
       value: 0.69065946
       inSlope: 1.3311936
@@ -310,15 +301,6 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.08198048
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -327,7 +309,7 @@ MonoBehaviour:
   spreadbehaviours:
   - {fileID: 11400000, guid: d85918d28f53bb740a2d5a37c7cb7737, type: 2}
   SpreadAmount: 1
-  everyXTurns: 3
+  everyXTurns: 2
   axialLocation: {x: 0, y: 0}
   death: {fileID: 11400000, guid: 52c5c7a45c8060342836570eb8ce113a, type: 2}
   spawn: {fileID: 11400000, guid: cf068642af0e61e4c879e07d4cb7df86, type: 2}
@@ -337,7 +319,7 @@ MonoBehaviour:
   BossSpreads:
   - {fileID: 11400000, guid: 0d765faaefb738d469120073c71e776d, type: 2}
   location: []
-  SpawnRange: 3
+  SpawnRange: 4
   enemyPrefabPool:
   - {fileID: 3100616434115519233, guid: b3a08cba775c46641afbdca0440b242a, type: 3}
   NextBosses:

@@ -279,8 +279,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e358582cacc8867449f787d0154c3002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 5
-  maxHealth: 5
+  currentHealth: 2
+  maxHealth: 2
   ressource: 0
   AMAterial: {fileID: 2100000, guid: 418edcc1881116d49a7f077b0bb080e4, type: 2}
   BMAterial: {fileID: 2100000, guid: a6a2bf096af777a4c863878c5eaa7137, type: 2}
@@ -300,7 +300,7 @@ MonoBehaviour:
   spreadbehaviours:
   - {fileID: 11400000, guid: 2af563a854034da44903fc202dcce818, type: 2}
   SpreadAmount: 2
-  everyXTurns: 2
+  everyXTurns: 1
   axialLocation: {x: 0, y: 0}
   death: {fileID: 11400000, guid: 52c5c7a45c8060342836570eb8ce113a, type: 2}
   spawn: {fileID: 11400000, guid: cf068642af0e61e4c879e07d4cb7df86, type: 2}
@@ -310,7 +310,7 @@ MonoBehaviour:
   BossSpreads:
   - {fileID: 11400000, guid: 0d765faaefb738d469120073c71e776d, type: 2}
   location: []
-  SpawnRange: 4
+  SpawnRange: 5
   enemyPrefabPool:
   - {fileID: 2148683299467376766, guid: 7b2a05b03fda7394f878b492db6e56de, type: 3}
   NextBosses:
