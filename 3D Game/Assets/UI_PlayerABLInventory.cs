@@ -47,11 +47,8 @@ public class UI_PlayerABLInventory : MonoBehaviour, IPointerEnterHandler, IPoint
 
     private void RemoveAbility(AbilityLoadoutButton abilityButton)
     {
-        if(player.AbilityInventory.Contains(abilityButton.ability))
-        {
             player.AbilityInventory.Remove(abilityButton.ability);
             AbilityLoadoutButtonInstances.Remove(abilityButton);
-        }
     }
 
     public void Setup(Player player)

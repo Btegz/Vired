@@ -11,6 +11,8 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
 
     [SerializeField] GridLayoutGroup originalParent;
     [SerializeField] GridLayoutGroup currentParent;
+
+    public bool inPlayerArea = false;
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (currentState != ButtonState.newInLoadout)
@@ -48,7 +50,7 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
             return;
         }
         GameObject pointedObj = eventData.pointerCurrentRaycast.gameObject;
-        bool inPlayerArea = false;
+        inPlayerArea = false;
         if (pointedObj.GetComponentInParent<UI_PlayerABLInventory>())
         {
             UI_PlayerABLInventory playerArea = pointedObj.GetComponentInParent<UI_PlayerABLInventory>();
@@ -71,10 +73,12 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
                     UI_PlayerABLInventory plpl = currentParent.GetComponentInParent<UI_PlayerABLInventory>();
                     plpl.player.AbilityInventory.Remove(ability);
                     EventManager.OnLoadoutAbilityChoiceRemove(this);
+                    currentState = ButtonState.newInLoadout;
+                    inPlayerArea = false;
                 }
                 transform.SetParent(originalParent.transform);
                 currentParent = originalParent;
-                inPlayerArea = true; 
+                //inPlayerArea = true; 
             }
         }
         if (!inPlayerArea)
