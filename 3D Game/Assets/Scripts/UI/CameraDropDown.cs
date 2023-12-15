@@ -19,10 +19,10 @@ public class CameraDropDown : MonoBehaviour
             CameraRotation.Instance.SwitchToTopDown();
         }
 
-        if (va1 == 2)
-        {
-            CameraRotation.Instance.SwitchToPlayer();
-        }
+        //if (va1 == 2)
+        //{
+        //    CameraRotation.Instance.SwitchToPlayer();
+        //}
     }
 
     //public void Awake()

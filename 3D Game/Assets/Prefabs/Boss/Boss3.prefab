@@ -111,7 +111,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac40004989043c74bac78dc94d695d48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySO: {fileID: 11400000, guid: 835522eebbfc13c4e922c45e683ba113, type: 2}
   currentHealth: 4
   maxHealth: 4
   ressource: 0
@@ -122,10 +121,21 @@ MonoBehaviour:
   HealthPointsLayout: {fileID: 8941758224433320597}
   HealthpointPrefab: {fileID: 4546101371875049633, guid: 653162b7ccefd14408d3d51e5851e964, type: 3}
   healthpoints: []
+  SpawnJumpAnimationCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   Particle_EnemyDeath: {fileID: 726535386845715946, guid: 005fc7e0d2c6e1247b7b8880e93a8099, type: 3}
   SkillPointReward: 0
-  mr: {fileID: 0}
+  spreadbehaviours:
+  - {fileID: 11400000, guid: 0d765faaefb738d469120073c71e776d, type: 2}
+  SpreadAmount: 0
+  everyXTurns: 0
+  axialLocation: {x: 0, y: 0}
   death: {fileID: 11400000, guid: 52c5c7a45c8060342836570eb8ce113a, type: 2}
+  spawn: {fileID: 0}
   FirstAndLast: 1
 --- !u!1 &4288788541632359779
 GameObject:

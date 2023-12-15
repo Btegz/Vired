@@ -108,7 +108,15 @@ public class CameraRotation : MonoBehaviour
 
     private void SwitchToTopDown(InputAction.CallbackContext context)
     {
-        SwitchtoMain();
+        CameraCenterToPlayer(PlayerManager.Instance.selectedPlayer);
+        Worldcam.Priority = 0;
+        TopDownCam.Priority = 1;
+        //Playercam.Priority = 0;
+        MainCam = true;
+        transform.position = WorldcamStart;
+        if (dropdown.value != 1)
+            dropdown.value = 1;
+        dropdown.RefreshShownValue();
     }
 
     private void playerSelection(InputAction.CallbackContext context)
@@ -232,19 +240,19 @@ public class CameraRotation : MonoBehaviour
 
 
 
-                if (Worldcam.Priority == 2/* && MainCam == true*/)
+                if (Worldcam.Priority == 1/* && MainCam == true*/)
                 {
                     //Worldcam.transform.LookAt(cam.transform.position);
                     if (worldcamRecomposer.m_ZoomScale > MaxZoom)
                         worldcamRecomposer.m_ZoomScale -= 0.1f;
                 }
 
-                else if (Playercam.Priority == 2)
+              /*  else if (Playercam.Priority == 2)
                 {
                     //Playercam.transform.LookAt(Playercam.transform.position);
                     if (playercamRecomposer.m_ZoomScale > MaxZoom)
                         playercamRecomposer.m_ZoomScale -= 0.1f;
-                }
+                }*/
 
                 else
                 {
@@ -264,7 +272,7 @@ public class CameraRotation : MonoBehaviour
                 maxMovementSpeed = Mathf.Lerp(startMovementSpeed, maxMovementSpeed, MouseScrollDistance);
 
 
-                if (Worldcam.Priority == 2/* && MainCam == true*/)
+                if (Worldcam.Priority == 1/* && MainCam == true*/)
                 {
                     //Worldcam.transform.LookAt(cam.transform.position);
                     if (worldcamRecomposer.m_ZoomScale < MinZoom)
@@ -272,13 +280,13 @@ public class CameraRotation : MonoBehaviour
 
                 }
 
-                else if (Playercam.Priority == 2)
+            /*    else if (Playercam.Priority == 2)
                 {
                     //Playercam.transform.LookAt(Playercam.transform.position);
                     if (playercamRecomposer.m_ZoomScale < MinZoom)
                         playercamRecomposer.m_ZoomScale += 0.1f;
 
-                }
+                }*/
 
                 else
                 {
@@ -297,7 +305,7 @@ public class CameraRotation : MonoBehaviour
     IEnumerator Rotato()
     {
         Vector2 previousMousePosition = Pointer.current.position.ReadValue();
-        if (Playercam.Priority == 2)
+        /*if (Playercam.Priority == 2)
         {
             CameraRotation.Instance.Playercam.LookAt = null;
             CameraRotation.Instance.Playercam.Follow = null;
@@ -311,11 +319,9 @@ public class CameraRotation : MonoBehaviour
 
             }
 
-        }
+        }*/
 
-        else
-        {
-            if (Worldcam.Priority == 2)
+            if (Worldcam.Priority == 1)
             {
                 if (Worldcam.Follow != null)
                 {
@@ -326,7 +332,7 @@ public class CameraRotation : MonoBehaviour
                 //Worldcam.Follow = null;
             }
 
-            else if (TopDownCam.Priority == 2)
+            else if (TopDownCam.Priority == 1)
             {
                 if (Worldcam.Follow != null)
                 {
@@ -355,20 +361,20 @@ public class CameraRotation : MonoBehaviour
 
                 var previousPointerWorldPos = pointerWorldRay.GetPoint(enterDistance);
 
-                if (Worldcam.Priority == 2)
+                if (Worldcam.Priority == 1)
                 {
                     Worldcam.transform.RotateAround(previousPointerWorldPos, Vector3.up, ((currentMousePosition - previousMousePosition).x / Screen.width) * rotationSpeed);
                     previousMousePosition = currentMousePosition;
                     yield return null;
                 }
-                else if (TopDownCam.Priority == 2)
+                else if (TopDownCam.Priority == 1)
                 {
                     TopDownCam.transform.RotateAround(previousPointerWorldPos, Vector3.up, ((currentMousePosition - previousMousePosition).x / Screen.width) * rotationSpeed);
                     previousMousePosition = currentMousePosition;
                     yield return null;
                 }
 
-            }
+           
         }
 
     }
@@ -383,7 +389,7 @@ public class CameraRotation : MonoBehaviour
 
         while (true)
         {
-            if (Worldcam.Priority == 2)
+            if (Worldcam.Priority == 1)
             {
                 if (Worldcam.Follow != null)
                 {
@@ -396,7 +402,7 @@ public class CameraRotation : MonoBehaviour
 
             }
 
-            else if (TopDownCam.Priority == 2)
+            else if (TopDownCam.Priority == 1)
             {
                 if (TopDownCam.Follow != null)
                 {
@@ -407,7 +413,7 @@ public class CameraRotation : MonoBehaviour
                 TopDownCam.Follow = normalFollow;
             }
 
-            if (Playercam.Priority == 2)
+            else
             {
                 break;
             }
@@ -451,9 +457,9 @@ public class CameraRotation : MonoBehaviour
     public void SwitchtoMain()
     {
         CameraCenterToPlayer(PlayerManager.Instance.selectedPlayer);
-        Worldcam.Priority = 2;
-        TopDownCam.Priority = 1;
-        Playercam.Priority = 0;
+        Worldcam.Priority = 1;
+        TopDownCam.Priority = 0;
+        //Playercam.Priority = 0;
         MainCam = true;
         transform.position = WorldcamStart;
         if (dropdown.value != 0)
@@ -464,24 +470,24 @@ public class CameraRotation : MonoBehaviour
 
     public void SwitchToPlayer()
     {
-        CameraCenterToPlayer(PlayerManager.Instance.selectedPlayer);
+        //CameraCenterToPlayer(PlayerManager.Instance.selectedPlayer);
 
-        Worldcam.Priority = 0;
-        TopDownCam.Priority = 1;
-        Playercam.Priority = 2;
+        //Worldcam.Priority = 0;
+        //TopDownCam.Priority = 1;
+        //Playercam.Priority = 2;
 
-        MainCam = false;
-        if (dropdown.value != 2)
-            dropdown.value = 2;
-        dropdown.RefreshShownValue();
+        //MainCam = false;
+        //if (dropdown.value != 2)
+        //    dropdown.value = 2;
+        //dropdown.RefreshShownValue();
     }
 
     public void SwitchToTopDown()
     {
         CameraCenterToPlayer(PlayerManager.Instance.selectedPlayer);
         Worldcam.Priority = 0;
-        Playercam.Priority = 1;
-        TopDownCam.Priority = 2;
+        //Playercam.Priority = 1;
+        TopDownCam.Priority = 1;
         transform.position = WorldcamStart;
         if (dropdown.value != 1)
             dropdown.value = 1;
@@ -491,16 +497,16 @@ public class CameraRotation : MonoBehaviour
 
 
     public void CameraCenterToPlayer(Player player)
-    {
-        if (Playercam.Priority == 2)
-        {
-            Playercam.LookAt = player.transform;
-            Playercam.Follow = player.transform;
+    { 
+    //if (Playercam.Priority == 2)
+    //    {
+    //        Playercam.LookAt = player.transform;
+    //        Playercam.Follow = player.transform;
 
 
-        }
+    //    }
 
-        else if (Worldcam.Priority == 2)
+        if (Worldcam.Priority == 1)
         {
             Worldcam.LookAt = player.transform;
             Worldcam.Follow = player.transform;
