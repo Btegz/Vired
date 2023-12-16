@@ -73,19 +73,22 @@ public class Boss : Enemy
                 }
             }
         }
-
-        foreach (Spreadbehaviours sb in spreadbehaviours)
+        if (spreadbehaviours != null)
         {
-            if (sb.TargetTiles(HexGridUtil.AxialToCubeCoord(location[0]), out List<Vector3Int> targets, FindClosestPlayer().CoordinatePosition))
+
+            foreach (Spreadbehaviours sb in spreadbehaviours)
             {
-                foreach(Vector3Int coord in targets)
+                if (sb.TargetTiles(HexGridUtil.AxialToCubeCoord(location[0]), out List<Vector3Int> targets, FindClosestPlayer().CoordinatePosition))
                 {
-                    Vector2Int c = HexGridUtil.CubeToAxialCoord(coord);
-                    if (GridManager.Instance.Grid.ContainsKey(c))
+                    foreach (Vector3Int coord in targets)
                     {
-                        if (GridManager.Instance.Grid[c].currentGridState.StateValue()>=0 && GridManager.Instance.Grid[c].currentGridState.StateValue() < 4)
+                        Vector2Int c = HexGridUtil.CubeToAxialCoord(coord);
+                        if (GridManager.Instance.Grid.ContainsKey(c))
                         {
-                            GridManager.Instance.Grid[c].ChangeCurrentState(GridManager.Instance.gS_Negative);
+                            if (GridManager.Instance.Grid[c].currentGridState.StateValue() >= 0 && GridManager.Instance.Grid[c].currentGridState.StateValue() < 4)
+                            {
+                                GridManager.Instance.Grid[c].ChangeCurrentState(GridManager.Instance.gS_Negative);
+                            }
                         }
                     }
                 }
