@@ -102,6 +102,7 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 break;
         }
 
+        healthpoints = new List<Image>();
         for (int i = 0; i < currentHealth; i++)
         {
             Image hpp = Instantiate(HealthpointPrefab, HealthPointsLayout.transform);

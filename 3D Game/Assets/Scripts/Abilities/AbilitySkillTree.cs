@@ -15,7 +15,7 @@ public class AbilitySkillTree : MonoBehaviour
 
     private void Awake()
     {
-        AllAbilities = PlayerManager.Instance.AllAbilities;
+        //AllAbilities = PlayerManager.Instance.AllAbilities;
         SkillTreeAbilityVisualsList = new List<SkillTreeAbilityVisual>();
         GetComponentsInChildren<SkillTreeAbilityVisual>(SkillTreeAbilityVisualsList) ;
     }
