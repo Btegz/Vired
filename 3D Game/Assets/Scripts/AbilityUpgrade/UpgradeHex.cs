@@ -73,6 +73,7 @@ public class UpgradeHex : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         {
             gridHex.Place();
             particle.SetActive(false);
+            gridHex = null;
         }
         catch
         {
@@ -99,6 +100,7 @@ public class UpgradeHex : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     {
         if (PlayerManager.Instance.SkillPoints < Cost)
         {
+            gridHex = null;
             image.rectTransform.DOComplete();
             image.rectTransform.DOPunchRotation(Vector3.back * 30, .25f).SetEase(Ease.OutExpo);
         }
