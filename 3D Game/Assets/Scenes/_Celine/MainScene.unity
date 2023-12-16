@@ -847,7 +847,7 @@ PrefabInstance:
     - target: {fileID: 6993991225135169736, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
       propertyPath: StartEnemyPrefabs.Array.data[0]
       value: 
-      objectReference: {fileID: 2148683299467376766, guid: a3c744c9134300b47a6ec1a3133932af, type: 3}
+      objectReference: {fileID: 2148683299467376766, guid: 75407e30939ecb84ca159975644b8d0d, type: 3}
     - target: {fileID: 6993991225135169737, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
       propertyPath: m_Name
       value: GridManager
@@ -1310,10 +1310,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1410708355105623037, guid: c3969de3dacd34343a5d10637ffc49b9, type: 3}
-      propertyPath: m_Follow
-      value: 
-      objectReference: {fileID: 1485117164}
     - target: {fileID: 1410708355105623039, guid: c3969de3dacd34343a5d10637ffc49b9, type: 3}
       propertyPath: m_Name
       value: WorldCamera
@@ -1440,11 +1436,6 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: a7d0a5097aaf19d4abe65e1836db209b, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 035a5f621b3605341a971c308f6e86ad, type: 3}
---- !u!4 &1485117164 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 854917220166575129, guid: 035a5f621b3605341a971c308f6e86ad, type: 3}
-  m_PrefabInstance: {fileID: 1689803100}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1493776948
 PrefabInstance:
   m_ObjectHideFlags: 0
