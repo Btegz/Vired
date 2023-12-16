@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Zerglings : Enemy
 {
-    public bool isFirstZergling = true;
+    [HideInInspector] public bool isFirstZergling = true;
+
+    [Header("Zergling Specific")]
     public Zerglings zerglingPrefab;
 
      private List<Vector2Int> Zerklings;

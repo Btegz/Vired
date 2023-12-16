@@ -1,16 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Security.Cryptography;
-using DG.Tweening;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using static PofIManager;
-using static UnityEngine.EventSystems.EventTrigger;
 using Random = UnityEngine.Random;
 
 /// <summary>
@@ -20,14 +10,15 @@ public class GridManager : MonoBehaviour
 {
     public static GridManager Instance;
 
-    [SerializeField] GridTile GridTilePrefab;
+    [HideInInspector] public Vector2Int BossSpawn;
 
     // Vector2Int holds the coordinate and GridTile is the GameObject in the Coordinate.
     // It is a Vector2Int instead of Vector3Int because this makes accessing the tiles much easier.
     // If you want the cubic Coordinate you cann access HexGridUtil.AxialToCubeCoord.
     [SerializeField] public Dictionary<Vector2Int, GridTile> Grid;
 
-    // Supposed to handle the q and r dimensions of the grid when gereating the shape.
+    [Header("The Boring Stuff")]
+    [SerializeField] GridTile GridTilePrefab;
     public GS_positive gS_Positive;
     public GS_neutral gS_Neutral;
     public GS_negative gS_Negative;
@@ -36,51 +27,32 @@ public class GridManager : MonoBehaviour
     public GS_BossNegative gS_BossNegative;
     public GS_Pofl gS_PofI;
 
-    [SerializeField][HideInInspector] public Boss boss;
-    [SerializeField][HideInInspector] public Enemy Boss;
-    [SerializeField][HideInInspector] public Enemy Boss1Phase2;
-    [SerializeField][HideInInspector] public Enemy Boss2Phase2;
-    [SerializeField][HideInInspector] public Enemy Boss3Phase2;
+    [Header("Map")]
+    [SerializeField] public MapSettings mapSettings;
 
-
-    public Vector2Int BossSpawn;
-    public int random;
-    public new Vector2Int[] coords = new Vector2Int[3];
+    //[Header("Tile Presets")]
+    //[SerializeField, Tooltip("should be smaller then outerSize. If Hex should be filled this will be 0.")] float innerSize;
+    //[SerializeField, Tooltip("The Size of a Hex tile. Size represents the radius and not the diameter of the Hex. If outerSize is 1, the Hex will have a width of 2.")] float outerSize;
+    //[SerializeField, Tooltip("The y Position of the tile")] float height;
+    //[SerializeField] List<GridTileSO> gridTileSOs;
 
     [Header("PofIs")]
     [SerializeField] public GameObject PofIPrefab;
     [SerializeField][HideInInspector] public GameObject pofi;
-    private List<Vector2Int> PofIList = new List<Vector2Int>(); 
+    private List<Vector2Int> PofIList = new List<Vector2Int>();
     private int randomPofI;
     public int pofIOffset;
+    [SerializeField] int PofiSpawnCount;
 
-    [Header("Map")]
-    [SerializeField] public MapSettings mapSettings;
 
-    [Header("Tile Presets")]
-    [SerializeField, Tooltip("should be smaller then outerSize. If Hex should be filled this will be 0.")] float innerSize;
-    [SerializeField, Tooltip("The Size of a Hex tile. Size represents the radius and not the diameter of the Hex. If outerSize is 1, the Hex will have a width of 2.")] float outerSize;
-    [SerializeField, Tooltip("The y Position of the tile")] float height;
-    [SerializeField] List<GridTileSO> gridTileSOs;
 
-    [Header("Shape Presets")]
-    [SerializeField] List<HS_World> RessourceShapes;
-
-    [Header("Enemy Ressources")]
+    [Header("Enemies")]
     [SerializeField] public List<Enemy> StartEnemyPrefabs;
     [SerializeField] int startEnemyCount;
-    //[SerializeField] public List<EnemySO> enemySOs;
-    //[SerializeField] public EnemySO BossEnemySO;
-    [SerializeField] public Boss BossPrefab;
+    [SerializeField] public Boss StartBossPrefab;
 
-    [Header("Phases")]
-    [SerializeField] public int TurnCounter;
-    //[SerializeField] Phase currentPhase;
-    //[SerializeField] List<Phase> phases;
 
-    [Header("UI")]
-    [SerializeField] public Canvas mainCanvas;
-
+    [HideInInspector] public int TurnCounter;
 
     private void Awake()
     {
@@ -290,8 +262,9 @@ public class GridManager : MonoBehaviour
         players[1].CoordinatePosition = Border[Border.Count / 4 * 2];
         players[2].CoordinatePosition = Border[Border.Count / 4 * 3];
 
-        Boss newBoss = Instantiate(BossPrefab); 
+        Boss newBoss = Instantiate(StartBossPrefab); 
         List<Vector2Int> newBossTiles = HexGridUtil.AxialNeighbors(Border[0]);
+        BossSpawn = Border[0];
         foreach (Vector2Int coordinate in newBossTiles)
         {
             if (!Grid.ContainsKey(coordinate))
@@ -323,7 +296,7 @@ public class GridManager : MonoBehaviour
                 possibleTiles.Add(kvp.Key);
             }
         }
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < PofiSpawnCount; i++)
         {
             randomPofI = Random.Range(0, possibleTiles.Count);
             Grid[possibleTiles[randomPofI]].ChangeCurrentState(gS_PofI);
@@ -344,49 +317,28 @@ public class GridManager : MonoBehaviour
     /// <summary>
     /// Generates a Grid
     /// </summary>
-    public void GenerateGrid()
-    {
-        Grid = new Dictionary<Vector2Int, GridTile>();
+    //public void GenerateGrid()
+    //{
+    //    Grid = new Dictionary<Vector2Int, GridTile>();
 
-        // a Standard Hexgonal Grid for the Start
-        List<Vector2Int> coords = HexGridUtil.GenerateHexagonalShapedGrid(1);
+    //    // a Standard Hexgonal Grid for the Start
+    //    List<Vector2Int> coords = HexGridUtil.GenerateHexagonalShapedGrid(1);
 
-        // The Startgrid is Instantiated and filled with random States
-        foreach (Vector2Int coord in coords)
-        {
-            GridTile tile = Instantiate(GridTilePrefab, HexGridUtil.AxialHexToPixel(coord, outerSize), Quaternion.identity, transform);
-            tile.Setup(coord, gridTileSOs[Random.Range(0, gridTileSOs.Count)], gS_Enemy,true);
-            tile.name = $"Hex{coord.x},{coord.y}";
-            tile.innerSize = innerSize;
-            tile.outerSize = outerSize;
-            tile.height = height;
-            tile.DrawMesh();
-            Grid.Add(coord, tile);
-        }
+    //    // The Startgrid is Instantiated and filled with random States
+    //    foreach (Vector2Int coord in coords)
+    //    {
+    //        GridTile tile = Instantiate(GridTilePrefab, HexGridUtil.AxialHexToPixel(coord, outerSize), Quaternion.identity, transform);
+    //        tile.Setup(coord, gridTileSOs[Random.Range(0, gridTileSOs.Count)], gS_Enemy,true);
+    //        tile.name = $"Hex{coord.x},{coord.y}";
+    //        tile.innerSize = innerSize;
+    //        tile.outerSize = outerSize;
+    //        tile.height = height;
+    //        tile.DrawMesh();
+    //        Grid.Add(coord, tile);
+    //    }
 
-        // Every RessourceShape is Generated and combined with the basegrid.
-        for (int i = 0; i < 3; i++)
-        {
-            foreach (HS_World hsw in RessourceShapes)
-            {
-                List<Vector2Int> shape = hsw.Coordinates;
-                shape = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeClockwise(Vector3Int.zero, HexGridUtil.AxialToCubeCoord(shape), Random.Range(0, 6)));
-                coords = HexGridUtil.CombineGridsAlongAxis(coords, shape, HexGridUtil.cubeDirectionVectors[Random.Range(0, HexGridUtil.cubeDirectionVectors.Length)], out shape);
-                foreach (Vector2Int coord in shape)
-                {
-                    GridTile tile = Instantiate(GridTilePrefab, HexGridUtil.AxialHexToPixel(coord, outerSize), Quaternion.identity, transform);
-                    tile.Setup(coord, hsw.MyGridTileSO, hsw.MyGridTileSO.initialGridState,true);
-                    tile.name = $"{hsw.MyGridTileSO.ressource} Hex ({coord.x},{coord.y})";
-                    tile.innerSize = innerSize;
-                    tile.outerSize = outerSize;
-                    tile.height = height;
-                    tile.DrawMesh();
-                    Grid.Add(coord, tile);
-                }
-                coords.AddRange(shape);
-            }
-        }
-    }
+       
+    //}
 
     public void EndTurn()
     {

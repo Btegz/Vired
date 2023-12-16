@@ -7,13 +7,12 @@ using UnityEngine.EventSystems;
 
 public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    //[SerializeField] public EnemySO enemySO;
+    MeshRenderer mr; 
+    [HideInInspector] public Ressource ressource;
+    [HideInInspector] public Vector2Int axialLocation;
+    [HideInInspector] public int currentHealth;
 
-    [SerializeField] public int currentHealth;
-    [SerializeField] public int maxHealth;
-
-    [SerializeField] public Ressource ressource;
-
+    [Header("Visuals")]
     [SerializeField] public Material AMAterial;
     [SerializeField] public Material BMAterial;
     [SerializeField] public Material CMAterial;
@@ -21,20 +20,24 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     [SerializeField] GameObject HealthPointsLayout;
     [SerializeField] Image HealthpointPrefab;
-    [SerializeField] List<Image> healthpoints;
+    List<Image> healthpoints;
 
     [SerializeField] AnimationCurve SpawnJumpAnimationCurve;
-
-
     [SerializeField] GameObject Particle_EnemyDeath;
+    //[SerializeField] public EnemySO enemySO;
+
+    [Header("Enemy Stats")]
+
+    
+    [SerializeField] public int maxHealth;
     public int SkillPointReward;
 
-    MeshRenderer mr;
-
-    [SerializeField] public List<Spreadbehaviours> spreadbehaviours;
+    [Header("Negative Spread")]
     [SerializeField] public int SpreadAmount;
     [SerializeField] public int everyXTurns;
-    public Vector2Int axialLocation;
+    [SerializeField] public List<Spreadbehaviours> spreadbehaviours;
+
+    [Header("Audio")]
 
     public AudioData death;
     public AudioData spawn;
@@ -99,6 +102,7 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 break;
         }
 
+        healthpoints = new List<Image>();
         for (int i = 0; i < currentHealth; i++)
         {
             Image hpp = Instantiate(HealthpointPrefab, HealthPointsLayout.transform);

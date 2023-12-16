@@ -1,11 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq.Expressions;
 using UnityEngine;
-using System.Windows;
-using Unity.VisualScripting;
 using UnityEngine.InputSystem;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
@@ -14,39 +10,36 @@ using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
-
     public static PlayerManager Instance;
 
-    [Header("AbilityStuff")]
+
+    [Header("The Boring Stuff")]
+    public Camera cam;
+    public AbilityLoadout abilityLoadout; 
+    [SerializeField] InputActionReference cancelAbilityInputActionReference;
     public AbilityObjScript abilityObj;
-    public List<Ability> abilitInventory;
-    public List<Ability> AllAbilities;
-    public bool abilityActivated = false;
-    private bool abilityUsable = true;
-    public GameObject indicatorPrefab;
-    private GameObject indicatorPrefabClone;
+    [HideInInspector] public List<Ability> abilitInventory;
+    [HideInInspector] public bool abilityActivated = false;
+    [HideInInspector] private bool abilityUsable = true;
     [HideInInspector] public bool AbilityLoadoutActive;
 
     [Header("Player")]
     [SerializeField] public List<GameObject> MovePoints;
     [SerializeField] public List<Player> Players;
+    public List<Sprite> PlayerSprites;
     [SerializeField] int movementPointsPerTurn;
-    public int movementAction = 4;
-    public Camera cam;
+    [HideInInspector]public int movementAction = 4;
     public int SkillPoints;
     [HideInInspector] public int extraMovement;
     [HideInInspector] public Player selectedPlayer;
     [HideInInspector] public GridTile target;
     [HideInInspector] public bool move = true;
-    [HideInInspector] public bool moving = false;
     [HideInInspector] public Vector3 mouse_pos;
     [HideInInspector] public Vector2Int clickedTile;
     [HideInInspector] public Vector2Int PlayerSpawnPoint;
     [HideInInspector] public Vector2Int collisionPoint;
     [HideInInspector] public Vector2Int playerPosition;
-    public List<Sprite> PlayerSprites;
 
-    public AbilityLoadout abilityLoadout;
 
     [Header("Resources")]
     public int RessourceAInventory;
@@ -59,10 +52,6 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] AudioData movementSound;
     [SerializeField] AudioData noMovementSound;
     [SerializeField] AudioData switchPlayer;
-
-
-    public Button EndTurnButton;
-    [SerializeField] InputActionReference cancelAbilityInputActionReference;
 
     private void Awake()
     {
@@ -286,9 +275,6 @@ public class PlayerManager : MonoBehaviour
     IEnumerator Move(Vector2Int moveTo)
     {
         target = GridManager.Instance.Grid[moveTo];
-
-
-        moving = true;
         if (((movementAction == 0) && (extraMovement > 0)))
         {
             extraMovement--;
@@ -369,9 +355,6 @@ public class PlayerManager : MonoBehaviour
             //indicatorPrefabClone = Instantiate(indicatorPrefab, selectedPlayer.transform.position, indicatorRotation);
         }
         move = true;
-        moving = true;
-
-
     }
 
     public bool InventoryCheck(Ability ability, Player player)
@@ -486,7 +469,6 @@ public class PlayerManager : MonoBehaviour
         EventManager.OnAbilityCastEvent -= AbilityCasted;
         cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice;
         abilityActivated = false;
-        Destroy(indicatorPrefabClone);
 
         yield return new WaitForEndOfFrame();
     }
@@ -496,7 +478,6 @@ public class PlayerManager : MonoBehaviour
         abilityActivated = false;
         EventManager.OnAbilityCastEvent -= AbilityCasted;
         cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice;
-        Destroy(indicatorPrefabClone);
     }
 
     public void CancelAbilityChoice()
@@ -504,7 +485,6 @@ public class PlayerManager : MonoBehaviour
         abilityActivated = false;
         EventManager.OnAbilityCastEvent -= AbilityCasted;
         cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice;
-        Destroy(indicatorPrefabClone);
     }
 
     public List<Vector2Int> PlayerPositions()

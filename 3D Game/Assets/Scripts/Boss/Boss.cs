@@ -6,28 +6,24 @@ using System.Linq;
 
 public class Boss : Enemy
 {
-    [SerializeField] List<Vector3Int> BossReachableTiles;
-    [SerializeField] List<Vector3Int> BossTiles;
-    [SerializeField] public List<Spreadbehaviours> BossSpreads;
+    List<Vector3Int> BossReachableTiles;
+    [HideInInspector] public List<Vector2Int> location;
 
-    //[SerializeField] List<GridTile> GridEnemies;   
-    //[SerializeField] List<Vector3Int> ReachableTiles;
-    //public int everyXRounds;
-    //public int turnCounter;
-
-    public List<Vector2Int> location;
-
-    [SerializeField] int SpawnRange;
-
+    [Header("Enemy Spawn")]
     [SerializeField] List<Enemy> enemyPrefabPool;
+    [SerializeField] public List<Spreadbehaviours> enemySpawnSpreadBehaviours;
+
+    [Header("Boss Stats")]
+    [SerializeField] int NegativeRange;
 
 
+    [Header("On Death Stats")]
     [SerializeField] List<Boss> NextBosses;
     [SerializeField] Spreadbehaviours nextBossSpawnPattern;
     [SerializeField] int AbilityLoadoutReward;
 
-    public GameObject Enemy2Prefab;
 
+    [Header("Visuals")]
     public GameObject blueParticle;
     public GameObject orangeParticle;
     public GameObject redParticle;
@@ -61,7 +57,7 @@ public class Boss : Enemy
             return;
         }
 
-        foreach (Spreadbehaviours sb in spreadbehaviours)
+        foreach (Spreadbehaviours sb in enemySpawnSpreadBehaviours)
         {
             for (int i = 0; i < SpreadAmount; i++)
             {
@@ -74,6 +70,24 @@ public class Boss : Enemy
                 else
                 {
                     break;
+                }
+            }
+        }
+
+        foreach (Spreadbehaviours sb in spreadbehaviours)
+        {
+            if (sb.TargetTiles(HexGridUtil.AxialToCubeCoord(location[0]), out List<Vector3Int> targets, FindClosestPlayer().CoordinatePosition))
+            {
+                foreach(Vector3Int coord in targets)
+                {
+                    Vector2Int c = HexGridUtil.CubeToAxialCoord(coord);
+                    if (GridManager.Instance.Grid.ContainsKey(c))
+                    {
+                        if (GridManager.Instance.Grid[c].currentGridState.StateValue()>=0 && GridManager.Instance.Grid[c].currentGridState.StateValue() < 4)
+                        {
+                            GridManager.Instance.Grid[c].ChangeCurrentState(GridManager.Instance.gS_Negative);
+                        }
+                    }
                 }
             }
         }
@@ -147,7 +161,7 @@ public class Boss : Enemy
     {
         //    foreach (Vector2Int loc in location)
         //    {
-        BossReachableTiles = HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(axialLocation), SpawnRange, HexGridUtil.AxialToCubeCoord(GridManager.Instance.Grid.Keys.ToList<Vector2Int>()));
+        BossReachableTiles = HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(axialLocation), NegativeRange, HexGridUtil.AxialToCubeCoord(GridManager.Instance.Grid.Keys.ToList<Vector2Int>()));
         BossReachableTiles.Remove(HexGridUtil.AxialToCubeCoord(axialLocation));
 
         foreach (Vector3Int neighbor in BossReachableTiles)
@@ -189,17 +203,6 @@ public class Boss : Enemy
 
     //}
 
-    public void TriggerSpread()
-    {
-        // if (turnCounter % everyXRounds == 0)
-        {
-            for (int i = 0; i < BossSpreads.Count; i++)
-            {
-
-                BossSpreads[i].TargetTile(HexGridUtil.AxialToCubeCoord(location[0]), out Vector3Int target, PlayerManager.Instance.playerPosition);
-            }
-        }
-    }
 
     /* public void BossEnemyPhase2(Vector2Int location)
      {
