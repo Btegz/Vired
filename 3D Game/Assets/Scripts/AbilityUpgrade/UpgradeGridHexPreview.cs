@@ -27,7 +27,7 @@ public class UpgradeGridHexPreview : UpgradeGridHex
 
     public void Place()
     {
-        if (upgradeHexGrid.Grid.ContainsKey(coordinateToPlace) && coordinateToPlace != Vector2Int.zero)
+        if (upgradeHexGrid.Grid.ContainsKey(coordinateToPlace) && coordinateToPlace != Vector2Int.zero && PlayerManager.Instance.SkillPoints >= cost)
         {
             PlayerManager.Instance.SkillPoints -= cost;
             upgradeHexGrid.UpgradeAbility(coordinateToPlace, HexToPlace.effect);
