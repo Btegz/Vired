@@ -60,6 +60,7 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     virtual public void Setup(GridTile tile)
     {
+        Debug.Log($"I am an enemy and i setup at {tile.AxialCoordinate}");
         currentHealth = maxHealth;
         ressource = tile.ressource;
         axialLocation = tile.AxialCoordinate;
@@ -100,6 +101,11 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             case Ressource.resscoureD:
                 mr.material = DMAterial;
                 break;
+        }
+
+        foreach(Image img in GetComponentsInChildren<Image>())
+        {
+            Destroy(img.gameObject);
         }
 
         healthpoints = new List<Image>();
