@@ -875,4 +875,47 @@ public static class HexGridUtil
         return result;
     }
 
+    public static List<Vector2Int> GetOuterBorderSorted(List<Vector2Int> grid)
+    {
+        List<Vector2Int> result = new List<Vector2Int>();
+        List<Vector2Int> borderUnsorted = GetOuterBorderUnSorted(grid);
+
+        Vector2Int startPoint = borderUnsorted[0];
+
+
+
+
+
+
+        return result;
+    }
+
+    public static List<Vector3Int> GetOuterBoarderSorted(List<Vector3Int> grid)
+    {
+        List<Vector3Int> border = new List<Vector3Int>();
+        return border;
+    }
+
+    public static List<Vector2Int> GetOuterBorderUnSorted(List<Vector2Int> grid)
+    {
+        List<Vector2Int> init = grid;
+        List<Vector2Int> border = new List<Vector2Int>();
+
+        List<Vector2Int> outerNeighbors = HexGridUtil.AxialNeighbors(init);
+        List<Vector2Int> neighborsNeighbors = HexGridUtil.AxialNeighbors(outerNeighbors);
+        foreach (Vector2Int neighborCoord in neighborsNeighbors)
+        {
+            if (init.Contains(neighborCoord))
+            {
+                border.Add(neighborCoord);
+            }
+        }
+
+        return border;
+    }
+
+    public static List<Vector3Int> GetCouterBorderUnsorted(List<Vector3Int> grid)
+    {
+        return AxialToCubeCoord(GetOuterBorderUnSorted(CubeToAxialCoord(grid)));
+    }
 }

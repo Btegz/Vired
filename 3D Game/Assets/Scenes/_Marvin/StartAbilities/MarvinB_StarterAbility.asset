@@ -14,20 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myCoordinates:
   - {x: 1, y: 0}
+  - {x: 0, y: -1}
   - {x: -1, y: 1}
   tileprefab: {fileID: 4670653473229717276, guid: 60f0ae97fbbbc2142b024ce330cff6ee, type: 3}
-  Effects: 0100000003000000
+  Effects: 010000000300000003000000
   Name: A_Starter
   previewShape: {fileID: 0}
   rotato: 0
   myCostRessource: 1
-  myCostAmount: 0
+  myCostAmount: 2
   myStartCostAmount: 1
   myCostAmountIncreaseEveryXUpgrades: 3
   AbilityUISprite: {fileID: 21300000, guid: 3a15993cd766da042a268e6a0671c557, type: 3}
   myTierLevel: 1
   myPositiveUpgradeCost: 1
   myDamageUpgradeCost: 1
-  myStartAmountPositive: 1
+  myStartAmountPositive: 0
   myStartAmountDamage: 2
   myStartTierlevel: 1
