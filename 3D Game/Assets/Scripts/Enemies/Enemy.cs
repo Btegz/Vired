@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     [Header("Negative Spread")]
     [SerializeField] public int SpreadAmount;
-    [SerializeField] public int everyXTurns;
+    [SerializeField] public float everyXTurns;
     [SerializeField] public List<Spreadbehaviours> spreadbehaviours;
 
     [Header("Audio")]

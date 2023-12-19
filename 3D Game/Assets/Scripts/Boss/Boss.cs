@@ -8,8 +8,11 @@ public class Boss : Enemy
 {
     List<Vector3Int> BossReachableTiles;
     [HideInInspector] public List<Vector2Int> location;
+    [HideInInspector] public float AliveCounter = 0;
+
 
     [Header("Enemy Spawn")]
+    [SerializeField] float EnemiesEveryXTurns;
     [SerializeField] List<Enemy> enemyPrefabPool;
     [SerializeField] public List<Spreadbehaviours> enemySpawnSpreadBehaviours;
 
@@ -52,43 +55,46 @@ public class Boss : Enemy
 
     override public void Spread()
     {
-        if (GridManager.Instance.TurnCounter % everyXTurns != 0)
+        AliveCounter++;
+        if (AliveCounter % EnemiesEveryXTurns == 0)
         {
-            return;
-        }
-
-        foreach (Spreadbehaviours sb in enemySpawnSpreadBehaviours)
-        {
-            for (int i = 0; i < SpreadAmount; i++)
+            foreach (Spreadbehaviours sb in enemySpawnSpreadBehaviours)
             {
-                if (sb.TargetTile(HexGridUtil.AxialToCubeCoord(axialLocation), out Vector3Int target, FindClosestPlayer().CoordinatePosition))
+                for (int i = 0; i < SpreadAmount; i++)
                 {
-                    Enemy newEnemy = Instantiate(enemyPrefabPool[Random.Range(0, enemyPrefabPool.Count)], GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)].transform);
-                    newEnemy.transform.position = transform.position;
-                    newEnemy.Setup(GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)]);
-                }
-                else
-                {
-                    break;
+                    if (sb.TargetTile(HexGridUtil.AxialToCubeCoord(axialLocation), out Vector3Int target, FindClosestPlayer().CoordinatePosition))
+                    {
+                        Enemy newEnemy = Instantiate(enemyPrefabPool[Random.Range(0, enemyPrefabPool.Count)], GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)].transform);
+                        newEnemy.transform.position = transform.position;
+                        newEnemy.Setup(GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)]);
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
             }
         }
-        if (spreadbehaviours != null)
+
+        if (AliveCounter % everyXTurns == 0)
         {
-            if (spreadbehaviours.Count > 0)
+            if (spreadbehaviours != null)
             {
-                foreach (Spreadbehaviours sb in spreadbehaviours)
+                if (spreadbehaviours.Count > 0)
                 {
-                    if (sb.TargetTiles(HexGridUtil.AxialToCubeCoord(location[0]), out List<Vector3Int> targets, FindClosestPlayer().CoordinatePosition))
+                    foreach (Spreadbehaviours sb in spreadbehaviours)
                     {
-                        foreach (Vector3Int coord in targets)
+                        if (sb.TargetTiles(HexGridUtil.AxialToCubeCoord(location[0]), out List<Vector3Int> targets, FindClosestPlayer().CoordinatePosition))
                         {
-                            Vector2Int c = HexGridUtil.CubeToAxialCoord(coord);
-                            if (GridManager.Instance.Grid.ContainsKey(c))
+                            foreach (Vector3Int coord in targets)
                             {
-                                if (GridManager.Instance.Grid[c].currentGridState.StateValue() >= 0 && GridManager.Instance.Grid[c].currentGridState.StateValue() < 4)
+                                Vector2Int c = HexGridUtil.CubeToAxialCoord(coord);
+                                if (GridManager.Instance.Grid.ContainsKey(c))
                                 {
-                                    GridManager.Instance.Grid[c].ChangeCurrentState(GridManager.Instance.gS_Negative);
+                                    if (GridManager.Instance.Grid[c].currentGridState.StateValue() >= 0 && GridManager.Instance.Grid[c].currentGridState.StateValue() < 4)
+                                    {
+                                        GridManager.Instance.Grid[c].ChangeCurrentState(GridManager.Instance.gS_Negative);
+                                    }
                                 }
                             }
                         }

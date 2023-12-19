@@ -43,7 +43,9 @@ public class Zerglings : Enemy
             {
                 if (GridManager.Instance.Grid.ContainsKey(neighbour))
                 {
-                    if (GridManager.Instance.Grid[neighbor].currentGridState == GridManager.Instance.gS_Neutral || GridManager.Instance.Grid[neighbor].currentGridState == GridManager.Instance.gS_Positive && !PlayerManager.Instance.PlayerPositions().Contains(neighbor))
+                    GridState tileState = GridManager.Instance.Grid[neighbor].currentGridState;
+
+                    if (!PlayerManager.Instance.PlayerPositions().Contains(neighbor) && tileState.StateValue() >= -1 && tileState.StateValue() < 4)
                     {
                         if (neighbour != axialLocation)
 

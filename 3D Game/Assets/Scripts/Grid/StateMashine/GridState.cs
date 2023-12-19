@@ -35,5 +35,15 @@ public abstract class GridState : ScriptableObject
     /// <param name="parent">Provide The Tile for Reference.</param>
     public abstract void PlayerEnters(GridTile parent);
 
+    /// <summary>
+    /// puts the Gridstates to an integer value where:
+    /// <br>4 = Pofi </br>
+    /// <br>1 = positive </br>
+    /// <br>0 = Neutral </br>
+    /// <br>-1 = Negative and BossNegative </br>
+    /// <br>-2 = Enemy </br>
+    /// <br>-10 = Boss </br>
+    /// </summary>
+    /// <returns></returns>
     public abstract int StateValue();
 }

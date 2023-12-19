@@ -304,7 +304,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   Particle_EnemyDeath: {fileID: 726535386845715946, guid: 005fc7e0d2c6e1247b7b8880e93a8099, type: 3}
-  maxHealth: 1
+  maxHealth: 3
   SkillPointReward: 1
   SpreadAmount: 1
   everyXTurns: 2
@@ -313,11 +313,13 @@ MonoBehaviour:
   spawn: {fileID: 11400000, guid: cf068642af0e61e4c879e07d4cb7df86, type: 2}
   FirstAndLast: 1
   location: []
+  AliveCounter: 0
+  EnemiesEveryXTurns: 2
   enemyPrefabPool:
   - {fileID: 3100616434115519233, guid: 4c3db60c2278e994d8d54b7b9415b182, type: 3}
   enemySpawnSpreadBehaviours:
   - {fileID: 11400000, guid: 35164b6bfabe9f64b9d31b58aab3e822, type: 2}
-  NegativeRange: 4
+  NegativeRange: 3
   NextBosses:
   - {fileID: 727153629572622436, guid: 165f4c75e54df984380b8922292fe4fa, type: 3}
   nextBossSpawnPattern: {fileID: 11400000, guid: 2af563a854034da44903fc202dcce818, type: 2}
