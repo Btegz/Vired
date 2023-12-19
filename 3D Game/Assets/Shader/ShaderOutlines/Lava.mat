@@ -14,12 +14,44 @@ Material:
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2998
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _SampleTexture2D_42d6be45d360475ebfcf11f09e798092_Texture_1:
+        m_Texture: {fileID: 2800000, guid: ccd9d1f16355f034ea450d82977f7999, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_6298e5d7ab2a4865bffaf86935cf3607_Texture_1:
+        m_Texture: {fileID: 2800000, guid: ccd9d1f16355f034ea450d82977f7999, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_670f4aa639bb443fbde2032390543de8_Texture_1:
+        m_Texture: {fileID: 2800000, guid: ccd9d1f16355f034ea450d82977f7999, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_6f6a4a532c8841d2a5d4a182dac82288_Texture_1:
+        m_Texture: {fileID: 2800000, guid: ccd9d1f16355f034ea450d82977f7999, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_a583e90ce8c449aaabf6497727be6166_Texture_1:
+        m_Texture: {fileID: 2800000, guid: ccd9d1f16355f034ea450d82977f7999, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_ca5bfe1f89dd4481bb8f3ab4dea3014a_Texture_1:
+        m_Texture: {fileID: 2800000, guid: ccd9d1f16355f034ea450d82977f7999, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_d3131817ac4e4bc68aaf887b607abb6e_Texture_1:
+        m_Texture: {fileID: 2800000, guid: ccd9d1f16355f034ea450d82977f7999, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_fb796dd229bf48a7a482512782dda101_Texture_1:
+        m_Texture: {fileID: 2800000, guid: ccd9d1f16355f034ea450d82977f7999, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -35,11 +67,15 @@ Material:
     m_Ints: []
     m_Floats:
     - _FlowSpeed: 0.01
-    - _Power: 1.86
+    - _HeightSpeed: 4.11
+    - _Power: 3
     - _QueueControl: 0
-    - _QueueOffset: 0
-    - _Speed: 1.38
-    m_Colors: []
+    - _QueueOffset: -2
+    - _Speed: 1.04
+    m_Colors:
+    - _LavaNormalSpeed: {r: 0, g: 0.05, b: 0, a: 0}
+    - _LavaScale: {r: 2, g: 2, b: 0, a: 0}
+    - _LavaSpeed: {r: 0, g: 0.1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &6701380291899882471
 MonoBehaviour:
