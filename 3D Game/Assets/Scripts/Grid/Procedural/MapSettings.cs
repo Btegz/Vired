@@ -33,7 +33,7 @@ public class ProceduralTileInfo : IComparable<ProceduralTileInfo>
         }
         else
         {
-            resource = Ressource.resscoureD;
+            resource = Ressource.ressourceD;
         }
         noiseDistanceFactor = Mathf.Abs(worldNoise) * (float)distance;
         valid = true;

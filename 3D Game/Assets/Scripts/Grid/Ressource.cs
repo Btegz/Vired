@@ -7,5 +7,5 @@ public enum Ressource
     ressourceA,
     ressourceB,
     ressourceC,
-    resscoureD
+    ressourceD
 }

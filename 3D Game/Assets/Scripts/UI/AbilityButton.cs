@@ -51,7 +51,7 @@ public class AbilityButton : MonoBehaviour
             case Ressource.ressourceC:
                 GetComponent<Image>().sprite = C_Background;
                 break;
-            case Ressource.resscoureD:
+            case Ressource.ressourceD:
                 GetComponent<Image>().sprite = D_Background;
                 break;
         }

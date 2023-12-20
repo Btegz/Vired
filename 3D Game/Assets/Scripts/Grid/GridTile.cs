@@ -75,9 +75,9 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                         meshRenderer.material = gridTileSO.resourceCMaterial;
                         ressource = Ressource.ressourceC;
                         break;
-                    case Ressource.resscoureD:
+                    case Ressource.ressourceD:
                         meshRenderer.material = gridTileSO.resourceDMaterial;
-                        ressource = Ressource.resscoureD;
+                        ressource = Ressource.ressourceD;
                         break;
                 }
                 break;
@@ -131,9 +131,9 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                         meshRenderer.material = gridTileSO.resourceCMaterial;
                         ressource = Ressource.ressourceC;
                         break;
-                    case Ressource.resscoureD:
+                    case Ressource.ressourceD:
                         meshRenderer.material = gridTileSO.resourceDMaterial;
-                        ressource = Ressource.resscoureD;
+                        ressource = Ressource.ressourceD;
                         break;
                 }
                 break;
@@ -180,7 +180,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             case Ressource.ressourceC:
                 meshRenderer.material = gridTileSO.resourceCMaterial;
                 break;
-            case Ressource.resscoureD:
+            case Ressource.ressourceD:
                 meshRenderer.material = gridTileSO.resourceDMaterial;
                 break;
         }
@@ -217,7 +217,14 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             neutralTurnCounter = 0;
         }
-        currentGridState.ExitState(this);
+        try
+        {
+            currentGridState.ExitState(this);
+        }
+        catch
+        {
+
+        }
         currentGridState = newState;
         currentGridState.EnterState(this);
     }

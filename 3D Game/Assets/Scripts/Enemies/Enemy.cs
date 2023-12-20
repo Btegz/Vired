@@ -98,7 +98,7 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             case Ressource.ressourceC:
                 mr.material = CMAterial;
                 break;
-            case Ressource.resscoureD:
+            case Ressource.ressourceD:
                 mr.material = DMAterial;
                 break;
         }

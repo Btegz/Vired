@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8058411163812965884}
   - component: {fileID: 4670653473229717276}
   - component: {fileID: 4399077779113277783}
+  - component: {fileID: 5543500553785803220}
   m_Layer: 7
   m_Name: GridTile
   m_TagString: Untagged
@@ -123,3 +124,38 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &5543500553785803220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64059069326644369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 822ff138cd58bea46b2391770d99709f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KlopseA:
+  - {fileID: 2138394885, guid: ea022335bf6ce054a8ea6c2bd7d659b4, type: 3}
+  - {fileID: 1605112317, guid: a28e1cee9de06744b8772021a407cdec, type: 3}
+  KlopseB:
+  - {fileID: 446987712, guid: b91bb99e6e7e90f4b9fdaf615013fe93, type: 3}
+  - {fileID: 207891145, guid: b4344f8b32da89342bce85b3530d57cb, type: 3}
+  - {fileID: 243653980, guid: 78e6b681f1cb2ce4eb99eccadb135656, type: 3}
+  KlopseC:
+  - {fileID: 128935683, guid: fb2387fe0a3ecdf46867d13e0e467565, type: 3}
+  - {fileID: 2023517905, guid: 00fdfc7f4c6414f4d880ae69651889ec, type: 3}
+  - {fileID: 945401805, guid: c55bc18a2ad5f2e44aca32694adf644f, type: 3}
+  KlopseD:
+  - {fileID: 1687137008, guid: 4bc2fb18348e739498c08e42f7b7d03c, type: 3}
+  - {fileID: 1084553192, guid: f504de0d556ad13468b2364656bf7115, type: 3}
+  - {fileID: 410661016, guid: d853932ca10cb6d448ae961359ef5c47, type: 3}
+  KlopseAMat: {fileID: 2100000, guid: c0bbda9888e11f84d9d513574b0dc552, type: 2}
+  KlopseBMat: {fileID: 2100000, guid: 2e477a3e3652ed343a7b2a46c2329b9f, type: 2}
+  KlopseCMat: {fileID: 2100000, guid: 36f6b84c05acb8744b5024d3c0daeef8, type: 2}
+  KlopseDMat: {fileID: 2100000, guid: f7343f14eeae9804e800793f259e2e9c, type: 2}
+  howManyKlopseFromTo: {x: 1, y: 3}
+  randomRotationFromTo: {x: 0, y: 180}
+  randomYOffsetFromTo: {x: 0, y: 0.2}
+  TweenDuration: 1

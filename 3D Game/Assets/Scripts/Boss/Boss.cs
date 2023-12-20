@@ -258,7 +258,7 @@ public class Boss : Enemy
             case Ressource.ressourceC:
                 Instantiate(redParticle, boss.gameObject.transform.position, Quaternion.identity, boss.transform);
                 break;
-            case Ressource.resscoureD:
+            case Ressource.ressourceD:
                 Instantiate(greenParticle, boss.gameObject.transform.position, Quaternion.identity, boss.transform);
                 break;
         }

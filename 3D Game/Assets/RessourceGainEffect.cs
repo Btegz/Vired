@@ -29,7 +29,7 @@ public class RessourceGainEffect : MonoBehaviour
             case Ressource.ressourceC:
                 RessourceCPart.Play();
                 break;
-            case Ressource.resscoureD:
+            case Ressource.ressourceD:
                 RessourceDPart.Play();
                 break;
         }
@@ -59,7 +59,7 @@ public class RessourceGainEffect : MonoBehaviour
             case Ressource.ressourceC:
                 gain.transform.position = UIManager.Instance.ressourceCText.transform.position;
                 break;
-            case Ressource.resscoureD:
+            case Ressource.ressourceD:
                 gain.transform.position = UIManager.Instance.ressourceDText.transform.position;
                 break;
         }

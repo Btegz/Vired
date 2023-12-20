@@ -333,7 +333,7 @@ public class AbilityObjScript : MonoBehaviour
                 PlayerManager.Instance.RessourceCInventory -= ability.MyCostAmount;
                 break;
 
-            case Ressource.resscoureD:
+            case Ressource.ressourceD:
                 PlayerManager.Instance.RessourceDInventory -= ability.MyCostAmount;
                 break;
         }

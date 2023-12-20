@@ -119,7 +119,7 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
             case Ressource.ressourceC:
                 currentRessourceTextHighlight = UIManager.Instance.ressourceCText.gameObject;
                 break;
-            case Ressource.resscoureD:
+            case Ressource.ressourceD:
                 currentRessourceTextHighlight = UIManager.Instance.ressourceDText.gameObject;
                 break;
         }
@@ -154,7 +154,7 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
                 RessourceHighlight.transform.position = UIManager.Instance.ressourceCText.transform.position;
                 RessourceHighlight.transform.SetParent(UIManager.Instance.ressourceCText.transform);
                 break;
-            case Ressource.resscoureD:
+            case Ressource.ressourceD:
                 RessourceHighlight.transform.position = UIManager.Instance.ressourceDText.transform.position;
                 RessourceHighlight.transform.SetParent(UIManager.Instance.ressourceDText.transform);
                 break;

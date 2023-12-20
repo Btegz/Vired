@@ -14,6 +14,8 @@ public class GS_positive : GridState
 
     public override void EnterState(GridTile parent)
     {
+        Debug.Log("I ENTER POSITIVE");
+
         switch (parent.ressource)
         {
             case Ressource.ressourceA:
@@ -22,24 +24,27 @@ public class GS_positive : GridState
                 parent.meshRenderer.material = parent.gridTileSO.resourceBMaterial; break;
             case Ressource.ressourceC:
                 parent.meshRenderer.material = parent.gridTileSO.resourceCMaterial; break;
-            case Ressource.resscoureD:
+            case Ressource.ressourceD:
                 parent.meshRenderer.material = parent.gridTileSO.resourceDMaterial; break;
         }
         parent.transform.DOComplete();
 
         parent.transform.DOPunchRotation(Vector3.one * TweenScale, .5f);
 
+        parent.GetComponent<RessourceVisuals>().SpawnKlopse();
+
     }
 
     public override void ExitState(GridTile parent)
     {
+        parent.GetComponent<RessourceVisuals>().DestroyKlopse();
         //throw new System.NotImplementedException();
     }
 
     public override void PlayerEnters(GridTile parent)
     {
         RessourceGainEffect rsg = Instantiate(PlayerManager.Instance.ressourceGainEffect,UIManager.Instance.transform);
-        Ressource res = Ressource.resscoureD;
+        Ressource res = Ressource.ressourceD;
         Vector2 startPoint = Camera.main.WorldToScreenPoint(parent.transform.position);
         Vector2 goalPoint = new Vector2();
         switch (parent.ressource)
@@ -59,10 +64,10 @@ public class GS_positive : GridState
                 goalPoint = UIManager.Instance.ressourceCText.transform.position;
                 res = Ressource.ressourceC;
                 break;
-            case Ressource.resscoureD:
+            case Ressource.ressourceD:
                 PlayerManager.Instance.RessourceDInventory++;
                 goalPoint = UIManager.Instance.ressourceDText.transform.position;
-                res = Ressource.resscoureD;
+                res = Ressource.ressourceD;
                 break;
         }
         parent.ChangeCurrentState(GridManager.Instance.gS_Neutral);

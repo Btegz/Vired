@@ -392,7 +392,7 @@ public class PlayerManager : MonoBehaviour
 
                     break;
 
-                case Ressource.resscoureD:
+                case Ressource.ressourceD:
                     if (ability.MyCostAmount > RessourceDInventory)
                     {
                         return false;

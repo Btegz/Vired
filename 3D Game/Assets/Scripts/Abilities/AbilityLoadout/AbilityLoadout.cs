@@ -107,7 +107,7 @@ public class AbilityLoadout : MonoBehaviour
                     instance = Instantiate(abloadoutButton, RedAbilityLayout.transform);
                     instance.Setup(ability, RedAbilityLayout);
                     break;
-                case Ressource.resscoureD:
+                case Ressource.ressourceD:
                     instance = Instantiate(abloadoutButton, GreenAbilityLayout.transform);
                     instance.Setup(ability, GreenAbilityLayout);
                     break;
