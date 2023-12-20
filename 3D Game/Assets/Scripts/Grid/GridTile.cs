@@ -247,8 +247,8 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public Mesh DrawMesh()
     {
         mesh = new Mesh();
-        DrawFaces();
-        CombineFaces();
+        List<Face> theseFaces = DrawFaces();
+        mesh = CombineFaces(theseFaces);
         if (Application.isPlaying)
         {
             meshCollider = GetComponent<MeshCollider>();
@@ -261,13 +261,15 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     /// <summary>
     /// Function DrawFaces Generates faces for a Hexagonal Shape.
     /// </summary>
-    public void DrawFaces()
+    public List<Face> DrawFaces()
     {
+        List<Face> localFaces = new List<Face>();
         faces = new List<Face>();
         for (int i = 0; i < 6; i++)
         {
             Face newFace = CreateFace(innerSize, outerSize, height / 2f, height / 2f, i);
             faces.Add(newFace);
+            localFaces.Add(newFace);
             //Debug.Log("FACE -:--------------------------------------------------------------------------------------------------------------------");
             //foreach (Vector3 vertex in newFace.vertices)
             //{
@@ -279,25 +281,28 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             //}
             //Debug.Log("FACE -:--------------------------------------------------------------------------------------------------------------------");
         }
+
+        return localFaces;
     }
 
     /// <summary>
     /// Function CombineFaces combines the Faces of this GridCell to one Mesh.
     /// <br>See also: <seealso cref="Face"/></br>
     /// </summary>
-    public void CombineFaces()
+    public Mesh CombineFaces(List<Face> facesToCombine)
     {
+        Mesh meh = new Mesh();
         List<Vector3> vertices = new List<Vector3>();
         List<int> triangles = new List<int>();
         List<Vector2> uvs = new List<Vector2>();
 
-        for (int i = 0; i < faces.Count; i++)
+        for (int i = 0; i < facesToCombine.Count; i++)
         {
-            vertices.AddRange(faces[i].vertices);
-            //uvs.AddRange(faces[i].uvs);
+            vertices.AddRange(facesToCombine[i].vertices);
+            uvs.AddRange(faces[i].uvs);
 
             int offset = (withWalls ? 8 : 4) * i;
-            foreach (int tris in faces[i].triangles)
+            foreach (int tris in facesToCombine[i].triangles)
             {
                 triangles.Add(tris + offset);
             }
@@ -306,7 +311,13 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         mesh.vertices = vertices.ToArray();
         mesh.triangles = triangles.ToArray();
         mesh.uv = uvs.ToArray();
-        mesh.RecalculateNormals();
+        mesh.RecalculateNormals(); 
+        meh.vertices = vertices.ToArray();
+        meh.triangles = triangles.ToArray();
+        meh.uv = uvs.ToArray();
+        meh.RecalculateNormals();
+
+        return meh;
     }
 
     /// <summary>
@@ -351,9 +362,14 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 2, 3, 0
             });
         }
+        List<Vector2> uvs = new List<Vector2>();
 
+        for (int i = 0; i < vertices.Count; i++)
+        {
+            uvs.Add(new Vector2(vertices[i].x, vertices[i].z));
+        }
 
-        List<Vector2> uvs = new List<Vector2>() { new Vector2(0, 0), new Vector2(1, 0), new Vector2(1, 1), new Vector2(0, 1) };
+        //List<Vector2> uvs = new List<Vector2>() { new Vector2(0, 0), new Vector2(1, 0), new Vector2(1, 1), new Vector2(0, 1) };
         if (reverse)
         {
             vertices.Reverse();
