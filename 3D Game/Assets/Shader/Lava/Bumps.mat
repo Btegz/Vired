@@ -37,11 +37,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_ba936d8b03ee4ccf976253b828737ce3_Texture_1:
-        m_Texture: {fileID: 2800000, guid: e3bb1821a71c0134887764302a3a85c3, type: 3}
+        m_Texture: {fileID: 2800000, guid: ec2d02de02b86bf4b8fae4a2e0326d7e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_d85d3fde24134006ba1a69b744c287d4_Texture_1:
-        m_Texture: {fileID: 2800000, guid: ec2d02de02b86bf4b8fae4a2e0326d7e, type: 3}
+        m_Texture: {fileID: 2800000, guid: b19e5b39b95e82f49a7cbf4782035649, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_df0e69f731564f788711f654de295b36_Texture_1:
@@ -66,9 +66,22 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Amount: -0.53
+    - _Form: 0.15
+    - _NoiseScale: 6.23
     - _QueueControl: 0
     - _QueueOffset: 1
-    m_Colors: []
+    - _VoronoiAmount: 0.5
+    - _VoronoiAngleOffset: 1
+    m_Colors:
+    - _ColorBrightness1: {r: 0, g: 0.46, b: 0, a: 0}
+    - _ColorBrightness2: {r: 0, g: 1.79, b: 0, a: 0}
+    - _FresnelColor: {r: 0.8301887, g: 0.8301887, b: 0.8301887, a: 0}
+    - _LavaFormingSpeed: {r: 0, g: 0.05, b: 0, a: 0}
+    - _LavaMovementSpeed: {r: 0, g: 0.1, b: 0, a: 0}
+    - _LavaNormalSpeed: {r: 0, g: 0, b: 0, a: 0}
+    - _Vector2: {r: 0, g: 0, b: 0, a: 0}
+    - _VoronoiSpeed: {r: 0, g: 0.01, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &954820420682199741
 MonoBehaviour:
