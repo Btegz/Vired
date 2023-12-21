@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
+using System.Linq;
 
 public class UIManager : MonoBehaviour
 {
@@ -48,10 +49,11 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        foreach(Player player in PlayerManager.Instance.Players)
+        List<PlayerButton> playerButtons = GetComponentsInChildren<PlayerButton>().ToList<PlayerButton>();
+
+        for(int i = 0; i <PlayerManager.Instance.Players.Count; i++)
         {
-            PlayerButton playerButton = Instantiate(playerButtonPrefab, PlayerButtonParent.transform);
-            playerButton.Setup(player);
+            playerButtons[i].Setup(PlayerManager.Instance.Players[i]);
         }
         EndTurnButton.onClick.AddListener(EndTurn);
         //EndTurnButton.onClick.AddListener(GridManager.Instance.TriggerPhase);
