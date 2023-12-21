@@ -218,6 +218,7 @@ public class Ability : HexShape
                     break;
             }
         }
+        newCost -= MyStartAmountDamage + MyStartAmountPositive;
         newCost /= myCostAmountIncreaseEveryXUpgrades;
 
         MyCostAmount = newCost+myStartCostAmount;
