@@ -56,21 +56,20 @@ public class Boss : Enemy
     override public void Spread()
     {
         AliveCounter++;
+        int spreads = 0;
         if (AliveCounter % EnemiesEveryXTurns == 0)
         {
             foreach (Spreadbehaviours sb in enemySpawnSpreadBehaviours)
             {
-                for (int i = 0; i < SpreadAmount; i++)
+                if(sb.TargetTiles(HexGridUtil.AxialToCubeCoord(axialLocation), out List<Vector3Int> targets, FindClosestPlayer().CoordinatePosition))
                 {
-                    if (sb.TargetTile(HexGridUtil.AxialToCubeCoord(axialLocation), out Vector3Int target, FindClosestPlayer().CoordinatePosition))
+                    for(int i = spreads; i < SpreadAmount && i < targets.Count; i++, spreads++)
                     {
+                        Vector3Int target = targets[Random.Range(0, targets.Count)];
                         Enemy newEnemy = Instantiate(enemyPrefabPool[Random.Range(0, enemyPrefabPool.Count)], GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)].transform);
                         newEnemy.transform.position = transform.position;
                         newEnemy.Setup(GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)]);
-                    }
-                    else
-                    {
-                        break;
+                        targets.Remove(target);
                     }
                 }
             }
