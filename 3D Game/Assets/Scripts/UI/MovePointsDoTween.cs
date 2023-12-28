@@ -26,6 +26,7 @@ public class MovePointsDoTween : MonoBehaviour
 
     public void Away ()
     {
+        rectTransform.DOComplete();
         //rectTransform.transform.localPosition = new Vector3(-100f, 0f, 0f);
         //rectTransform.DOAnchorPos(new Vector2(1000f, 10f), 1f, false).SetEase(Ease.OutElastic);
         //rectTransform.DOPunchAnchorPos(new Vector2(20f, 0f), 1f).SetEase(Ease.OutElastic);
@@ -40,6 +41,7 @@ public class MovePointsDoTween : MonoBehaviour
 
     public void SpriteReset()
     {
+        rectTransform.DOComplete();
         rectTransform.DOPunchPosition(new Vector2(20f, 0f), 1f).SetEase(Ease.OutElastic);
 
         Image image = GetComponent<Image>();
