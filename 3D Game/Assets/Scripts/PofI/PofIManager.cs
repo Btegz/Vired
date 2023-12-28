@@ -71,7 +71,8 @@ public class PofIManager : MonoBehaviour
 
             case PofI.PofI_MovementPoints:
                 Destroy(gS_PofI.pofi);
-                PlayerManager.Instance.extraMovement = 3;
+                EventManager.OnBonusMovementPointGain(3);
+                PlayerManager.Instance.extraMovement += 3;
                 break;
         }
         PlayerManager.Instance.move = true;

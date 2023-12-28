@@ -100,4 +100,18 @@ public class EventManager
         AbilityUpgradeEvent?.Invoke(newState);
     }
 
+    public delegate void BonusMOvementPointsDelegate(int amount);
+    public static event BonusMOvementPointsDelegate BonusMovementPointGainEvent;
+
+    public static void OnBonusMovementPointGain(int amount)
+    {
+        BonusMovementPointGainEvent?.Invoke(amount);
+    }
+
+    public static event BonusMOvementPointsDelegate BonusMovementPointLossEvent;
+    public static void OnBonusMovementPointLoss(int amount)
+    {
+        BonusMovementPointLossEvent?.Invoke(amount);
+    }
+
 }

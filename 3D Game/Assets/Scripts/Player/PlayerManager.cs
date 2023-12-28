@@ -277,10 +277,12 @@ public class PlayerManager : MonoBehaviour
         target = GridManager.Instance.Grid[moveTo];
         if (((movementAction == 0) && (extraMovement > 0)))
         {
+            EventManager.OnBonusMovementPointLoss(1);
             extraMovement--;
         }
         else if (movementAction > 0)
         {
+            MovePoints[movementAction].GetComponent<MovePointsDoTween>().Away();
             movementAction--;
         }
 
@@ -288,7 +290,7 @@ public class PlayerManager : MonoBehaviour
 
         selectedPlayer.transform.DOMove(target.transform.position, .25f);
 
-        MovePoints[movementAction].GetComponent<MovePointsDoTween>().Away();
+        
 
         selectedPlayer.CoordinatePosition = moveTo;
 
