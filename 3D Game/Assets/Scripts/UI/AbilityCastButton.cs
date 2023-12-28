@@ -55,6 +55,7 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
     // Start is called before the first frame update
     void Start()
     {
+        RectData();
         currentState = ButtonState.inMainScene;
         EventManager.AbilityUpgradeEvent += ChangeCurrentState;
         EventManager.OnSelectPlayerEvent += AssignAbility;
