@@ -10996,11 +10996,11 @@ RectTransform:
   m_Father: {fileID: 5241955188614217024}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -6}
   m_SizeDelta: {x: 50, y: 50}
-  m_Pivot: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4538530394641125310
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11519,11 +11519,11 @@ RectTransform:
   m_Father: {fileID: 725222049713501592}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -6}
   m_SizeDelta: {x: 50, y: 50}
-  m_Pivot: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4538530395290686863
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11789,11 +11789,11 @@ RectTransform:
   m_Father: {fileID: 8492382202343179260}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -6}
   m_SizeDelta: {x: 50, y: 50}
-  m_Pivot: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4538530395700488657
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11902,6 +11902,7 @@ GameObject:
   - component: {fileID: 4538530395980208941}
   - component: {fileID: 4538530395980208931}
   - component: {fileID: 4538530395980208930}
+  - component: {fileID: 1028512936704968102}
   m_Layer: 5
   m_Name: NegativeBarBG
   m_TagString: Untagged
@@ -11970,6 +11971,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1028512936704968102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4538530395980208940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b1aabe7d68d35040bda8bd85c8e0eb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Header: Negative Bar
+  Content: Enemy-inflicted negativity fills this bar.
 --- !u!1 &4538530396139239093
 GameObject:
   m_ObjectHideFlags: 0
@@ -12229,11 +12244,11 @@ RectTransform:
   m_Father: {fileID: 5282644944395217524}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -6}
   m_SizeDelta: {x: 50, y: 50}
-  m_Pivot: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4538530396338077426
 CanvasRenderer:
   m_ObjectHideFlags: 0

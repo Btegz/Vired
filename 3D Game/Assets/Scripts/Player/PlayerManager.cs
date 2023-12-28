@@ -282,8 +282,8 @@ public class PlayerManager : MonoBehaviour
         }
         else if (movementAction > 0)
         {
+            movementAction--; 
             MovePoints[movementAction].GetComponent<MovePointsDoTween>().Away();
-            movementAction--;
         }
 
         PlayerManager.Instance.target.currentGridState.PlayerEnters(PlayerManager.Instance.target);
