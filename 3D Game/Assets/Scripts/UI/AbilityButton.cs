@@ -31,6 +31,30 @@ public class AbilityButton : MonoBehaviour
 
     public Dictionary<Vector2Int, UpgradeGridHex> UIGrid;
 
+    protected RectTransform rectTransform;
+    protected float width;
+    protected float height;
+    protected Vector2 centerDelta;
+
+    [SerializeField] float HexSizePerButtonSize;
+    [SerializeField] float HexSizeFactorPerAbilityTielevel;
+
+    public void RectData()
+    {
+        rectTransform = GetComponent<RectTransform>();
+        width = rectTransform.rect.width;
+        height = rectTransform.rect.height;
+        if(rectTransform.anchorMax == Vector2.one * .5f)
+        {
+            centerDelta = new Vector2(0, 0);
+        }
+        else
+        {
+            centerDelta = new Vector2(width / 2f, height / 2f);
+        }
+        //Debug.Log($"width: {width}, height: {height}, CenterDelta: {centerDelta}");
+    }
+
     public void ChangeCurrentState(ButtonState newState)
     {
         Debug.Log("Changing Buttonstate from " + currentState + ", to " + newState);
@@ -106,7 +130,8 @@ public class AbilityButton : MonoBehaviour
         {
             UIGrid = new Dictionary<Vector2Int, UpgradeGridHex>();
         }
-
+        float buttonSize = width * HexSizePerButtonSize;
+        float abilityTierSize = 1f / (HexSizeFactorPerAbilityTielevel * ability.MyTierLevel);
         for (int i = 0; i < ability.Coordinates.Count; i++)
         {
             //Debug.Log("I make a tile of the ability now");
@@ -118,11 +143,19 @@ public class AbilityButton : MonoBehaviour
             }
             else
             {
-                Debug.Log("I instantiate a Tile now");
+                Debug.Log($"I instantiate a Tile now, centerDelta is {centerDelta}");
                 UpgradeGridHex newHex = Instantiate(upgradeHexPrefab, this.transform);
-                newHex.transform.localScale = Vector2.one * 0.2f;
-                Vector3 wordPos = HexGridUtil.AxialHexToPixel(ability.Coordinates[i], 10);
-                newHex.transform.localPosition = new Vector2(wordPos.x, wordPos.z);
+
+                RectTransform newHexRect = newHex.GetComponent<RectTransform>();
+
+
+                newHexRect.sizeDelta = Vector2.one * buttonSize * abilityTierSize;
+
+                //newHex.transform.localScale = Vector2.one * 0.2f;
+                Vector3 wordPos = HexGridUtil.AxialHexToPixel(ability.Coordinates[i], newHexRect.rect.width/2f);
+                Debug.Log(wordPos);
+                Debug.Log(centerDelta);
+                newHex.transform.localPosition = new Vector2(wordPos.x, wordPos.z)+centerDelta;
                 newHex.coordinate = ability.Coordinates[i];
                 UIGrid.Add(ability.Coordinates[i], newHex); 
                 UIGrid[ability.Coordinates[i]].Fill(sp, text);
@@ -130,9 +163,17 @@ public class AbilityButton : MonoBehaviour
             }
         }
         UpgradeGridHex playerHex = Instantiate(upgradeHexPrefab, this.transform);
-        playerHex.transform.localScale = Vector2.one * 0.2f;
-        Vector3 playerWorldPos = HexGridUtil.AxialHexToPixel(Vector2Int.zero, 10);
-        playerHex.transform.localPosition = new Vector2(playerWorldPos.x, playerWorldPos.z);
+
+        //playerHex.transform.localScale = Vector2.one * 0.2f;
+        RectTransform newPlayerHexRect = playerHex.GetComponent<RectTransform>();
+
+        //float buttonSize = rectTransform.rect.width * HexSizePerButtonSize;
+        //float abilityTierSize = HexSizeFactorPerAbilityTielevel * ability.MyTierLevel;
+        newPlayerHexRect.sizeDelta = Vector2.one * buttonSize * abilityTierSize;
+
+
+        Vector3 playerWorldPos = HexGridUtil.AxialHexToPixel(Vector2Int.zero, newPlayerHexRect.rect.width / 2f);
+        playerHex.transform.localPosition = new Vector2(playerWorldPos.x, playerWorldPos.z)+centerDelta;
         playerHex.coordinate = Vector2Int.zero;
         UIGrid.Add(Vector2Int.zero, playerHex);
         UIGrid[Vector2Int.zero].Fill(PlayerHexSprite, "Player");
