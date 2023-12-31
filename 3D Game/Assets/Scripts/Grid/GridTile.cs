@@ -26,6 +26,10 @@ public struct Face
     }
 }
 
+// vvvv new World
+public enum direction { NE = 0, SE = 1, S = 2, SW = 3, NW = 4, N = 5 }
+// ^^^^
+
 /// <summary>
 /// MonoBehaviour Class to hold Information and provide functions of a hexagonal Cell.
 /// It also generates it's mesh.
@@ -34,6 +38,28 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public GridTileSO gridTileSO;
     public Vector2Int AxialCoordinate;
+
+    // vvvv new World
+    const float bufferRadius = 0.75f;
+    const float outerRadius = 1f;
+    const float innerRadius = outerRadius * 0.866025404f;
+
+
+    List<Vector3> corners = new List<Vector3>()
+    {
+        new Vector3(outerRadius*.5f,0,innerRadius),     // upper right corner
+        new Vector3(outerRadius,0,0),                   // left corner
+        new Vector3(outerRadius*.5f,0,-innerRadius),    // lower right corner
+        new Vector3(-outerRadius*.5f,0,-innerRadius),   // lower left corner
+        new Vector3(-outerRadius,0,0),                  // left Corner
+        new Vector3(-outerRadius*.5f,0,innerRadius)     // upper left corner
+    };
+
+
+    List<Vector3> vertices;
+    List<int> triangles;
+    List<Color> vertexColors;
+    // ^^^^
 
     [HideInInspector] public float innerSize = 0;
     [HideInInspector] public float outerSize = 1;
@@ -103,6 +129,8 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     /// <param name="gridstate">The Gridstate to start with.</param>
     public void Setup(Vector2Int cellCoordinate, GridTileSO gridTileSO, GridState gridstate, bool withWalls)
     {
+
+
         this.withWalls = withWalls;
         this.gridTileSO = gridTileSO;
         meshCollider = GetComponent<MeshCollider>();
@@ -152,7 +180,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void HighlightEnemySpreadPrediction()
     {
-        Instantiate(enemySpreadTileHighlightPrefab,transform.position,Quaternion.identity,transform);
+        Instantiate(enemySpreadTileHighlightPrefab, transform.position, Quaternion.identity, transform);
     }
 
     public void Setup(Vector2Int cellCoordinate, GridTileSO gridTileSO, bool withWalls)
@@ -204,7 +232,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         meshFilter.mesh = DrawMesh();
 
     }
-    
+
     // STATE MASHINE STUFF ----------------------------------------------------------------------------------------------------------
 
     /// <summary>
@@ -213,7 +241,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     /// <param name="newState">State to change into.</param>
     public void ChangeCurrentState(GridState newState)
     {
-        if(newState == GridManager.Instance.gS_Neutral)
+        if (newState == GridManager.Instance.gS_Neutral)
         {
             neutralTurnCounter = 0;
         }
@@ -248,14 +276,168 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     // MESH TILE STUFF --------------------------------------------------------------------------------------------------------------
 
+    // vvvv new World
+    public void Triangluate()
+    {
+        vertices = new List<Vector3>();
+        triangles = new List<int>();
+        vertexColors = new List<Color>();
+
+        List<Vector2Int> neighborCords = HexGridUtil.AxialNeighbors(AxialCoordinate);
+
+        GridTile prevNeigbor = null;
+        GridTile currentNeighbor = null;
+        GridTile nextNeighbor = null;
+
+        for (int i = 0; i < 6; i++)
+        {
+            prevNeigbor = null;
+            currentNeighbor = null;
+            nextNeighbor = null;
+            Color prevNeighborColor;
+            Color currentNeighborColor;
+            Color nextNeighborColor;
+            Color myColor = GetColor(ressource);
+
+            if (GridManager.Instance.Grid.ContainsKey(neighborCords[i]))
+            {
+                currentNeighbor = GridManager.Instance.Grid[neighborCords[i]];
+                currentNeighborColor = currentNeighbor.GetColor(currentNeighbor.ressource);
+            }
+            else
+            {
+                currentNeighbor = null;
+                currentNeighborColor = myColor;
+            }
+
+            if (GridManager.Instance.Grid.ContainsKey(neighborCords[i == 5 ? 0 : i + 1]))
+            {
+                nextNeighbor = GridManager.Instance.Grid[neighborCords[i == 5 ? 0 : i + 1]];
+                nextNeighborColor = nextNeighbor.GetColor(nextNeighbor.ressource);
+            }
+            else
+            {
+                nextNeighbor = null;
+                nextNeighborColor = myColor;
+            }
+
+            if (GridManager.Instance.Grid.ContainsKey(neighborCords[i == 0 ? 5 : i - 1]))
+            {
+                prevNeigbor = GridManager.Instance.Grid[neighborCords[i == 0 ? 5 : i - 1]];
+                prevNeighborColor = prevNeigbor.GetColor(prevNeigbor.ressource);
+            }
+            else
+            {
+                prevNeigbor = null;
+                prevNeighborColor = myColor;
+            }
+
+            Vector3 currentCorner = corners[i];
+            Vector3 nextCorner = corners[i == 5 ? 0 : i + 1];
+            Vector3 currentBufferedCorner = currentCorner * bufferRadius;
+            Vector3 nextBufferedCorner = nextCorner * bufferRadius;
+            Vector3 currentInnerCorner = (currentCorner + nextCorner) * 0.5f * (1f - bufferRadius) + currentBufferedCorner;
+            Vector3 nextInnerCorner = (currentCorner + nextCorner) * 0.5f * (1f - bufferRadius) + nextBufferedCorner;
+
+            // inner triangle
+            AddTriangle(Vector3.zero, currentBufferedCorner, nextBufferedCorner);
+            AddTriangleColors(myColor, myColor, myColor);
+
+            // the 2 triangles forming the Quad with its direct neighbor
+            AddTriangle(currentBufferedCorner, currentInnerCorner, nextInnerCorner);
+            AddTriangle(currentBufferedCorner, nextInnerCorner, nextBufferedCorner);
+            AddTriangleColors(myColor, AverageColor(new Color[] { myColor, currentNeighborColor }), AverageColor(new Color[] { myColor, currentNeighborColor }));
+            AddTriangleColors(myColor, AverageColor(new Color[] { myColor, currentNeighborColor }), myColor);
+
+
+
+            // triangles for the Corner of the Hexagon
+            AddTriangle(currentBufferedCorner, currentCorner, currentInnerCorner);
+            AddTriangleColors(myColor, AverageColor(new Color[] { myColor, prevNeighborColor, currentNeighborColor }), AverageColor(new Color[] { myColor, currentNeighborColor }));
+
+            AddTriangle(nextBufferedCorner, nextInnerCorner, nextCorner);
+            AddTriangleColors(myColor, AverageColor(new Color[] { myColor, currentNeighborColor }), AverageColor(new Color[] { myColor, nextNeighborColor, currentNeighborColor }));
+        }
+
+
+    }
+
+    public void AddTriangle(Vector3 a, Vector3 b, Vector3 c)
+    {
+        int vertexIndex = vertices.Count;
+        vertices.Add(a);
+        vertices.Add(b);
+        vertices.Add(c);
+        triangles.Add(vertexIndex);
+        triangles.Add(vertexIndex + 1);
+        triangles.Add(vertexIndex + 2);
+    }
+    public void AddTriangleColors(Color colorA, Color colorB, Color colorC)
+    {
+        vertexColors.Add(colorA);
+        vertexColors.Add(colorB);
+        vertexColors.Add(colorC);
+    }
+
+    public Color GetColor(Ressource res)
+    {
+        if (currentGridState == null)
+        {
+            return Color.clear;
+        }
+        if (currentGridState.StateValue() > 0)
+        {
+            switch (res)
+            {
+                case Ressource.ressourceA:
+                    return gridTileSO.ressourceAColor;
+                case Ressource.ressourceB:
+                    return gridTileSO.ressourceBColor;
+                case Ressource.ressourceC:
+                    return gridTileSO.ressourceCColor;
+                case Ressource.ressourceD:
+                    return gridTileSO.ressourceDColor;
+            }
+        }
+        else if (currentGridState.StateValue() == 0)
+        {
+            return gridTileSO.neutralColor;
+        }
+        else
+        {
+            return gridTileSO.negativeColor;
+        }
+        return gridTileSO.neutralColor;
+    }
+
+    public Color AverageColor(Color[] colors)
+    {
+        Color avgColor = new Color();
+        Vector4 avgColorV = new Vector4();
+        foreach (Color color in colors)
+        {
+            avgColor += color;
+        }
+        avgColor /= colors.Length;
+        return avgColor;
+    }
+    // ^^^^
+
     /// <summary>
     /// Function DrawMesh is called, to generate the Mesh of this GridCell.
     /// </summary>
     public Mesh DrawMesh()
     {
         mesh = new Mesh();
-        List<Face> theseFaces = DrawFaces();
-        mesh = CombineFaces(theseFaces);
+        //List<Face> theseFaces = DrawFaces();
+        //mesh = CombineFaces(theseFaces);
+        Triangluate();
+        mesh.vertices = vertices.ToArray();
+        mesh.triangles = triangles.ToArray();
+        mesh.colors = vertexColors.ToArray();
+        mesh.RecalculateBounds();
+        mesh.RecalculateNormals();
+
         if (Application.isPlaying)
         {
             meshCollider = GetComponent<MeshCollider>();
@@ -318,7 +500,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         mesh.vertices = vertices.ToArray();
         mesh.triangles = triangles.ToArray();
         mesh.uv = uvs.ToArray();
-        mesh.RecalculateNormals(); 
+        mesh.RecalculateNormals();
         meh.vertices = vertices.ToArray();
         meh.triangles = triangles.ToArray();
         meh.uv = uvs.ToArray();
@@ -346,12 +528,12 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         Vector3 p4 = GetPoint(outerRad, heightA, point);
         Vector3 p5 = p3 - new Vector3(0, 1, 0);
         Vector3 p6 = p4 - new Vector3(0, 1, 0);
-        
+
         List<Vector3> vertices = new List<Vector3>();
         List<int> triangles = new List<int>();
         if (withWalls)
         {
-            vertices.AddRange( new List<Vector3>() { /*0*/p1, /*1*/p2,/*2*/ p3, /*3*/p4,/*4*/ p3,/*5*/ p4,/*6*/ p5,/*7*/ p6 });
+            vertices.AddRange(new List<Vector3>() { /*0*/p1, /*1*/p2,/*2*/ p3, /*3*/p4,/*4*/ p3,/*5*/ p4,/*6*/ p5,/*7*/ p6 });
             triangles.AddRange(new List<int>()
             {
                 0, 1, 2,
@@ -408,7 +590,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if(PlayerManager.Instance.movementAction > 0 && !PlayerManager.Instance.abilityActivated && currentGridState.StateValue() >= 0)
+        if (PlayerManager.Instance.movementAction > 0 && !PlayerManager.Instance.abilityActivated && currentGridState.StateValue() >= 0)
         {
             List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(PlayerManager.Instance.selectedPlayer.CoordinatePosition));
 
@@ -421,7 +603,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        foreach(TileHighlight tileHighlightInstance in GetComponentsInChildren<TileHighlight>())
+        foreach (TileHighlight tileHighlightInstance in GetComponentsInChildren<TileHighlight>())
         {
             Destroy(tileHighlightInstance.gameObject);
         }
@@ -429,7 +611,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void neutralRegeneration()
     {
-        if(currentGridState == GridManager.Instance.gS_Neutral)
+        if (currentGridState == GridManager.Instance.gS_Neutral)
         {
             neutralTurnCounter++;
             if (neutralTurnCounter >= NeutralRegenerationTime)

@@ -17,4 +17,12 @@ public class GridTileSO : ScriptableObject
     public Material negativeMaterial;
     public Material PofIMaterial;
 
+    [Header("Colors")]
+    public Color ressourceAColor;
+    public Color ressourceBColor;
+    public Color ressourceCColor;
+    public Color ressourceDColor;
+    public Color neutralColor;
+    public Color negativeColor;
+
 }

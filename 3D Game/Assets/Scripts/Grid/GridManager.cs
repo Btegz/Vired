@@ -174,6 +174,11 @@ public class GridManager : MonoBehaviour
                 SpawnEnemy();
             }
             SpawnPofIs();
+
+            foreach(KeyValuePair<Vector2Int,GridTile> kvp in Grid)
+            {
+                kvp.Value.Triangluate();
+            }
         }
     }
 
