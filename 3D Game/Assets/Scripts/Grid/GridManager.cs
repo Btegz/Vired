@@ -160,8 +160,27 @@ public class GridManager : MonoBehaviour
                     newTile.Setup(tileinfo.coord, tileinfo.resource, true);
                     newTile.transform.parent = transform;
                     newTile.transform.position = HexGridUtil.AxialHexToPixel(tileinfo.coord, 1);
-                    
-                    //  newTile.transform.position += Vector3.up * (1 + tileinfo.noiseValue);
+
+                    //newTile.transform.position += Vector3.up * (1 + tileinfo.noiseValue);
+
+                    switch (tileinfo.resource)
+                    {
+                        case Ressource.ressourceA:
+                            newTile.transform.position += Vector3.up * 1;
+                            break;
+                        case Ressource.ressourceB:
+                            newTile.transform.position += Vector3.up * .75f;
+                            break;
+                        case Ressource.ressourceC:
+                            newTile.transform.position += Vector3.up * .5f;
+                            break;
+                        case Ressource.ressourceD:
+                            newTile.transform.position += Vector3.up * .25f;
+                            break;
+                    }
+
+
+
                     Grid.Add(tileinfo.coord, newTile);
                 }
             }

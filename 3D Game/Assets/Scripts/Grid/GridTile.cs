@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TreeEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -338,6 +339,51 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             Vector3 nextBufferedCorner = nextCorner * bufferRadius;
             Vector3 currentInnerCorner = (currentCorner + nextCorner) * 0.5f * (1f - bufferRadius) + currentBufferedCorner;
             Vector3 nextInnerCorner = (currentCorner + nextCorner) * 0.5f * (1f - bufferRadius) + nextBufferedCorner;
+
+
+            if (currentNeighbor != null)
+            {
+                currentInnerCorner.y = (transform.position.y + currentNeighbor.transform.position.y) / 2f - transform.position.y;
+                nextInnerCorner.y = (transform.position.y + currentNeighbor.transform.position.y) / 2f - transform.position.y;
+            }
+            //else
+            //{
+            //    nextInnerCorner.y = transform.position.y;
+            //}
+            if (prevNeigbor != null && currentNeighbor != null)
+            {
+                currentCorner.y = (transform.position.y + prevNeigbor.transform.position.y + currentNeighbor.transform.position.y) / 3f - transform.position.y;
+            }
+            else if (prevNeigbor != null && currentNeighbor == null)
+            {
+                currentCorner.y = (transform.position.y + prevNeigbor.transform.position.y) / 2f - transform.position.y;
+            }
+            else if (currentNeighbor != null && prevNeigbor == null)
+            {
+                currentCorner.y = (transform.position.y + currentNeighbor.transform.position.y) / 2f - transform.position.y;
+            }
+            //else
+            //{
+            //    currentCorner.y = transform.position.y;
+            //}
+            if (currentNeighbor != null && nextNeighbor != null)
+            {
+                nextCorner.y = (transform.position.y + currentNeighbor.transform.position.y + nextNeighbor.transform.position.y) / 3f - transform.position.y;
+            }
+            else if (currentNeighbor != null && nextNeighbor == null)
+            {
+                nextCorner.y = (transform.position.y + currentNeighbor.transform.position.y) / 2f - transform.position.y;
+            }
+            else if (currentNeighbor == null && nextNeighbor != null)
+            {
+                nextCorner.y = (transform.position.y + nextNeighbor.transform.position.y) / 2f - transform.position.y;
+            }
+            //else
+            //{
+            //    nextCorner.y = transform.position.y;
+            //}
+
+
 
             // inner triangle
             AddTriangle(Vector3.zero, currentBufferedCorner, nextBufferedCorner);
