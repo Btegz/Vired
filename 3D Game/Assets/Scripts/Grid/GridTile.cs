@@ -229,7 +229,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         this.ressource = ressource;
         currentGridState = GridManager.Instance.gS_Positive;
 
-        meshFilter.mesh = DrawMesh();
+        //meshFilter.mesh = DrawMesh();
 
     }
 
@@ -358,8 +358,19 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             AddTriangle(nextBufferedCorner, nextInnerCorner, nextCorner);
             AddTriangleColors(myColor, AverageColor(new Color[] { myColor, currentNeighborColor }), AverageColor(new Color[] { myColor, nextNeighborColor, currentNeighborColor }));
         }
-
-
+        mesh = new Mesh();
+        mesh.name = "HexMesh " + AxialCoordinate;
+        mesh.vertices = vertices.ToArray();
+        mesh.triangles = triangles.ToArray();
+        mesh.colors = vertexColors.ToArray();
+        mesh.RecalculateBounds();
+        mesh.RecalculateNormals();
+        if (Application.isPlaying)
+        {
+            meshCollider = GetComponent<MeshCollider>();
+            meshCollider.sharedMesh = mesh;
+        }
+        GetComponent<MeshFilter>().mesh = mesh;
     }
 
     public void AddTriangle(Vector3 a, Vector3 b, Vector3 c)
