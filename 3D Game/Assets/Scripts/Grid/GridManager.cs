@@ -197,6 +197,10 @@ public class GridManager : MonoBehaviour
             foreach(KeyValuePair<Vector2Int,GridTile> kvp in Grid)
             {
                 kvp.Value.Triangluate();
+                if(mapSettings!= null)
+                {
+                    kvp.Value.pertulate(mapSettings);
+                }
             }
         }
     }

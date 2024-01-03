@@ -153,8 +153,6 @@ public class AbilityButton : MonoBehaviour
 
                 //newHex.transform.localScale = Vector2.one * 0.2f;
                 Vector3 wordPos = HexGridUtil.AxialHexToPixel(ability.Coordinates[i], newHexRect.rect.width/2f);
-                Debug.Log(wordPos);
-                Debug.Log(centerDelta);
                 newHex.transform.localPosition = new Vector2(wordPos.x, wordPos.z)+centerDelta;
                 newHex.coordinate = ability.Coordinates[i];
                 UIGrid.Add(ability.Coordinates[i], newHex); 

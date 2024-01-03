@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TreeEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static UnityEngine.Experimental.Rendering.RayTracingAccelerationStructure;
 
 /// <summary>
 /// This struct holds, vertices, triangles and uvs of a Face
@@ -404,6 +405,8 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             AddTriangle(nextBufferedCorner, nextInnerCorner, nextCorner);
             AddTriangleColors(myColor, AverageColor(new Color[] { myColor, currentNeighborColor }), AverageColor(new Color[] { myColor, nextNeighborColor, currentNeighborColor }));
         }
+
+        pertulate(GridManager.Instance.mapSettings);
         mesh = new Mesh();
         mesh.name = "HexMesh " + AxialCoordinate;
         mesh.vertices = vertices.ToArray();
@@ -429,6 +432,15 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         triangles.Add(vertexIndex + 1);
         triangles.Add(vertexIndex + 2);
     }
+
+    public void pertulate(MapSettings mapsettings)
+    {
+        for(int i = 0; i < vertices.Count; i++) 
+        {
+            vertices[i] += mapsettings.GetIrregularityNoiseData(vertices[i]+transform.position)*mapsettings.IrregularityFactor;
+        }
+    }
+
     public void AddTriangleColors(Color colorA, Color colorB, Color colorC)
     {
         vertexColors.Add(colorA);

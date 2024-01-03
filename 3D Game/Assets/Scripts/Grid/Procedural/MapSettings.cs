@@ -53,6 +53,16 @@ public class MapSettings : ScriptableObject
     FastNoiseLite worldNoise = new FastNoiseLite();
     FastNoiseLite hillNoise = new FastNoiseLite();
 
+    FastNoiseLite irregularityNoise1 = new FastNoiseLite();
+    FastNoiseLite irregularityNoise2 = new FastNoiseLite();
+    FastNoiseLite irregularityNoise3 = new FastNoiseLite();
+
+    public float IrregularityFrequency;
+
+    public float IrregularityFactor;
+
+
+
     [Header("General")]
 
     [SerializeField] private int mySeed;
@@ -247,6 +257,22 @@ public class MapSettings : ScriptableObject
         return resultresult;
     }
 
+    public void GenerateIrregultarityNoiseData()
+    {
+        irregularityNoise1.SetNoiseType(FastNoiseLite.NoiseType.Perlin);
+        irregularityNoise2.SetNoiseType(FastNoiseLite.NoiseType.Perlin);
+        irregularityNoise3.SetNoiseType(FastNoiseLite.NoiseType.Perlin);
+    }
+
+    public Vector3 GetIrregularityNoiseData(Vector3 position)
+    {
+        Vector3 result = new Vector3();
+        result.x = irregularityNoise1.GetNoise(position.x, position.z);
+        result.y = irregularityNoise2.GetNoise(position.x, position.z);
+        result.z = irregularityNoise3.GetNoise(position.x, position.z);
+        return result;
+    }
+
     public List<ProceduralTileInfo> MakeTiles()
     {
         SetTheNoises();
@@ -286,7 +312,7 @@ public class MapSettings : ScriptableObject
 
         foreach (ProceduralTileInfo tile in result)
         {
-       //     Debug.Log(tile.noiseDistanceFactor);
+            //     Debug.Log(tile.noiseDistanceFactor);
         }
 
 
@@ -317,13 +343,13 @@ public class MapSettings : ScriptableObject
         List<Vector2Int> result = new List<Vector2Int>();
         List<Vector2Int> init = new List<Vector2Int>();
         foreach (ProceduralTileInfo tile in input)
-        { 
-            init.Add(tile.coord); 
+        {
+            init.Add(tile.coord);
         }
 
         List<Vector2Int> outerNeighbors = HexGridUtil.AxialNeighbors(init);
         List<Vector2Int> neighborsNeighbors = HexGridUtil.AxialNeighbors(outerNeighbors);
-        foreach(Vector2Int neighborCoord in neighborsNeighbors)
+        foreach (Vector2Int neighborCoord in neighborsNeighbors)
         {
             if (init.Contains(neighborCoord))
             {
@@ -371,6 +397,15 @@ public class MapSettings : ScriptableObject
 
         hillNoise.SetNoiseType(m_HillNoiseType);
         hillNoise.SetFrequency(m_HillFrequency);
+
+
+        irregularityNoise1.SetNoiseType(FastNoiseLite.NoiseType.Perlin);
+        irregularityNoise2.SetNoiseType(FastNoiseLite.NoiseType.Perlin);
+        irregularityNoise3.SetNoiseType(FastNoiseLite.NoiseType.Perlin);
+
+        irregularityNoise1.SetFrequency(IrregularityFrequency);
+        irregularityNoise2.SetFrequency(IrregularityFrequency);
+        irregularityNoise3.SetFrequency(IrregularityFrequency);
     }
 
     public List<ProceduralTileInfo> FixTileCount(List<ProceduralTileInfo> tiles)
