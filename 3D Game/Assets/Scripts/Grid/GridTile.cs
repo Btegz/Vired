@@ -336,16 +336,31 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
             Vector3 currentCorner = corners[i];
             Vector3 nextCorner = corners[i == 5 ? 0 : i + 1];
+
             Vector3 currentBufferedCorner = currentCorner * bufferRadius;
-            Vector3 nextBufferedCorner = nextCorner * bufferRadius;
+            Vector3 nextBufferedCorner = nextCorner * bufferRadius; 
+
+            Vector3 currentInbetween = Vector3.Lerp(currentBufferedCorner, nextBufferedCorner, 1f / 3f);
+            Vector3 nextInbetween = Vector3.Lerp(currentBufferedCorner, nextBufferedCorner, 2f / 3f);
+
             Vector3 currentInnerCorner = (currentCorner + nextCorner) * 0.5f * (1f - bufferRadius) + currentBufferedCorner;
+            Vector3 currentInnerInbetweenCorner = (currentCorner + nextCorner) * 0.5f * (1f - bufferRadius) + currentInbetween;
+            Vector3 nextInnerInbetweenCorner = (currentCorner + nextCorner) * 0.5f * (1f - bufferRadius) + nextInbetween;
             Vector3 nextInnerCorner = (currentCorner + nextCorner) * 0.5f * (1f - bufferRadius) + nextBufferedCorner;
+
+
+
 
 
             if (currentNeighbor != null)
             {
                 currentInnerCorner.y = (transform.position.y + currentNeighbor.transform.position.y) / 2f - transform.position.y;
                 nextInnerCorner.y = (transform.position.y + currentNeighbor.transform.position.y) / 2f - transform.position.y;
+                currentInbetween.y = Mathf.Lerp(currentBufferedCorner.y, nextBufferedCorner.y, 1f / 3f);
+                nextInbetween.y = Mathf.Lerp(currentBufferedCorner.y, nextBufferedCorner.y, 2f / 3f);
+                currentInnerInbetweenCorner.y = Mathf.Lerp(currentInnerCorner.y, nextInnerCorner.y, 1f / 3f);
+                nextInnerInbetweenCorner.y = Mathf.Lerp(currentInnerCorner.y, nextInnerCorner.y, 2f / 3f);
+
             }
             //else
             //{
@@ -387,15 +402,30 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
 
             // inner triangle
-            AddTriangle(Vector3.zero, currentBufferedCorner, nextBufferedCorner);
+            AddTriangle(Vector3.zero, currentBufferedCorner, currentInbetween);
+            AddTriangle(Vector3.zero, currentInbetween, nextInbetween);
+            AddTriangle(Vector3.zero, nextInbetween, nextBufferedCorner);
+            AddTriangleColors(myColor, myColor, myColor);
+            AddTriangleColors(myColor, myColor, myColor);
             AddTriangleColors(myColor, myColor, myColor);
 
             // the 2 triangles forming the Quad with its direct neighbor
-            AddTriangle(currentBufferedCorner, currentInnerCorner, nextInnerCorner);
-            AddTriangle(currentBufferedCorner, nextInnerCorner, nextBufferedCorner);
+            AddTriangle(currentBufferedCorner, currentInnerCorner, currentInnerInbetweenCorner);
+            AddTriangle(currentBufferedCorner, currentInnerInbetweenCorner, currentInbetween);
+
+            AddTriangle(currentInbetween,currentInnerInbetweenCorner,nextInnerInbetweenCorner);
+            AddTriangle(currentInbetween, nextInnerInbetweenCorner,nextInbetween);
+
+            AddTriangle(nextInbetween, nextInnerInbetweenCorner, nextInnerCorner);
+            AddTriangle(nextInbetween, nextInnerCorner, nextBufferedCorner);
+
+            //AddTriangle(currentBufferedCorner, nextInnerCorner, nextBufferedCorner);
             AddTriangleColors(myColor, AverageColor(new Color[] { myColor, currentNeighborColor }), AverageColor(new Color[] { myColor, currentNeighborColor }));
             AddTriangleColors(myColor, AverageColor(new Color[] { myColor, currentNeighborColor }), myColor);
-
+            AddTriangleColors(myColor, AverageColor(new Color[] { myColor, currentNeighborColor }), AverageColor(new Color[] { myColor, currentNeighborColor }));
+            AddTriangleColors(myColor, AverageColor(new Color[] { myColor, currentNeighborColor }), myColor); 
+            AddTriangleColors(myColor, AverageColor(new Color[] { myColor, currentNeighborColor }), AverageColor(new Color[] { myColor, currentNeighborColor }));
+            AddTriangleColors(myColor, AverageColor(new Color[] { myColor, currentNeighborColor }), myColor);
 
 
             // triangles for the Corner of the Hexagon
