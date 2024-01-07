@@ -38,6 +38,11 @@ public enum direction { NE = 0, SE = 1, S = 2, SW = 3, NW = 4, N = 5 }
 /// </summary>
 public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    public Color SplatMapColor1;
+    public Color SplatMapColor2;
+    public Color SplatMapColor3;
+
+
     public GridTileSO gridTileSO;
     public Vector2Int AxialCoordinate;
 
@@ -60,6 +65,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     List<Vector3> vertices;
     List<int> triangles;
+    List<Vector2> uvs;
     List<Color> vertexColors;
     // ^^^^
 
@@ -284,6 +290,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         vertices = new List<Vector3>();
         triangles = new List<int>();
         vertexColors = new List<Color>();
+        uvs = new List<Vector2>();
 
         List<Vector2Int> neighborCords = HexGridUtil.AxialNeighbors(AxialCoordinate);
 
@@ -405,9 +412,9 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             AddTriangle(Vector3.zero, currentBufferedCorner, currentInbetween);
             AddTriangle(Vector3.zero, currentInbetween, nextInbetween);
             AddTriangle(Vector3.zero, nextInbetween, nextBufferedCorner);
-            AddTriangleColors(myColor, myColor, myColor);
-            AddTriangleColors(myColor, myColor, myColor);
-            AddTriangleColors(myColor, myColor, myColor);
+            AddTriangleColors(SplatMapColor1, SplatMapColor1, SplatMapColor1);
+            AddTriangleColors(SplatMapColor1, SplatMapColor1, SplatMapColor1);
+            AddTriangleColors(SplatMapColor1, SplatMapColor1, SplatMapColor1);
 
             // the 2 triangles forming the Quad with its direct neighbor
             AddTriangle(currentBufferedCorner, currentInnerCorner, currentInnerInbetweenCorner);
@@ -420,20 +427,20 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             AddTriangle(nextInbetween, nextInnerCorner, nextBufferedCorner);
 
             //AddTriangle(currentBufferedCorner, nextInnerCorner, nextBufferedCorner);
-            AddTriangleColors(myColor, AverageColor(new Color[] { myColor, currentNeighborColor }), AverageColor(new Color[] { myColor, currentNeighborColor }));
-            AddTriangleColors(myColor, AverageColor(new Color[] { myColor, currentNeighborColor }), myColor);
-            AddTriangleColors(myColor, AverageColor(new Color[] { myColor, currentNeighborColor }), AverageColor(new Color[] { myColor, currentNeighborColor }));
-            AddTriangleColors(myColor, AverageColor(new Color[] { myColor, currentNeighborColor }), myColor); 
-            AddTriangleColors(myColor, AverageColor(new Color[] { myColor, currentNeighborColor }), AverageColor(new Color[] { myColor, currentNeighborColor }));
-            AddTriangleColors(myColor, AverageColor(new Color[] { myColor, currentNeighborColor }), myColor);
+            AddTriangleColors(SplatMapColor1, AverageColor(new Color[] { SplatMapColor1, SplatMapColor2 }), AverageColor(new Color[] { SplatMapColor1, SplatMapColor2 }));
+            AddTriangleColors(SplatMapColor1, AverageColor(new Color[] { SplatMapColor1, SplatMapColor2 }), SplatMapColor1);
+            AddTriangleColors(SplatMapColor1, AverageColor(new Color[] { SplatMapColor1, SplatMapColor2 }), AverageColor(new Color[] { SplatMapColor1, SplatMapColor2 }));
+            AddTriangleColors(SplatMapColor1, AverageColor(new Color[] { SplatMapColor1, SplatMapColor2 }), SplatMapColor1); 
+            AddTriangleColors(SplatMapColor1, AverageColor(new Color[] { SplatMapColor1, SplatMapColor2 }), AverageColor(new Color[] { SplatMapColor1, SplatMapColor2 }));
+            AddTriangleColors(SplatMapColor1, AverageColor(new Color[] { SplatMapColor1, SplatMapColor2 }), SplatMapColor1);
 
 
             // triangles for the Corner of the Hexagon
             AddTriangle(currentBufferedCorner, currentCorner, currentInnerCorner);
-            AddTriangleColors(myColor, AverageColor(new Color[] { myColor, prevNeighborColor, currentNeighborColor }), AverageColor(new Color[] { myColor, currentNeighborColor }));
+            AddTriangleColors(SplatMapColor1, AverageColor(new Color[] { SplatMapColor1, SplatMapColor3, SplatMapColor2 }), AverageColor(new Color[] { SplatMapColor1, SplatMapColor2 }));
 
             AddTriangle(nextBufferedCorner, nextInnerCorner, nextCorner);
-            AddTriangleColors(myColor, AverageColor(new Color[] { myColor, currentNeighborColor }), AverageColor(new Color[] { myColor, nextNeighborColor, currentNeighborColor }));
+            AddTriangleColors(SplatMapColor1, AverageColor(new Color[] { SplatMapColor1, SplatMapColor2 }), AverageColor(new Color[] { SplatMapColor1, SplatMapColor3, SplatMapColor2 }));
         }
 
         pertulate(GridManager.Instance.mapSettings);
@@ -441,6 +448,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         mesh.name = "HexMesh " + AxialCoordinate;
         mesh.vertices = vertices.ToArray();
         mesh.triangles = triangles.ToArray();
+        mesh.uv = uvs.ToArray();
         mesh.colors = vertexColors.ToArray();
         mesh.RecalculateBounds();
         mesh.RecalculateNormals();
@@ -461,6 +469,21 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         triangles.Add(vertexIndex);
         triangles.Add(vertexIndex + 1);
         triangles.Add(vertexIndex + 2);
+
+        uvs.Add(new Vector2(a.x, a.z)/2f + Vector2.one * .5f);
+        uvs.Add(new Vector2(b.x, b.z)/2f + Vector2.one * .5f);
+        uvs.Add(new Vector2(c.x, c.z)/2f + Vector2.one * .5f);
+        
+    }
+
+    public Vector2 Remap(Vector2 input)
+    {
+        Vector3 result = new Vector3();
+
+        result /= 2f;
+        result +=Vector3.one *.5f;
+
+        return result;
     }
 
     public void pertulate(MapSettings mapsettings)

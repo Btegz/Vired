@@ -59,7 +59,7 @@ public class GridManager : MonoBehaviour
         if (Instance == null)
         {
             Time.timeScale = 1.5f;
-            Instance = this; 
+            Instance = this;
             EventManager.OnEndTurnEvent += EndTurn;
             TransferGridSOData();
             PlayerManager.Instance.abilityLoadout.amountToChoose = 3;
@@ -166,16 +166,16 @@ public class GridManager : MonoBehaviour
                     switch (tileinfo.resource)
                     {
                         case Ressource.ressourceA:
-                            newTile.transform.position += Vector3.up * 1;
+                            newTile.transform.position += Vector3.up * mapSettings.constantHeighVarianceFactor * 1;
                             break;
                         case Ressource.ressourceB:
-                            newTile.transform.position += Vector3.up * .75f;
+                            newTile.transform.position += Vector3.up * mapSettings.constantHeighVarianceFactor * 2;
                             break;
                         case Ressource.ressourceC:
-                            newTile.transform.position += Vector3.up * .5f;
+                            newTile.transform.position += Vector3.up * mapSettings.constantHeighVarianceFactor * 3;
                             break;
                         case Ressource.ressourceD:
-                            newTile.transform.position += Vector3.up * .25f;
+                            newTile.transform.position += Vector3.up * mapSettings.constantHeighVarianceFactor * 4;
                             break;
                     }
 
@@ -186,7 +186,7 @@ public class GridManager : MonoBehaviour
             }
             // Fill Map with Things
             SpawnBossAndPlayer(border);
-            
+
 
             for (int i = 0; i < startEnemyCount; i++)
             {
@@ -194,10 +194,10 @@ public class GridManager : MonoBehaviour
             }
             SpawnPofIs();
 
-            foreach(KeyValuePair<Vector2Int,GridTile> kvp in Grid)
+            foreach (KeyValuePair<Vector2Int, GridTile> kvp in Grid)
             {
                 kvp.Value.Triangluate();
-                if(mapSettings!= null)
+                if (mapSettings != null)
                 {
                     kvp.Value.pertulate(mapSettings);
                 }
@@ -208,7 +208,7 @@ public class GridManager : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        Enemy enemy = Instantiate(StartEnemyPrefabs[Random.Range(0,StartEnemyPrefabs.Count)]);
+        Enemy enemy = Instantiate(StartEnemyPrefabs[Random.Range(0, StartEnemyPrefabs.Count)]);
 
         List<GridTile> reachableTiles = new List<GridTile>();
 
@@ -292,7 +292,7 @@ public class GridManager : MonoBehaviour
         players[1].CoordinatePosition = Border[Border.Count / 4 * 2];
         players[2].CoordinatePosition = Border[Border.Count / 4 * 3];
 
-        Boss newBoss = Instantiate(StartBossPrefab); 
+        Boss newBoss = Instantiate(StartBossPrefab);
         List<Vector2Int> newBossTiles = HexGridUtil.AxialNeighbors(Border[0]);
         BossSpawn = Border[0];
         foreach (Vector2Int coordinate in newBossTiles)
@@ -322,8 +322,8 @@ public class GridManager : MonoBehaviour
         {
             if (kvp.Value.currentGridState == gS_Positive && kvp.Key != PlayerManager.Instance.Players[0].CoordinatePosition && kvp.Key != PlayerManager.Instance.Players[1].CoordinatePosition && kvp.Key != PlayerManager.Instance.Players[2].CoordinatePosition)
             {
-                if(kvp.Value.currentGridState != gS_BossNegative && kvp.Value.currentGridState != gS_Negative && kvp.Value.currentGridState != gS_Enemy && kvp.Value.currentGridState != gS_Boss)
-                possibleTiles.Add(kvp.Key);
+                if (kvp.Value.currentGridState != gS_BossNegative && kvp.Value.currentGridState != gS_Negative && kvp.Value.currentGridState != gS_Enemy && kvp.Value.currentGridState != gS_Boss)
+                    possibleTiles.Add(kvp.Key);
             }
         }
         for (int i = 0; i < PofiSpawnCount; i++)
@@ -339,7 +339,7 @@ public class GridManager : MonoBehaviour
             pofi.transform.parent = targetLocation.transform;
             pofi.transform.position = new Vector3(targetLocation.transform.position.x, pofIOffset, targetLocation.transform.position.z);
 
-            
+
         }
     }
 
@@ -367,7 +367,7 @@ public class GridManager : MonoBehaviour
     //        Grid.Add(coord, tile);
     //    }
 
-       
+
     //}
 
     public void EndTurn()

@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8206b7937082734cad26d2f44a68075, type: 3}
   m_Name: MarvinMapSettings
   m_EditorClassIdentifier: 
-  IrregularityFrequency: 0.9
-  IrregularityFactor: 0.5
-  mySeed: 1415
+  IrregularityFrequency: 0.6
+  IrregularityFactor: 0.2
+  constantHeighVarianceFactor: 0.2
+  mySeed: 1279
   myGenerateRandomSeed: 1
   myTileCount: 200
   noiseType1: 2
