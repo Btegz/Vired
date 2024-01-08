@@ -61,6 +61,8 @@ public class MapSettings : ScriptableObject
 
     public float IrregularityFactor;
 
+    public float constantHeighVarianceFactor;
+
 
 
     [Header("General")]
