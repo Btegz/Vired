@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-839204402638915307
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -34,13 +47,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AOAdditive: 1
-    - _AOMultiply: 1
+    - _AmbientOcclusionAdd: 1
+    - _AmbientOcclusionMult: 0.87
     - _Color1Mult: 1
+    - _Deform: 0
     - _EMISSION: 0
-    - _Emission1Mult: 1
-    - _Extend: 0
-    - _MetallicAdditive: 0
     - _MetallicMultiply: 0
     - _NormalMax: 2
     - _NormalMin: -2
@@ -60,20 +71,5 @@ Material:
     - _uvAnimationSpeed: 3.5
     m_Colors:
     - _Color1: {r: 0.21568623, g: 0.14509797, b: 0, a: 1}
-    - _Color2: {r: 1, g: 0.12156857, b: 0, a: 1}
-    - _Emission1: {r: 3.968628, g: 0.6356242, b: 0, a: 0}
-    - _Emission2: {r: 0, g: 4, b: 4, a: 0}
+    - _Color2: {r: 1, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &7460704116409437566
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 5
