@@ -10,7 +10,7 @@ void GetVertexCellData_float(
     float4 cell0 = GetCellData(Indices, 0, EditMode);
     float4 cell1 = GetCellData(Indices, 1, EditMode);
     float4 cell2 = GetCellData(Indices, 2, EditMode);
-
+    
     Terrain.x = cell0.w;
     Terrain.y = cell1.w;
     Terrain.z = cell2.w;

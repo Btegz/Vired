@@ -202,6 +202,11 @@ public class GridManager : MonoBehaviour
                     kvp.Value.pertulate(mapSettings);
                 }
             }
+
+            Shader.SetGlobalVector(
+            "_HexCellData_TexelSize",
+            new Vector4(1f / 200, 1f / 200, 200, 200));
+
         }
     }
 

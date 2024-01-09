@@ -448,7 +448,9 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         mesh.name = "HexMesh " + AxialCoordinate;
         mesh.vertices = vertices.ToArray();
         mesh.triangles = triangles.ToArray();
-        mesh.uv = uvs.ToArray();
+        
+        mesh.SetUVs(2, uvs);
+        //mesh.uv = uvs.ToArray();
         mesh.colors = vertexColors.ToArray();
         mesh.RecalculateBounds();
         mesh.RecalculateNormals();
@@ -470,9 +472,9 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         triangles.Add(vertexIndex + 1);
         triangles.Add(vertexIndex + 2);
 
-        uvs.Add(new Vector2(a.x, a.z)/2f + Vector2.one * .5f);
-        uvs.Add(new Vector2(b.x, b.z)/2f + Vector2.one * .5f);
-        uvs.Add(new Vector2(c.x, c.z)/2f + Vector2.one * .5f);
+        uvs.Add(new Vector3(a.x,a.y, a.z)+transform.position);
+        uvs.Add(new Vector3(b.x,b.y, b.z) + transform.position);
+        uvs.Add(new Vector3(c.x,c.y, c.z) + transform.position);
         
     }
 
@@ -499,6 +501,9 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         vertexColors.Add(colorA);
         vertexColors.Add(colorB);
         vertexColors.Add(colorC);
+        uvs.Add(Vector3.one* 2);
+        uvs.Add(Vector3.one* 2);
+        uvs.Add(Vector3.one* 2);
     }
 
     public Color GetColor(Ressource res)
