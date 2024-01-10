@@ -203,6 +203,15 @@ public class GridManager : MonoBehaviour
                 }
             }
 
+            Texture2D cellTexture = new Texture2D(200, 200, TextureFormat.RGBA32, false, true)
+            {
+                filterMode = FilterMode.Point,
+                wrapModeU = TextureWrapMode.Repeat,
+                wrapModeV = TextureWrapMode.Clamp
+            };
+            Shader.SetGlobalTexture("_HexCellData", cellTexture);
+
+
             Shader.SetGlobalVector(
             "_HexCellData_TexelSize",
             new Vector4(1f / 200, 1f / 200, 200, 200));

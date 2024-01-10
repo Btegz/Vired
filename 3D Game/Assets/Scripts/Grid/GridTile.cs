@@ -65,7 +65,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     List<Vector3> vertices;
     List<int> triangles;
-    List<Vector2> uvs;
+    List<Vector3> uvs;
     List<Color> vertexColors;
     // ^^^^
 
@@ -290,7 +290,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         vertices = new List<Vector3>();
         triangles = new List<int>();
         vertexColors = new List<Color>();
-        uvs = new List<Vector2>();
+        uvs = new List<Vector3>();
 
         List<Vector2Int> neighborCords = HexGridUtil.AxialNeighbors(AxialCoordinate);
 
@@ -345,7 +345,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             Vector3 nextCorner = corners[i == 5 ? 0 : i + 1];
 
             Vector3 currentBufferedCorner = currentCorner * bufferRadius;
-            Vector3 nextBufferedCorner = nextCorner * bufferRadius; 
+            Vector3 nextBufferedCorner = nextCorner * bufferRadius;
 
             Vector3 currentInbetween = Vector3.Lerp(currentBufferedCorner, nextBufferedCorner, 1f / 3f);
             Vector3 nextInbetween = Vector3.Lerp(currentBufferedCorner, nextBufferedCorner, 2f / 3f);
@@ -415,32 +415,110 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             AddTriangleColors(SplatMapColor1, SplatMapColor1, SplatMapColor1);
             AddTriangleColors(SplatMapColor1, SplatMapColor1, SplatMapColor1);
             AddTriangleColors(SplatMapColor1, SplatMapColor1, SplatMapColor1);
+            AddTerrainIndexes(ressource, ressource, ressource);
+            AddTerrainIndexes(ressource, ressource, ressource);
+            AddTerrainIndexes(ressource, ressource, ressource);
 
             // the 2 triangles forming the Quad with its direct neighbor
-            AddTriangle(currentBufferedCorner, currentInnerCorner, currentInnerInbetweenCorner);
-            AddTriangle(currentBufferedCorner, currentInnerInbetweenCorner, currentInbetween);
 
-            AddTriangle(currentInbetween,currentInnerInbetweenCorner,nextInnerInbetweenCorner);
-            AddTriangle(currentInbetween, nextInnerInbetweenCorner,nextInbetween);
+            if (i < 3)
+            {
+                if(currentNeighbor == null)
+                {
+                    AddTriangle(currentBufferedCorner, currentInnerCorner, currentInnerInbetweenCorner);
+                    AddTriangle(currentBufferedCorner, currentInnerInbetweenCorner, currentInbetween);
+                    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
+                    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
+                    AddTerrainIndexes(ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource), (currentNeighbor != null ? currentNeighbor.ressource : ressource));
+                    AddTerrainIndexes(ressource, ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource));
 
-            AddTriangle(nextInbetween, nextInnerInbetweenCorner, nextInnerCorner);
-            AddTriangle(nextInbetween, nextInnerCorner, nextBufferedCorner);
+                    AddTriangle(currentInbetween, currentInnerInbetweenCorner, nextInnerInbetweenCorner);
+                    AddTriangle(currentInbetween, nextInnerInbetweenCorner, nextInbetween);
+                    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
+                    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
+                    AddTerrainIndexes(ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource), (currentNeighbor != null ? currentNeighbor.ressource : ressource));
+                    AddTerrainIndexes(ressource, ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource));
 
-            //AddTriangle(currentBufferedCorner, nextInnerCorner, nextBufferedCorner);
-            AddTriangleColors(SplatMapColor1, AverageColor(new Color[] { SplatMapColor1, SplatMapColor2 }), AverageColor(new Color[] { SplatMapColor1, SplatMapColor2 }));
-            AddTriangleColors(SplatMapColor1, AverageColor(new Color[] { SplatMapColor1, SplatMapColor2 }), SplatMapColor1);
-            AddTriangleColors(SplatMapColor1, AverageColor(new Color[] { SplatMapColor1, SplatMapColor2 }), AverageColor(new Color[] { SplatMapColor1, SplatMapColor2 }));
-            AddTriangleColors(SplatMapColor1, AverageColor(new Color[] { SplatMapColor1, SplatMapColor2 }), SplatMapColor1); 
-            AddTriangleColors(SplatMapColor1, AverageColor(new Color[] { SplatMapColor1, SplatMapColor2 }), AverageColor(new Color[] { SplatMapColor1, SplatMapColor2 }));
-            AddTriangleColors(SplatMapColor1, AverageColor(new Color[] { SplatMapColor1, SplatMapColor2 }), SplatMapColor1);
+                    AddTriangle(nextInbetween, nextInnerInbetweenCorner, nextInnerCorner);
+                    AddTriangle(nextInbetween, nextInnerCorner, nextBufferedCorner);
+                    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
+                    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
+                    AddTerrainIndexes(ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource), (currentNeighbor != null ? currentNeighbor.ressource : ressource));
+                    AddTerrainIndexes(ressource, ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource));
+                }
+                else
+                {
+                    Vector3 newCurrentInnerCorner = (currentCorner + nextCorner) * 0.5f * (1f - bufferRadius)*2 +currentBufferedCorner;
+                    newCurrentInnerCorner.y = 0;
+                    newCurrentInnerCorner.y = currentNeighbor.transform.position.y - transform.position.y;
+                    Vector3 newNextInnerCorner = (currentCorner + nextCorner) * 0.5f * (1f - bufferRadius) * 2 + nextBufferedCorner;
+                    newNextInnerCorner.y = 0;
+                    newNextInnerCorner.y = currentNeighbor.transform.position.y - transform.position.y;
+                    Vector3 newcurrentInnerInbetweenCorner = Vector3.Lerp(newCurrentInnerCorner, newNextInnerCorner,1f/3f);
+                    newcurrentInnerInbetweenCorner.y = 0;
+                    newcurrentInnerInbetweenCorner.y = Mathf.Lerp(newCurrentInnerCorner.y, newNextInnerCorner.y, 1f / 3f);
+                    Vector3 newnextInnerInbetweenCorner = Vector3.Lerp(newCurrentInnerCorner, newNextInnerCorner, 2f / 3f);
+                    newnextInnerInbetweenCorner.y = 0;
+                    newnextInnerInbetweenCorner.y = Mathf.Lerp(newCurrentInnerCorner.y, newNextInnerCorner.y, 2f / 3f);
+
+
+                    AddTriangle(currentBufferedCorner, newCurrentInnerCorner, newcurrentInnerInbetweenCorner);
+                    AddTriangle(currentBufferedCorner, newcurrentInnerInbetweenCorner, currentInbetween);
+                    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
+                    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
+                    AddTerrainIndexes(ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource), (currentNeighbor != null ? currentNeighbor.ressource : ressource));
+                    AddTerrainIndexes(ressource, currentNeighbor.ressource,ressource);
+
+                    AddTriangle(currentInbetween, newcurrentInnerInbetweenCorner, newnextInnerInbetweenCorner);
+                    AddTriangle(currentInbetween, newnextInnerInbetweenCorner, nextInbetween);
+                    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
+                    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
+                    AddTerrainIndexes(ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource), (currentNeighbor != null ? currentNeighbor.ressource : ressource));
+                    AddTerrainIndexes(ressource, currentNeighbor.ressource, ressource);
+
+                    AddTriangle(nextInbetween, newnextInnerInbetweenCorner, newNextInnerCorner);
+                    AddTriangle(nextInbetween, newNextInnerCorner, nextBufferedCorner);
+                    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
+                    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
+                    AddTerrainIndexes(ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource), (currentNeighbor != null ? currentNeighbor.ressource : ressource));
+                    AddTerrainIndexes(ressource, currentNeighbor.ressource, ressource);
+
+                    if (i < 2 && currentNeighbor != null && nextNeighbor != null)
+                    {
+                        Vector3 newCurrentCorner = newNextInnerCorner;
+                        newCurrentCorner.y = 0;
+                        newCurrentCorner.y = currentNeighbor.transform.position.y - transform.position.y;
+                        Vector3 xDD = corners[i+1 == 5 ? 0 : i+1 + 1];
+                        Vector3 xDDDD = (xDD + nextCorner) * 0.5f * (1f - bufferRadius) * 2 + nextBufferedCorner;
+                        xDDDD.y = 0;
+                        xDDDD.y = nextNeighbor.transform.position.y - transform.position.y;
+
+
+
+                        AddTriangle(nextBufferedCorner, newCurrentCorner, xDDDD);
+                        AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor3);
+                        AddTerrainIndexes(ressource, currentNeighbor.ressource,nextNeighbor.ressource);
+
+
+                        //AddTriangle(nextBufferedCorner, nextInnerCorner, nextCorner);
+                        //AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor3);
+                        //AddTerrainIndexes(ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource), (nextNeighbor != null ? nextNeighbor.ressource : ressource));
+                    }
+                }
+
+
+            }
+
+
+
+
+
+
 
 
             // triangles for the Corner of the Hexagon
-            AddTriangle(currentBufferedCorner, currentCorner, currentInnerCorner);
-            AddTriangleColors(SplatMapColor1, AverageColor(new Color[] { SplatMapColor1, SplatMapColor3, SplatMapColor2 }), AverageColor(new Color[] { SplatMapColor1, SplatMapColor2 }));
 
-            AddTriangle(nextBufferedCorner, nextInnerCorner, nextCorner);
-            AddTriangleColors(SplatMapColor1, AverageColor(new Color[] { SplatMapColor1, SplatMapColor2 }), AverageColor(new Color[] { SplatMapColor1, SplatMapColor3, SplatMapColor2 }));
+
         }
 
         pertulate(GridManager.Instance.mapSettings);
@@ -448,8 +526,8 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         mesh.name = "HexMesh " + AxialCoordinate;
         mesh.vertices = vertices.ToArray();
         mesh.triangles = triangles.ToArray();
-        
-        mesh.SetUVs(2, uvs);
+
+        mesh.SetUVs(2, uvs.ToArray());
         //mesh.uv = uvs.ToArray();
         mesh.colors = vertexColors.ToArray();
         mesh.RecalculateBounds();
@@ -472,10 +550,33 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         triangles.Add(vertexIndex + 1);
         triangles.Add(vertexIndex + 2);
 
-        uvs.Add(new Vector3(a.x,a.y, a.z)+transform.position);
-        uvs.Add(new Vector3(b.x,b.y, b.z) + transform.position);
-        uvs.Add(new Vector3(c.x,c.y, c.z) + transform.position);
-        
+        //uvs.Add(new Vector3(a.x,a.y, a.z)+transform.position);
+        //uvs.Add(new Vector3(b.x,b.y, b.z) + transform.position);
+        //uvs.Add(new Vector3(c.x,c.y, c.z) + transform.position);
+
+    }
+
+    public void AddTerrainIndexes(Ressource resA, Ressource resB, Ressource resC)
+    {
+        AddTriangleTerrainTypes(getTerrainIndex(resA), getTerrainIndex(resB), getTerrainIndex(resC));
+    }
+
+    public int getTerrainIndex(Ressource ressource)
+    {
+        switch (ressource)
+        {
+            case Ressource.ressourceA: return 0;
+            case Ressource.ressourceB: return 1;
+            case Ressource.ressourceC: return 2;
+            default: return 3;
+        }
+    }
+
+    public void AddTriangleTerrainTypes(int a, int b, int c)
+    {
+        uvs.Add(new Vector3((float)a, (float)b, (float)c));
+        uvs.Add(new Vector3((float)a, (float)b, (float)c));
+        uvs.Add(new Vector3((float)a, (float)b, (float)c));
     }
 
     public Vector2 Remap(Vector2 input)
@@ -483,16 +584,16 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         Vector3 result = new Vector3();
 
         result /= 2f;
-        result +=Vector3.one *.5f;
+        result += Vector3.one * .5f;
 
         return result;
     }
 
     public void pertulate(MapSettings mapsettings)
     {
-        for(int i = 0; i < vertices.Count; i++) 
+        for (int i = 0; i < vertices.Count; i++)
         {
-            vertices[i] += mapsettings.GetIrregularityNoiseData(vertices[i]+transform.position)*mapsettings.IrregularityFactor;
+            vertices[i] += mapsettings.GetIrregularityNoiseData(vertices[i] + transform.position) * mapsettings.IrregularityFactor;
         }
     }
 
@@ -501,9 +602,9 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         vertexColors.Add(colorA);
         vertexColors.Add(colorB);
         vertexColors.Add(colorC);
-        uvs.Add(Vector3.one* 2);
-        uvs.Add(Vector3.one* 2);
-        uvs.Add(Vector3.one* 2);
+        //uvs.Add(Vector3.one* 2);
+        //uvs.Add(Vector3.one* 2);
+        //uvs.Add(Vector3.one* 2);
     }
 
     public Color GetColor(Ressource res)
