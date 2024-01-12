@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-1184952950602238547
+--- !u!114 &-1752837429159199270
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,11 +20,11 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_Outlines
-  m_Shader: {fileID: -6465566751694194690, guid: dd7cc5fd48fca9d429a513f76caca16a, type: 3}
+  m_Name: Shader Graphs_EnemyMass_
+  m_Shader: {fileID: -6465566751694194690, guid: f5c76812a5ccb0842b2378faf9cfcf56, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -33,10 +33,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _GatherTexture2D_299b81e3503f478d9fb14fa4ee5df25d_Texture_1:
-        m_Texture: {fileID: 2800000, guid: 7fb0c77a4d4db61458055403d9c95763, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -51,9 +47,29 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AmbientOcclusionAdd: 1
+    - _AmbientOcclusionMult: 0.74
+    - _Color1Mult: 1
+    - _Deform: 0.9
+    - _EMISSION: 0
+    - _MetallicMultiply: 0
+    - _NormalMax: 2.77
+    - _NormalMin: -2
+    - _NormalStrength: 0.132
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Scale: 1.035
+    - _SmoothnessAdditive: 0.138
+    - _SmoothnessMultiply: 0.25
+    - _brightness: -3.19
+    - _iterations: 16
+    - _rippleMaxFrequency: 1.4
+    - _rippleSpeed: 5
+    - _rippleStrength: 0.9
+    - _rotationStep: 5
+    - _scale: 50.7
+    - _scaleMultStep: 1.16
+    - _uvAnimationSpeed: 3.5
     m_Colors:
-    - _Color: {r: 0, g: 0, b: 0, a: 0}
+    - _Color1: {r: 0.1509434, g: 0.10154374, b: 0, a: 1}
+    - _Color2: {r: 0.6509434, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
