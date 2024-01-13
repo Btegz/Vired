@@ -21,7 +21,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("CelineMeanTweenMemeSheenScene");
+        SceneManager.LoadScene("PlayerScene_");
     }
 
     public void OptionsSwitch()

@@ -14,15 +14,20 @@ public class ButtonScale : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void OnPointerEnter(PointerEventData eventData)
     {
         transform.DOScale(1.08f, 0.15f);
-
-        turnNextButton.material = glitchMaterial;
-
-
+        //StartCoroutine(GlitchCorroutine());
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         transform.DOScale(1f, 0.1f);
+       // StopCoroutine(GlitchCorroutine());
+       
+    }
+
+    IEnumerator GlitchCorroutine()
+    {
+        turnNextButton.material = glitchMaterial;
+        yield return new WaitForSeconds(0.2f);
         turnNextButton.material = null;
     }
 }
