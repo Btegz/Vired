@@ -419,107 +419,124 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             AddTerrainIndexes(ressource, ressource, ressource);
             AddTerrainIndexes(ressource, ressource, ressource);
 
-            // the 2 triangles forming the Quad with its direct neighbor
+            // the Quads combining two adjacent hexes or form the outer line
+            //if (currentNeighbor == null)
+            //{
+            //    // small bridge
+            //    AddTriangle(currentBufferedCorner, currentInnerCorner, currentInnerInbetweenCorner);
+            //    AddTriangle(currentBufferedCorner, currentInnerInbetweenCorner, currentInbetween);
+            //    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
+            //    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
+            //    AddTerrainIndexes(ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource), (currentNeighbor != null ? currentNeighbor.ressource : ressource));
+            //    AddTerrainIndexes(ressource, ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource));
 
-            if (i < 3)
+            //    AddTriangle(currentInbetween, currentInnerInbetweenCorner, nextInnerInbetweenCorner);
+            //    AddTriangle(currentInbetween, nextInnerInbetweenCorner, nextInbetween);
+            //    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
+            //    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
+            //    AddTerrainIndexes(ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource), (currentNeighbor != null ? currentNeighbor.ressource : ressource));
+            //    AddTerrainIndexes(ressource, ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource));
+
+            //    AddTriangle(nextInbetween, nextInnerInbetweenCorner, nextInnerCorner);
+            //    AddTriangle(nextInbetween, nextInnerCorner, nextBufferedCorner);
+            //    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
+            //    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
+            //    AddTerrainIndexes(ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource), (currentNeighbor != null ? currentNeighbor.ressource : ressource));
+            //    AddTerrainIndexes(ressource, ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource));
+            //}
+            /*//else */if (i < 3 && currentNeighbor != null)
             {
-                if(currentNeighbor == null)
-                {
-                    AddTriangle(currentBufferedCorner, currentInnerCorner, currentInnerInbetweenCorner);
-                    AddTriangle(currentBufferedCorner, currentInnerInbetweenCorner, currentInbetween);
-                    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
-                    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
-                    AddTerrainIndexes(ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource), (currentNeighbor != null ? currentNeighbor.ressource : ressource));
-                    AddTerrainIndexes(ressource, ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource));
-
-                    AddTriangle(currentInbetween, currentInnerInbetweenCorner, nextInnerInbetweenCorner);
-                    AddTriangle(currentInbetween, nextInnerInbetweenCorner, nextInbetween);
-                    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
-                    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
-                    AddTerrainIndexes(ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource), (currentNeighbor != null ? currentNeighbor.ressource : ressource));
-                    AddTerrainIndexes(ressource, ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource));
-
-                    AddTriangle(nextInbetween, nextInnerInbetweenCorner, nextInnerCorner);
-                    AddTriangle(nextInbetween, nextInnerCorner, nextBufferedCorner);
-                    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
-                    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
-                    AddTerrainIndexes(ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource), (currentNeighbor != null ? currentNeighbor.ressource : ressource));
-                    AddTerrainIndexes(ressource, ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource));
-                }
-                else
-                {
-                    Vector3 newCurrentInnerCorner = (currentCorner + nextCorner) * 0.5f * (1f - bufferRadius)*2 +currentBufferedCorner;
-                    newCurrentInnerCorner.y = 0;
-                    newCurrentInnerCorner.y = currentNeighbor.transform.position.y - transform.position.y;
-                    Vector3 newNextInnerCorner = (currentCorner + nextCorner) * 0.5f * (1f - bufferRadius) * 2 + nextBufferedCorner;
-                    newNextInnerCorner.y = 0;
-                    newNextInnerCorner.y = currentNeighbor.transform.position.y - transform.position.y;
-                    Vector3 newcurrentInnerInbetweenCorner = Vector3.Lerp(newCurrentInnerCorner, newNextInnerCorner,1f/3f);
-                    newcurrentInnerInbetweenCorner.y = 0;
-                    newcurrentInnerInbetweenCorner.y = Mathf.Lerp(newCurrentInnerCorner.y, newNextInnerCorner.y, 1f / 3f);
-                    Vector3 newnextInnerInbetweenCorner = Vector3.Lerp(newCurrentInnerCorner, newNextInnerCorner, 2f / 3f);
-                    newnextInnerInbetweenCorner.y = 0;
-                    newnextInnerInbetweenCorner.y = Mathf.Lerp(newCurrentInnerCorner.y, newNextInnerCorner.y, 2f / 3f);
+               // big bridge
+               Vector3 newCurrentInnerCorner = (currentCorner + nextCorner) * 0.5f * (1f - bufferRadius) * 2 + currentBufferedCorner;
+               newCurrentInnerCorner.y = 0;
+               newCurrentInnerCorner.y = currentNeighbor.transform.position.y - transform.position.y;
+               Vector3 newNextInnerCorner = (currentCorner + nextCorner) * 0.5f * (1f - bufferRadius) * 2 + nextBufferedCorner;
+               newNextInnerCorner.y = 0;
+               newNextInnerCorner.y = currentNeighbor.transform.position.y - transform.position.y;
+               Vector3 newcurrentInnerInbetweenCorner = Vector3.Lerp(newCurrentInnerCorner, newNextInnerCorner, 1f / 3f);
+               newcurrentInnerInbetweenCorner.y = 0;
+               newcurrentInnerInbetweenCorner.y = Mathf.Lerp(newCurrentInnerCorner.y, newNextInnerCorner.y, 1f / 3f);
+               Vector3 newnextInnerInbetweenCorner = Vector3.Lerp(newCurrentInnerCorner, newNextInnerCorner, 2f / 3f);
+               newnextInnerInbetweenCorner.y = 0;
+               newnextInnerInbetweenCorner.y = Mathf.Lerp(newCurrentInnerCorner.y, newNextInnerCorner.y, 2f / 3f);
 
 
-                    AddTriangle(currentBufferedCorner, newCurrentInnerCorner, newcurrentInnerInbetweenCorner);
-                    AddTriangle(currentBufferedCorner, newcurrentInnerInbetweenCorner, currentInbetween);
-                    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
-                    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
-                    AddTerrainIndexes(ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource), (currentNeighbor != null ? currentNeighbor.ressource : ressource));
-                    AddTerrainIndexes(ressource, currentNeighbor.ressource,ressource);
+               AddTriangle(currentBufferedCorner, newCurrentInnerCorner, newcurrentInnerInbetweenCorner);
+               AddTriangle(currentBufferedCorner, newcurrentInnerInbetweenCorner, currentInbetween);
+               AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
+               AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
+               AddTerrainIndexes(ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource), (currentNeighbor != null ? currentNeighbor.ressource : ressource));
+               AddTerrainIndexes(ressource, currentNeighbor.ressource, ressource);
 
-                    AddTriangle(currentInbetween, newcurrentInnerInbetweenCorner, newnextInnerInbetweenCorner);
-                    AddTriangle(currentInbetween, newnextInnerInbetweenCorner, nextInbetween);
-                    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
-                    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
-                    AddTerrainIndexes(ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource), (currentNeighbor != null ? currentNeighbor.ressource : ressource));
-                    AddTerrainIndexes(ressource, currentNeighbor.ressource, ressource);
+               AddTriangle(currentInbetween, newcurrentInnerInbetweenCorner, newnextInnerInbetweenCorner);
+               AddTriangle(currentInbetween, newnextInnerInbetweenCorner, nextInbetween);
+               AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
+               AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
+               AddTerrainIndexes(ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource), (currentNeighbor != null ? currentNeighbor.ressource : ressource));
+               AddTerrainIndexes(ressource, currentNeighbor.ressource, ressource);
 
-                    AddTriangle(nextInbetween, newnextInnerInbetweenCorner, newNextInnerCorner);
-                    AddTriangle(nextInbetween, newNextInnerCorner, nextBufferedCorner);
-                    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
-                    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
-                    AddTerrainIndexes(ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource), (currentNeighbor != null ? currentNeighbor.ressource : ressource));
-                    AddTerrainIndexes(ressource, currentNeighbor.ressource, ressource);
-
-                    if (i < 2 && currentNeighbor != null && nextNeighbor != null)
-                    {
-                        Vector3 newCurrentCorner = newNextInnerCorner;
-                        newCurrentCorner.y = 0;
-                        newCurrentCorner.y = currentNeighbor.transform.position.y - transform.position.y;
-                        Vector3 xDD = corners[i+1 == 5 ? 0 : i+1 + 1];
-                        Vector3 xDDDD = (xDD + nextCorner) * 0.5f * (1f - bufferRadius) * 2 + nextBufferedCorner;
-                        xDDDD.y = 0;
-                        xDDDD.y = nextNeighbor.transform.position.y - transform.position.y;
-
-
-
-                        AddTriangle(nextBufferedCorner, newCurrentCorner, xDDDD);
-                        AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor3);
-                        AddTerrainIndexes(ressource, currentNeighbor.ressource,nextNeighbor.ressource);
-
-
-                        //AddTriangle(nextBufferedCorner, nextInnerCorner, nextCorner);
-                        //AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor3);
-                        //AddTerrainIndexes(ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource), (nextNeighbor != null ? nextNeighbor.ressource : ressource));
-                    }
-                }
+               AddTriangle(nextInbetween, newnextInnerInbetweenCorner, newNextInnerCorner);
+               AddTriangle(nextInbetween, newNextInnerCorner, nextBufferedCorner);
+               AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
+               AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
+               AddTerrainIndexes(ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource), (currentNeighbor != null ? currentNeighbor.ressource : ressource));
+               AddTerrainIndexes(ressource, currentNeighbor.ressource, ressource);
 
 
             }
 
 
+            // big triangle
+            if (currentNeighbor != null && nextNeighbor != null && i < 2)
+            {
+                Vector3 newNextInnerCorner = (currentCorner + nextCorner) * 0.5f * (1f - bufferRadius) * 2 + nextBufferedCorner;
+                newNextInnerCorner.y = 0;
+                newNextInnerCorner.y = currentNeighbor.transform.position.y - transform.position.y;
+                Vector3 newCurrentCorner = newNextInnerCorner;
+                newCurrentCorner.y = 0;
+                newCurrentCorner.y = currentNeighbor.transform.position.y - transform.position.y;
+                Vector3 xDD = corners[i + 1 == 5 ? 0 : i + 1 + 1];
+                Vector3 xDDDD = (xDD + nextCorner) * 0.5f * (1f - bufferRadius) * 2 + nextBufferedCorner;
+                xDDDD.y = 0;
+                xDDDD.y = nextNeighbor.transform.position.y - transform.position.y;
 
 
 
+                AddTriangle(nextBufferedCorner, newCurrentCorner, xDDDD);
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor3);
+                AddTerrainIndexes(ressource, currentNeighbor.ressource, nextNeighbor.ressource);
 
+                //if (prevNeigbor == null)
+                //{
+                //    AddTriangle(nextBufferedCorner, nextInnerCorner, nextCorner);
+                //    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor3);
+                //    AddTerrainIndexes(ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource), (nextNeighbor != null ? nextNeighbor.ressource : ressource));
+                //}
+            }
+            //else/* (prevNeigbor == null || nextNeighbor == null || currentNeighbor == null)*/
+            //{
+            //    AddTriangle(currentBufferedCorner, currentCorner, currentInnerCorner);
+            //    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor3);
+            //    AddTerrainIndexes(ressource, ressource, ressource);
 
-
-            // triangles for the Corner of the Hexagon
-
+            //    AddTriangle(nextBufferedCorner, nextInnerCorner, nextCorner);
+            //    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor3);
+            //    AddTerrainIndexes(ressource, ressource, ressource);
+            //}
 
         }
+
+
+
+
+
+
+
+
+        // triangles for the Corner of the Hexagon
+
+
+
 
         pertulate(GridManager.Instance.mapSettings);
         mesh = new Mesh();
