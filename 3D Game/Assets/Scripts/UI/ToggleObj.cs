@@ -7,4 +7,5 @@ public class ToggleObj: ScriptableObject
 {
     public bool tooltip;
     public bool fullscreen;
+    public bool tutorial;
 }
