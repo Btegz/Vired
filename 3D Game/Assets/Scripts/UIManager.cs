@@ -62,7 +62,7 @@ public class UIManager : MonoBehaviour
 
 
 
-    private void EndTurn()
+    public void EndTurn()
     {
         EventManager.OnEndTurn();
     }

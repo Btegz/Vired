@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class MainMenu : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class MainMenu : MonoBehaviour
     public Button optionsButton;
     public Toggle tutorialToggle;
     public ToggleObj TutorialObj;
+    public Image Fade;
+ 
 
     public Button exitButton;
     // Start is called before the first frame update
@@ -47,7 +50,7 @@ public class MainMenu : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene("PlayerScene_");
+            StartCoroutine(LoadASync());
 
         }
 
@@ -90,5 +93,23 @@ public class MainMenu : MonoBehaviour
     public void OpenLink()
     {
         Application.OpenURL("https://itch.io/");
+    }
+
+    public IEnumerator LoadASync()
+    {
+       Color color = Fade.color;
+       
+        while (color.a <1)
+        {
+            color.a += 0.1f;
+            Fade.color = color;
+            yield return new WaitForSeconds(0.01f);
+        }
+
+        SceneManager.LoadSceneAsync("PlayerScene_");
+        yield return null;
+       
+        
+
     }
 }
