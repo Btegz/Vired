@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
+using UnityEngine.Audio;
 
 public class AbilityObjScript : MonoBehaviour
 {
@@ -27,6 +28,7 @@ public class AbilityObjScript : MonoBehaviour
     [SerializeField] GameObject particle_AbilityNegative;
 
     public AudioData abilityCast;
+    public AudioMixerGroup soundEffect;
 
 
     Camera cam;
@@ -306,7 +308,7 @@ public class AbilityObjScript : MonoBehaviour
             {
                 gridTile = GridManager.Instance.Grid[AbilityShapeLocation[i]];
                 UsingEffect(ability.Effects[i]);
-                AudioManager.Instance.PlaySoundAtLocation(abilityCast);
+                AudioManager.Instance.PlaySoundAtLocation(abilityCast, soundEffect);
             }
         }
         Payment();

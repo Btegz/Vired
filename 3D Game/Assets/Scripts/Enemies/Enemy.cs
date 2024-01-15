@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.Audio;
 
 public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -41,10 +42,11 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public AudioData death;
     public AudioData spawn;
+    public AudioMixerGroup soundEffect;
 
     private void Awake()
     {
-        AudioManager.Instance.PlaySoundAtLocation(spawn);
+        AudioManager.Instance.PlaySoundAtLocation(spawn, soundEffect);
     }
 
     [HideInInspector] public bool FirstAndLast = true;

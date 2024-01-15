@@ -279,21 +279,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac40004989043c74bac78dc94d695d48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 1
-  maxHealth: 2
   ressource: 1
+  axialLocation: {x: 0, y: 0}
+  currentHealth: 1
   AMAterial: {fileID: 2100000, guid: f322af3b23eab0e4f9ca33d57ebae51b, type: 2}
   BMAterial: {fileID: 2100000, guid: cf30434d96b99cd47817f528af90e0af, type: 2}
   CMAterial: {fileID: 2100000, guid: 0da39df4e276ef44db8201441b7fe7e5, type: 2}
   DMAterial: {fileID: 2100000, guid: bda476534781f754585d786a9142eba8, type: 2}
   HealthPointsLayout: {fileID: 7073082774712012848}
   HealthpointPrefab: {fileID: 4546101371875049633, guid: 653162b7ccefd14408d3d51e5851e964, type: 3}
-  healthpoints: []
+  SpawnJumpAnimationCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   Particle_EnemyDeath: {fileID: 260696148355967348, guid: 971d1dd4df5430645ae993043a70b5a8, type: 3}
+  maxHealth: 2
   SkillPointReward: 1
+  SpreadAmount: 0
+  everyXTurns: 0
   spreadbehaviours: []
-  axialLocation: {x: 0, y: 0}
-  audioData: {fileID: 0}
   death: {fileID: 11400000, guid: 52c5c7a45c8060342836570eb8ce113a, type: 2}
   spawn: {fileID: 11400000, guid: cf068642af0e61e4c879e07d4cb7df86, type: 2}
+  soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
   FirstAndLast: 1

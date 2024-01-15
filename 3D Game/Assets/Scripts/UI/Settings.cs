@@ -9,47 +9,93 @@ public class Settings : MonoBehaviour
 {
     [HideInInspector] public bool tooltip;
     public ToggleObj toggle;
-    public Toggle m_Toggle;
+    public Toggle FullScreenToggle;
+    public Toggle ToolTipToggle;
 
 
 
     public void Start()
     {
-        m_Toggle = GetComponent<Toggle>();
 
-    }
-    public void Tooltips()
-    {
-        if(m_Toggle.isOn)
+       
+        if (PlayerPrefs.HasKey("FullScreen"))
+        {
+            if (PlayerPrefs.GetInt("FullScreen") == 1)
+            {
+                Debug.Log(PlayerPrefs.GetInt("FullScreen"));
+                FullScreenToggle.isOn = true;
+            }
+
+            else
+            {
+                FullScreenToggle.isOn = false;
+            }
+        }
+
+        else
+        {
+            toggle.fullscreen = true;
+        }
+
+
+
+
+
+        if (PlayerPrefs.HasKey("ToolTip"))
+        {
+            if (PlayerPrefs.GetInt("ToolTip") == 1)
+            {
+                ToolTipToggle.isOn = true;
+            }
+
+            else
+            {
+                ToolTipToggle.isOn = false;
+            }
+
+        }
+        else
         {
             toggle.tooltip = true;
-           
+        }
+
+
+
+    }
+
+
+
+    public void Tooltips()
+    {
+        if (ToolTipToggle.isOn)
+        {
+            toggle.tooltip = true;
+            PlayerPrefs.SetInt("ToolTip", 1);
         }
 
         else
         {
             toggle.tooltip = false;
-           
+            PlayerPrefs.SetInt("ToolTip", 0);
+
         }
     }
 
     public void FullScreen()
     {
-        if(m_Toggle.isOn)
+        if (FullScreenToggle.isOn)
         {
             Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
-            toggle.tooltip = true;
-            
-
-
+            toggle.fullscreen = true;
+            PlayerPrefs.SetInt("FullScreen", 1);
 
         }
 
         else
         {
             Screen.fullScreenMode = FullScreenMode.Windowed;
-            
-            toggle.tooltip = false;
+            toggle.fullscreen = false;
+            PlayerPrefs.SetInt("FullScreen", 0);
 
         }
     }

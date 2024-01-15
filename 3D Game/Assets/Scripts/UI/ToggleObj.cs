@@ -6,4 +6,5 @@ using UnityEngine;
 public class ToggleObj: ScriptableObject
 {
     public bool tooltip;
+    public bool fullscreen;
 }

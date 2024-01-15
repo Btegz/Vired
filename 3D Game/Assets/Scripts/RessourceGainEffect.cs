@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Audio; 
 
 public class RessourceGainEffect : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class RessourceGainEffect : MonoBehaviour
     [SerializeField] UIParticle EffectAfterRessourceGain;
 
     public AudioData collectResource;
-
+    public AudioMixerGroup soundEffect;
     public void Initialize(Ressource ressource, Vector2 start, Vector2 goal)
     {
         transform.position = start;
@@ -34,7 +35,7 @@ public class RessourceGainEffect : MonoBehaviour
                 break;
         }
 
-        AudioManager.Instance.PlaySoundAtLocation(collectResource);
+        AudioManager.Instance.PlaySoundAtLocation(collectResource, soundEffect);
         transform.DOJump(goal, 200,1, 2f).OnComplete(()=> Destroy(gameObject));
 
         Invoke("completedRessourceGain", 1.5f);

@@ -7,6 +7,7 @@ using DG.Tweening;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.Audio; 
 
 public class PlayerManager : MonoBehaviour
 {
@@ -52,6 +53,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] AudioData movementSound;
     [SerializeField] AudioData noMovementSound;
     [SerializeField] AudioData switchPlayer;
+    [SerializeField] AudioMixerGroup soundEffect;
 
     private void Awake()
     {
@@ -180,7 +182,7 @@ public class PlayerManager : MonoBehaviour
                     {
                         selectedPlayer.gameObject.transform.GetChild(0).transform.DOComplete();
                         selectedPlayer.gameObject.transform.GetChild(0).transform.DOPunchRotation(new Vector3(10f, 2f), 1f);
-                        AudioManager.Instance.PlaySoundAtLocation(noMovementSound);
+                        AudioManager.Instance.PlaySoundAtLocation(noMovementSound, soundEffect);
                     }
                     // saves the Grid Tile Location that was clicked
 
@@ -205,7 +207,7 @@ public class PlayerManager : MonoBehaviour
                             {
                                 selectedPlayer.gameObject.transform.GetChild(0).transform.DOComplete();
                                 selectedPlayer.gameObject.transform.GetChild(0).transform.DOPunchRotation(new Vector3(10f, 2f), .5f);
-                                AudioManager.Instance.PlaySoundAtLocation(noMovementSound);
+                                AudioManager.Instance.PlaySoundAtLocation(noMovementSound, soundEffect);
                             }
 
                         }
@@ -503,7 +505,7 @@ public class PlayerManager : MonoBehaviour
     {
         
         CameraRotation.Instance.MainCam = true;
-        AudioManager.Instance.PlaySoundAtLocation(switchPlayer);
+        AudioManager.Instance.PlaySoundAtLocation(switchPlayer, soundEffect);
         PlayerManager.Instance.selectedPlayer = player/*PlayerManager.Instance.Players[(int)keyPressed]*/;
         // EventManager.OnSelectPlayer(selectedPlayer);
 
@@ -517,7 +519,7 @@ public class PlayerManager : MonoBehaviour
     }
     public void Audio(Player player)
     {
-        AudioManager.Instance.PlaySoundAtLocation(movementSound);
+        AudioManager.Instance.PlaySoundAtLocation(movementSound, soundEffect);
     }
 
    

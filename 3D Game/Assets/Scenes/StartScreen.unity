@@ -1186,6 +1186,7 @@ GameObject:
   - component: {fileID: 434757647}
   - component: {fileID: 434757646}
   - component: {fileID: 434757645}
+  - component: {fileID: 434757648}
   m_Layer: 5
   m_Name: Resolution
   m_TagString: Untagged
@@ -1209,7 +1210,7 @@ RectTransform:
   - {fileID: 1068183212}
   - {fileID: 612396552}
   m_Father: {fileID: 612200484}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1266,15 +1267,29 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: RESOLUTION A
+    - m_Text: 1920x1080
       m_Image: {fileID: 0}
-    - m_Text: RESOLUTION B
+    - m_Text: "1366\xD7768"
       m_Image: {fileID: 0}
-    - m_Text: RESOLUTION C
+    - m_Text: "1280\xD71024"
+      m_Image: {fileID: 0}
+    - m_Text: "1024\xD7768"
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 434757648}
+        m_TargetAssemblyTypeName: ResolutionSettings, Assembly-CSharp
+        m_MethodName: SelectResolution
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &434757646
 MonoBehaviour:
@@ -1314,6 +1329,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 434757643}
   m_CullTransparentMesh: 1
+--- !u!114 &434757648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434757643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b10c8b28955554e4e8c2a220ecf19e30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resolutionDropdown: {fileID: 434757645}
+  toggle: {fileID: 11400000, guid: b26883afc847138448253bde9e9a7be4, type: 2}
 --- !u!1 &435502845
 GameObject:
   m_ObjectHideFlags: 0
@@ -1537,7 +1566,7 @@ RectTransform:
   - {fileID: 1490752752}
   - {fileID: 551069323}
   m_Father: {fileID: 612200484}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1588,13 +1617,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 1977260997}
   m_HandleRect: {fileID: 1223257633}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: -80
+  m_MaxValue: 0
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 612200486}
+        m_TargetAssemblyTypeName: AudioSettings, Assembly-CSharp
+        m_MethodName: UpdateSFXVol
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &551069322
 GameObject:
   m_ObjectHideFlags: 0
@@ -1797,6 +1838,7 @@ GameObject:
   - component: {fileID: 612200482}
   - component: {fileID: 612200481}
   - component: {fileID: 612200485}
+  - component: {fileID: 612200486}
   m_Layer: 5
   m_Name: OptionsCanvas
   m_TagString: Untagged
@@ -1879,8 +1921,7 @@ RectTransform:
   m_Children:
   - {fileID: 977217667}
   - {fileID: 343012373}
-  - {fileID: 1673098185}
-  - {fileID: 1121212556}
+  - {fileID: 1254163440}
   - {fileID: 1896007685}
   - {fileID: 535576585}
   - {fileID: 654398894}
@@ -1908,6 +1949,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenuCanvas: {fileID: 338558017}
   backButton: {fileID: 761566623}
+--- !u!114 &612200486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 612200480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fe717d9776bf6346ab4df413756f55a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MasterSlider: {fileID: 1896007686}
+  MusicSlider: {fileID: 654398895}
+  SFXSlider: {fileID: 535576586}
+  mixer: {fileID: 24100000, guid: f968f047218700b4eb7d423e27558171, type: 2}
 --- !u!1 &612396551
 GameObject:
   m_ObjectHideFlags: 0
@@ -2339,7 +2396,7 @@ RectTransform:
   - {fileID: 1191510086}
   - {fileID: 1476852334}
   m_Father: {fileID: 612200484}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2390,13 +2447,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 289035218}
   m_HandleRect: {fileID: 1052661096}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: -80
+  m_MaxValue: 0
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 612200486}
+        m_TargetAssemblyTypeName: AudioSettings, Assembly-CSharp
+        m_MethodName: UpdateMusicVol
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &663186387
 GameObject:
   m_ObjectHideFlags: 0
@@ -2863,7 +2932,7 @@ RectTransform:
   m_Children:
   - {fileID: 1174597872}
   m_Father: {fileID: 612200484}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3304,7 +3373,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: RESOLUTION A
+  m_text: 1920x1080
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0e31a361bdd593f4c9cbe3da5f5a6492, type: 2}
   m_sharedMaterial: {fileID: 2082452596591558156, guid: 0e31a361bdd593f4c9cbe3da5f5a6492, type: 2}
@@ -3754,7 +3823,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1121212556}
   - component: {fileID: 1121212557}
-  - component: {fileID: 1121212558}
   m_Layer: 5
   m_Name: FullscreenToggle
   m_TagString: Untagged
@@ -3769,19 +3837,19 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1121212555}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 16.643906}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 628225738}
   - {fileID: 147576579}
-  m_Father: {fileID: 612200484}
-  m_RootOrder: 3
+  m_Father: {fileID: 1254163440}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -417, y: 114}
+  m_AnchoredPosition: {x: -515.0376, y: 111.30939}
   m_SizeDelta: {x: 63.4933, y: 57.1552}
   m_Pivot: {x: 0.50000024, y: 0.49999988}
 --- !u!114 &1121212557
@@ -3831,7 +3899,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1121212558}
+      - m_Target: {fileID: 1254163439}
         m_TargetAssemblyTypeName: Settings, Assembly-CSharp
         m_MethodName: FullScreen
         m_Mode: 1
@@ -3844,21 +3912,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 1
---- !u!114 &1121212558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1121212555}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 130ddadb5e365a64d8528edc8ee72563, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tooltip: 0
-  toggle: {fileID: 11400000, guid: c87278370102ef84b8e7ff4e4f0e7700, type: 2}
-  m_Toggle: {fileID: 1121212557}
 --- !u!1 &1174597871
 GameObject:
   m_ObjectHideFlags: 0
@@ -4198,6 +4251,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1223257632}
   m_CullTransparentMesh: 1
+--- !u!1 &1254163438
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1254163440}
+  - component: {fileID: 1254163439}
+  m_Layer: 0
+  m_Name: Toggle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1254163439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1254163438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 130ddadb5e365a64d8528edc8ee72563, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltip: 0
+  toggle: {fileID: 11400000, guid: b26883afc847138448253bde9e9a7be4, type: 2}
+  FullScreenToggle: {fileID: 1121212557}
+  ToolTipToggle: {fileID: 1673098187}
+--- !u!4 &1254163440
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1254163438}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 98.0376, y: 2.6906128, z: -16.643906}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1673098185}
+  - {fileID: 1121212556}
+  m_Father: {fileID: 612200484}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1295189619
 GameObject:
   m_ObjectHideFlags: 0
@@ -4908,7 +5011,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1673098185}
   - component: {fileID: 1673098187}
-  - component: {fileID: 1673098188}
   m_Layer: 5
   m_Name: TooltipToggle
   m_TagString: Untagged
@@ -4923,19 +5025,19 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1673098184}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 16.643906}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 292352776}
   - {fileID: 1295189620}
-  m_Father: {fileID: 612200484}
-  m_RootOrder: 2
+  m_Father: {fileID: 1254163440}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 177, y: 114}
+  m_AnchoredPosition: {x: 78.9624, y: 111.30939}
   m_SizeDelta: {x: 63.4933, y: 57.1552}
   m_Pivot: {x: 0.50000024, y: 0.49999988}
 --- !u!114 &1673098187
@@ -4985,7 +5087,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1673098188}
+      - m_Target: {fileID: 1254163439}
         m_TargetAssemblyTypeName: Settings, Assembly-CSharp
         m_MethodName: Tooltips
         m_Mode: 1
@@ -4998,21 +5100,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 1
---- !u!114 &1673098188
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1673098184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 130ddadb5e365a64d8528edc8ee72563, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tooltip: 0
-  toggle: {fileID: 11400000, guid: b26883afc847138448253bde9e9a7be4, type: 2}
-  m_Toggle: {fileID: 1673098187}
 --- !u!1 &1684416043
 GameObject:
   m_ObjectHideFlags: 0
@@ -5451,7 +5538,7 @@ RectTransform:
   - {fileID: 435947928}
   - {fileID: 2024842470}
   m_Father: {fileID: 612200484}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5502,13 +5589,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 1448058639}
   m_HandleRect: {fileID: 573812914}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: -80
+  m_MaxValue: 0
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 612200486}
+        m_TargetAssemblyTypeName: AudioSettings, Assembly-CSharp
+        m_MethodName: UpdateMasterVol
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1977260996
 GameObject:
   m_ObjectHideFlags: 0

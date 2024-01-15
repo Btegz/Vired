@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 [CreateAssetMenu(fileName = "GS_Pofl", menuName = "GridStates/GS_Pofl")]
 
@@ -9,6 +10,7 @@ public class GS_Pofl : GridState
     [SerializeField] GameObject PointOfInterest;
     [SerializeField] public GameObject pofi;
     public AudioData PofISound;
+    public AudioMixerGroup soundEffect;
  
     public override GridState CurrentState()
     {
@@ -32,7 +34,7 @@ public class GS_Pofl : GridState
         pofi = Instantiate(PointOfInterest, PointOfInterest.transform.position, Quaternion.identity);
         parent.ChangeCurrentState(GridManager.Instance.gS_Neutral);
         Destroy(parent.gameObject.GetComponentInChildren<PofIVisuals>().gameObject);
-        AudioManager.Instance.PlaySoundAtLocation(PofISound);
+        AudioManager.Instance.PlaySoundAtLocation(PofISound, soundEffect);
         
        
   
