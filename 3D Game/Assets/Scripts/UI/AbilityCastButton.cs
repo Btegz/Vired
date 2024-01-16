@@ -7,16 +7,31 @@ using UnityEngine.UI;
 
 public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
+    public Image AbilityButtonImage;
+    private Color color;
+
+   
+    
     public void AssignAbility(Player player)
     {
         if (player.AbilityInventory.Count > index)
         {
             ability = player.AbilityInventory[index];
+
+            color.a = 1f;
+            AbilityButtonImage.GetComponent<Image>().color = color;
+
             MakeAbilityToGrid();
             CorrectBackground();
         }
         else
         {
+            ability = null;
+            color.a = 0.2f;
+            AbilityButtonImage.GetComponent<Image>().color = color;
+
+
+
             ResetButton();
         }
     }
@@ -26,10 +41,16 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
         try
         {
             ability = PlayerManager.Instance.selectedPlayer.AbilityInventory[index];
+            color.a = 1f;
+            AbilityButtonImage.GetComponent<Image>().color = color;
+
+
         }
         catch
         {
             ability = null;
+            color.a = 0.2f;
+            AbilityButtonImage.GetComponent<Image>().color = color;
             UpgradeGridHex[] children = GetComponentsInChildren<UpgradeGridHex>();
             foreach (UpgradeGridHex rt in children)
             {
@@ -55,6 +76,8 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
     // Start is called before the first frame update
     void Start()
     {
+        color = AbilityButtonImage.GetComponent<Image>().color;
+       
         RectData();
         currentState = ButtonState.inMainScene;
         EventManager.AbilityUpgradeEvent += ChangeCurrentState;
@@ -72,15 +95,15 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
         }
         if (!PlayerManager.Instance.InventoryCheck(ability, PlayerManager.Instance.selectedPlayer) && currentState == ButtonState.inMainScene)
         {
-            InfoTextPopUp newthing = Instantiate(infoTextPopUp, transform.position+Vector3.up*100, Quaternion.identity, UIManager.Instance.transform);
+            InfoTextPopUp newthing = Instantiate(infoTextPopUp, transform.position + Vector3.up * 100, Quaternion.identity, UIManager.Instance.transform);
             newthing.Text = "Not enough Ressource";
             RectTransform thisRectT = GetComponent<RectTransform>();
             thisRectT.DOComplete();
             thisRectT.DOPunchRotation(Vector3.back * 30, .25f).SetEase(Ease.OutExpo);
             return;
         }
-        EventManager.OnAbilityButtonClicked(ability,this);
-        
+        EventManager.OnAbilityButtonClicked(ability, this);
+
     }
 
     private void OnDestroy()
@@ -88,7 +111,7 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
         GetComponent<Button>().onClick.RemoveListener(clicked);
         EventManager.OnSelectPlayerEvent -= AssignAbility;
         EventManager.OnConfirmButtonEvent -= AssignAbility;
-        EventManager.AbilityChangeEvent -= UpdateUI; 
+        EventManager.AbilityChangeEvent -= UpdateUI;
         EventManager.AbilityUpgradeEvent -= ChangeCurrentState;
 
     }
@@ -124,7 +147,7 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
                 currentRessourceTextHighlight = UIManager.Instance.ressourceDText.gameObject;
                 break;
         }
-        foreach(RessourceHighlight rsh in currentRessourceTextHighlight.GetComponentsInChildren<RessourceHighlight>())
+        foreach (RessourceHighlight rsh in currentRessourceTextHighlight.GetComponentsInChildren<RessourceHighlight>())
         {
             Destroy(rsh.gameObject);
         }

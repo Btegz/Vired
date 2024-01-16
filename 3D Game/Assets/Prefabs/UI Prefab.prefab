@@ -6119,7 +6119,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -50.7, y: -20}
+  m_AnchoredPosition: {x: -50.69995, y: -20}
   m_SizeDelta: {x: 147.0726, y: 40}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &169293088854044433
@@ -7077,10 +7077,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b19911b8687a49b409a8f25ecafd0fec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  glitchMaterial: {fileID: 0}
-  turnNextButton: {fileID: 0}
-  animation: {fileID: 0}
-  AnimationName: 
 --- !u!114 &7897673576255284102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8157,7 +8153,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8295,9 +8291,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 69d5fc3809817a74c974f1fb75bc93e2, type: 3}
   m_Type: 0
-  m_PreserveAspect: 1
+  m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -8330,7 +8326,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -8344,7 +8340,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 2002894708632550059}
   m_OnClick:
     m_PersistentCalls:
@@ -8390,6 +8386,7 @@ MonoBehaviour:
   currentState: 0
   HexSizePerButtonSize: 0.5
   HexSizeFactorPerAbilityTielevel: 1
+  AbilityButtonImage: {fileID: 2002894708632550059}
 --- !u!1 &2037233386029073250
 GameObject:
   m_ObjectHideFlags: 0
@@ -8718,7 +8715,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 250, y: 16.76}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &2650253814633137797
 CanvasRenderer:
@@ -9159,10 +9156,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b19911b8687a49b409a8f25ecafd0fec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  glitchMaterial: {fileID: 0}
-  turnNextButton: {fileID: 0}
-  animation: {fileID: 0}
-  AnimationName: 
 --- !u!114 &2432420646166305474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9426,10 +9419,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b19911b8687a49b409a8f25ecafd0fec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  glitchMaterial: {fileID: 0}
-  turnNextButton: {fileID: 0}
-  animation: {fileID: 0}
-  AnimationName: 
 --- !u!114 &2269614090072110422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9984,10 +9973,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b19911b8687a49b409a8f25ecafd0fec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  glitchMaterial: {fileID: 0}
-  turnNextButton: {fileID: 0}
-  animation: {fileID: 0}
-  AnimationName: 
 --- !u!114 &1545810984031351723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10239,10 +10224,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b19911b8687a49b409a8f25ecafd0fec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  glitchMaterial: {fileID: 0}
-  turnNextButton: {fileID: 0}
-  animation: {fileID: 0}
-  AnimationName: 
 --- !u!1 &2968583536126572423
 GameObject:
   m_ObjectHideFlags: 0
@@ -10660,10 +10641,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b19911b8687a49b409a8f25ecafd0fec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  glitchMaterial: {fileID: 0}
-  turnNextButton: {fileID: 0}
-  animation: {fileID: 0}
-  AnimationName: 
 --- !u!1 &3107051755108409274
 GameObject:
   m_ObjectHideFlags: 0
@@ -12331,9 +12308,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 69d5fc3809817a74c974f1fb75bc93e2, type: 3}
   m_Type: 0
-  m_PreserveAspect: 1
+  m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -12366,7 +12343,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -12380,7 +12357,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 4134337856932185950}
   m_OnClick:
     m_PersistentCalls:
@@ -12426,6 +12403,7 @@ MonoBehaviour:
   currentState: 0
   HexSizePerButtonSize: 0.5
   HexSizeFactorPerAbilityTielevel: 1
+  AbilityButtonImage: {fileID: 4134337856932185950}
 --- !u!1 &4134337857578439920
 GameObject:
   m_ObjectHideFlags: 0
@@ -12492,7 +12470,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 2
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -12832,10 +12810,10 @@ RectTransform:
   m_Father: {fileID: 6912127494266798424}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 33.49, y: 16.76}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &8712694755200758104
 CanvasRenderer:
@@ -13552,9 +13530,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 69d5fc3809817a74c974f1fb75bc93e2, type: 3}
   m_Type: 0
-  m_PreserveAspect: 1
+  m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -13587,7 +13565,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -13601,7 +13579,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 4538530394703057303}
   m_OnClick:
     m_PersistentCalls:
@@ -13635,6 +13613,7 @@ MonoBehaviour:
   currentState: 0
   HexSizePerButtonSize: 0.5
   HexSizeFactorPerAbilityTielevel: 1
+  AbilityButtonImage: {fileID: 4538530394703057303}
 --- !u!1 &4538530395170807994
 GameObject:
   m_ObjectHideFlags: 0
@@ -13939,7 +13918,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -14260,7 +14239,6 @@ GameObject:
   - component: {fileID: 4538530396139239050}
   - component: {fileID: 4538530396139239048}
   - component: {fileID: 24578479646073167}
-  - component: {fileID: 6730061812139154239}
   m_Layer: 5
   m_Name: AbilitiesInventory
   m_TagString: Untagged
@@ -14313,18 +14291,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Header: Ability inventory
   Content: Character specific abilities.
---- !u!114 &6730061812139154239
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4538530396139239093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e63492142a576774e8441cf7f94d5d5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4538530396214441110
 GameObject:
   m_ObjectHideFlags: 0
@@ -14339,6 +14305,9 @@ GameObject:
   - component: {fileID: 4538530396214441108}
   - component: {fileID: 6186749682237235818}
   - component: {fileID: 6008533814453426191}
+  - component: {fileID: 1239626426}
+  - component: {fileID: 2039975451528054993}
+  - component: {fileID: 1239626427}
   m_Layer: 5
   m_Name: TriggerPhaseButton
   m_TagString: Untagged
@@ -14387,7 +14356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 1dfa7297b0440974890e9ee0573a1765, type: 2}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -14395,7 +14364,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: c816de876cf567c4586b77f7a2985d21, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -14424,7 +14393,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -14473,10 +14442,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b19911b8687a49b409a8f25ecafd0fec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  glitchMaterial: {fileID: 0}
-  turnNextButton: {fileID: 0}
-  animation: {fileID: 0}
-  AnimationName: 
 --- !u!114 &6008533814453426191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14491,6 +14456,57 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Header: Turn button
   Content: Trigger next turn.
+--- !u!111 &1239626426
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4538530396214441110}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 787c1610aec3136499363289b6c0f70a, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 787c1610aec3136499363289b6c0f70a, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!114 &2039975451528054993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4538530396214441110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6386c5567d921ec449ec2b26651aa52e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animation: {fileID: 1239626427}
+  AnimationName: NextTurn
+--- !u!95 &1239626427
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4538530396214441110}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f075b008a49c69240ac4d6c4cb64fc02, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4538530396338077439
 GameObject:
   m_ObjectHideFlags: 0
@@ -14832,10 +14848,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b19911b8687a49b409a8f25ecafd0fec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  glitchMaterial: {fileID: 0}
-  turnNextButton: {fileID: 0}
-  animation: {fileID: 0}
-  AnimationName: 
 --- !u!114 &1857191942567855069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20278,7 +20290,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Next turn
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
   m_sharedMaterial: {fileID: 1570920318045738271, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
