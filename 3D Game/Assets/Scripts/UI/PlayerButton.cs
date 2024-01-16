@@ -7,6 +7,10 @@ using UnityEngine.EventSystems;
 public class PlayerButton : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] public Player player;
+   
+   
+
+
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -22,4 +26,6 @@ public class PlayerButton : MonoBehaviour, IPointerClickHandler
             EventManager.OnSelectPlayer(player);
         }
     }
+
+    
 }
