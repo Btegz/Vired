@@ -51,6 +51,8 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     const float outerRadius = 1f;
     const float innerRadius = outerRadius * 0.866025404f;
 
+    List<GridTile> myNeighbors;
+
 
     List<Vector3> corners = new List<Vector3>()
     {
@@ -129,100 +131,13 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         EventManager.OnEndTurnEvent -= neutralRegeneration;
     }
 
-    /// <summary>
-    /// Sets up the Tile. Should allway be called when instantiating the Tile.
-    /// </summary>
-    /// <param name="cellCoordinate">Axial Coordinate in the the Grid.</param>
-    /// <param name="resource">Type of Ressource for the Tile.</param>
-    /// <param name="gridstate">The Gridstate to start with.</param>
-    public void Setup(Vector2Int cellCoordinate, GridTileSO gridTileSO, GridState gridstate, bool withWalls)
-    {
-
-
-        this.withWalls = withWalls;
-        this.gridTileSO = gridTileSO;
-        meshCollider = GetComponent<MeshCollider>();
-        meshFilter = GetComponent<MeshFilter>();
-        meshRenderer = GetComponent<MeshRenderer>();
-        mesh = new Mesh();
-        mesh.name = $"Hex{cellCoordinate.x},{cellCoordinate.y}";
-
-        this.AxialCoordinate = cellCoordinate;
-        this.ressource = gridTileSO.ressource;
-        this.currentGridState = gridstate;
-        switch (gridstate)
-        {
-            case GS_positive:
-                switch (ressource)
-                {
-                    case Ressource.ressourceA:
-                        meshRenderer.material = gridTileSO.resourceAMaterial;
-                        ressource = Ressource.ressourceA;
-                        break;
-                    case Ressource.ressourceB:
-                        meshRenderer.material = gridTileSO.resourceBMaterial;
-                        ressource = Ressource.ressourceB;
-                        break;
-                    case Ressource.ressourceC:
-                        meshRenderer.material = gridTileSO.resourceCMaterial;
-                        ressource = Ressource.ressourceC;
-                        break;
-                    case Ressource.ressourceD:
-                        meshRenderer.material = gridTileSO.resourceDMaterial;
-                        ressource = Ressource.ressourceD;
-                        break;
-                }
-                break;
-            case GS_neutral: meshRenderer.material = gridTileSO.neutralMaterial; break;
-            case GS_negative: meshRenderer.material = gridTileSO.negativeMaterial; break;
-            case GS_Enemy: meshRenderer.material = gridTileSO.negativeMaterial; SpawnEnemy(); break;
-            case GS_Boss: meshRenderer.material = gridTileSO.negativeMaterial; SpawnEnemy(); break;
-            case GS_BossNegative: meshRenderer.material = gridTileSO.negativeMaterial; break;
-            case GS_Pofl: meshRenderer.material = gridTileSO.PofIMaterial; break;
-        }
-
-        meshFilter.mesh = DrawMesh();
-
-
-    }
+   
 
     public void HighlightEnemySpreadPrediction()
     {
-        Instantiate(enemySpreadTileHighlightPrefab, transform.position, Quaternion.identity, transform);
+        Instantiate(enemySpreadTileHighlightPrefab, transform.localPosition, Quaternion.identity, transform);
     }
 
-    public void Setup(Vector2Int cellCoordinate, GridTileSO gridTileSO, bool withWalls)
-    {
-        this.withWalls = withWalls;
-        this.gridTileSO = gridTileSO;
-        meshCollider = GetComponent<MeshCollider>();
-        meshFilter = GetComponent<MeshFilter>();
-        meshRenderer = GetComponent<MeshRenderer>();
-        mesh = new Mesh();
-        mesh.name = "Hex";
-        meshFilter.mesh = mesh;
-
-        AxialCoordinate = cellCoordinate;
-        this.ressource = gridTileSO.ressource;
-        //gridStateString = this.currentGridState.ToString();
-        switch (ressource)
-        {
-            case Ressource.ressourceA:
-                meshRenderer.material = gridTileSO.resourceAMaterial;
-                break;
-            case Ressource.ressourceB:
-                meshRenderer.material = gridTileSO.resourceBMaterial;
-                break;
-            case Ressource.ressourceC:
-                meshRenderer.material = gridTileSO.resourceCMaterial;
-                break;
-            case Ressource.ressourceD:
-                meshRenderer.material = gridTileSO.resourceDMaterial;
-                break;
-        }
-
-        DrawMesh();
-    }
 
     public void Setup(Vector2Int coordinate, Ressource ressource, bool withWalls)
     {
@@ -263,6 +178,26 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
         currentGridState = newState;
         currentGridState.EnterState(this);
+        try
+        {
+            RecalculateTerrain();
+            if (myNeighbors == null)
+            {
+                return;
+            }
+            Debug.Log($"--------------------------------------------------------------------\n I am Tile {AxialCoordinate}");
+            foreach (GridTile neighbor in myNeighbors)
+            {
+                Debug.Log($"my Neighbor: {neighbor.AxialCoordinate}");
+                neighbor.RecalculateTerrain();
+            }
+        }
+        catch
+        {
+            Debug.Log("I f'ed up somewhere");
+        }
+        
+
     }
 
     // UTILITY STUFF ----------------------------------------------------------------------------------------------------------------
@@ -278,13 +213,8 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             Enemy newEnemy = Instantiate(gridManagerInstance.StartEnemyPrefabs[Random.Range(0, gridManagerInstance.StartEnemyPrefabs.Count)]);
             newEnemy.Setup(/*gridManagerInstance.enemySOs[Random.Range(0, gridManagerInstance.enemySOs.Count)], */this);
             newEnemy.transform.parent = transform;
-            newEnemy.transform.position = transform.position;
+            newEnemy.transform.localPosition = transform.localPosition;
         }
-    }
-
-    private void OnValidate()
-    {
-        Debug.Log("HAllo Welt");
     }
 
     // MESH TILE STUFF --------------------------------------------------------------------------------------------------------------
@@ -366,8 +296,8 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
             if (currentNeighbor != null)
             {
-                currentInnerCorner.y = (transform.position.y + currentNeighbor.transform.position.y) / 2f - transform.position.y;
-                nextInnerCorner.y = (transform.position.y + currentNeighbor.transform.position.y) / 2f - transform.position.y;
+                currentInnerCorner.y = (transform.localPosition.y + currentNeighbor.transform.localPosition.y) / 2f - transform.localPosition.y;
+                nextInnerCorner.y = (transform.localPosition.y + currentNeighbor.transform.localPosition.y) / 2f - transform.localPosition.y;
                 currentInbetween.y = Mathf.Lerp(currentBufferedCorner.y, nextBufferedCorner.y, 1f / 3f);
                 nextInbetween.y = Mathf.Lerp(currentBufferedCorner.y, nextBufferedCorner.y, 2f / 3f);
                 currentInnerInbetweenCorner.y = Mathf.Lerp(currentInnerCorner.y, nextInnerCorner.y, 1f / 3f);
@@ -376,53 +306,53 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             }
             //else
             //{
-            //    nextInnerCorner.y = transform.position.y;
+            //    nextInnerCorner.y = transform.localPosition.y;
             //}
             if (prevNeigbor != null && currentNeighbor != null)
             {
-                currentCorner.y = (transform.position.y + prevNeigbor.transform.position.y + currentNeighbor.transform.position.y) / 3f - transform.position.y;
+                currentCorner.y = (transform.localPosition.y + prevNeigbor.transform.localPosition.y + currentNeighbor.transform.localPosition.y) / 3f - transform.localPosition.y;
             }
             else if (prevNeigbor != null && currentNeighbor == null)
             {
-                currentCorner.y = (transform.position.y + prevNeigbor.transform.position.y) / 2f - transform.position.y;
+                currentCorner.y = (transform.localPosition.y + prevNeigbor.transform.localPosition.y) / 2f - transform.localPosition.y;
             }
             else if (currentNeighbor != null && prevNeigbor == null)
             {
-                currentCorner.y = (transform.position.y + currentNeighbor.transform.position.y) / 2f - transform.position.y;
+                currentCorner.y = (transform.localPosition.y + currentNeighbor.transform.localPosition.y) / 2f - transform.localPosition.y;
             }
             //else
             //{
-            //    currentCorner.y = transform.position.y;
+            //    currentCorner.y = transform.localPosition.y;
             //}
             if (currentNeighbor != null && nextNeighbor != null)
             {
-                nextCorner.y = (transform.position.y + currentNeighbor.transform.position.y + nextNeighbor.transform.position.y) / 3f - transform.position.y;
+                nextCorner.y = (transform.localPosition.y + currentNeighbor.transform.localPosition.y + nextNeighbor.transform.localPosition.y) / 3f - transform.localPosition.y;
             }
             else if (currentNeighbor != null && nextNeighbor == null)
             {
-                nextCorner.y = (transform.position.y + currentNeighbor.transform.position.y) / 2f - transform.position.y;
+                nextCorner.y = (transform.localPosition.y + currentNeighbor.transform.localPosition.y) / 2f - transform.localPosition.y;
             }
             else if (currentNeighbor == null && nextNeighbor != null)
             {
-                nextCorner.y = (transform.position.y + nextNeighbor.transform.position.y) / 2f - transform.position.y;
+                nextCorner.y = (transform.localPosition.y + nextNeighbor.transform.localPosition.y) / 2f - transform.localPosition.y;
             }
             //else
             //{
-            //    nextCorner.y = transform.position.y;
+            //    nextCorner.y = transform.localPosition.y;
             //}
 
 
 
-            // inner triangle
+            // inner triangles
             AddTriangle(Vector3.zero, currentBufferedCorner, currentInbetween);
             AddTriangle(Vector3.zero, currentInbetween, nextInbetween);
             AddTriangle(Vector3.zero, nextInbetween, nextBufferedCorner);
             AddTriangleColors(SplatMapColor1, SplatMapColor1, SplatMapColor1);
             AddTriangleColors(SplatMapColor1, SplatMapColor1, SplatMapColor1);
             AddTriangleColors(SplatMapColor1, SplatMapColor1, SplatMapColor1);
-            AddTerrainIndexes(ressource, ressource, ressource);
-            AddTerrainIndexes(ressource, ressource, ressource);
-            AddTerrainIndexes(ressource, ressource, ressource);
+            AddTerrainIndexes(this, this, this);
+            AddTerrainIndexes(this, this, this);
+            AddTerrainIndexes(this, this, this);
 
             // the Quads combining two adjacent hexes or form the outer line
             //if (currentNeighbor == null)
@@ -449,76 +379,127 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             //    AddTerrainIndexes(ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource), (currentNeighbor != null ? currentNeighbor.ressource : ressource));
             //    AddTerrainIndexes(ressource, ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource));
             //}
-            /*//else */if (i < 3 && currentNeighbor != null)
+            /*//else */
+
+            // Bridge Triangles to directly adjacent Neighbors
+            if (i < 3 && currentNeighbor != null)
             {
-               // big bridge
-               Vector3 newCurrentInnerCorner = (currentCorner + nextCorner) * 0.5f * (1f - bufferRadius) * 2 + currentBufferedCorner;
-               newCurrentInnerCorner.y = 0;
-               newCurrentInnerCorner.y = currentNeighbor.transform.position.y - transform.position.y;
-               Vector3 newNextInnerCorner = (currentCorner + nextCorner) * 0.5f * (1f - bufferRadius) * 2 + nextBufferedCorner;
-               newNextInnerCorner.y = 0;
-               newNextInnerCorner.y = currentNeighbor.transform.position.y - transform.position.y;
-               Vector3 newcurrentInnerInbetweenCorner = Vector3.Lerp(newCurrentInnerCorner, newNextInnerCorner, 1f / 3f);
-               newcurrentInnerInbetweenCorner.y = 0;
-               newcurrentInnerInbetweenCorner.y = Mathf.Lerp(newCurrentInnerCorner.y, newNextInnerCorner.y, 1f / 3f);
-               Vector3 newnextInnerInbetweenCorner = Vector3.Lerp(newCurrentInnerCorner, newNextInnerCorner, 2f / 3f);
-               newnextInnerInbetweenCorner.y = 0;
-               newnextInnerInbetweenCorner.y = Mathf.Lerp(newCurrentInnerCorner.y, newNextInnerCorner.y, 2f / 3f);
+                // big bridge
+                Vector3 newCurrentInnerCorner = (currentCorner + nextCorner) * 0.5f * (1f - bufferRadius) * 2 + currentBufferedCorner;
+                newCurrentInnerCorner.y = 0;
+                newCurrentInnerCorner.y = currentNeighbor.transform.localPosition.y - transform.localPosition.y;
+                Vector3 newNextInnerCorner = (currentCorner + nextCorner) * 0.5f * (1f - bufferRadius) * 2 + nextBufferedCorner;
+                newNextInnerCorner.y = 0;
+                newNextInnerCorner.y = currentNeighbor.transform.localPosition.y - transform.localPosition.y;
+                Vector3 newcurrentInnerInbetweenCorner = Vector3.Lerp(newCurrentInnerCorner, newNextInnerCorner, 1f / 3f);
+                newcurrentInnerInbetweenCorner.y = 0;
+                newcurrentInnerInbetweenCorner.y = Mathf.Lerp(newCurrentInnerCorner.y, newNextInnerCorner.y, 1f / 3f);
+                Vector3 newnextInnerInbetweenCorner = Vector3.Lerp(newCurrentInnerCorner, newNextInnerCorner, 2f / 3f);
+                newnextInnerInbetweenCorner.y = 0;
+                newnextInnerInbetweenCorner.y = Mathf.Lerp(newCurrentInnerCorner.y, newNextInnerCorner.y, 2f / 3f);
 
 
-               AddTriangle(currentBufferedCorner, newCurrentInnerCorner, newcurrentInnerInbetweenCorner);
-               AddTriangle(currentBufferedCorner, newcurrentInnerInbetweenCorner, currentInbetween);
-               AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
-               AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
-               AddTerrainIndexes(ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource), (currentNeighbor != null ? currentNeighbor.ressource : ressource));
-               AddTerrainIndexes(ressource, currentNeighbor.ressource, ressource);
+                AddTriangle(currentBufferedCorner, newCurrentInnerCorner, newcurrentInnerInbetweenCorner);
+                AddTriangle(currentBufferedCorner, newcurrentInnerInbetweenCorner, currentInbetween);
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
+                AddTerrainIndexes(this, (currentNeighbor != null ? currentNeighbor : this), (currentNeighbor != null ? currentNeighbor : this));
+                AddTerrainIndexes(this, (currentNeighbor != null ? currentNeighbor : this), this);
 
-               AddTriangle(currentInbetween, newcurrentInnerInbetweenCorner, newnextInnerInbetweenCorner);
-               AddTriangle(currentInbetween, newnextInnerInbetweenCorner, nextInbetween);
-               AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
-               AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
-               AddTerrainIndexes(ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource), (currentNeighbor != null ? currentNeighbor.ressource : ressource));
-               AddTerrainIndexes(ressource, currentNeighbor.ressource, ressource);
+                AddTriangle(currentInbetween, newcurrentInnerInbetweenCorner, newnextInnerInbetweenCorner);
+                AddTriangle(currentInbetween, newnextInnerInbetweenCorner, nextInbetween);
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
+                AddTerrainIndexes(this, (currentNeighbor != null ? currentNeighbor : this), (currentNeighbor != null ? currentNeighbor : this));
+                AddTerrainIndexes(this, (currentNeighbor != null ? currentNeighbor : this), this);
 
-               AddTriangle(nextInbetween, newnextInnerInbetweenCorner, newNextInnerCorner);
-               AddTriangle(nextInbetween, newNextInnerCorner, nextBufferedCorner);
-               AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
-               AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
-               AddTerrainIndexes(ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource), (currentNeighbor != null ? currentNeighbor.ressource : ressource));
-               AddTerrainIndexes(ressource, currentNeighbor.ressource, ressource);
+                AddTriangle(nextInbetween, newnextInnerInbetweenCorner, newNextInnerCorner);
+                AddTriangle(nextInbetween, newNextInnerCorner, nextBufferedCorner);
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
+                AddTerrainIndexes(this, (currentNeighbor != null ? currentNeighbor : this), (currentNeighbor != null ? currentNeighbor : this));
+                AddTerrainIndexes(this, (currentNeighbor != null ? currentNeighbor : this), this);
 
 
+            }
+            else if (currentNeighbor == null)
+            {
+                // Walls on worlds edge
+                currentInnerCorner.y = -transform.localPosition.y;
+                currentInnerInbetweenCorner.y = -transform.localPosition.y;
+                nextInnerInbetweenCorner.y = -transform.localPosition.y;
+                nextInnerCorner.y = -transform.localPosition.y;
+
+                AddTriangle(currentBufferedCorner, currentInnerCorner, currentInnerInbetweenCorner);
+                AddTriangle(currentBufferedCorner, currentInnerInbetweenCorner, currentInbetween);
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
+                AddTerrainIndexes(this, this, this);
+                AddTerrainIndexes(this, this, this);
+
+                AddTriangle(currentInbetween, currentInnerInbetweenCorner, nextInnerInbetweenCorner);
+                AddTriangle(currentInbetween, nextInnerInbetweenCorner, nextInbetween);
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
+                AddTerrainIndexes(this, this, this);
+                AddTerrainIndexes(this, this, this);
+
+                AddTriangle(nextInbetween, nextInnerInbetweenCorner, nextInnerCorner);
+                AddTriangle(nextInbetween, nextInnerCorner, nextBufferedCorner);
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
+                AddTerrainIndexes(this, this, this);
+                AddTerrainIndexes(this, this, this);
             }
 
 
 
 
-            // big triangle
+            // Triangles on the Corner of the Hexes
             if (currentNeighbor != null && nextNeighbor != null && i < 2)
             {
+                // triangles between 3 hexes
                 Vector3 newNextInnerCorner = (currentCorner + nextCorner) * 0.5f * (1f - bufferRadius) * 2 + nextBufferedCorner;
                 newNextInnerCorner.y = 0;
-                newNextInnerCorner.y = currentNeighbor.transform.position.y - transform.position.y;
+                newNextInnerCorner.y = currentNeighbor.transform.localPosition.y - transform.localPosition.y;
                 Vector3 newCurrentCorner = newNextInnerCorner;
                 newCurrentCorner.y = 0;
-                newCurrentCorner.y = currentNeighbor.transform.position.y - transform.position.y;
+                newCurrentCorner.y = currentNeighbor.transform.localPosition.y - transform.localPosition.y;
                 Vector3 xDD = corners[i + 1 == 5 ? 0 : i + 1 + 1];
                 Vector3 xDDDD = (xDD + nextCorner) * 0.5f * (1f - bufferRadius) * 2 + nextBufferedCorner;
                 xDDDD.y = 0;
-                xDDDD.y = nextNeighbor.transform.position.y - transform.position.y;
+                xDDDD.y = nextNeighbor.transform.localPosition.y - transform.localPosition.y;
 
 
-
+                // big Triangle
                 AddTriangle(nextBufferedCorner, newCurrentCorner, xDDDD);
                 AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor3);
-                AddTerrainIndexes(ressource, currentNeighbor.ressource, nextNeighbor.ressource);
+                AddTerrainIndexes(this, (currentNeighbor != null ? currentNeighbor : this), (nextNeighbor != null ? nextNeighbor : this));
 
-                //if (prevNeigbor == null)
-                //{
-                //    AddTriangle(nextBufferedCorner, nextInnerCorner, nextCorner);
-                //    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor3);
-                //    AddTerrainIndexes(ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource), (nextNeighbor != null ? nextNeighbor.ressource : ressource));
-                //}
+                Vector3 uwu = currentCorner;
+                uwu.y = -transform.localPosition.y;
+                // small triangle
+                AddTriangle(currentBufferedCorner, uwu, currentInnerCorner);
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor3);
+                AddTerrainIndexes(this, this, (currentNeighbor != null ? currentNeighbor : this));
+
+            }
+            else
+            {
+                // triangles on World Edge
+
+                currentCorner.y = -transform.localPosition.y;
+                nextCorner.y = -transform.localPosition.y;
+
+                AddTriangle(currentBufferedCorner, currentCorner, currentInnerCorner);
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor3);
+                AddTerrainIndexes(this, this, (currentNeighbor != null ? currentNeighbor : this));
+
+                AddTriangle(nextBufferedCorner, nextInnerCorner, nextCorner);
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor3);
+                AddTerrainIndexes(this, this, (currentNeighbor != null ? currentNeighbor : this));
+
+
             }
             //else/* (prevNeigbor == null || nextNeighbor == null || currentNeighbor == null)*/
             //{
@@ -564,6 +545,141 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         GetComponent<MeshFilter>().mesh = mesh;
     }
 
+    public void RecalculateTerrain()
+    {
+        mesh = new Mesh();
+        vertexColors = new List<Color>();
+        uvs = new List<Vector3>();
+
+        List<Vector2Int> neighborCords = HexGridUtil.AxialNeighbors(AxialCoordinate);
+
+        GridTile prevNeigbor = null;
+        GridTile currentNeighbor = null;
+        GridTile nextNeighbor = null;
+
+        for (int i = 0; i < 6; i++)
+        {
+            prevNeigbor = null;
+            currentNeighbor = null;
+            nextNeighbor = null;
+            Color prevNeighborColor;
+            Color currentNeighborColor;
+            Color nextNeighborColor;
+            Color myColor = GetColor(ressource);
+
+            if (GridManager.Instance.Grid.ContainsKey(neighborCords[i]))
+            {
+                currentNeighbor = GridManager.Instance.Grid[neighborCords[i]];
+                currentNeighborColor = currentNeighbor.GetColor(currentNeighbor.ressource);
+            }
+            else
+            {
+                currentNeighbor = null;
+                currentNeighborColor = myColor;
+            }
+
+            if (GridManager.Instance.Grid.ContainsKey(neighborCords[i == 5 ? 0 : i + 1]))
+            {
+                nextNeighbor = GridManager.Instance.Grid[neighborCords[i == 5 ? 0 : i + 1]];
+                nextNeighborColor = nextNeighbor.GetColor(nextNeighbor.ressource);
+            }
+            else
+            {
+                nextNeighbor = null;
+                nextNeighborColor = myColor;
+            }
+
+            if (GridManager.Instance.Grid.ContainsKey(neighborCords[i == 0 ? 5 : i - 1]))
+            {
+                prevNeigbor = GridManager.Instance.Grid[neighborCords[i == 0 ? 5 : i - 1]];
+                prevNeighborColor = prevNeigbor.GetColor(prevNeigbor.ressource);
+            }
+            else
+            {
+                prevNeigbor = null;
+                prevNeighborColor = myColor;
+            }
+
+            AddTriangleColors(SplatMapColor1, SplatMapColor1, SplatMapColor1);
+            AddTriangleColors(SplatMapColor1, SplatMapColor1, SplatMapColor1);
+            AddTriangleColors(SplatMapColor1, SplatMapColor1, SplatMapColor1);
+            AddTerrainIndexes(this, this, this);
+            AddTerrainIndexes(this, this, this);
+            AddTerrainIndexes(this, this, this);
+
+            // Bridge Triangles to directly adjacent Neighbors
+            if (i < 3 && currentNeighbor != null)
+            {
+                // big bridge
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
+                AddTerrainIndexes(this, (currentNeighbor != null ? currentNeighbor : this), (currentNeighbor != null ? currentNeighbor : this));
+                AddTerrainIndexes(this, (currentNeighbor != null ? currentNeighbor : this), this);
+
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
+                AddTerrainIndexes(this, (currentNeighbor != null ? currentNeighbor : this), (currentNeighbor != null ? currentNeighbor : this));
+                AddTerrainIndexes(this, (currentNeighbor != null ? currentNeighbor : this), this);
+
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
+                AddTerrainIndexes(this, (currentNeighbor != null ? currentNeighbor : this), (currentNeighbor != null ? currentNeighbor : this));
+                AddTerrainIndexes(this, (currentNeighbor != null ? currentNeighbor : this), this);
+
+            }
+            else if (currentNeighbor == null)
+            {
+                // Walls on worlds edge
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
+                AddTerrainIndexes(this, this, this);
+                AddTerrainIndexes(this, this, this);
+
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
+                AddTerrainIndexes(this, this, this);
+                AddTerrainIndexes(this, this, this);
+
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
+                AddTerrainIndexes(this, this, this);
+                AddTerrainIndexes(this, this, this);
+            }
+
+            // Triangles on the Corner of the Hexes
+            if (currentNeighbor != null && nextNeighbor != null && i < 2)
+            {
+                // triangles between 3 hexes
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor3);
+                AddTerrainIndexes(this, (currentNeighbor != null ? currentNeighbor : this), (nextNeighbor != null ? nextNeighbor : this));
+
+                // small triangle
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor3);
+                AddTerrainIndexes(this, this, (currentNeighbor != null ? currentNeighbor : this));
+
+            }
+            else
+            {
+                // triangles on World Edge
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor3);
+                AddTerrainIndexes(this, this, (currentNeighbor != null ? currentNeighbor : this));
+
+                AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor3);
+                AddTerrainIndexes(this, this, (currentNeighbor != null ? currentNeighbor : this));
+            }
+        }
+
+        mesh.vertices = vertices.ToArray();
+        mesh.triangles = triangles.ToArray();
+        mesh.SetUVs(2, uvs.ToArray());
+        mesh.colors = vertexColors.ToArray();
+
+        mesh.RecalculateBounds();
+        mesh.RecalculateNormals();
+        GetComponent<MeshFilter>().mesh = mesh;
+    }
+
+
     public void AddTriangle(Vector3 a, Vector3 b, Vector3 c)
     {
         int vertexIndex = vertices.Count;
@@ -574,15 +690,32 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         triangles.Add(vertexIndex + 1);
         triangles.Add(vertexIndex + 2);
 
-        //uvs.Add(new Vector3(a.x,a.y, a.z)+transform.position);
-        //uvs.Add(new Vector3(b.x,b.y, b.z) + transform.position);
-        //uvs.Add(new Vector3(c.x,c.y, c.z) + transform.position);
+        //uvs.Add(new Vector3(a.x,a.y, a.z)+transform.localPosition);
+        //uvs.Add(new Vector3(b.x,b.y, b.z) + transform.localPosition);
+        //uvs.Add(new Vector3(c.x,c.y, c.z) + transform.localPosition);
 
     }
 
     public void AddTerrainIndexes(Ressource resA, Ressource resB, Ressource resC)
     {
         AddTriangleTerrainTypes(getTerrainIndex(resA), getTerrainIndex(resB), getTerrainIndex(resC));
+    }
+
+    public void AddTerrainIndexes(GridTile tileA, GridTile tileB, GridTile tileC)
+    {
+        try
+        {
+            int resa = tileA.currentGridState.StateValue() >= 0 ? getTerrainIndex(tileA.ressource) : 4;
+            int resb = tileB.currentGridState.StateValue() >= 0 ? getTerrainIndex(tileB.ressource) : 4;
+            int resc = tileC.currentGridState.StateValue() >= 0 ? getTerrainIndex(tileC.ressource) : 4;
+            AddTriangleTerrainTypes(resa, resb, resc);
+        }
+        catch
+        {
+            Debug.LogWarning("CATCHBLOCK: --------------> Function AddTerrainIndexes has been called with a GridTile == null. \n Setting terrainIndexes to my own default ressource now");
+            AddTriangleTerrainTypes(getTerrainIndex(ressource), getTerrainIndex(ressource), getTerrainIndex(ressource));
+        }
+
     }
 
     public int getTerrainIndex(Ressource ressource)
@@ -617,7 +750,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         for (int i = 0; i < vertices.Count; i++)
         {
-            vertices[i] += mapsettings.GetIrregularityNoiseData(vertices[i] + transform.position) * mapsettings.IrregularityFactor;
+            vertices[i] += mapsettings.GetIrregularityNoiseData(vertices[i] + transform.localPosition) * mapsettings.IrregularityFactor;
         }
     }
 
@@ -848,7 +981,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
             if (neighbors.Contains(HexGridUtil.AxialToCubeCoord(AxialCoordinate)))
             {
-                Instantiate(moveTileHighlightPrefab, transform.position, Quaternion.identity, transform);
+                Instantiate(moveTileHighlightPrefab, transform.localPosition, Quaternion.identity, transform);
             }
         }
     }
@@ -870,6 +1003,19 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             {
                 neutralTurnCounter = 0;
                 ChangeCurrentState(GridManager.Instance.gS_Positive);
+            }
+        }
+    }
+
+    public void UpdateMyNeighbors()
+    {
+        myNeighbors = new List<GridTile>();
+        List<Vector2Int> neighborCoords = HexGridUtil.AxialNeighbors(AxialCoordinate);
+        foreach (Vector2Int coord in neighborCoords)
+        {
+            if (GridManager.Instance.Grid.ContainsKey(coord))
+            {
+                myNeighbors.Add(GridManager.Instance.Grid[coord]);
             }
         }
     }
