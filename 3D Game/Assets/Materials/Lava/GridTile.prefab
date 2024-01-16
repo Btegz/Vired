@@ -165,8 +165,9 @@ MonoBehaviour:
   howManyKlopseDFromTo: {x: 1, y: 2}
   randomRotationDFromTo: {x: 0, y: 180}
   randomYOffsetDFromTo: {x: 0, y: 0.3}
-  EnemyMassKlopse: []
-  howManyEnemyMassKlopseFromTo: {x: 0, y: 0}
+  EnemyMassKlopse:
+  - {fileID: 2525687032517237972, guid: f263db89244041c4f9482b23d8671e72, type: 3}
+  howManyEnemyMassKlopseFromTo: {x: 10, y: 10}
   EnemyMassrandomRotationFromTo: {x: 0, y: 0}
-  EnemyMassrandomYOffsetFromTo: {x: 0, y: 0}
+  EnemyMassrandomYOffsetFromTo: {x: 0, y: 0.1}
   TweenDuration: 1
