@@ -60,7 +60,7 @@ public class GridManager : MonoBehaviour
         {
             Time.timeScale = 1.5f;
             Instance = this;
-            EventManager.OnEndTurnEvent += EndTurn;
+             EventManager.OnEndTurnEvent += EndTurn;
             TransferGridSOData();
             PlayerManager.Instance.abilityLoadout.amountToChoose = 3;
             PlayerManager.Instance.abilityLoadout.gameObject.SetActive(true);
@@ -386,7 +386,9 @@ public class GridManager : MonoBehaviour
 
     public void EndTurn()
     {
-        TurnCounter++;
+        TurnCounter+=1;
+       
+
     }
 
     //public void TriggerPhase()

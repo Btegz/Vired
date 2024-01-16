@@ -62,7 +62,7 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     virtual public void Setup(GridTile tile)
     {
-        Debug.Log($"I am an enemy and i setup at {tile.AxialCoordinate}");
+      //  Debug.Log($"I am an enemy and i setup at {tile.AxialCoordinate}");
         currentHealth = maxHealth;
         ressource = tile.ressource;
         axialLocation = tile.AxialCoordinate;
