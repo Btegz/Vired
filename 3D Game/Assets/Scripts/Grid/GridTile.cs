@@ -282,6 +282,11 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
     }
 
+    private void OnValidate()
+    {
+        Debug.Log("HAllo Welt");
+    }
+
     // MESH TILE STUFF --------------------------------------------------------------------------------------------------------------
 
     // vvvv new World
@@ -484,6 +489,8 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
 
             }
+
+
 
 
             // big triangle
