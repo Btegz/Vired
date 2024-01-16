@@ -36,7 +36,7 @@ public class EditorGridGeneration
             newTileObj.transform.position = HexGridUtil.AxialHexToPixel(coord, 1);
             newTile.currentGridState = AssetDatabase.LoadAssetAtPath<GS_positive>("Assets/Scripts/Grid/StateMashine/GS_Positive.asset");
             newTile.AxialCoordinate = coord;
-            newTile.Setup(coord, gridTileSOs[Random.Range(0, gridTileSOs.Count)],false);
+            //newTile.Setup(coord, gridTileSOs[Random.Range(0, gridTileSOs.Count)],false);
             Grid.Add(coord, newTile);
 
         }

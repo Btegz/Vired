@@ -58,12 +58,8 @@ public class GridManager : MonoBehaviour
     {
         if (Instance == null)
         {
-            Time.timeScale = 1.5f;
             Instance = this;
-             EventManager.OnEndTurnEvent += EndTurn;
             TransferGridSOData();
-            PlayerManager.Instance.abilityLoadout.amountToChoose = 3;
-            PlayerManager.Instance.abilityLoadout.gameObject.SetActive(true);
             //currentPhase = phases[0];
             //currentPhase.myPhaseTransition.InitPhaseTransitionCheck();
             //TriggerPhase();
@@ -78,7 +74,10 @@ public class GridManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        EventManager.OnEndTurnEvent += EndTurn;
+        
+        PlayerManager.Instance.abilityLoadout.amountToChoose = 3;
+        PlayerManager.Instance.abilityLoadout.gameObject.SetActive(true);
 
 
         //GenerateGrid();
@@ -197,10 +196,11 @@ public class GridManager : MonoBehaviour
             foreach (KeyValuePair<Vector2Int, GridTile> kvp in Grid)
             {
                 kvp.Value.Triangluate();
-                if (mapSettings != null)
-                {
-                    kvp.Value.pertulate(mapSettings);
-                }
+                kvp.Value.UpdateMyNeighbors();
+                //if (mapSettings != null)
+                //{
+                //    kvp.Value.pertulate(mapSettings);
+                //}
             }
 
             Texture2D cellTexture = new Texture2D(200, 200, TextureFormat.RGBA32, false, true)

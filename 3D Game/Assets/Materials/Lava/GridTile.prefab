@@ -107,7 +107,7 @@ MonoBehaviour:
   outerSize: 1
   height: 0
   meshRenderer: {fileID: 0}
-  currentGridState: {fileID: 0}
+  currentGridState: {fileID: 11400000, guid: d4b71c1d31cdb0a4fae33f2336fdbfa4, type: 2}
   ressource: 0
   moveTileHighlightPrefab: {fileID: 2524305631397293867, guid: 95fccca7aa4b9bf4cb75947aaff5ebc5, type: 3}
   enemySpreadTileHighlightPrefab: {fileID: 2524305631397293867, guid: 0e8b69e34b3095045b03272dd55ce44d, type: 3}
@@ -140,22 +140,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   KlopseA: []
+  KlopseAMat: {fileID: 2100000, guid: c0bbda9888e11f84d9d513574b0dc552, type: 2}
+  howManyKlopseAFromTo: {x: 0, y: 0}
+  randomRotationAFromTo: {x: 0, y: 0}
+  randomYOffsetAFromTo: {x: 0, y: 0}
   KlopseB:
+  - {fileID: 3509021517880109067, guid: 2260950117c5ab74da52d5396221d7c1, type: 3}
+  KlopseBMat: {fileID: 2100000, guid: 2e477a3e3652ed343a7b2a46c2329b9f, type: 2}
+  howManyKlopseBFromTo: {x: 2, y: 5}
+  randomRotationBFromTo: {x: 0, y: 180}
+  randomYOffsetBFromTo: {x: 0, y: 0.15}
+  KlopseC:
   - {fileID: 919132149155446097, guid: f97409bc6a3619948a2c0c72d7aa48a0, type: 3}
   - {fileID: 919132149155446097, guid: ad53ad0b993b074439dbe0ba36d0f6e1, type: 3}
-  KlopseC:
-  - {fileID: 128935683, guid: fb2387fe0a3ecdf46867d13e0e467565, type: 3}
-  - {fileID: 2023517905, guid: 00fdfc7f4c6414f4d880ae69651889ec, type: 3}
-  - {fileID: 945401805, guid: c55bc18a2ad5f2e44aca32694adf644f, type: 3}
+  KlopseCMat: {fileID: 2100000, guid: 36f6b84c05acb8744b5024d3c0daeef8, type: 2}
+  howManyKlopseCFromTo: {x: 1, y: 1}
+  randomRotationCFromTo: {x: 0, y: 180}
+  randomYOffsetCFromTo: {x: 0, y: 0.4}
   KlopseD:
   - {fileID: 1687137008, guid: 4bc2fb18348e739498c08e42f7b7d03c, type: 3}
   - {fileID: 1084553192, guid: f504de0d556ad13468b2364656bf7115, type: 3}
   - {fileID: 410661016, guid: d853932ca10cb6d448ae961359ef5c47, type: 3}
-  KlopseAMat: {fileID: 2100000, guid: c0bbda9888e11f84d9d513574b0dc552, type: 2}
-  KlopseBMat: {fileID: 2100000, guid: 2e477a3e3652ed343a7b2a46c2329b9f, type: 2}
-  KlopseCMat: {fileID: 2100000, guid: 36f6b84c05acb8744b5024d3c0daeef8, type: 2}
   KlopseDMat: {fileID: 2100000, guid: f7343f14eeae9804e800793f259e2e9c, type: 2}
-  howManyKlopseFromTo: {x: 1, y: 3}
-  randomRotationFromTo: {x: 0, y: 180}
-  randomYOffsetFromTo: {x: 0, y: 0.2}
+  howManyKlopseDFromTo: {x: 1, y: 2}
+  randomRotationDFromTo: {x: 0, y: 180}
+  randomYOffsetDFromTo: {x: 0, y: 0.3}
+  EnemyMassKlopse: []
+  howManyEnemyMassKlopseFromTo: {x: 0, y: 0}
+  EnemyMassrandomRotationFromTo: {x: 0, y: 0}
+  EnemyMassrandomYOffsetFromTo: {x: 0, y: 0}
   TweenDuration: 1
