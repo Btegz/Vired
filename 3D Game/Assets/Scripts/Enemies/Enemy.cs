@@ -224,7 +224,7 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
     }
 
-    public int AmountSpreadNextTurn()
+    public virtual int AmountSpreadNextTurn()
     {
         if ((GridManager.Instance.TurnCounter+1) % everyXTurns == 0)
         {

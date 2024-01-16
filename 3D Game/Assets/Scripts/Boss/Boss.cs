@@ -53,6 +53,11 @@ public class Boss : Enemy
         //EventManager.OnEndTurnEvent += BossNeighbors;
     }
 
+    public override int AmountSpreadNextTurn()
+    {
+        return 0;
+    }
+
     override public void Spread()
     {
         AliveCounter++;
