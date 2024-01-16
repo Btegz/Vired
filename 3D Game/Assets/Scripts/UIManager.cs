@@ -55,17 +55,19 @@ public class UIManager : MonoBehaviour
         {
             playerButtons[i].Setup(PlayerManager.Instance.Players[i]);
         }
-        EndTurnButton.onClick.AddListener(EndTurn);
+        EndTurnButton.onClick.AddListener(EventManager.OnEndTurn);
         //EndTurnButton.onClick.AddListener(GridManager.Instance.TriggerPhase);
         //AbilitiesInventoryButton.onClick.AddListener(ExpandAbilityInventory);
     }
 
 
 
-    public void EndTurn()
+
+    /*public void EndTurn()
     {
+
         EventManager.OnEndTurn();
-    }
+    }*/
     private void OnEnable()
     {
         try
@@ -99,7 +101,9 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+
+        
+
 
         List<GridTile> negativeTiles = GridManager.Instance.GetTilesWithState(GridManager.Instance.gS_Negative);
         if (negativeTiles.Count > 0)

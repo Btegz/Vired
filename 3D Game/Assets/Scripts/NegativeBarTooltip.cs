@@ -30,7 +30,7 @@ public class NegativeBarTooltip : ToolTipContent
         return result;
     }
 
-    int nextTurnNegative()
+    public int nextTurnNegative()
     {
         // still to do: add the bosstiles currently not bossnegative. if enemies dont spread every turn this will be wrong.
 
@@ -39,6 +39,7 @@ public class NegativeBarTooltip : ToolTipContent
         {
             Debug.Log("ONE ENEMY");
             amount += enemy.AmountSpreadNextTurn();
+            
         }
         return amount;
 

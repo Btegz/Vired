@@ -18,6 +18,7 @@ public class Boss : Enemy
 
     [Header("Boss Stats")]
     [SerializeField] int NegativeRange;
+    [SerializeField] public int BossNegative;
 
 
     [Header("On Death Stats")]
@@ -55,6 +56,11 @@ public class Boss : Enemy
 
     public override int AmountSpreadNextTurn()
     {
+        if ((GridManager.Instance.TurnCounter + 1) % everyXTurns == 0)
+        {
+           
+            return BossNegative;
+        }
         return 0;
     }
 
@@ -70,6 +76,8 @@ public class Boss : Enemy
                 {
                     for(int i = spreads; i < SpreadAmount && i < targets.Count; i++, spreads++)
                     {
+                        Debug.Log("i" + i);
+                        Debug.Log("targets" + targets.Count + "SpreadAmount" + SpreadAmount + "Spreads" + spreads);
                         Vector3Int target = targets[Random.Range(0, targets.Count)];
                         Enemy newEnemy = Instantiate(enemyPrefabPool[Random.Range(0, enemyPrefabPool.Count)], GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)].transform);
                         newEnemy.transform.position = transform.position;
@@ -183,9 +191,11 @@ public class Boss : Enemy
         {
             if (GridManager.Instance.Grid.ContainsKey(HexGridUtil.CubeToAxialCoord(neighbor)))
             {
-                if (GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].currentGridState != GridManager.Instance.gS_Enemy && GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].currentGridState != GridManager.Instance.gS_PofI && !PlayerManager.Instance.PlayerPositions().Contains(HexGridUtil.CubeToAxialCoord(neighbor)))
+                if (GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].currentGridState != GridManager.Instance.gS_Enemy && GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].currentGridState != GridManager.Instance.gS_PofI && GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].currentGridState != GridManager.Instance.gS_BossNegative &&!PlayerManager.Instance.PlayerPositions().Contains(HexGridUtil.CubeToAxialCoord(neighbor)))
                 {
                     GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].ChangeCurrentState(GridManager.Instance.gS_BossNegative);
+
+                    BossNegative++;
                 }
             }
         }

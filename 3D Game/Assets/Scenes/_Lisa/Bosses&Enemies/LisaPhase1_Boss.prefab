@@ -297,7 +297,7 @@ MonoBehaviour:
   Particle_EnemyDeath: {fileID: 726535386845715946, guid: 005fc7e0d2c6e1247b7b8880e93a8099, type: 3}
   maxHealth: 2
   SkillPointReward: 2
-  SpreadAmount: 2
+  SpreadAmount: 1
   everyXTurns: 1
   spreadbehaviours: []
   death: {fileID: 11400000, guid: 52c5c7a45c8060342836570eb8ce113a, type: 2}
@@ -312,6 +312,7 @@ MonoBehaviour:
   enemySpawnSpreadBehaviours:
   - {fileID: 11400000, guid: 2af563a854034da44903fc202dcce818, type: 2}
   NegativeRange: 5
+  BossNegative: 0
   NextBosses:
   - {fileID: 727153629572622436, guid: b31b79f150376224597dc2a799fbc53f, type: 3}
   - {fileID: 727153629572622436, guid: b31b79f150376224597dc2a799fbc53f, type: 3}

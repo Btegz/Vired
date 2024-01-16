@@ -8,6 +8,9 @@ public class UI : MonoBehaviour
     public GameObject SettingsCanvas;
     public GameObject Reassurance;
     public GameObject ReassuranceMainMenu;
+
+    public GameObject TopDownButton;
+    public GameObject WorldButton;
  
 
     public void Settings()
@@ -63,5 +66,19 @@ public class UI : MonoBehaviour
     public void CancelSettings()
     {
         SettingsCanvas.SetActive(false);
+    }
+
+    public void SwitchToMain()
+    {
+        WorldButton.SetActive(false);
+        TopDownButton.SetActive(true); 
+        CameraRotation.Instance.SwitchtoMain();
+    }
+
+    public void SwitchToTopdown()
+    {
+        WorldButton.SetActive(true);
+        TopDownButton.SetActive(false);
+        CameraRotation.Instance.SwitchToTopDown();
     }
 }

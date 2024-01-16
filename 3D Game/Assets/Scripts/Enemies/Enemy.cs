@@ -32,6 +32,7 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     
     [SerializeField] public int maxHealth;
     public int SkillPointReward;
+   
 
     [Header("Negative Spread")]
     [SerializeField] public int SpreadAmount;

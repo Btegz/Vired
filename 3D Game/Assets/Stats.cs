@@ -13,6 +13,9 @@ public class Stats : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public TMP_Text expectedSpread;
     public TMP_Text spawn;
     public TMP_Text resources;
+    public NegativeBarTooltip negativeBar;
+    public Enemy enemy;
+    private int amount;
 
     private int resourceCount;
     private int negativityCount;
@@ -34,19 +37,16 @@ public class Stats : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         round.GetComponent<TextMeshProUGUI>().text = GridManager.Instance.TurnCounter.ToString();
         resources.GetComponent<TextMeshProUGUI>().text = resourceCount.ToString();
         currentSpread.GetComponent<TextMeshProUGUI>().text = negativityCount.ToString();
+        expectedSpread.GetComponent<TextMeshProUGUI>().text = negativeBar.nextTurnNegative().ToString();
+        spawn.GetComponent<TextMeshProUGUI>().text = enemy.SpreadAmount.ToString();
 
     }
 
+    
 
     public void GridStats()
     {
-        if (PlayerPrefs.HasKey("Resources"))
-        {
-            resourceCount = PlayerPrefs.GetInt("Resources");
-        }
-
-        else
-        {
+        resourceCount = 0;
             foreach (KeyValuePair<Vector2Int, GridTile> grid in GridManager.Instance.Grid)
             {
                 if (grid.Value.currentGridState == GridManager.Instance.gS_Positive)
@@ -54,17 +54,9 @@ public class Stats : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                     resourceCount++;
                 }
             }
-            PlayerPrefs.SetInt("Resources", resourceCount);
-        }
+        PlayerPrefs.SetInt("Resources", resourceCount);
 
-
-        if (PlayerPrefs.HasKey("Contamination"))
-        {
-            negativityCount = PlayerPrefs.GetInt("Contamination");
-        }
-
-        else
-        {
+            negativityCount = 0;
             foreach (KeyValuePair<Vector2Int, GridTile> grid in GridManager.Instance.Grid)
             {
                 if (grid.Value.currentGridState == GridManager.Instance.gS_Boss || GridManager.Instance.gS_BossNegative || GridManager.Instance.gS_Negative || GridManager.Instance.gS_Enemy)
@@ -72,7 +64,7 @@ public class Stats : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                     negativityCount++;
                 }
             }
-        }
+      
         PlayerPrefs.SetInt("Contamination", negativityCount);
     }
 }
