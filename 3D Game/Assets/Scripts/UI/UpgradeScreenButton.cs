@@ -22,7 +22,7 @@ public class UpgradeScreenButton : MonoBehaviour, IPointerClickHandler
             EventManager.OnAbilityUpgrade(ButtonState.inMainScene);
 
             CameraRotation.Instance.Worldcam.Priority = PlayerPrefs.GetInt("World");
-            CameraRotation.Instance.AbilityLoadOutCam.Priority = PlayerPrefs.GetInt("AbilityLoadOut");
+            CameraRotation.Instance.AbilityUpgradeCam.Priority = PlayerPrefs.GetInt("AbilityLoadOut");
             CameraRotation.Instance.TopDownCam.Priority = PlayerPrefs.GetInt("Topdown");
         }
 

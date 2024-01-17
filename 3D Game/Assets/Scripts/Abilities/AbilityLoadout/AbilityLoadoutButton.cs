@@ -11,6 +11,12 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
 
     [SerializeField] GridLayoutGroup originalParent;
     [SerializeField] GridLayoutGroup currentParent;
+    public AbilityLoadout al;
+
+    [SerializeField] GridLayoutGroup BlueAbilityLayout;
+    [SerializeField] GridLayoutGroup OrangeAbilityLayout;
+    [SerializeField] GridLayoutGroup RedAbilityLayout;
+    [SerializeField] GridLayoutGroup GreenAbilityLayout;
 
     public bool inPlayerArea = false;
     public void OnBeginDrag(PointerEventData eventData)
@@ -87,6 +93,8 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
         }
         canvasGroup.blocksRaycasts = true;
         eventData.hovered.Clear();
+
+        
     }
 
     public void Setup(Ability ability, GridLayoutGroup fatherrrr)

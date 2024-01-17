@@ -70,7 +70,7 @@ public class UI : MonoBehaviour
 
     public void SwitchToMain()
     {
-        if (CameraRotation.Instance.AbilityLoadOutCam.Priority != 2)
+        if (CameraRotation.Instance.AbilityUpgradeCam.Priority != 2)
         {
             WorldButton.SetActive(false);
             TopDownButton.SetActive(true);
@@ -80,11 +80,14 @@ public class UI : MonoBehaviour
 
     public void SwitchToTopdown()
     {
-        if (CameraRotation.Instance.AbilityLoadOutCam.Priority != 2)
+        if (CameraRotation.Instance.AbilityUpgradeCam.Priority != 2)
         {
             WorldButton.SetActive(true);
             TopDownButton.SetActive(false);
             CameraRotation.Instance.SwitchToTopDown();
         }
     }
+
+
+    
 }

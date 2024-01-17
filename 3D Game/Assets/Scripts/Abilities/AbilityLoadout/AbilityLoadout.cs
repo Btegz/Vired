@@ -36,6 +36,9 @@ public class AbilityLoadout : MonoBehaviour
 
     private void OnEnable()
     {
+      
+        
+        
         if(PlayerManager.Instance != null)
         {
             PlayerManager.Instance.AbilityLoadoutActive = true;
@@ -88,7 +91,66 @@ public class AbilityLoadout : MonoBehaviour
     void Start()
     {
         MinimapCam.orthographicSize = GridManager.Instance.mapSettings.NoiseDataSize.x;
+        Ability();
+        
+        
 
+            //instance.ability.StarterAbility();
+        }
+    //playerManager.AbilityLoadoutActive = true;
+
+    //ChosenAbilityList = new List<Ability>();
+
+    //foreach (Player player in playerManager.Players)
+    //{
+    //    UI_PlayerABLInventory ini = Instantiate(playerABLInventoryPrefab, playersArea.transform);
+
+    //    ini.Setup(player);
+
+    //    foreach (Ability ability in player.AbilityInventory)
+    //    {
+    //        ChosenAbilityList.Add(ability);
+    //        abilityCollection.Remove(ability);
+    //        AbilityLoadoutButton button = Instantiate(abloadoutButton);
+    //        button.transform.SetParent(ini.InventoryArea.transform);
+    //        button.Setup(ability, ini.InventoryArea);
+    //    }
+    //}
+
+    //AbilityLoadoutButton instance;
+    //foreach (Ability ability in abilityCollection)
+    //{
+    //    ability.StarterAbility();
+    //    switch (ability.MyCostRessource)
+    //    {
+    //        case Ressource.ressourceA:
+    //            instance = Instantiate(abloadoutButton, BlueAbilityLayout.transform);
+    //            instance.Setup(ability, BlueAbilityLayout);
+    //            break;
+    //        case Ressource.ressourceB:
+    //            instance = Instantiate(abloadoutButton, OrangeAbilityLayout.transform);
+    //            instance.Setup(ability, OrangeAbilityLayout);
+    //            break;
+    //        case Ressource.ressourceC:
+    //            instance = Instantiate(abloadoutButton, RedAbilityLayout.transform);
+    //            instance.Setup(ability, RedAbilityLayout);
+    //            break;
+    //        case Ressource.resscoureD:
+    //            instance = Instantiate(abloadoutButton, GreenAbilityLayout.transform);
+    //            instance.Setup(ability, GreenAbilityLayout);
+    //            break;
+    //        default: instance = null; break;
+    //    }
+    //    instance.currentState = ButtonState.inLoadout;
+
+    //    instance.ability.StarterAbility();
+    //}
+    //EventManager.OnAbilityChosenEvent += AddAbilityChoice;
+    //EventManager.LoadOutAbilityChoiseRemoveEvent += RemoveAbilityChoice;
+
+
+    public void Ability()
+    {
         AbilityLoadoutButton instance;
         foreach (Ability ability in abilityCollection)
         {
@@ -114,61 +176,24 @@ public class AbilityLoadout : MonoBehaviour
                 default: instance = null; break;
             }
             instance.currentState = ButtonState.newInLoadout;
-
-            //instance.ability.StarterAbility();
         }
-        //playerManager.AbilityLoadoutActive = true;
+    }
+    public void SwitchtoMain()
+    {
+        
+        CameraRotation.Instance.CameraCenterToPlayer(PlayerManager.Instance.selectedPlayer);
+        CameraRotation.Instance.Worldcam.Priority = 3;
+        CameraRotation.Instance.AbilityUpgradeCam.Priority = 1;
+        CameraRotation.Instance.TopDownCam.Priority = 0;
+        CameraRotation.Instance.AbilityLoadoutCam.Priority = 2;
 
-        //ChosenAbilityList = new List<Ability>();
+        CameraRotation.Instance.CameraCenterToPlayer(PlayerManager.Instance.selectedPlayer);
+        PlayerManager.Instance.selectedPlayer.GetComponentInChildren<PlayerVisuals>().PlayerSelection(PlayerManager.Instance.selectedPlayer);
+        CameraRotation.Instance.MainCam = true;
 
-        //foreach (Player player in playerManager.Players)
-        //{
-        //    UI_PlayerABLInventory ini = Instantiate(playerABLInventoryPrefab, playersArea.transform);
-
-        //    ini.Setup(player);
-
-        //    foreach (Ability ability in player.AbilityInventory)
-        //    {
-        //        ChosenAbilityList.Add(ability);
-        //        abilityCollection.Remove(ability);
-        //        AbilityLoadoutButton button = Instantiate(abloadoutButton);
-        //        button.transform.SetParent(ini.InventoryArea.transform);
-        //        button.Setup(ability, ini.InventoryArea);
-        //    }
-        //}
-
-        //AbilityLoadoutButton instance;
-        //foreach (Ability ability in abilityCollection)
-        //{
-        //    ability.StarterAbility();
-        //    switch (ability.MyCostRessource)
-        //    {
-        //        case Ressource.ressourceA:
-        //            instance = Instantiate(abloadoutButton, BlueAbilityLayout.transform);
-        //            instance.Setup(ability, BlueAbilityLayout);
-        //            break;
-        //        case Ressource.ressourceB:
-        //            instance = Instantiate(abloadoutButton, OrangeAbilityLayout.transform);
-        //            instance.Setup(ability, OrangeAbilityLayout);
-        //            break;
-        //        case Ressource.ressourceC:
-        //            instance = Instantiate(abloadoutButton, RedAbilityLayout.transform);
-        //            instance.Setup(ability, RedAbilityLayout);
-        //            break;
-        //        case Ressource.resscoureD:
-        //            instance = Instantiate(abloadoutButton, GreenAbilityLayout.transform);
-        //            instance.Setup(ability, GreenAbilityLayout);
-        //            break;
-        //        default: instance = null; break;
-        //    }
-        //    instance.currentState = ButtonState.inLoadout;
-
-        //    instance.ability.StarterAbility();
-        //}
-        //EventManager.OnAbilityChosenEvent += AddAbilityChoice;
-        //EventManager.LoadOutAbilityChoiseRemoveEvent += RemoveAbilityChoice;
     }
 
+    
     private void OnDestroy()
     {
         //EventManager.OnAbilityChosenEvent -= AddAbilityChoice;
