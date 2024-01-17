@@ -14,6 +14,7 @@ public class GS_positive : GridState
 
     public override void EnterState(GridTile parent)
     {
+        parent.GetComponent<RessourceVisuals>().InfestKlopse();
         Debug.Log("I ENTER POSITIVE");
 
         switch (parent.ressource)
@@ -37,7 +38,7 @@ public class GS_positive : GridState
 
     public override void ExitState(GridTile parent)
     {
-        parent.GetComponent<RessourceVisuals>().DestroyKlopse();
+        parent.GetComponent<RessourceVisuals>().CleanUpKlopse();
         //throw new System.NotImplementedException();
     }
 
