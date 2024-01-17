@@ -63,6 +63,13 @@ public class Ability : HexShape
         get { return myTierLevel; }
         set { myTierLevel = value; }
     }
+    [SerializeField] private int myMaxTierLevel;
+
+    public int MyMaxTierLevel
+    {
+        get { return myMaxTierLevel; }
+        set { myMaxTierLevel = value; }
+    }
 
     public void RecalculatePreviewMesh(Dictionary<Vector2Int, Effect> newShape)
     {

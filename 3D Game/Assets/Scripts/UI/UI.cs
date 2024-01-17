@@ -11,7 +11,7 @@ public class UI : MonoBehaviour
 
     public GameObject TopDownButton;
     public GameObject WorldButton;
- 
+
 
     public void Settings()
     {
@@ -27,14 +27,14 @@ public class UI : MonoBehaviour
     {
         Reassurance.SetActive(true);
         SettingsCanvas.SetActive(false);
-         
+
 
     }
 
 
     public void QuitGame()
     {
-        Application.Quit(); 
+        Application.Quit();
     }
 
     public void CancelQuitGame()
@@ -45,15 +45,15 @@ public class UI : MonoBehaviour
 
     public void ReassuranceMain()
     {
-         ReassuranceMainMenu.SetActive(true);
+        ReassuranceMainMenu.SetActive(true);
         SettingsCanvas.SetActive(false);
-       
-      
+
+
     }
 
     public void MainMenu()
     {
-     SceneManager.LoadScene("StartScreen");
+        SceneManager.LoadScene("StartScreen");
     }
 
     public void CancelMain()
@@ -70,15 +70,21 @@ public class UI : MonoBehaviour
 
     public void SwitchToMain()
     {
-        WorldButton.SetActive(false);
-        TopDownButton.SetActive(true); 
-        CameraRotation.Instance.SwitchtoMain();
+        if (CameraRotation.Instance.AbilityLoadOutCam.Priority != 2)
+        {
+            WorldButton.SetActive(false);
+            TopDownButton.SetActive(true);
+            CameraRotation.Instance.SwitchtoMain();
+        }
     }
 
     public void SwitchToTopdown()
     {
-        WorldButton.SetActive(true);
-        TopDownButton.SetActive(false);
-        CameraRotation.Instance.SwitchToTopDown();
+        if (CameraRotation.Instance.AbilityLoadOutCam.Priority != 2)
+        {
+            WorldButton.SetActive(true);
+            TopDownButton.SetActive(false);
+            CameraRotation.Instance.SwitchToTopDown();
+        }
     }
 }

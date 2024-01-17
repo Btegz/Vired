@@ -9,6 +9,7 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
 {
     public Image AbilityButtonImage;
     private Color color;
+    public AbilityCastButton MainButton;
 
    
     
@@ -102,7 +103,19 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
             thisRectT.DOPunchRotation(Vector3.back * 30, .25f).SetEase(Ease.OutExpo);
             return;
         }
-        EventManager.OnAbilityButtonClicked(ability, this);
+
+        if(this != MainButton)
+        {
+           
+            Ability previousMainAbility = MainButton.ability;
+            Ability previousMyAbility = ability;
+            PlayerManager.Instance.selectedPlayer.AbilityInventory[0] = previousMyAbility;
+            PlayerManager.Instance.selectedPlayer.AbilityInventory[index] = previousMainAbility;
+            AssignAbility();
+            MainButton.AssignAbility();
+        }
+
+        EventManager.OnAbilityButtonClicked(MainButton.ability, this);
 
     }
 

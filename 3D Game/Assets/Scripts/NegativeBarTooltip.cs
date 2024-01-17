@@ -37,7 +37,6 @@ public class NegativeBarTooltip : ToolTipContent
         int amount = 0;
         foreach(Enemy enemy in GridManager.Instance.gameObject.GetComponentsInChildren<Enemy>())
         {
-            Debug.Log("ONE ENEMY");
             amount += enemy.AmountSpreadNextTurn();
             
         }

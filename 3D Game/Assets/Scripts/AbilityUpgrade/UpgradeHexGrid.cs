@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 public class UpgradeHexGrid : MonoBehaviour
 {
@@ -9,6 +12,8 @@ public class UpgradeHexGrid : MonoBehaviour
     [SerializeField] Sprite PlayerHexSprite;
     [SerializeField] Sprite DamageHexSprite;
     [SerializeField] Sprite PositiveHexSprite;
+    [SerializeField] Image NoAbilitySelected;
+
 
     public Dictionary<Vector2Int, UpgradeGridHex> Grid;
     public Dictionary<Vector2Int, Effect> AbilityGrid;
@@ -21,13 +26,17 @@ public class UpgradeHexGrid : MonoBehaviour
 
     public int AbilityTierLevel;
 
+    
+
     // Start is called before the first frame update
     void OnEnable()
     {
         if (PlayerManager.Instance.selectedPlayer != null)
         {
             Player selectedPlayer = PlayerManager.Instance.selectedPlayer;
+           // EventManager.OnSelectPlayerEvent += CancelAbilityUpgrade;
             EventManager.OnSelectPlayerEvent += UpdateLoadedAbilityFromPlayerSwitch;
+            
             EventManager.OnAbilityButtonEvent += MakeAbilityToGrid;
             if (selectedPlayer.AbilityInventory[0] != null)
             {
@@ -44,13 +53,34 @@ public class UpgradeHexGrid : MonoBehaviour
     {
         EventManager.OnAbilityButtonEvent -= MakeAbilityToGrid;
         EventManager.OnSelectPlayerEvent -=  UpdateLoadedAbilityFromPlayerSwitch;
+       // EventManager.OnSelectPlayerEvent -= CancelAbilityUpgrade;
     }
 
     public void UpdateLoadedAbilityFromPlayerSwitch(Player player)
     {
         if(player.AbilityInventory.Count>0)
         {
+            CancelAbilityUpgrade();
+            NoAbilitySelected.enabled = false;
             LoadAbility(player.AbilityInventory[0]);
+            
+        }
+        else
+        {
+            if (Grid != null)
+            {
+                foreach (KeyValuePair<Vector2Int, UpgradeGridHex> kvp in Grid)
+                {
+                    Destroy(kvp.Value.gameObject);
+                }
+                Grid.Clear();
+            }
+            else
+            {
+                Grid = new Dictionary<Vector2Int, UpgradeGridHex>();
+            }
+
+            NoAbilitySelected.enabled = true;
         }
     }
 
@@ -204,10 +234,10 @@ public class UpgradeHexGrid : MonoBehaviour
 
     public void LoadAbility(Ability ability)
     {
-        if (loadedAbility != null)
-        {
-            ConfirmAbilityUpgrade();
-        }
+        //if (loadedAbility != null)
+        //{
+        //    ConfirmAbilityUpgrade();
+        //}
         if(loadedAbility == ability)
         {
             return;
@@ -249,6 +279,20 @@ public class UpgradeHexGrid : MonoBehaviour
     public void CancelAbilityUpgrade()
     {
         if(loadedAbility != null)
+        {
+            PlayerManager.Instance.SkillPoints += pointsSpent;
+            loadedAbility.MyTierLevel -= TierUPgrades;
+            pointsSpent = 0;
+            TierUPgrades = 0;
+            MakeAbilityToGrid(loadedAbility);
+        }
+    }
+
+    public void CancelAbilityUpgrade(Player player)
+    {
+        Debug.Log(loadedAbility.name);
+
+        if (loadedAbility != null)
         {
             PlayerManager.Instance.SkillPoints += pointsSpent;
             loadedAbility.MyTierLevel -= TierUPgrades;

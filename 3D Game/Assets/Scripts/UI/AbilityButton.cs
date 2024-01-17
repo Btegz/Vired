@@ -37,7 +37,7 @@ public class AbilityButton : MonoBehaviour
     protected Vector2 centerDelta;
 
     [SerializeField] float HexSizePerButtonSize;
-    [SerializeField] float HexSizeFactorPerAbilityTielevel;
+    [SerializeField] float HexSizeFactorPerAbilityTealevel;
 
     public void RectData()
     {
@@ -131,7 +131,7 @@ public class AbilityButton : MonoBehaviour
             UIGrid = new Dictionary<Vector2Int, UpgradeGridHex>();
         }
         float buttonSize = width * HexSizePerButtonSize;
-        float abilityTierSize = 1f / (HexSizeFactorPerAbilityTielevel * ability.MyTierLevel);
+        float abilityTierSize = 1f - (HexSizeFactorPerAbilityTealevel * (0.25f*(Mathf.Pow((float)ability.MyTierLevel, 2f))));
         for (int i = 0; i < ability.Coordinates.Count; i++)
         {
             //Debug.Log("I make a tile of the ability now");
