@@ -77,6 +77,9 @@ public class PlayerManager : MonoBehaviour
         }
 
         selectedPlayer = Players[0];
+        CameraRotation.Instance.CameraCenterToPlayer(selectedPlayer);
+        selectedPlayer.GetComponentInChildren<PlayerVisuals>().PlayerSelection(selectedPlayer);
+
 
         EventManager.OnEndTurnEvent += resetMovementPoints;
         EventManager.OnAbilityButtonEvent += AbilityClicked;

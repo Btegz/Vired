@@ -135,6 +135,8 @@ public class CameraRotation : MonoBehaviour
 
     void Start()
     {
+
+        
         // Worldcam.Follow = transform; 
         WorldcamStart = transform.position;
         startingPosition = cam.transform.localPosition;
