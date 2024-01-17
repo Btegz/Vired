@@ -9,11 +9,14 @@ public class MainMenu : MonoBehaviour
 {
     public GameObject optionCanvas;
     public GameObject CreditCanvas;
+    public GameObject mainMenuCanvas;
     public Button gameStartButton;
     public Button optionsButton;
     public Toggle tutorialToggle;
     public ToggleObj TutorialObj;
     public Image Fade;
+
+    public Button creditsBack;
  
 
     public Button exitButton;
@@ -23,6 +26,7 @@ public class MainMenu : MonoBehaviour
         gameStartButton.onClick.AddListener(StartGame);
         optionsButton.onClick.AddListener(OptionsSwitch);
         exitButton.onClick.AddListener(ExitGame);
+        creditsBack.onClick.AddListener(ExitBack);
 
 
         if (PlayerPrefs.HasKey("Tutorial"))
@@ -108,8 +112,12 @@ public class MainMenu : MonoBehaviour
 
         SceneManager.LoadSceneAsync("PlayerScene_");
         yield return null;
-       
-        
 
+    }
+
+    public void ExitBack()
+    {
+        mainMenuCanvas.SetActive(true);
+        CreditCanvas.SetActive(false);
     }
 }
