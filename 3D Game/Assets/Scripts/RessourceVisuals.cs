@@ -8,21 +8,29 @@ public class RessourceVisuals : MonoBehaviour
     [Header("Klopse")]
     [SerializeField] List<TerrainFeature> KlopseA;
     [SerializeField] Vector2Int howManyKlopseAFromTo;
+    [SerializeField] Vector2 randomXOffsetAFromTo;
+    [SerializeField] Vector2 randomZOffsetAFromTo;
     [SerializeField] Vector2 randomRotationAFromTo;
     [SerializeField] Vector2 randomYOffsetAFromTo;
     [Header("-------------------------------------")]
     [SerializeField] List<TerrainFeature> KlopseB;
     [SerializeField] Vector2Int howManyKlopseBFromTo;
+    [SerializeField] Vector2 randomXOffsetBFromTo;
+    [SerializeField] Vector2 randomZOffsetBFromTo;
     [SerializeField] Vector2 randomRotationBFromTo;
     [SerializeField] Vector2 randomYOffsetBFromTo;
     [Header("-------------------------------------")]
     [SerializeField] List<TerrainFeature> KlopseC;
     [SerializeField] Vector2Int howManyKlopseCFromTo;
+    [SerializeField] Vector2 randomXOffsetCFromTo;
+    [SerializeField] Vector2 randomZOffsetCFromTo;
     [SerializeField] Vector2 randomRotationCFromTo;
     [SerializeField] Vector2 randomYOffsetCFromTo;
     [Header("-------------------------------------")]
     [SerializeField] List<TerrainFeature> KlopseD;
     [SerializeField] Vector2Int howManyKlopseDFromTo;
+    [SerializeField] Vector2 randomXOffsetDFromTo;
+    [SerializeField] Vector2 randomZOffsetDFromTo;
     [SerializeField] Vector2 randomRotationDFromTo;
     [SerializeField] Vector2 randomYOffsetDFromTo;
     [Header("-------------------------------------")]
@@ -87,7 +95,7 @@ public class RessourceVisuals : MonoBehaviour
             {
                 TerrainFeature newKlops = Instantiate(myKlopse[Random.Range(0, myKlopse.Count)], transform);
                 Vector3 goalPosition = transform.position;
-                goalPosition += new Vector3(Random.Range(-.5f, .5f), 0, Random.Range(-.4f, .4f));
+                goalPosition += new Vector3(Random.Range(getXOffset().x, getXOffset().y), 0, Random.Range(getZOffset().x, getZOffset().y));
                 goalPosition -= new Vector3(0, Random.Range(getOffset().x, getOffset().y), 0);
                 newKlops.transform.rotation = Quaternion.Euler(0, Random.Range(getRotation().x, getRotation().y), 0);
                 //newKlops.GetComponentInChildren<MeshRenderer>().material = myKlopseMat;
@@ -221,4 +229,35 @@ public class RessourceVisuals : MonoBehaviour
                 return randomRotationDFromTo;
         }
     }
+
+    private Vector2 getXOffset()
+    {
+        switch (myTile.ressource)
+        {
+            case Ressource.ressourceA:
+                return randomXOffsetAFromTo;
+            case Ressource.ressourceB:
+                return randomXOffsetBFromTo;
+            case Ressource.ressourceC:
+                return randomXOffsetCFromTo;
+            default:
+                return randomXOffsetAFromTo;
+        }
+    }
+    private Vector2 getZOffset()
+    {
+        switch (myTile.ressource)
+        {
+            case Ressource.ressourceA:
+                return randomZOffsetAFromTo;
+            case Ressource.ressourceB:
+                return randomZOffsetBFromTo;
+            case Ressource.ressourceC:
+                return randomZOffsetCFromTo;
+            default:
+                return randomZOffsetDFromTo;
+        }
+    }
+
+
 }
