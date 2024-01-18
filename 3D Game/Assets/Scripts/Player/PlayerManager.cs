@@ -326,7 +326,7 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("I CHOSE AN ABILITY");
         Ability chosenAbility = ability;
         AbilityObjScript AbilityPreview = Instantiate(abilityObj);
-        AbilityPreview.ShowMesh(chosenAbility, selectedPoint, playerPos);
+        AbilityPreview.ShowMesh(chosenAbility, selectedPoint, playerPos, selectedPlayer);
     }
 
     public void AbilityClicked(Ability ability, AbilityButton button)
@@ -361,10 +361,6 @@ public class PlayerManager : MonoBehaviour
             //Vector3 indicatorPosition = new Vector3(0, 0, 0);
             //Quaternion indicatorRotation = Quaternion.Euler(0, 30, 0);
             //indicatorPrefabClone = Instantiate(indicatorPrefab, selectedPlayer.transform.position, indicatorRotation);
-        }
-        else
-        {
-            move = true;
         }
     }
 
@@ -473,20 +469,23 @@ public class PlayerManager : MonoBehaviour
         //cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice; 
         //abilityActivated = false;
         //Destroy(indicatorPrefabClone);
+        
     }
 
     public IEnumerator AbilityCastCoroutine()
     {
         EventManager.OnAbilityCastEvent -= AbilityCasted;
         cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice;
+        yield return new WaitForEndOfFrame(); 
+        move = true;
         abilityActivated = false;
-
-        yield return new WaitForEndOfFrame();
+        yield return null;
     }
 
     public void CancelAbilityChoice(InputAction.CallbackContext actionCallBackContext)
     {
         abilityActivated = false;
+        move = true;
         EventManager.OnAbilityCastEvent -= AbilityCasted;
         cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice;
     }
@@ -494,6 +493,7 @@ public class PlayerManager : MonoBehaviour
     public void CancelAbilityChoice()
     {
         abilityActivated = false;
+        move = true;
         EventManager.OnAbilityCastEvent -= AbilityCasted;
         cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice;
     }

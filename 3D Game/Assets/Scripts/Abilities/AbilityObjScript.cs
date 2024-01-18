@@ -11,6 +11,10 @@ public class AbilityObjScript : MonoBehaviour
     public GridTile gridTile;
     public List<Vector2Int> AbilityShapeLocation;
 
+    [SerializeField] GameObject PositiveEffectPrefab;
+    [SerializeField] GameObject DamageEffectPrefab;
+
+
 
     MeshFilter meshFilter;
     MeshRenderer meshRenderer;
@@ -40,34 +44,46 @@ public class AbilityObjScript : MonoBehaviour
         rotationInputActionReference.action.performed -= rotateAbility;
     }
 
-    public void ShowMesh(Ability ability, Vector3Int SpawnPoint, Vector3Int playerPos)
+    public void ShowMesh(Ability ability, Vector3Int SpawnPoint, Vector3Int playerPos, Player player)
     {
+        transform.position = HexGridUtil.AxialHexToPixel(HexGridUtil.CubeToAxialCoord(playerPos), 1);
         this.ability = ability;
+        Vector2Int axialPlayerPos = HexGridUtil.CubeToAxialCoord(playerPos);
         AbilityShapeLocation = ability.Coordinates;
         List<Vector3Int> CubeAbilityShapeLocation = HexGridUtil.CubeAddRange(HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), playerPos);
+        List<Vector3> AbilityWorldLocations = new List<Vector3>();
 
-        meshFilter = GetComponentInChildren<MeshFilter>();
-        meshRenderer = GetComponentInChildren<MeshRenderer>();
-        meshFilter.mesh = ability.previewShape;
-        Material[] materials = new Material[ability.Effects.Count];
-        for (int i = 0; i < ability.Effects.Count; i++)
+        for (int i = 0; i < AbilityShapeLocation.Count; i++)
         {
-            switch (ability.Effects[i])
-            {
-                case Effect.Positive:
-                    materials[i] = positiveMaterial;
-                    break;
+            Vector2Int newCoord = HexGridUtil.CubeAdd(axialPlayerPos, AbilityShapeLocation[i]);
+            AbilityWorldLocations.Add(HexGridUtil.AxialHexToPixel(newCoord, 1));
 
-                case Effect.Movement:
-                    materials[i] = movementMaterial;
-                    break;
-               
-                default:
-                    materials[i] = negativeMaterial;
-                    break;
-            }
+            GameObject EffectObj = Instantiate((ability.Effects[i] == Effect.Positive ? PositiveEffectPrefab : DamageEffectPrefab), HexGridUtil.AxialHexToPixel(newCoord, 1),Quaternion.identity,transform);
+
         }
-        meshRenderer.materials = materials;
+
+        //meshFilter = GetComponentInChildren<MeshFilter>();
+        //meshRenderer = GetComponentInChildren<MeshRenderer>();
+        //meshFilter.mesh = ability.previewShape;
+        //Material[] materials = new Material[ability.Effects.Count];
+        //for (int i = 0; i < ability.Effects.Count; i++)
+        //{
+        //    switch (ability.Effects[i])
+        //    {
+        //        case Effect.Positive:
+        //            materials[i] = positiveMaterial;
+        //            break;
+
+        //        case Effect.Movement:
+        //            materials[i] = movementMaterial;
+        //            break;
+
+        //        default:
+        //            materials[i] = negativeMaterial;
+        //            break;
+        //    }
+        //}
+        //meshRenderer.materials = materials;
 
         Vector3Int selectedDirection = HexGridUtil.CubeSubstract(SpawnPoint, playerPos);
 
@@ -90,6 +106,8 @@ public class AbilityObjScript : MonoBehaviour
         SetPositionToGridCoord(HexGridUtil.CubeToAxialCoord(playerPos));
 
         castAbiltyInputActionReference.action.performed += CastAbility;
+        player.OpenAbilityCastCanvas();
+        player.AbilityCastButton.onClick.AddListener(CastAbility);
     }
 
     public void SetPositionToGridCoord(Vector2Int coord)
@@ -102,7 +120,7 @@ public class AbilityObjScript : MonoBehaviour
     {
         cam = Camera.main;
         inputAction.Enable();
-        rotationInputActionReference.action.performed += rotateAbility; 
+        rotationInputActionReference.action.performed += rotateAbility;
         CancelAbilityInputActionReference.action.performed += KillYourSelf;
 
     }
@@ -213,7 +231,7 @@ public class AbilityObjScript : MonoBehaviour
                         gridTile.ChangeCurrentState(GridManager.Instance.gS_Positive);
                         break;
 
-                        
+
                 }
                 break;
             case Effect.Negative100:
@@ -224,7 +242,7 @@ public class AbilityObjScript : MonoBehaviour
                 {
                     Enemy currentEnemy = gridTile.GetComponentInChildren<Enemy>();
                     if (ability.MyCostRessource == currentEnemy.ressource)
-                    currentEnemy.TakeDamage(2);
+                        currentEnemy.TakeDamage(2);
                     else
                         currentEnemy.TakeDamage(1);
 
@@ -269,7 +287,7 @@ public class AbilityObjScript : MonoBehaviour
                 {
                     Enemy currentEnemy = gridTile.GetComponentInChildren<Enemy>();
                     if (ability.MyCostRessource == currentEnemy.ressource)
-                    currentEnemy.TakeDamage(5);
+                        currentEnemy.TakeDamage(5);
                     else
                         currentEnemy.TakeDamage(4);
                 }
@@ -283,7 +301,7 @@ public class AbilityObjScript : MonoBehaviour
                 {
                     Enemy currentEnemy = gridTile.GetComponentInChildren<Enemy>();
                     if (ability.MyCostRessource == currentEnemy.ressource)
-                    currentEnemy.TakeDamage(6);
+                        currentEnemy.TakeDamage(6);
 
                     else
                         currentEnemy.TakeDamage(5);
@@ -314,7 +332,27 @@ public class AbilityObjScript : MonoBehaviour
         Payment();
         castAbiltyInputActionReference.action.performed -= CastAbility;
         //PlayerManager.Instance.AbilityCasted();
-        EventManager.OnAbilityCast();   
+        EventManager.OnAbilityCast();
+
+        KillYourSelf();
+    }
+    public void CastAbility()
+    {
+        for (int i = 0; i < AbilityShapeLocation.Count; i++)
+        {
+            if (GridManager.Instance.Grid.ContainsKey(AbilityShapeLocation[i]))
+            {
+                gridTile = GridManager.Instance.Grid[AbilityShapeLocation[i]];
+                UsingEffect(ability.Effects[i]);
+                AudioManager.Instance.PlaySoundAtLocation(abilityCast, soundEffect);
+            }
+        }
+        Payment();
+        castAbiltyInputActionReference.action.performed -= CastAbility;
+        PlayerManager.Instance.selectedPlayer.AbilityCastButton.onClick.RemoveAllListeners();
+        PlayerManager.Instance.selectedPlayer.CloseAbilityCastCanvas();
+        //PlayerManager.Instance.AbilityCasted();
+        EventManager.OnAbilityCast();
 
         Destroy(gameObject);
     }
@@ -343,7 +381,16 @@ public class AbilityObjScript : MonoBehaviour
 
     public void KillYourSelf(InputAction.CallbackContext actionCallBackContext)
     {
+        PlayerManager.Instance.selectedPlayer.AbilityCastButton.onClick.RemoveAllListeners();
+        PlayerManager.Instance.selectedPlayer.CloseAbilityCastCanvas();
+
         Destroy(gameObject);
     }
+    public void KillYourSelf()
+    {
+        PlayerManager.Instance.selectedPlayer.AbilityCastButton.onClick.RemoveAllListeners();
+        PlayerManager.Instance.selectedPlayer.CloseAbilityCastCanvas();
 
+        Destroy(gameObject);
+    }
 }

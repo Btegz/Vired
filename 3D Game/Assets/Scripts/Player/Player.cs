@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Cinemachine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour, IPointerClickHandler
 
 {
+    public Canvas AbilityCastCanvas;
+    public Button AbilityCastButton;
+
     public List<Ability> AbilityInventory;
 
     public Vector2Int CoordinatePosition;
@@ -27,6 +31,15 @@ public class Player : MonoBehaviour, IPointerClickHandler
         //CameraRotation.Instance.SwitchToPlayer();
     }
 
+    public void OpenAbilityCastCanvas()
+    {
+        AbilityCastCanvas.enabled = true;
+    }
+
+    public void CloseAbilityCastCanvas()
+    {
+        AbilityCastCanvas.enabled = false;
+    }
  
 
 }

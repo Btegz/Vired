@@ -96,6 +96,11 @@ public static class HexGridUtil
         return new Vector3Int(a.x + b.x, a.y + b.y, a.z + b.z);
     }
 
+    public static Vector2Int CubeAdd(Vector2Int a, Vector2Int b)
+    {
+        return new Vector2Int(a.x + b.x, a.y + b.y);
+    }
+
     /// <summary>
     /// Addas one Vector to every Vector in a List
     /// </summary>
