@@ -280,21 +280,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac40004989043c74bac78dc94d695d48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySO: {fileID: 11400000, guid: 835522eebbfc13c4e922c45e683ba113, type: 2}
-  currentHealth: 8
-  maxHealth: 8
   ressource: 0
+  axialLocation: {x: 0, y: 0}
+  currentHealth: 8
   AMAterial: {fileID: 2100000, guid: f322af3b23eab0e4f9ca33d57ebae51b, type: 2}
   BMAterial: {fileID: 2100000, guid: cf30434d96b99cd47817f528af90e0af, type: 2}
   CMAterial: {fileID: 2100000, guid: 0da39df4e276ef44db8201441b7fe7e5, type: 2}
   DMAterial: {fileID: 2100000, guid: bda476534781f754585d786a9142eba8, type: 2}
   HealthPointsLayout: {fileID: 2703274353667822884}
   HealthpointPrefab: {fileID: 4546101371875049633, guid: 653162b7ccefd14408d3d51e5851e964, type: 3}
-  healthpoints: []
+  SpawnJumpAnimationCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   Particle_EnemyDeath: {fileID: 726535386845715946, guid: 005fc7e0d2c6e1247b7b8880e93a8099, type: 3}
+  maxHealth: 8
   SkillPointReward: 0
-  mr: {fileID: 0}
+  SpreadAmount: 0
+  everyXTurns: 0
+  spreadbehaviours: []
   death: {fileID: 11400000, guid: 52c5c7a45c8060342836570eb8ce113a, type: 2}
+  spawn: {fileID: 0}
+  soundEffect: {fileID: 0}
   FirstAndLast: 1
 --- !u!114 &2774349534592181857
 MonoBehaviour:
@@ -308,19 +317,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b966f9bb6f24a7d438650eecfa352c6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BossReachableTiles: []
-  BossTiles: []
-  BossSpreads:
-  - {fileID: 11400000, guid: 0d765faaefb738d469120073c71e776d, type: 2}
-  AbilityLoadout: 0
-  everyXRounds: 0
-  turnCounter: 0
+  ressource: 0
+  axialLocation: {x: 0, y: 0}
+  currentHealth: 0
+  AMAterial: {fileID: 0}
+  BMAterial: {fileID: 0}
+  CMAterial: {fileID: 0}
+  DMAterial: {fileID: 0}
+  HealthPointsLayout: {fileID: 0}
+  HealthpointPrefab: {fileID: 0}
+  SpawnJumpAnimationCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  Particle_EnemyDeath: {fileID: 0}
+  maxHealth: 0
+  SkillPointReward: 0
+  SpreadAmount: 0
+  everyXTurns: 0
+  spreadbehaviours: []
+  death: {fileID: 0}
+  spawn: {fileID: 0}
+  soundEffect: {fileID: 0}
+  FirstAndLast: 1
   location: []
-  SpawnRange: 4
-  Enemy2Prefab: {fileID: 0}
+  AliveCounter: 0
+  EnemiesEveryXTurns: 0
+  enemyPrefabPool: []
+  enemySpawnSpreadBehaviours: []
+  NegativeRange: 0
+  BossNegative: 0
+  NextBosses: []
+  nextBossSpawnPattern: {fileID: 0}
+  AbilityLoadoutReward: 0
   blueParticle: {fileID: 6837410471105182777, guid: 17a752188eb6cb9498862a5490c0a5f5, type: 3}
   orangeParticle: {fileID: 6707404070419994156, guid: 8c4efcf0b610937448491cceb36e3a12, type: 3}
   redParticle: {fileID: 5178700602397541970, guid: d59862047bedbe94ead0e08a1166598f, type: 3}
   greenParticle: {fileID: 2702663329028805863, guid: 150fa3cf7e0a94743a4315636f07bb13, type: 3}
-  PE_EnemySpawn: {fileID: 11400000, guid: ae682841cdd8b6b41a5302af9e8295ed, type: 2}
-  Phase: {fileID: 11400000, guid: 8c459dee471d3cb4c9ff117d3bbc02a7, type: 2}
