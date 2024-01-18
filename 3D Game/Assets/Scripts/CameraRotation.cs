@@ -241,7 +241,7 @@ public class CameraRotation : MonoBehaviour
         /// Lerp von der Kamera Position durch die End Positon mit dem Scroll Input 
 
 
-        if (PlayerManager.Instance.abilityActivated == false || AbilityUpgradeCam.Priority != 2)
+        if (PlayerManager.Instance.abilityActivated == false /*|| AbilityUpgradeCam.Priority != 3*/)
         {
 
             if (mouseScrollY > 0)
@@ -254,7 +254,7 @@ public class CameraRotation : MonoBehaviour
 
 
 
-                if (Worldcam.Priority == 2/* && MainCam == true*/)
+                if (Worldcam.Priority == 3/* && MainCam == true*/)
                 {
                     //Worldcam.transform.LookAt(cam.transform.position);
                     if (worldcamRecomposer.m_ZoomScale > MaxZoom)

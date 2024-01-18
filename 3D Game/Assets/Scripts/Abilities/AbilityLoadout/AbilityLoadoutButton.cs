@@ -11,12 +11,10 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
 
     [SerializeField] GridLayoutGroup originalParent;
     [SerializeField] GridLayoutGroup currentParent;
-    public AbilityLoadout al;
-
-    [SerializeField] GridLayoutGroup BlueAbilityLayout;
-    [SerializeField] GridLayoutGroup OrangeAbilityLayout;
-    [SerializeField] GridLayoutGroup RedAbilityLayout;
-    [SerializeField] GridLayoutGroup GreenAbilityLayout;
+    [SerializeField] GridLayoutGroup AOption;
+    public AbilityLoadoutButton a;
+    public bool DragEnd;
+ 
 
     public bool inPlayerArea = false;
     public void OnBeginDrag(PointerEventData eventData)
@@ -29,12 +27,14 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
 
         foreach (Player p in PlayerManager.Instance.Players)
         {
-            if (p.AbilityInventory.Contains(ability))
+           /* if (p.AbilityInventory.Contains(ability))
             {
+                Ability abilityRemoved = ability;
                 p.AbilityInventory.Remove(ability);
-            }
+            }*/
         }
 
+        //abilityLoadout.Ability();
         canvasGroup.blocksRaycasts = false;
     }
 
@@ -60,7 +60,7 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
         if (pointedObj.GetComponentInParent<UI_PlayerABLInventory>())
         {
             UI_PlayerABLInventory playerArea = pointedObj.GetComponentInParent<UI_PlayerABLInventory>();
-            if (!playerArea.player.AbilityInventory.Contains(ability))
+           // if (!playerArea.player.AbilityInventory.Contains(ability))
             {
                 inPlayerArea = true;
                 //playerArea.player.AbilityInventory.Add(ability);
@@ -68,6 +68,7 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
                 EventManager.OnAbilityChosen(this,playerArea.player);
                 currentParent = playerArea.InventoryArea;
             }
+
         }
         else if (pointedObj.GetComponentInParent<GridLayoutGroup>())
         {
@@ -93,7 +94,9 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
         }
         canvasGroup.blocksRaycasts = true;
         eventData.hovered.Clear();
+      
 
+  
         
     }
 

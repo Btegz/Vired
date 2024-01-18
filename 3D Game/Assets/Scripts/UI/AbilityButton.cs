@@ -30,6 +30,7 @@ public class AbilityButton : MonoBehaviour
     [SerializeField] public ButtonState currentState;
 
     public Dictionary<Vector2Int, UpgradeGridHex> UIGrid;
+    public AbilityLoadout abilityLoadout;
 
     protected RectTransform rectTransform;
     protected float width;
@@ -39,6 +40,11 @@ public class AbilityButton : MonoBehaviour
     [SerializeField] float HexSizePerButtonSize;
     [SerializeField] float HexSizeFactorPerAbilityTealevel;
 
+
+    public void Start()
+    {
+        abilityLoadout = GetComponentInParent<AbilityLoadout>();
+    }
     public void RectData()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -135,7 +141,7 @@ public class AbilityButton : MonoBehaviour
         for (int i = 0; i < ability.Coordinates.Count; i++)
         {
             //Debug.Log("I make a tile of the ability now");
-            Sprite sp = GetFittingSprite(ability.Effects[i], out string text);
+           Sprite sp = GetFittingSprite(ability.Effects[i], out string text);
             if (UIGrid.ContainsKey(ability.Coordinates[i]))
             {
                 UIGrid[ability.Coordinates[i]].Fill(sp, text);

@@ -1683,11 +1683,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7fa60f18b87b3fe4cae2104a8976059f, type: 2}
   - {fileID: 11400000, guid: ae9f609628fd07a45a08aa031314204b, type: 2}
   - {fileID: 11400000, guid: 40e647ce2a2c01f4f966685a1532484c, type: 2}
-  - {fileID: 11400000, guid: afcbb28e84f1c2e4c8b431f67e892b12, type: 2}
-  - {fileID: 11400000, guid: 1a5f4560730c7fa4abab7b997a8ef45c, type: 2}
-  - {fileID: 11400000, guid: 3c94b927fe401c440ac5a9c107499677, type: 2}
-  - {fileID: 11400000, guid: d147328bb1961674698160df7239f2d4, type: 2}
   ChosenAbilityList: []
+  previousChosenAbilityList: 0
+  currentChosenAbilityList: 0
   abloadoutButton: {fileID: 8983986266932953782, guid: f9707cddb74eadd4cb81d785b6e34006, type: 3}
   ChosenAbilitiesLayout: {fileID: 0}
   amountToChoose: 3
@@ -1702,6 +1700,7 @@ MonoBehaviour:
   MinimapCam: {fileID: 8702207893230839528}
   MiniMapZoomButton: {fileID: 5769813708639328981}
   MinMapImage: {fileID: 4304396624286027002}
+  ability_: {fileID: 0}
 --- !u!1 &8702207893230839534
 GameObject:
   m_ObjectHideFlags: 0

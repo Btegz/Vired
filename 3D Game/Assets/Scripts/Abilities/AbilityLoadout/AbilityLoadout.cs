@@ -11,6 +11,8 @@ public class AbilityLoadout : MonoBehaviour
     [SerializeField] List<Ability> abilityCollection;
 
     [SerializeField] public List<Ability> ChosenAbilityList;
+    [SerializeField] int previousChosenAbilityList;
+    [SerializeField] int currentChosenAbilityList;
 
     [SerializeField] AbilityLoadoutButton abloadoutButton;
 
@@ -34,19 +36,26 @@ public class AbilityLoadout : MonoBehaviour
     [SerializeField] Image MinMapImage;
     bool miniMapIsZoomed;
 
+    public new List<Ability> AbilitiesA;
+    public new List<Ability> AbilitiesB;
+    public new List<Ability> AbilitiesC;
+    public new List<Ability> AbilitiesD;
+
+    public Ability ability_;
+
     private void OnEnable()
     {
-      
-        
-        
-        if(PlayerManager.Instance != null)
+
+        if (PlayerManager.Instance != null)
         {
             PlayerManager.Instance.AbilityLoadoutActive = true;
         }
-        
+
         ChosenAbilityList = new List<Ability>();
 
-        if(ChosenAbilityList.Count != amountToChoose)
+        currentChosenAbilityList = 0;
+
+        if (ChosenAbilityList.Count != amountToChoose)
         {
             ConfirmButton.gameObject.SetActive(false);
         }
@@ -75,15 +84,17 @@ public class AbilityLoadout : MonoBehaviour
         //{
         //    Destroy(abl.gameObject);
         //}
-
-
         EventManager.OnAbilityChosenEvent += AddAbilityChoice;
+        EventManager.OnAbilityChosenEvent += RenewAbility;
+       
         EventManager.LoadOutAbilityChoiseRemoveEvent += RemoveAbilityChoice;
+
     }
 
     private void OnDisable()
     {
         EventManager.OnAbilityChosenEvent -= AddAbilityChoice;
+        EventManager.OnAbilityChosenEvent += RenewAbility;
         EventManager.LoadOutAbilityChoiseRemoveEvent -= RemoveAbilityChoice;
     }
 
@@ -92,11 +103,10 @@ public class AbilityLoadout : MonoBehaviour
     {
         MinimapCam.orthographicSize = GridManager.Instance.mapSettings.NoiseDataSize.x;
         Ability();
-        
-        
 
-            //instance.ability.StarterAbility();
-        }
+
+        //instance.ability.StarterAbility();
+    }
     //playerManager.AbilityLoadoutActive = true;
 
     //ChosenAbilityList = new List<Ability>();
@@ -155,6 +165,7 @@ public class AbilityLoadout : MonoBehaviour
         foreach (Ability ability in abilityCollection)
         {
             ability.StarterAbility();
+
             switch (ability.MyCostRessource)
             {
                 case Ressource.ressourceA:
@@ -176,11 +187,52 @@ public class AbilityLoadout : MonoBehaviour
                 default: instance = null; break;
             }
             instance.currentState = ButtonState.newInLoadout;
+
         }
+    }
+
+
+    public void RenewAbility(AbilityLoadoutButton abilityLoadoutButton, Player player)
+    {
+        if (ChosenAbilityList.Count !=0)
+        {
+            ability_ = ChosenAbilityList[currentChosenAbilityList];
+
+            switch (ability_.MyCostRessource)
+            {
+                case Ressource.ressourceA:
+                    //ability_ = AbilitiesA[currentChosenAbilityList+1];
+                    abilityLoadoutButton = Instantiate(abloadoutButton, BlueAbilityLayout.transform);
+                    abilityLoadoutButton.Setup(ability_, BlueAbilityLayout);
+                    break;
+                case Ressource.ressourceB:
+                   // ability_ = AbilitiesB[currentChosenAbilityList+1];
+                    abilityLoadoutButton = Instantiate(abloadoutButton, OrangeAbilityLayout.transform);
+                    abilityLoadoutButton.Setup(ability_, OrangeAbilityLayout);
+                    break;
+                case Ressource.ressourceC:
+                   // ability_ = AbilitiesC[currentChosenAbilityList+1];
+                    abilityLoadoutButton = Instantiate(abloadoutButton, RedAbilityLayout.transform);
+                    abilityLoadoutButton.Setup(ability_, RedAbilityLayout);
+                    break;
+                case Ressource.ressourceD:
+                 //   ability_ = AbilitiesD[currentChosenAbilityList+1];
+                    abilityLoadoutButton = Instantiate(abloadoutButton, GreenAbilityLayout.transform);
+                    abilityLoadoutButton.Setup(ability_, GreenAbilityLayout);
+                    break;
+                default: abilityLoadoutButton = null; break;
+            }
+            abilityLoadoutButton.currentState = ButtonState.newInLoadout;
+            currentChosenAbilityList++;
+            return;
+        }
+        else
+            return;
+
     }
     public void SwitchtoMain()
     {
-        
+
         CameraRotation.Instance.CameraCenterToPlayer(PlayerManager.Instance.selectedPlayer);
         CameraRotation.Instance.Worldcam.Priority = 3;
         CameraRotation.Instance.AbilityUpgradeCam.Priority = 1;
@@ -193,7 +245,7 @@ public class AbilityLoadout : MonoBehaviour
 
     }
 
-    
+
     private void OnDestroy()
     {
         //EventManager.OnAbilityChosenEvent -= AddAbilityChoice;
@@ -202,12 +254,13 @@ public class AbilityLoadout : MonoBehaviour
 
     public void AddAbilityChoice(AbilityLoadoutButton abilityLoadoutButton, Player player)
     {
-        if (!ChosenAbilityList.Contains(abilityLoadoutButton.ability))
-        {
+        //   currentChosenAbilityList++;
+       /* if (!ChosenAbilityList.Contains(abilityLoadoutButton.ability))
+        {*/
             //abilityLoadoutButton.transform.SetParent(ChosenAbilitiesLayout.transform);
             abilityLoadoutButton.GetComponent<Button>().enabled = false;
             ChosenAbilityList.Add(abilityLoadoutButton.ability);
-        }
+       // }
         if (ChosenAbilityList.Count == amountToChoose)
         {
             ConfirmButton.gameObject.SetActive(true);
