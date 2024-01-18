@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Cinemachine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class Player : MonoBehaviour, IPointerClickHandler
 
@@ -34,6 +35,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
     public void OpenAbilityCastCanvas()
     {
         AbilityCastCanvas.enabled = true;
+        AbilityCastCanvas.transform.DOMove(AbilityCastCanvas.transform.position,0.2f).From(transform.position).OnComplete(()=> AbilityCastCanvas.transform.DOPunchScale(Vector3.one, 0.2f));
     }
 
     public void CloseAbilityCastCanvas()

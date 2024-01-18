@@ -333,7 +333,7 @@ public class AbilityObjScript : MonoBehaviour
         castAbiltyInputActionReference.action.performed -= CastAbility;
         //PlayerManager.Instance.AbilityCasted();
         EventManager.OnAbilityCast();
-
+        PlayerManager.Instance.move = true;
         KillYourSelf();
     }
     public void CastAbility()
@@ -381,6 +381,7 @@ public class AbilityObjScript : MonoBehaviour
 
     public void KillYourSelf(InputAction.CallbackContext actionCallBackContext)
     {
+        PlayerManager.Instance.move = true;
         PlayerManager.Instance.selectedPlayer.AbilityCastButton.onClick.RemoveAllListeners();
         PlayerManager.Instance.selectedPlayer.CloseAbilityCastCanvas();
 
@@ -388,6 +389,7 @@ public class AbilityObjScript : MonoBehaviour
     }
     public void KillYourSelf()
     {
+        PlayerManager.Instance.move = true;
         PlayerManager.Instance.selectedPlayer.AbilityCastButton.onClick.RemoveAllListeners();
         PlayerManager.Instance.selectedPlayer.CloseAbilityCastCanvas();
 
