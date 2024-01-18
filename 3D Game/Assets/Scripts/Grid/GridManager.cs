@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
@@ -79,6 +81,7 @@ public class GridManager : MonoBehaviour
         PlayerManager.Instance.abilityLoadout.amountToChoose = 3;
         PlayerManager.Instance.abilityLoadout.gameObject.SetActive(true);
 
+        
 
         //GenerateGrid();
 
@@ -148,7 +151,6 @@ public class GridManager : MonoBehaviour
 
             List<ProceduralTileInfo> tileInfos = mapSettings.NoiseData();
 
-            List<Vector2Int> border = mapSettings.GetOuterBorder(tileInfos);
 
             foreach (ProceduralTileInfo tileinfo in tileInfos)
             {
@@ -177,21 +179,12 @@ public class GridManager : MonoBehaviour
                             newTile.transform.position += Vector3.up * mapSettings.constantHeighVarianceFactor * 4;
                             break;
                     }
-
-
-
                     Grid.Add(tileinfo.coord, newTile);
                 }
-            }
-            // Fill Map with Things
-            SpawnBossAndPlayer(border);
+            }            
+            
 
 
-            for (int i = 0; i < startEnemyCount; i++)
-            {
-                SpawnEnemy();
-            }
-            SpawnPofIs();
 
             foreach (KeyValuePair<Vector2Int, GridTile> kvp in Grid)
             {
@@ -216,6 +209,16 @@ public class GridManager : MonoBehaviour
             "_HexCellData_TexelSize",
             new Vector4(1f / 200, 1f / 200, 200, 200));
 
+            // Fill Map with Things
+            List<Vector2Int> border = HexGridUtil.GetOuterBorderUnSorted(Grid.Keys.ToList<Vector2Int>());
+            SpawnBossAndPlayer(border);
+
+
+            for (int i = 0; i < startEnemyCount; i++)
+            {
+                SpawnEnemy();
+            }
+            SpawnPofIs();
         }
     }
 
@@ -309,18 +312,18 @@ public class GridManager : MonoBehaviour
         Boss newBoss = Instantiate(StartBossPrefab);
         List<Vector2Int> newBossTiles = HexGridUtil.AxialNeighbors(Border[0]);
         BossSpawn = Border[0];
-        foreach (Vector2Int coordinate in newBossTiles)
-        {
-            if (!Grid.ContainsKey(coordinate))
-            {
-                GridTile newTile = Instantiate(GridTilePrefab);
-                newTile.Setup(coordinate, (Ressource)Random.Range(0, 4), true);
-                newTile.transform.parent = transform;
-                newTile.transform.position = HexGridUtil.AxialHexToPixel(coordinate, 1);
-                newTile.currentGridState = gS_BossNegative;
-                Grid.Add(coordinate, newTile);
-            }
-        }
+        //foreach (Vector2Int coordinate in newBossTiles)
+        //{
+        //    if (!Grid.ContainsKey(coordinate))
+        //    {
+        //        GridTile newTile = Instantiate(GridTilePrefab);
+        //        newTile.Setup(coordinate, (Ressource)Random.Range(0, 4), true);
+        //        newTile.transform.parent = transform;
+        //        newTile.transform.position = HexGridUtil.AxialHexToPixel(coordinate, 1);
+        //        newTile.currentGridState = gS_BossNegative;
+        //        Grid.Add(coordinate, newTile);
+        //    }
+        //}
         newBoss.Setup(Grid[Border[0]]);
 
 

@@ -20,7 +20,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] InputActionReference cancelAbilityInputActionReference;
     public AbilityObjScript abilityObj;
     [HideInInspector] public List<Ability> abilitInventory;
-    [HideInInspector] public bool abilityActivated = false;
+    /*[HideInInspector]*/ public bool abilityActivated = false;
     [HideInInspector] private bool abilityUsable = true;
     [HideInInspector] public bool AbilityLoadoutActive;
 
@@ -362,7 +362,10 @@ public class PlayerManager : MonoBehaviour
             //Quaternion indicatorRotation = Quaternion.Euler(0, 30, 0);
             //indicatorPrefabClone = Instantiate(indicatorPrefab, selectedPlayer.transform.position, indicatorRotation);
         }
-        move = true;
+        else
+        {
+            move = true;
+        }
     }
 
     public bool InventoryCheck(Ability ability, Player player)

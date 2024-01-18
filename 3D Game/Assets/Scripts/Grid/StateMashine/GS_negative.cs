@@ -16,6 +16,8 @@ public class GS_negative : GridState
     {
         parent.meshRenderer.material = parent.gridTileSO.negativeMaterial;
         parent.transform.DOComplete();
+        parent.GetComponent<RessourceVisuals>().CleanUpKlopse();
+
         parent.GetComponent<RessourceVisuals>().SpawnEnemyMass();
 
         parent.transform.DOPunchRotation(Vector3.one*TweenScale,.5f);

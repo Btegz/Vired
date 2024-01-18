@@ -137,7 +137,7 @@ public class CameraRotation : MonoBehaviour
     void Start()
     {
 
-        
+
         // Worldcam.Follow = transform; 
         WorldcamStart = transform.position;
         startingPosition = cam.transform.localPosition;
@@ -216,7 +216,7 @@ public class CameraRotation : MonoBehaviour
     {
         if (AbilityUpgradeCam.Priority == 3 || AbilityLoadoutCam.Priority == 3)
         {
-         return;
+            return;
         }
         rotationCoroutine = StartCoroutine(Rotato());
     }
@@ -241,7 +241,7 @@ public class CameraRotation : MonoBehaviour
         /// Lerp von der Kamera Position durch die End Positon mit dem Scroll Input 
 
 
-        if (PlayerManager.Instance.abilityActivated == false || AbilityUpgradeCam.Priority != 2)
+        if (PlayerManager.Instance.abilityActivated == false && AbilityUpgradeCam.Priority != 3)
         {
 
             if (mouseScrollY > 0)
@@ -254,21 +254,21 @@ public class CameraRotation : MonoBehaviour
 
 
 
-                if (Worldcam.Priority == 2/* && MainCam == true*/)
+                if (Worldcam.Priority == 3/* && MainCam == true*/)
                 {
                     //Worldcam.transform.LookAt(cam.transform.position);
                     if (worldcamRecomposer.m_ZoomScale > MaxZoom)
                         worldcamRecomposer.m_ZoomScale -= 0.1f;
                 }
 
-              /*  else if (Playercam.Priority == 2)
-                {
-                    //Playercam.transform.LookAt(Playercam.transform.position);
-                    if (playercamRecomposer.m_ZoomScale > MaxZoom)
-                        playercamRecomposer.m_ZoomScale -= 0.1f;
-                }*/
+                /*  else if (Playercam.Priority == 2)
+                  {
+                      //Playercam.transform.LookAt(Playercam.transform.position);
+                      if (playercamRecomposer.m_ZoomScale > MaxZoom)
+                          playercamRecomposer.m_ZoomScale -= 0.1f;
+                  }*/
 
-                else
+                else if (TopDownCam.Priority == 3)
                 {
                     //TopDownCam.transform.LookAt(TopDownCam.transform.position);
                     if (topdowncamRecomposer.m_ZoomScale > MaxZoom)
@@ -286,7 +286,7 @@ public class CameraRotation : MonoBehaviour
                 maxMovementSpeed = Mathf.Lerp(startMovementSpeed, maxMovementSpeed, MouseScrollDistance);
 
 
-                if (Worldcam.Priority == 2/* && MainCam == true*/)
+                if (Worldcam.Priority == 3/* && MainCam == true*/)
                 {
                     //Worldcam.transform.LookAt(cam.transform.position);
                     if (worldcamRecomposer.m_ZoomScale < MinZoom)
@@ -294,15 +294,15 @@ public class CameraRotation : MonoBehaviour
 
                 }
 
-            /*    else if (Playercam.Priority == 2)
-                {
-                    //Playercam.transform.LookAt(Playercam.transform.position);
-                    if (playercamRecomposer.m_ZoomScale < MinZoom)
-                        playercamRecomposer.m_ZoomScale += 0.1f;
+                /*    else if (Playercam.Priority == 2)
+                    {
+                        //Playercam.transform.LookAt(Playercam.transform.position);
+                        if (playercamRecomposer.m_ZoomScale < MinZoom)
+                            playercamRecomposer.m_ZoomScale += 0.1f;
 
-                }*/
+                    }*/
 
-                else
+                else if (TopDownCam.Priority == 3)
                 {
                     //TopDownCam.transform.LookAt(TopDownCam.transform.position);
                     if (topdowncamRecomposer.m_ZoomScale < MinZoom)
@@ -318,7 +318,7 @@ public class CameraRotation : MonoBehaviour
     /// <returns></returns>
     IEnumerator Rotato()
     {
-        
+
         Vector2 previousMousePosition = Pointer.current.position.ReadValue();
         /*if (Playercam.Priority == 2)
         {
@@ -336,60 +336,60 @@ public class CameraRotation : MonoBehaviour
 
         }*/
 
+        if (Worldcam.Priority == 3)
+        {
+            if (Worldcam.Follow != null)
+            {
+                normalFollow.position = Worldcam.Follow.position;
+            }
+
+            Worldcam.LookAt = null;
+            //Worldcam.Follow = null;
+        }
+
+        else if (TopDownCam.Priority == 3)
+        {
+            if (Worldcam.Follow != null)
+            {
+                normalFollow.position = TopDownCam.Follow.position;
+            }
+            TopDownCam.LookAt = null;
+            //TopDownCam.Follow = null;
+        }
+        while (true)
+        {
+            Vector2 currentMousePosition = Pointer.current.position.ReadValue();
+
+            //Wir erstellen uns ein Quad das auf 0 liegt und nach x und z sich ausdehnt(das ist der Boden)
+
+            // wir schieﬂen einen Ray von Cam durch Screenmittelpunkt
+
+            // wir holen uns den Punkt wo der Ray das Quad trifft und rotieren um diesen Punkt yo
+
+            Plane boden = new Plane(Vector3.up, 0);
+
+            Vector2 screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
+
+            var pointerWorldRay = Camera.main.ScreenPointToRay(screenCenter);
+
+            boden.Raycast(pointerWorldRay, out float enterDistance);
+
+            var previousPointerWorldPos = pointerWorldRay.GetPoint(enterDistance);
+
             if (Worldcam.Priority == 3)
             {
-                if (Worldcam.Follow != null)
-                {
-                    normalFollow.position = Worldcam.Follow.position;
-                }
-
-                Worldcam.LookAt = null;
-                //Worldcam.Follow = null;
+                Worldcam.transform.RotateAround(previousPointerWorldPos, Vector3.up, ((currentMousePosition - previousMousePosition).x / Screen.width) * rotationSpeed);
+                previousMousePosition = currentMousePosition;
+                yield return null;
             }
-
             else if (TopDownCam.Priority == 3)
             {
-                if (Worldcam.Follow != null)
-                {
-                    normalFollow.position = TopDownCam.Follow.position;
-                }
-                TopDownCam.LookAt = null;
-                //TopDownCam.Follow = null;
+                TopDownCam.transform.RotateAround(previousPointerWorldPos, Vector3.up, ((currentMousePosition - previousMousePosition).x / Screen.width) * rotationSpeed);
+                previousMousePosition = currentMousePosition;
+                yield return null;
             }
-            while (true)
-            {
-                Vector2 currentMousePosition = Pointer.current.position.ReadValue();
 
-                //Wir erstellen uns ein Quad das auf 0 liegt und nach x und z sich ausdehnt(das ist der Boden)
 
-                // wir schieﬂen einen Ray von Cam durch Screenmittelpunkt
-
-                // wir holen uns den Punkt wo der Ray das Quad trifft und rotieren um diesen Punkt yo
-
-                Plane boden = new Plane(Vector3.up, 0);
-
-                Vector2 screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
-
-                var pointerWorldRay = Camera.main.ScreenPointToRay(screenCenter);
-
-                boden.Raycast(pointerWorldRay, out float enterDistance);
-
-                var previousPointerWorldPos = pointerWorldRay.GetPoint(enterDistance);
-
-                if (Worldcam.Priority == 3)
-                {
-                    Worldcam.transform.RotateAround(previousPointerWorldPos, Vector3.up, ((currentMousePosition - previousMousePosition).x / Screen.width) * rotationSpeed);
-                    previousMousePosition = currentMousePosition;
-                    yield return null;
-                }
-                else if (TopDownCam.Priority == 3)
-                {
-                    TopDownCam.transform.RotateAround(previousPointerWorldPos, Vector3.up, ((currentMousePosition - previousMousePosition).x / Screen.width) * rotationSpeed);
-                    previousMousePosition = currentMousePosition;
-                    yield return null;
-                }
-
-           
         }
 
     }
@@ -486,9 +486,9 @@ public class CameraRotation : MonoBehaviour
         //Playercam.Priority = 0;
         MainCam = true;
         transform.position = WorldcamStart;
-       /* if (dropdown.value != 0)
-            dropdown.value = 0;*/
-       // dropdown.RefreshShownValue();
+        /* if (dropdown.value != 0)
+             dropdown.value = 0;*/
+        // dropdown.RefreshShownValue();
 
     }
 
@@ -522,14 +522,14 @@ public class CameraRotation : MonoBehaviour
 
 
     public void CameraCenterToPlayer(Player player)
-    { 
-    //if (Playercam.Priority == 2)
-    //    {
-    //        Playercam.LookAt = player.transform;
-    //        Playercam.Follow = player.transform;
+    {
+        //if (Playercam.Priority == 2)
+        //    {
+        //        Playercam.LookAt = player.transform;
+        //        Playercam.Follow = player.transform;
 
 
-    //    }
+        //    }
 
         if (Worldcam.Priority == 3)
         {
@@ -537,12 +537,12 @@ public class CameraRotation : MonoBehaviour
             Worldcam.Follow = player.transform;
         }
 
-        else if(TopDownCam.Priority == 3)
+        else if (TopDownCam.Priority == 3)
         {
             TopDownCam.Follow = player.transform;
         }
 
-        else if(AbilityUpgradeCam.Priority ==3)
+        else if (AbilityUpgradeCam.Priority == 3)
         {
             AbilityUpgradeCam.Follow = player.transform;
         }
@@ -551,19 +551,19 @@ public class CameraRotation : MonoBehaviour
 
     public void AbilityLoadOut()
     {
-        
+
         PlayerPrefs.SetInt("AbilityLoadOut", AbilityUpgradeCam.Priority);
         PlayerPrefs.SetInt("World", Worldcam.Priority);
         PlayerPrefs.SetInt("Topdown", TopDownCam.Priority);
 
-        
-            Worldcam.Priority = 1;
-            AbilityUpgradeCam.Priority = 3;
-            AbilityLoadoutCam.Priority = 2;
-            TopDownCam.Priority = 0;
-            transform.position = WorldcamStart;
-            CameraCenterToPlayer(PlayerManager.Instance.selectedPlayer);
-  
+
+        Worldcam.Priority = 1;
+        AbilityUpgradeCam.Priority = 3;
+        AbilityLoadoutCam.Priority = 2;
+        TopDownCam.Priority = 0;
+        transform.position = WorldcamStart;
+        CameraCenterToPlayer(PlayerManager.Instance.selectedPlayer);
+
 
 
     }

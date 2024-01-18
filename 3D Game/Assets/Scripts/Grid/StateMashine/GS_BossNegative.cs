@@ -13,6 +13,9 @@ public class GS_BossNegative : GridState
 
     public override void EnterState(GridTile parent)
     {
+        parent.GetComponent<RessourceVisuals>().CleanUpKlopse();
+        parent.GetComponent<RessourceVisuals>().SpawnEnemyMass();
+
         parent.meshRenderer.material = parent.gridTileSO.negativeMaterial;
         parent.transform.DOComplete();
         parent.transform.DOPunchRotation(Vector3.one * TweenScale, .5f);
@@ -20,7 +23,7 @@ public class GS_BossNegative : GridState
 
     public override void ExitState(GridTile parent)
     {
-        //throw new System.NotImplementedException();
+        parent.GetComponent<RessourceVisuals>().DestroyEnemyMasses();
     }
 
     public override void PlayerEnters(GridTile parent)
