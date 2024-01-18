@@ -53,7 +53,7 @@ public class RessourceVisuals : MonoBehaviour
     [SerializeField] float TweenDuration;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         myTile = GetComponent<GridTile>();
         CurrentEnemyMasses = new List<GameObject>();
@@ -78,10 +78,24 @@ public class RessourceVisuals : MonoBehaviour
         //}
         //CurrentKlopse = new List<GameObject>();
 
-        if (myTile.currentGridState == GridManager.Instance.gS_Positive)
+    }
+
+    private void Start()
+    {
+        SpawnKlopse();
+        switch (myTile.currentGridState.StateValue())
         {
-            SpawnKlopse();
+            case <= 0:
+                CleanUpKlopse();
+                break;
+            case 1:
+                InfestKlopse();
+                break;
+            case 4:
+                CleanUpKlopse();
+                break;
         }
+        
     }
 
     public void SpawnKlopse()
@@ -106,7 +120,7 @@ public class RessourceVisuals : MonoBehaviour
         }
     }
 
-    
+
 
     private void getMyKlopse()
     {
@@ -131,7 +145,7 @@ public class RessourceVisuals : MonoBehaviour
 
     public void InfestKlopse()
     {
-        foreach(TerrainFeature klops in CurrentKlopse)
+        foreach (TerrainFeature klops in CurrentKlopse)
         {
             klops.Infest();
         }
@@ -158,7 +172,7 @@ public class RessourceVisuals : MonoBehaviour
     {
         try
         {
-            foreach(GameObject enemyMass in CurrentEnemyMasses)
+            foreach (GameObject enemyMass in CurrentEnemyMasses)
             {
                 Destroy(enemyMass);
             }
@@ -172,9 +186,9 @@ public class RessourceVisuals : MonoBehaviour
     public void SpawnEnemyMass()
     {
         int amount = Random.Range(howManyEnemyMassKlopseFromTo.x, howManyEnemyMassKlopseFromTo.y + 1);
-        for(int i = 0; i < amount; i++)
+        for (int i = 0; i < amount; i++)
         {
-            GameObject newEnemyMass = Instantiate(EnemyMassKlopse[Random.Range(0, EnemyMassKlopse.Count)],transform);
+            GameObject newEnemyMass = Instantiate(EnemyMassKlopse[Random.Range(0, EnemyMassKlopse.Count)], transform);
             Vector3 goalPosition = transform.position;
             goalPosition += new Vector3(Random.Range(-.5f, .5f), 0, Random.Range(-.4f, .4f));
             goalPosition -= new Vector3(0, Random.Range(getOffset().x, getOffset().y), 0);
@@ -202,6 +216,11 @@ public class RessourceVisuals : MonoBehaviour
 
     private Vector2 getOffset()
     {
+        if (myTile == null)
+        {
+            myTile = GetComponent<GridTile>();
+        }
+
         switch (myTile.ressource)
         {
             case Ressource.ressourceA:
