@@ -15,6 +15,7 @@ public class MainMenu : MonoBehaviour
     public Toggle tutorialToggle;
     public ToggleObj TutorialObj;
     public Image Fade;
+    public DoFade doFade;
 
     public Button creditsBack;
  
