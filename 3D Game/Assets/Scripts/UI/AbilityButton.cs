@@ -76,7 +76,9 @@ public class AbilityButton : MonoBehaviour
                 GetComponent<Image>().sprite = A_Background;
                 break;
             case Ressource.ressourceB:
+                Debug.Log(ability);
                 GetComponent<Image>().sprite = B_Background;
+                
                 break;
             case Ressource.ressourceC:
                 GetComponent<Image>().sprite = C_Background;
