@@ -15,6 +15,7 @@ public class AbilityLoadout : MonoBehaviour
     [SerializeField] int currentChosenAbilityList;
 
     [SerializeField] AbilityLoadoutButton abloadoutButton;
+    [SerializeField] AbilityLoadoutButton NewAbilityLoadoutButton;
 
     [SerializeField] public GridLayoutGroup ChosenAbilitiesLayout;
 
@@ -34,6 +35,7 @@ public class AbilityLoadout : MonoBehaviour
     [SerializeField] Camera MinimapCam;
     [SerializeField] Button MiniMapZoomButton;
     [SerializeField] Image MinMapImage;
+    [SerializeField] public Image Interactable;
     bool miniMapIsZoomed;
 
     public new List<Ability> AbilitiesA;
@@ -42,6 +44,7 @@ public class AbilityLoadout : MonoBehaviour
     public new List<Ability> AbilitiesD;
 
     public Ability ability_;
+    public Ability NewAbility;
 
     private void OnEnable()
     {
@@ -194,40 +197,53 @@ public class AbilityLoadout : MonoBehaviour
 
     public void RenewAbility(AbilityLoadoutButton abilityLoadoutButton, Player player)
     {
-        if (ChosenAbilityList.Count !=0)
+        if (ChosenAbilityList.Count != 0)
         {
             ability_ = ChosenAbilityList[currentChosenAbilityList];
+         
 
-            switch (ability_.MyCostRessource)
+            try
             {
-                case Ressource.ressourceA:
-                    //ability_ = AbilitiesA[currentChosenAbilityList+1];
-                    abilityLoadoutButton = Instantiate(abloadoutButton, BlueAbilityLayout.transform);
-                    abilityLoadoutButton.Setup(ability_, BlueAbilityLayout);
-                    break;
-                case Ressource.ressourceB:
-                   // ability_ = AbilitiesB[currentChosenAbilityList+1];
-                    abilityLoadoutButton = Instantiate(abloadoutButton, OrangeAbilityLayout.transform);
-                    abilityLoadoutButton.Setup(ability_, OrangeAbilityLayout);
-                    break;
-                case Ressource.ressourceC:
-                   // ability_ = AbilitiesC[currentChosenAbilityList+1];
-                    abilityLoadoutButton = Instantiate(abloadoutButton, RedAbilityLayout.transform);
-                    abilityLoadoutButton.Setup(ability_, RedAbilityLayout);
-                    break;
-                case Ressource.ressourceD:
-                 //   ability_ = AbilitiesD[currentChosenAbilityList+1];
-                    abilityLoadoutButton = Instantiate(abloadoutButton, GreenAbilityLayout.transform);
-                    abilityLoadoutButton.Setup(ability_, GreenAbilityLayout);
-                    break;
-                default: abilityLoadoutButton = null; break;
+                switch (abilityLoadoutButton.ability.MyCostRessource)
+                {
+                    case Ressource.ressourceA:
+                        NewAbility = AbilitiesA[0];
+                        AbilitiesA.RemoveAt(0);
+                        NewAbilityLoadoutButton = Instantiate(abloadoutButton, BlueAbilityLayout.transform);
+                        NewAbilityLoadoutButton.Setup(NewAbility, BlueAbilityLayout);
+                        break;
+                    case Ressource.ressourceB:
+                        NewAbility = AbilitiesB[0];
+                        AbilitiesB.RemoveAt(0);
+                         NewAbilityLoadoutButton = Instantiate(abloadoutButton, OrangeAbilityLayout.transform);
+                        NewAbilityLoadoutButton.Setup(NewAbility, OrangeAbilityLayout);
+                        break;
+                    case Ressource.ressourceC:
+                        NewAbility = AbilitiesC[0];
+                        AbilitiesC.RemoveAt(0);
+                         NewAbilityLoadoutButton = Instantiate(abloadoutButton, RedAbilityLayout.transform);
+                        NewAbilityLoadoutButton.Setup(NewAbility, RedAbilityLayout);
+                        break;
+                    case Ressource.ressourceD:
+                        NewAbility = AbilitiesD[0]; 
+                        AbilitiesD.RemoveAt(0);
+                        NewAbilityLoadoutButton = Instantiate(abloadoutButton, GreenAbilityLayout.transform);
+                        NewAbilityLoadoutButton.Setup(NewAbility, GreenAbilityLayout);
+                        break;
+                    default: NewAbilityLoadoutButton = null; break;
+                }
+                NewAbilityLoadoutButton.currentState = ButtonState.newInLoadout;
+                currentChosenAbilityList++;
+                return;
             }
-            abilityLoadoutButton.currentState = ButtonState.newInLoadout;
-            currentChosenAbilityList++;
+            catch { }
+        }
+
+        else
+        {
             return;
         }
-        else
-            return;
+        
 
     }
     public void SwitchtoMain()
@@ -300,6 +316,7 @@ public class AbilityLoadout : MonoBehaviour
         }
 
         gameObject.SetActive(false);
+        Interactable.enabled = false;
     }
 
     public void ToggleMiniMapZoom()

@@ -102,6 +102,8 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
 
     public void Setup(Ability ability, GridLayoutGroup fatherrrr)
     {
+        Debug.Log(ability);
+        ability.StarterAbility();
         RectData();
         this.ability = ability;
         MakeAbilityToGrid();
