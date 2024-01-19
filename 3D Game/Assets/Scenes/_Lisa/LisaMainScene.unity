@@ -329,6 +329,54 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4473026906653798811, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
   m_PrefabInstance: {fileID: 1239626424}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &163845726
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 163845728}
+  - component: {fileID: 163845727}
+  m_Layer: 0
+  m_Name: SaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &163845727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163845726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88db5e3dff7949241a0ea22b77d753b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PofIs: {fileID: 3347520190811535263, guid: 0f1e0efbb46851246aeb26da7be87fae, type: 3}
+  enemies: {fileID: 2148683299467376766, guid: 46ce70d7f7b651c4d85ca32bf76de3f9, type: 3}
+  positive: {fileID: 11400000, guid: d4b71c1d31cdb0a4fae33f2336fdbfa4, type: 2}
+  abilityObj: {fileID: 8527911146813857575, guid: a3e553756b59e4d46b657791d81a0ea3, type: 3}
+--- !u!4 &163845728
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163845726}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 950.5883, y: 557.32263, z: 1.3853798}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 28
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &168507999 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3030105304977377263, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
@@ -2474,6 +2522,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 68a899f6e9decbb49a9daf73e862892b, type: 3}
   movementPointsPerTurn: 8
   movementAction: 8
+  totalSteps: 0
   SkillPoints: 3
   extraMovement: 0
   selectedPlayer: {fileID: 0}

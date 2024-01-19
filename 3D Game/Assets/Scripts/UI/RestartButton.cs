@@ -34,4 +34,14 @@ public class RestartButton : MonoBehaviour
     {
         SceneManager.LoadScene("MainScene");
     }
+
+    public void Exit()
+    {
+        Application.Quit();
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("StartScreen");
+    }
 }

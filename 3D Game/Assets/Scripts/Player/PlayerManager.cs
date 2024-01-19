@@ -30,6 +30,7 @@ public class PlayerManager : MonoBehaviour
     public List<Sprite> PlayerSprites;
     [SerializeField] int movementPointsPerTurn;
     [HideInInspector]public int movementAction = 4;
+    [HideInInspector] public int totalSteps;
     public int SkillPoints;
     [HideInInspector] public int extraMovement;
     [HideInInspector] public Player selectedPlayer;
@@ -299,6 +300,7 @@ public class PlayerManager : MonoBehaviour
         
 
         selectedPlayer.CoordinatePosition = moveTo;
+        totalSteps++;
 
         yield return null;
     }

@@ -34,6 +34,8 @@ public class AbilityObjScript : MonoBehaviour
     public AudioData abilityCast;
     public AudioMixerGroup soundEffect;
 
+    [HideInInspector] public int Heals;
+
 
     Camera cam;
 
@@ -233,6 +235,7 @@ public class AbilityObjScript : MonoBehaviour
 
 
                 }
+                Heals++;
                 break;
             case Effect.Negative100:
 

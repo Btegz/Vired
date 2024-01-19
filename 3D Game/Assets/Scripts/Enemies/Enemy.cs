@@ -32,10 +32,13 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     
     [SerializeField] public int maxHealth;
     public int SkillPointReward;
+    public int TotalKills;
+    public int DamageDealt;
    
 
     [Header("Negative Spread")]
     [SerializeField] public int SpreadAmount;
+    [HideInInspector] public int TotalSpread;
     [SerializeField] public float everyXTurns;
     [SerializeField] public List<Spreadbehaviours> spreadbehaviours;
 
@@ -134,6 +137,7 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             {
                 Image hp = healthpoints[healthpoints.Count - 1];
                 healthpoints.RemoveAt(healthpoints.Count - 1);
+                DamageDealt++;
                 Destroy(hp.gameObject);
             }
         }
@@ -144,6 +148,7 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         PlayerManager.Instance.SkillPoints += SkillPointReward;
         GetComponentInParent<GridTile>().ChangeCurrentState(GridManager.Instance.gS_Negative);
         Instantiate(Particle_EnemyDeath, transform.position, Quaternion.Euler(-90, 0, 0));
+        TotalKills++;
         Destroy(gameObject);
     }
 
@@ -160,6 +165,7 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 if (sb.TargetTile(HexGridUtil.AxialToCubeCoord(axialLocation), out Vector3Int target, FindClosestPlayer().CoordinatePosition))
                 {
                     GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)].ChangeCurrentState(GridManager.Instance.gS_Negative);
+                    TotalSpread++;
                     break;
                 }
             }

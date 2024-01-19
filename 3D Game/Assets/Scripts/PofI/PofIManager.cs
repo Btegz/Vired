@@ -8,6 +8,7 @@ public class PofIManager : MonoBehaviour
     public EventButton event1;
     [HideInInspector][SerializeField] public int pofi1;
     [HideInInspector][SerializeField] public int pofi2;
+    [HideInInspector] public int Collected;
     [HideInInspector] public PofI pofiEvent1;
     [HideInInspector] public PofI pofiEvent2;
     public GS_Pofl gS_PofI;
@@ -30,6 +31,7 @@ public class PofIManager : MonoBehaviour
     public void Awake()
     {
         randomPofI();
+        Collected++;
      
 
     }

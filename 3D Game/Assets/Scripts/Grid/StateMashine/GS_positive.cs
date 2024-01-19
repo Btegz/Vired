@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GS_Positive", menuName = "GridStates/GS_Positive")]
 public class GS_positive : GridState
 {
-
+    [HideInInspector] public int TotalResources;
     public override GridState CurrentState()
     {
         return this;
@@ -70,6 +70,8 @@ public class GS_positive : GridState
         }
         parent.ChangeCurrentState(GridManager.Instance.gS_Neutral);
         rsg.Initialize(res, startPoint, goalPoint);
+        TotalResources++;
+
     }
 
     public override int StateValue()
