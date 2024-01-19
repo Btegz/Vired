@@ -12,6 +12,10 @@ public class GS_positive : GridState
         return this;
     }
 
+    public void Start()
+    {
+        TotalResources = 0;
+    }
     public override void EnterState(GridTile parent)
     {
         parent.GetComponent<RessourceVisuals>().InfestKlopse();

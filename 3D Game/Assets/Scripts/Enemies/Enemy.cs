@@ -57,6 +57,8 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private void Start()
     {
         EventManager.OnEndTurnEvent += Spread;
+        DamageDealt = 0;
+        TotalKills = 0;
     }
 
     private void OnDestroy()
@@ -129,7 +131,10 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
+            TotalKills+=1;
+            Debug.Log(TotalKills);
             Death();
+           
         }
         else
         {
@@ -137,7 +142,8 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             {
                 Image hp = healthpoints[healthpoints.Count - 1];
                 healthpoints.RemoveAt(healthpoints.Count - 1);
-                DamageDealt++;
+                DamageDealt+=1;
+                Debug.Log(DamageDealt);
                 Destroy(hp.gameObject);
             }
         }
@@ -148,7 +154,7 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         PlayerManager.Instance.SkillPoints += SkillPointReward;
         GetComponentInParent<GridTile>().ChangeCurrentState(GridManager.Instance.gS_Negative);
         Instantiate(Particle_EnemyDeath, transform.position, Quaternion.Euler(-90, 0, 0));
-        TotalKills++;
+       
         Destroy(gameObject);
     }
 
