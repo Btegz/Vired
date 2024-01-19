@@ -5,7 +5,7 @@ using TMPro;
 
 public class SaveManager : MonoBehaviour
 {
-    
+    public static SaveManager Instance;
     public int totalMovement;
     public TextMeshProUGUI Movement;
 
@@ -36,32 +36,25 @@ public class SaveManager : MonoBehaviour
     public TextMeshProUGUI Heals;
 
 
-
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
 
 
     private void Update()
     {
-        totalMovement = PlayerManager.Instance.totalSteps;
        
         Movement.text = totalMovement.ToString();
-
-        PofIscollected = PofIs.Collected;
-        PofICollection.text = PofIscollected.ToString(); 
-        
-        TotalKills = enemies.TotalKills;
-         Debug.Log(TotalKills + "Kills");
+        PofICollection.text = PofIscollected.ToString();        
         Kills.text = TotalKills.ToString(); 
-
-        DamageDealt = enemies.DamageDealt;
         Damage.text = DamageDealt.ToString();
-        
-        TotalResources = positive.TotalResources;
         Resources.text = TotalResources.ToString(); 
-        
         TotalHeals = abilityObj.Heals;
         Heals.text = TotalHeals.ToString();
-        
-        TotalSpread = enemies.TotalSpread;
         Spread.text = TotalSpread.ToString();
     }
 }

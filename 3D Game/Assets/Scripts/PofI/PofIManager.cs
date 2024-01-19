@@ -31,8 +31,7 @@ public class PofIManager : MonoBehaviour
     public void Awake()
     {
         randomPofI();
-        Collected = 0;
-        Collected++;
+        SaveManager.Instance.PofIscollected++;
      
 
     }

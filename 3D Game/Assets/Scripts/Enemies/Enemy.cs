@@ -32,13 +32,11 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     
     [SerializeField] public int maxHealth;
     public int SkillPointReward;
-    public int TotalKills;
-    public int DamageDealt;
+
    
 
     [Header("Negative Spread")]
     [SerializeField] public int SpreadAmount;
-    [HideInInspector] public int TotalSpread;
     [SerializeField] public float everyXTurns;
     [SerializeField] public List<Spreadbehaviours> spreadbehaviours;
 
@@ -57,8 +55,7 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private void Start()
     {
         EventManager.OnEndTurnEvent += Spread;
-        DamageDealt = 0;
-        TotalKills = 0;
+   
     }
 
     private void OnDestroy()
@@ -131,8 +128,7 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
-            TotalKills+=1;
-            Debug.Log(TotalKills);
+            SaveManager.Instance.TotalKills++;
             Death();
            
         }
@@ -142,8 +138,8 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             {
                 Image hp = healthpoints[healthpoints.Count - 1];
                 healthpoints.RemoveAt(healthpoints.Count - 1);
-                DamageDealt+=1;
-                Debug.Log(DamageDealt);
+                SaveManager.Instance.DamageDealt++;
+             
                 Destroy(hp.gameObject);
             }
         }
@@ -171,7 +167,7 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 if (sb.TargetTile(HexGridUtil.AxialToCubeCoord(axialLocation), out Vector3Int target, FindClosestPlayer().CoordinatePosition))
                 {
                     GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)].ChangeCurrentState(GridManager.Instance.gS_Negative);
-                    TotalSpread++;
+                    SaveManager.Instance.TotalSpread++;
                     break;
                 }
             }

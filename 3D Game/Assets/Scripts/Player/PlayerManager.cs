@@ -292,15 +292,15 @@ public class PlayerManager : MonoBehaviour
             movementAction--; 
             MovePoints[movementAction].GetComponent<MovePointsDoTween>().Away();
         }
-
+       
         PlayerManager.Instance.target.currentGridState.PlayerEnters(PlayerManager.Instance.target);
 
         selectedPlayer.transform.DOMove(target.transform.position, .25f);
 
         
-
+        
         selectedPlayer.CoordinatePosition = moveTo;
-        totalSteps++;
+        SaveManager.Instance.totalMovement++;
 
         yield return null;
     }

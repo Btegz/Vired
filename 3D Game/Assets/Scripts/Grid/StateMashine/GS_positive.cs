@@ -6,7 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GS_Positive", menuName = "GridStates/GS_Positive")]
 public class GS_positive : GridState
 {
-    [HideInInspector] public int TotalResources;
     public override GridState CurrentState()
     {
         return this;
@@ -14,7 +13,6 @@ public class GS_positive : GridState
 
     public void Start()
     {
-        TotalResources = 0;
     }
     public override void EnterState(GridTile parent)
     {
@@ -46,6 +44,7 @@ public class GS_positive : GridState
     public override void PlayerEnters(GridTile parent)
     {
         RessourceGainEffect rsg = Instantiate(PlayerManager.Instance.ressourceGainEffect,UIManager.Instance.transform);
+       SaveManager.Instance.TotalResources++;
         Ressource res = Ressource.ressourceD;
         Vector2 startPoint = Camera.main.WorldToScreenPoint(parent.transform.position);
         Vector2 goalPoint = new Vector2();
@@ -74,7 +73,8 @@ public class GS_positive : GridState
         }
         parent.ChangeCurrentState(GridManager.Instance.gS_Neutral);
         rsg.Initialize(res, startPoint, goalPoint);
-        TotalResources++;
+        
+
 
     }
 

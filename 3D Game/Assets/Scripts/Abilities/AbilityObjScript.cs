@@ -120,7 +120,6 @@ public class AbilityObjScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Heals = 0;
         cam = Camera.main;
         inputAction.Enable();
         rotationInputActionReference.action.performed += rotateAbility;
@@ -236,7 +235,7 @@ public class AbilityObjScript : MonoBehaviour
 
 
                 }
-                Heals++;
+                SaveManager.Instance.TotalHeals++;
                 break;
             case Effect.Negative100:
 
