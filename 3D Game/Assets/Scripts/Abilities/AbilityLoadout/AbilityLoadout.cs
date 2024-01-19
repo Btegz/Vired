@@ -106,8 +106,6 @@ public class AbilityLoadout : MonoBehaviour
     {
         MinimapCam.orthographicSize = GridManager.Instance.mapSettings.NoiseDataSize.x;
         Ability();
-
-
         //instance.ability.StarterAbility();
     }
     //playerManager.AbilityLoadoutActive = true;
@@ -164,32 +162,41 @@ public class AbilityLoadout : MonoBehaviour
 
     public void Ability()
     {
-        AbilityLoadoutButton instance;
-        foreach (Ability ability in abilityCollection)
+        
+        for (int i = 0; i<4; i++)
         {
-            ability.StarterAbility();
+            
+        
 
-            switch (ability.MyCostRessource)
+            switch (i)
             {
-                case Ressource.ressourceA:
-                    instance = Instantiate(abloadoutButton, BlueAbilityLayout.transform);
-                    instance.Setup(ability, BlueAbilityLayout);
+                case (int)Ressource.ressourceA:
+                    NewAbility = AbilitiesA[0];
+                    AbilitiesA.RemoveAt(0);
+                    NewAbilityLoadoutButton = Instantiate(abloadoutButton, BlueAbilityLayout.transform);
+                    NewAbilityLoadoutButton.Setup(NewAbility, BlueAbilityLayout);
                     break;
-                case Ressource.ressourceB:
-                    instance = Instantiate(abloadoutButton, OrangeAbilityLayout.transform);
-                    instance.Setup(ability, OrangeAbilityLayout);
+                case (int)Ressource.ressourceB:
+                    NewAbility = AbilitiesB[0];
+                    AbilitiesB.RemoveAt(0);
+                    NewAbilityLoadoutButton = Instantiate(abloadoutButton, OrangeAbilityLayout.transform);
+                    NewAbilityLoadoutButton.Setup(NewAbility, OrangeAbilityLayout);
                     break;
-                case Ressource.ressourceC:
-                    instance = Instantiate(abloadoutButton, RedAbilityLayout.transform);
-                    instance.Setup(ability, RedAbilityLayout);
+                case (int)Ressource.ressourceC:
+                    NewAbility = AbilitiesC[0];
+                    AbilitiesC.RemoveAt(0);
+                    NewAbilityLoadoutButton = Instantiate(abloadoutButton, RedAbilityLayout.transform);
+                    NewAbilityLoadoutButton.Setup(NewAbility, RedAbilityLayout);
                     break;
-                case Ressource.ressourceD:
-                    instance = Instantiate(abloadoutButton, GreenAbilityLayout.transform);
-                    instance.Setup(ability, GreenAbilityLayout);
+                case (int)Ressource.ressourceD:
+                    NewAbility = AbilitiesD[0];
+                    AbilitiesD.RemoveAt(0);
+                    NewAbilityLoadoutButton = Instantiate(abloadoutButton, GreenAbilityLayout.transform);
+                    NewAbilityLoadoutButton.Setup(NewAbility, GreenAbilityLayout);
                     break;
-                default: instance = null; break;
+                default: NewAbilityLoadoutButton = null; break;
             }
-            instance.currentState = ButtonState.newInLoadout;
+            NewAbilityLoadoutButton.currentState = ButtonState.newInLoadout;
 
         }
     }
@@ -197,9 +204,9 @@ public class AbilityLoadout : MonoBehaviour
 
     public void RenewAbility(AbilityLoadoutButton abilityLoadoutButton, Player player)
     {
-        if (ChosenAbilityList.Count != 0)
+        if (ChosenAbilityList.Count !=0)
         {
-            ability_ = ChosenAbilityList[currentChosenAbilityList];
+            //ability_ = ChosenAbilityList[currentChosenAbilityList];
          
 
             try
@@ -270,7 +277,7 @@ public class AbilityLoadout : MonoBehaviour
 
     public void AddAbilityChoice(AbilityLoadoutButton abilityLoadoutButton, Player player)
     {
-        //   currentChosenAbilityList++;
+     
        /* if (!ChosenAbilityList.Contains(abilityLoadoutButton.ability))
         {*/
             //abilityLoadoutButton.transform.SetParent(ChosenAbilitiesLayout.transform);
@@ -283,7 +290,6 @@ public class AbilityLoadout : MonoBehaviour
         }
         else
         {
-            //Debug.Log("I SHOULD BE DISABLED");
             ConfirmButton.gameObject.SetActive(false);
         }
     }
@@ -319,7 +325,7 @@ public class AbilityLoadout : MonoBehaviour
         Interactable.enabled = false;
     }
 
-    public void ToggleMiniMapZoom()
+   /* public void ToggleMiniMapZoom()
     {
         if (miniMapIsZoomed)
         {
@@ -333,5 +339,5 @@ public class AbilityLoadout : MonoBehaviour
             MinMapImage.rectTransform.DOAnchorPos(Vector3.zero, .5f);
             MinMapImage.rectTransform.DOScale(Vector3.one * 2, .5f).OnComplete(() => miniMapIsZoomed = true);
         }
-    }
+    }*/
 }
