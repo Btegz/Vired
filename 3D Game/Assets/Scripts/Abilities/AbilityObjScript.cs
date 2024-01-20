@@ -12,7 +12,12 @@ public class AbilityObjScript : MonoBehaviour
     public List<Vector2Int> AbilityShapeLocation;
 
     [SerializeField] GameObject PositiveEffectPrefab;
-    [SerializeField] GameObject DamageEffectPrefab;
+    [SerializeField] GameObject Damage1EffectPrefab;
+    [SerializeField] GameObject Damage2EffectPrefab;
+    [SerializeField] GameObject Damage3EffectPrefab;
+    [SerializeField] GameObject Damage4EffectPrefab;
+    [SerializeField] GameObject Damage5EffectPrefab;
+    [SerializeField] GameObject Damage6EffectPrefab;
 
 
 
@@ -60,7 +65,32 @@ public class AbilityObjScript : MonoBehaviour
             Vector2Int newCoord = HexGridUtil.CubeAdd(axialPlayerPos, AbilityShapeLocation[i]);
             AbilityWorldLocations.Add(HexGridUtil.AxialHexToPixel(newCoord, 1));
 
-            GameObject EffectObj = Instantiate((ability.Effects[i] == Effect.Positive ? PositiveEffectPrefab : DamageEffectPrefab), HexGridUtil.AxialHexToPixel(newCoord, 1),Quaternion.identity,transform);
+            switch (ability.Effects[i])
+            {
+                case Effect.Positive:
+                    Instantiate(PositiveEffectPrefab, HexGridUtil.AxialHexToPixel(newCoord, 1), Quaternion.identity, transform);
+                    break;
+                case Effect.Negative100:
+                    Instantiate(Damage1EffectPrefab, HexGridUtil.AxialHexToPixel(newCoord, 1), Quaternion.identity, transform);
+                    break;
+                case Effect.Negative200:
+                    Instantiate(Damage2EffectPrefab, HexGridUtil.AxialHexToPixel(newCoord, 1), Quaternion.identity, transform);
+                    break;
+                case Effect.Negative300:
+                    Instantiate(Damage3EffectPrefab, HexGridUtil.AxialHexToPixel(newCoord, 1), Quaternion.identity, transform);
+                    break;
+                case Effect.Negative400:
+                    Instantiate(Damage4EffectPrefab, HexGridUtil.AxialHexToPixel(newCoord, 1), Quaternion.identity, transform);
+                    break;
+                case Effect.Negative500:
+                    Instantiate(Damage5EffectPrefab, HexGridUtil.AxialHexToPixel(newCoord, 1), Quaternion.identity, transform);
+                    break;
+                default:
+                    Instantiate(Damage6EffectPrefab, HexGridUtil.AxialHexToPixel(newCoord, 1), Quaternion.identity, transform);
+                    break;
+            }
+
+            //GameObject EffectObj = Instantiate((ability.Effects[i] == Effect.Positive ? PositiveEffectPrefab : DamageEffectPrefab), HexGridUtil.AxialHexToPixel(newCoord, 1),Quaternion.identity,transform);
 
         }
 
