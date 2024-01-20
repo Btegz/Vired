@@ -14,7 +14,7 @@ public class RestartButton : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        restartButton.onClick.AddListener(Restart);
+       // restartButton.onClick.AddListener(Restart);
         //restartTMP = GetComponent<TextMeshProUGUI>();
     }
 

@@ -7,33 +7,26 @@ public class SaveManager : MonoBehaviour
 {
     public static SaveManager Instance;
     public int totalMovement;
-    public TextMeshProUGUI Movement;
 
     
     public PofIManager PofIs;
     public int PofIscollected;
-    public TextMeshProUGUI PofICollection;
 
 
     public Enemy enemies;
     public int TotalKills;
-    public TextMeshProUGUI Kills;
 
     public int DamageDealt;
-    public TextMeshProUGUI Damage;
 
     public int TotalSpread;
-    public TextMeshProUGUI Spread;
 
 
     public GS_positive positive;
     public int TotalResources;
-    public TextMeshProUGUI Resources;
 
 
     public AbilityObjScript abilityObj;
-    public int TotalHeals;
-    public TextMeshProUGUI Heals;
+    public  int TotalHeals;
 
 
     private void Awake()
@@ -42,19 +35,23 @@ public class SaveManager : MonoBehaviour
         {
             Instance = this;
         }
+
+     
     }
 
 
     private void Update()
     {
        
-        Movement.text = totalMovement.ToString();
-        PofICollection.text = PofIscollected.ToString();        
-        Kills.text = TotalKills.ToString(); 
-        Damage.text = DamageDealt.ToString();
-        Resources.text = TotalResources.ToString(); 
-        TotalHeals = abilityObj.Heals;
-        Heals.text = TotalHeals.ToString();
-        Spread.text = TotalSpread.ToString();
+       PlayerPrefs.SetString("Kills",TotalKills.ToString()); 
+       PlayerPrefs.SetString("PofIs",totalMovement.ToString()); 
+       PlayerPrefs.SetString("Movement",PofIscollected.ToString()); 
+       PlayerPrefs.SetString("Damage",DamageDealt.ToString()); 
+       PlayerPrefs.SetString("Resources",TotalResources.ToString()); 
+       PlayerPrefs.SetString("Heals",TotalHeals.ToString()); 
+       PlayerPrefs.SetString("Spread",TotalSpread.ToString()); 
+
+
+      
     }
 }
