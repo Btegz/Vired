@@ -5,10 +5,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class PlayerButton : MonoBehaviour, IPointerClickHandler
+public class PlayerButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] public Player player;
     public PlayerButton MainPlayerButton;
+    public Image Background;
+    public Image PlayerModel; 
 
     public void Start()
     {
@@ -51,5 +53,28 @@ public class PlayerButton : MonoBehaviour, IPointerClickHandler
         }
     }
 
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        
+    }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        throw new System.NotImplementedException();
+    }
+
+
+    public IEnumerator EnableModel()
+    {
+        Background.enabled = true; 
+        PlayerModel.enabled = true;
+        yield return null;
+    }
+
+    public IEnumerator Disable()
+    {
+        Background.enabled = false;
+        PlayerModel.enabled = false;
+        yield return null;
+    }
 }
