@@ -150,6 +150,7 @@ public class AbilityObjScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         cam = Camera.main;
         inputAction.Enable();
         rotationInputActionReference.action.performed += rotateAbility;

@@ -9,22 +9,20 @@ public class SaveToText : MonoBehaviour
     public static SaveManager Instance;
     public TextMeshProUGUI Movement;
 
-    public TextMeshProUGUI PofICollection;
+    public TMP_Text PofICollection;
 
-    public TextMeshProUGUI Kills;
+    public TMP_Text Kills;
 
-    public TextMeshProUGUI Damage;
+    public TMP_Text Damage;
 
-    public TextMeshProUGUI Spread;
+    public TMP_Text Spread;
 
-    public TextMeshProUGUI Resources;
+    public TMP_Text Resources;
 
-    public TextMeshProUGUI Heals;
+    public TMP_Text Heals;
     // Start is called before the first frame update
     void Update()
     {
-
-        Debug.Log(PlayerPrefs.GetString("Movement"));
         Movement.text = PlayerPrefs.GetString("Movement");
         PofICollection.text = PlayerPrefs.GetString("PofIs");
         Kills.text = PlayerPrefs.GetString("Kills");
@@ -34,5 +32,4 @@ public class SaveToText : MonoBehaviour
         Spread.text = PlayerPrefs.GetString("Spread");
     }
 
-    
 }

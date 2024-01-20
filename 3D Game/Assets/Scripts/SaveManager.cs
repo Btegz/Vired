@@ -49,9 +49,9 @@ public class SaveManager : MonoBehaviour
        PlayerPrefs.SetString("Damage",DamageDealt.ToString()); 
        PlayerPrefs.SetString("Resources",TotalResources.ToString()); 
        PlayerPrefs.SetString("Heals",TotalHeals.ToString()); 
-       PlayerPrefs.SetString("Spread",TotalSpread.ToString()); 
+       PlayerPrefs.SetString("Spread",TotalSpread.ToString());
 
+       Debug.Log("Kills" +PlayerPrefs.GetString("Kills"));
 
-      
     }
 }

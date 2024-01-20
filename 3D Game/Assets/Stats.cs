@@ -33,7 +33,6 @@ public class Stats : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void Update()
     {
-
         round.GetComponent<TextMeshProUGUI>().text = GridManager.Instance.TurnCounter.ToString();
         resources.GetComponent<TextMeshProUGUI>().text = resourceCount.ToString();
         currentSpread.GetComponent<TextMeshProUGUI>().text = negativityCount.ToString();

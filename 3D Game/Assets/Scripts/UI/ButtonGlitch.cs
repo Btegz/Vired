@@ -14,6 +14,7 @@ public class ButtonGlitch : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
+
         StartCoroutine(GlitchCorroutine());
     }
 
