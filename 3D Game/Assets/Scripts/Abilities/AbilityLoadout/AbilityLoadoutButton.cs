@@ -121,8 +121,9 @@ currentState = ButtonState.selectedInLoadOut;
         ability.StarterAbility();
         RectData();
         this.ability = ability;
-        MakeAbilityToGrid();
-        CorrectBackground();
+        //MakeAbilityToGrid();
+       
+        CorrectResource();
         Button b = GetComponent<Button>();
         originalParent = fatherrrr;
         currentParent = originalParent;
@@ -145,6 +146,8 @@ currentState = ButtonState.selectedInLoadOut;
     {
         if (currentState == ButtonState.selectedInLoadOut)
         {
+            GetComponent<Image>().sprite = A_Background;
+            
             switch (ability.MyCostRessource)
             {
                 case Ressource.ressourceA:

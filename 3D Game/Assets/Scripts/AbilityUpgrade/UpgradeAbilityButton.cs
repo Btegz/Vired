@@ -38,7 +38,8 @@ public class UpgradeAbilityButton : AbilityButton, IPointerClickHandler
             this.ability = player.AbilityInventory[index];
 
             MakeAbilityToGrid();
-            CorrectBackground();
+            
+            //CorrectResourceInAbility();
         }
         else
         {

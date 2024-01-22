@@ -18,6 +18,7 @@ public class AbilityButton : MonoBehaviour
     [SerializeField] protected Sprite B_Background;
     [SerializeField] protected Sprite C_Background;
     [SerializeField] protected Sprite D_Background;
+    [SerializeField] protected Sprite Background;
 
     [SerializeField] protected int index;
 
@@ -67,7 +68,7 @@ public class AbilityButton : MonoBehaviour
         currentState = newState;
     }
 
-    public void CorrectBackground()
+    public void CorrectResource()
     {
 
         switch (ability.MyCostRessource)
@@ -86,6 +87,30 @@ public class AbilityButton : MonoBehaviour
             case Ressource.ressourceD:
                 GetComponent<Image>().sprite = D_Background;
                 break;
+        }
+    }
+
+    public void CorrectResourceInAbility()
+    {
+        if(ability != null )
+        {
+            switch (ability.MyCostRessource)
+            {
+                case Ressource.ressourceA:
+                    transform.GetChild(1).GetComponent<Image>().sprite = A_Background;
+                    break;
+                case Ressource.ressourceB:
+                    Debug.Log(ability);
+                    transform.GetChild(1).GetComponent<Image>().sprite = B_Background;
+
+                    break;
+                case Ressource.ressourceC:
+                    transform.GetChild(1).GetComponent<Image>().sprite = C_Background;
+                    break;
+                case Ressource.ressourceD:
+                    transform.GetChild(1).GetComponent<Image>().sprite = D_Background;
+                    break;
+            }
         }
     }
 
@@ -183,9 +208,18 @@ public class AbilityButton : MonoBehaviour
         playerHex.coordinate = Vector2Int.zero;
         UIGrid.Add(Vector2Int.zero, playerHex);
         UIGrid[Vector2Int.zero].Fill(PlayerHexSprite, "Player");
+        try
+        {
+            CostText.text = ability.MyCostAmount.ToString();
+        }
 
-        CostText.text = ability.MyCostAmount.ToString();
-        CorrectBackground();
+        catch
+        {
+
+        }
+        //GetComponent<Image>().sprite = Background;
+        CorrectResourceInAbility();
+        //CorrectBackground();
     }
     public Sprite GetFittingSprite(Effect effect, out string text)
     {
@@ -229,7 +263,7 @@ public class AbilityButton : MonoBehaviour
         {
             Destroy(rt.gameObject);
         }
-        GetComponent<Image>().sprite = emptyAbilitySlotSprite;
+        GetComponent<Image>().sprite = Background;
         //UIGrid.Clear();
         CostText.text = "";
     }

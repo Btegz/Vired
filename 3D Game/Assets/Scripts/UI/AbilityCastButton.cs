@@ -21,15 +21,25 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
 
             color.a = 1f;
             AbilityButtonImage.GetComponent<Image>().color = color;
+            transform.GetChild(1).GetComponent<Image>().enabled = true;
+            transform.GetChild(1).GetComponent<Image>().color = color;
+
+
 
             MakeAbilityToGrid();
-            CorrectBackground();
+            //CorrectResource();
+            AbilityButtonImage.sprite = Background;
         }
         else
         {
             ability = null;
             color.a = 0.2f;
             AbilityButtonImage.GetComponent<Image>().color = color;
+            transform.GetChild(1).GetComponent<Image>().enabled = false;
+            AbilityButtonImage.sprite = Background;
+
+
+
 
 
 
@@ -44,6 +54,10 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
             ability = PlayerManager.Instance.selectedPlayer.AbilityInventory[index];
             color.a = 1f;
             AbilityButtonImage.GetComponent<Image>().color = color;
+            transform.GetChild(1).GetComponent<Image>().color = color;
+            AbilityButtonImage.sprite = Background;
+
+
 
 
         }
@@ -52,7 +66,11 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
             ability = null;
             color.a = 0.2f;
             AbilityButtonImage.GetComponent<Image>().color = color;
+            transform.GetChild(1).GetComponent<Image>().color = color;
+            AbilityButtonImage.sprite = Background;
+
             UpgradeGridHex[] children = GetComponentsInChildren<UpgradeGridHex>();
+
             foreach (UpgradeGridHex rt in children)
             {
                 Destroy(rt.gameObject);
@@ -61,7 +79,8 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
             return;
         }
         MakeAbilityToGrid();
-        CorrectBackground();
+        AbilityButtonImage.sprite = Background;
+        CorrectResource();
         //catch
         //{
         //    ability = null;
