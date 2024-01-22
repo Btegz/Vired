@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using static UnityEngine.Experimental.Rendering.RayTracingAccelerationStructure;
@@ -29,7 +29,7 @@ public struct Face
 }
 
 // vvvv new World
-public enum direction { NE = 0, SE = 1, S = 2, SW = 3, NW = 4, N = 5 }
+public enum Direction { C = 0, NE = 1, SE = 2, S = 3, SW = 4, NW = 5, N = 6 }
 // ^^^^
 
 /// <summary>
@@ -69,6 +69,9 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     List<int> triangles;
     List<Vector3> uvs;
     List<Color> vertexColors;
+
+    public Dictionary<Direction, Vector3> Points;
+
     // ^^^^
 
     [HideInInspector] public float innerSize = 0;
@@ -185,16 +188,13 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             {
                 return;
             }
-            Debug.Log($"--------------------------------------------------------------------\n I am Tile {AxialCoordinate}");
             foreach (GridTile neighbor in myNeighbors)
             {
-                Debug.Log($"my Neighbor: {neighbor.AxialCoordinate}");
                 neighbor.RecalculateTerrain();
             }
         }
         catch
         {
-            Debug.Log("I f'ed up somewhere");
         }
         
 
@@ -222,6 +222,8 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     // vvvv new World
     public void Triangluate()
     {
+        Points = new Dictionary<Direction, Vector3>();
+        Points.Add(Direction.C, new Vector3(0, 0, 0));
         vertices = new List<Vector3>();
         triangles = new List<int>();
         vertexColors = new List<Color>();
@@ -304,6 +306,10 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 nextInnerInbetweenCorner.y = Mathf.Lerp(currentInnerCorner.y, nextInnerCorner.y, 2f / 3f);
 
             }
+
+
+            Points.Add((Direction)i + 1, currentBufferedCorner);
+
             //else
             //{
             //    nextInnerCorner.y = transform.localPosition.y;
@@ -543,6 +549,13 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             meshCollider.sharedMesh = mesh;
         }
         GetComponent<MeshFilter>().mesh = mesh;
+
+        Debug.Log("----------------------------------------------");
+        foreach(KeyValuePair<Direction,Vector3> kvp in Points)
+        {
+            Debug.Log("Direction: " + kvp.Key + ", Vector: " + kvp.Value);
+        }
+        Debug.Log("----------------------------------------------");
     }
 
     public void RecalculateTerrain()
@@ -750,7 +763,15 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         for (int i = 0; i < vertices.Count; i++)
         {
+            if (Points.ContainsValue(vertices[i]))
+            {
+                Direction myDirection = Points.FirstOrDefault(x => x.Value == vertices[i]).Key;
+                vertices[i] += mapsettings.GetIrregularityNoiseData(vertices[i] + transform.localPosition) * mapsettings.IrregularityFactor;
+                Points[myDirection] = vertices[i];
+                continue;
+            }
             vertices[i] += mapsettings.GetIrregularityNoiseData(vertices[i] + transform.localPosition) * mapsettings.IrregularityFactor;
+            
         }
     }
 

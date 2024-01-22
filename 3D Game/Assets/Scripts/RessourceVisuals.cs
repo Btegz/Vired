@@ -8,10 +8,12 @@ public class RessourceVisuals : MonoBehaviour
     [Header("Klopse")]
     [SerializeField] List<TerrainFeature> KlopseA;
     [SerializeField] Vector2Int howManyKlopseAFromTo;
+    //[SerializeField] float randomRadius;
     [SerializeField] Vector2 randomXOffsetAFromTo;
     [SerializeField] Vector2 randomZOffsetAFromTo;
     [SerializeField] Vector2 randomRotationAFromTo;
     [SerializeField] Vector2 randomYOffsetAFromTo;
+    [SerializeField] Vector2 randomACenterLerpFrmoTo;
     [Header("-------------------------------------")]
     [SerializeField] List<TerrainFeature> KlopseB;
     [SerializeField] Vector2Int howManyKlopseBFromTo;
@@ -19,6 +21,7 @@ public class RessourceVisuals : MonoBehaviour
     [SerializeField] Vector2 randomZOffsetBFromTo;
     [SerializeField] Vector2 randomRotationBFromTo;
     [SerializeField] Vector2 randomYOffsetBFromTo;
+    [SerializeField] Vector2 randomBCenterLerpFrmoTo;
     [Header("-------------------------------------")]
     [SerializeField] List<TerrainFeature> KlopseC;
     [SerializeField] Vector2Int howManyKlopseCFromTo;
@@ -26,6 +29,7 @@ public class RessourceVisuals : MonoBehaviour
     [SerializeField] Vector2 randomZOffsetCFromTo;
     [SerializeField] Vector2 randomRotationCFromTo;
     [SerializeField] Vector2 randomYOffsetCFromTo;
+    [SerializeField] Vector2 randomCCenterLerpFrmoTo;
     [Header("-------------------------------------")]
     [SerializeField] List<TerrainFeature> KlopseD;
     [SerializeField] Vector2Int howManyKlopseDFromTo;
@@ -33,6 +37,7 @@ public class RessourceVisuals : MonoBehaviour
     [SerializeField] Vector2 randomZOffsetDFromTo;
     [SerializeField] Vector2 randomRotationDFromTo;
     [SerializeField] Vector2 randomYOffsetDFromTo;
+    [SerializeField] Vector2 randomDCenterLerpFrmoTo;
     [Header("-------------------------------------")]
 
     [Header("Enemy Mass")]
@@ -41,7 +46,7 @@ public class RessourceVisuals : MonoBehaviour
     [SerializeField] Vector2 EnemyMassrandomRotationFromTo;
     [SerializeField] Vector2 EnemyMassrandomYOffsetFromTo;
 
-    List<TerrainFeature> CurrentKlopse;
+    Dictionary<Direction,TerrainFeature> CurrentKlopse;
     List<GameObject> CurrentEnemyMasses;
 
     List<TerrainFeature> myKlopse;
@@ -104,16 +109,33 @@ public class RessourceVisuals : MonoBehaviour
         if (myKlopse.Count > 0)
         {
             int amount = Random.Range(getHowMany().x, getHowMany().y + 1);
-            Debug.Log($"Amount of Klopse: {amount}");
+            
             for (int i = 0; i < amount; i++)
             {
+                Direction randomDirection;
+                if (amount!= 1 || i == 0)
+                {
+                    randomDirection = (Direction)Random.Range(0, 7);
+                    while (CurrentKlopse.ContainsKey(randomDirection))
+                    {
+                        randomDirection = (Direction)Random.Range(0, 7);
+                    }
+                }
+                else
+                {
+                    randomDirection = Direction.C;
+                }
+                
+
                 TerrainFeature newKlops = Instantiate(myKlopse[Random.Range(0, myKlopse.Count)], transform);
                 Vector3 goalPosition = transform.position;
-                goalPosition += new Vector3(Random.Range(getXOffset().x, getXOffset().y), 0, Random.Range(getZOffset().x, getZOffset().y));
-                goalPosition -= new Vector3(0, Random.Range(getOffset().x, getOffset().y), 0);
+                goalPosition += myTile.Points[randomDirection];
+                goalPosition = Vector3.Lerp(goalPosition, myTile.Points[Direction.C]+transform.position, Random.Range(getCenterLerp().x, getCenterLerp().y));
+                //goalPosition += new Vector3(Random.Range(getXOffset().x, getXOffset().y), 0, Random.Range(getZOffset().x, getZOffset().y));
+                //goalPosition -= new Vector3(0, Random.Range(getOffset().x, getOffset().y), 0);
                 newKlops.transform.rotation = Quaternion.Euler(0, Random.Range(getRotation().x, getRotation().y), 0);
                 //newKlops.GetComponentInChildren<MeshRenderer>().material = myKlopseMat;
-                CurrentKlopse.Add(newKlops);
+                CurrentKlopse.Add(randomDirection,newKlops);
                 newKlops.transform.DOMove(goalPosition, TweenDuration).From(goalPosition + Vector3.down * .5f).OnComplete(() => newKlops.transform.DOPunchScale(newKlops.transform.localScale * .25f, TweenDuration / 2f));
                 //newKlops.CleanUp();
             }
@@ -140,14 +162,14 @@ public class RessourceVisuals : MonoBehaviour
                 myKlopse = KlopseD;
                 break;
         }
-        CurrentKlopse = new List<TerrainFeature>();
+        CurrentKlopse = new Dictionary<Direction,TerrainFeature>();
     }
 
     public void InfestKlopse()
     {
-        foreach (TerrainFeature klops in CurrentKlopse)
+        foreach (KeyValuePair<Direction,TerrainFeature> klops in CurrentKlopse)
         {
-            klops.Infest();
+            klops.Value.Infest();
         }
     }
 
@@ -156,9 +178,9 @@ public class RessourceVisuals : MonoBehaviour
         try
         {
 
-            foreach (TerrainFeature klops in CurrentKlopse)
+            foreach (KeyValuePair<Direction, TerrainFeature> klops in CurrentKlopse)
             {
-                klops.CleanUp();
+                klops.Value.CleanUp();
             }
 
         }
@@ -211,6 +233,20 @@ public class RessourceVisuals : MonoBehaviour
                 return howManyKlopseCFromTo;
             default:
                 return howManyKlopseDFromTo;
+        }
+    }
+    private Vector2 getCenterLerp()
+    {
+        switch (myTile.ressource)
+        {
+            case Ressource.ressourceA:
+                return randomACenterLerpFrmoTo;
+            case Ressource.ressourceB:
+                return randomBCenterLerpFrmoTo;
+            case Ressource.ressourceC:
+                return randomCCenterLerpFrmoTo;
+            default:
+                return randomDCenterLerpFrmoTo;
         }
     }
 

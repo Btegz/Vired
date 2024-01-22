@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 434748586418700118}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 816624995492342890}
   - {fileID: 210484811308854636}
@@ -273,9 +273,9 @@ ParticleSystem:
         m_RotationOrder: 4
     startColor:
       serializedVersion: 2
-      minMaxState: 0
-      minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.9887359, g: 1, b: 0, a: 1}
+      minMaxState: 2
+      minColor: {r: 1, g: 0.8726415, b: 0.9150944, a: 1}
+      maxColor: {r: 1, g: 0.3820755, b: 0.5880504, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -337,8 +337,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.3
-      minScalar: 0.5
+      scalar: 0.25
+      minScalar: 0.15
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -800,7 +800,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.003
+      value: 0.0015
       mode: 0
       spread: 0
       speed:
@@ -919,7 +919,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 45.58
+      scalar: 20
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -5085,9 +5085,9 @@ ParticleSystem:
         m_RotationOrder: 4
     startColor:
       serializedVersion: 2
-      minMaxState: 0
-      minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.9887359, g: 1, b: 0, a: 1}
+      minMaxState: 2
+      minColor: {r: 1, g: 0.8726415, b: 0.9150944, a: 1}
+      maxColor: {r: 1, g: 0.3820755, b: 0.5880504, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -5149,8 +5149,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.3
-      minScalar: 0.1
+      scalar: 0.15
+      minScalar: 0.05
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -5612,7 +5612,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.003
+      value: 0.0015
       mode: 0
       spread: 0
       speed:
@@ -5731,7 +5731,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 45.36
+      scalar: 5
       minScalar: 10
       maxCurve:
         serializedVersion: 2

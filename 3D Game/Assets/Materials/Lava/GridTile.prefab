@@ -146,31 +146,35 @@ MonoBehaviour:
   randomZOffsetAFromTo: {x: 0, y: 0}
   randomRotationAFromTo: {x: 0, y: 0}
   randomYOffsetAFromTo: {x: 0, y: 0}
+  randomACenterLerpFrmoTo: {x: 0, y: 0}
   KlopseB:
   - {fileID: 558043579808197886, guid: 2260950117c5ab74da52d5396221d7c1, type: 3}
-  howManyKlopseBFromTo: {x: 1, y: 3}
-  randomXOffsetBFromTo: {x: -0.2, y: 0.2}
-  randomZOffsetBFromTo: {x: -0.2, y: 0.2}
+  howManyKlopseBFromTo: {x: 2, y: 5}
+  randomXOffsetBFromTo: {x: 0, y: 0}
+  randomZOffsetBFromTo: {x: 0, y: 0}
   randomRotationBFromTo: {x: 0, y: 360}
   randomYOffsetBFromTo: {x: 0, y: 0}
+  randomBCenterLerpFrmoTo: {x: 0, y: 0.4}
   KlopseC:
   - {fileID: 2254339661418034423, guid: 159a156dce905de459a6c1e56a317140, type: 3}
   - {fileID: 8390200797059256688, guid: 849b1230367c78f418617389436d317b, type: 3}
-  howManyKlopseCFromTo: {x: 1, y: 1}
-  randomXOffsetCFromTo: {x: -0.2, y: 0.2}
-  randomZOffsetCFromTo: {x: -0.2, y: 0.2}
-  randomRotationCFromTo: {x: 0, y: 180}
+  howManyKlopseCFromTo: {x: 1, y: 3}
+  randomXOffsetCFromTo: {x: 0, y: 0}
+  randomZOffsetCFromTo: {x: 0, y: 0}
+  randomRotationCFromTo: {x: 0, y: 360}
   randomYOffsetCFromTo: {x: 0, y: 0}
+  randomCCenterLerpFrmoTo: {x: 0.1, y: 0.8}
   KlopseD:
   - {fileID: 8390200797059256688, guid: 3d103cf5012d88a4cb42797f4c102882, type: 3}
-  howManyKlopseDFromTo: {x: 1, y: 1}
+  howManyKlopseDFromTo: {x: 5, y: 6}
   randomXOffsetDFromTo: {x: 0, y: 0}
   randomZOffsetDFromTo: {x: 0, y: 0}
   randomRotationDFromTo: {x: 0, y: 360}
   randomYOffsetDFromTo: {x: 0, y: 0}
+  randomDCenterLerpFrmoTo: {x: 0.1, y: 0.8}
   EnemyMassKlopse:
   - {fileID: 2525687032517237972, guid: f263db89244041c4f9482b23d8671e72, type: 3}
-  howManyEnemyMassKlopseFromTo: {x: 10, y: 10}
-  EnemyMassrandomRotationFromTo: {x: 0, y: 0}
-  EnemyMassrandomYOffsetFromTo: {x: 0, y: 0.1}
+  howManyEnemyMassKlopseFromTo: {x: 5, y: 5}
+  EnemyMassrandomRotationFromTo: {x: 0, y: 360}
+  EnemyMassrandomYOffsetFromTo: {x: -0.2, y: 0.2}
   TweenDuration: 1
