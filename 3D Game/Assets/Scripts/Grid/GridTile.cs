@@ -188,16 +188,13 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             {
                 return;
             }
-            Debug.Log($"--------------------------------------------------------------------\n I am Tile {AxialCoordinate}");
             foreach (GridTile neighbor in myNeighbors)
             {
-                Debug.Log($"my Neighbor: {neighbor.AxialCoordinate}");
                 neighbor.RecalculateTerrain();
             }
         }
         catch
         {
-            Debug.Log("I f'ed up somewhere");
         }
         
 
