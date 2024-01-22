@@ -51,7 +51,7 @@ public class SaveManager : MonoBehaviour
        PlayerPrefs.SetString("Heals",TotalHeals.ToString()); 
        PlayerPrefs.SetString("Spread",TotalSpread.ToString());
 
-       Debug.Log("Kills" +PlayerPrefs.GetString("Kills"));
+       
 
     }
 }
