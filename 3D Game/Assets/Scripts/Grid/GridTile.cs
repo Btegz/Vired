@@ -347,12 +347,15 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             //    nextCorner.y = transform.localPosition.y;
             //}
 
+            if(ressource == 0)
+            {
 
+            }
 
             // inner triangles
-            AddTriangle(Vector3.zero, currentBufferedCorner, currentInbetween);
-            AddTriangle(Vector3.zero, currentInbetween, nextInbetween);
-            AddTriangle(Vector3.zero, nextInbetween, nextBufferedCorner);
+            AddTriangle(Vector3.zero+ (ressource == 0?Vector3.down*.2f:Vector3.zero), currentBufferedCorner, currentInbetween);
+            AddTriangle(Vector3.zero + (ressource == 0 ? Vector3.down * .2f : Vector3.zero), currentInbetween, nextInbetween);
+            AddTriangle(Vector3.zero + (ressource == 0 ? Vector3.down * .2f : Vector3.zero), nextInbetween, nextBufferedCorner);
             AddTriangleColors(SplatMapColor1, SplatMapColor1, SplatMapColor1);
             AddTriangleColors(SplatMapColor1, SplatMapColor1, SplatMapColor1);
             AddTriangleColors(SplatMapColor1, SplatMapColor1, SplatMapColor1);
@@ -431,10 +434,10 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             else if (currentNeighbor == null)
             {
                 // Walls on worlds edge
-                currentInnerCorner.y = -transform.localPosition.y;
-                currentInnerInbetweenCorner.y = -transform.localPosition.y;
-                nextInnerInbetweenCorner.y = -transform.localPosition.y;
-                nextInnerCorner.y = -transform.localPosition.y;
+                currentInnerCorner.y = /*-transform.localPosition.y*/-3;
+                currentInnerInbetweenCorner.y = /*-transform.localPosition.y **/-3;
+                nextInnerInbetweenCorner.y = /*-transform.localPosition.y **/-3;
+                nextInnerCorner.y = /*-transform.localPosition.y **/ -3;
 
                 AddTriangle(currentBufferedCorner, currentInnerCorner, currentInnerInbetweenCorner);
                 AddTriangle(currentBufferedCorner, currentInnerInbetweenCorner, currentInbetween);
@@ -483,7 +486,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 AddTerrainIndexes(this, (currentNeighbor != null ? currentNeighbor : this), (nextNeighbor != null ? nextNeighbor : this));
 
                 Vector3 uwu = currentCorner;
-                uwu.y = -transform.localPosition.y;
+                uwu.y = /*-transform.localPosition.y*/-3;
                 // small triangle
                 AddTriangle(currentBufferedCorner, uwu, currentInnerCorner);
                 AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor3);
@@ -494,8 +497,8 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             {
                 // triangles on World Edge
 
-                currentCorner.y = -transform.localPosition.y;
-                nextCorner.y = -transform.localPosition.y;
+                currentCorner.y = /*-transform.localPosition.y * 5f*/-3;
+                nextCorner.y = /*-transform.localPosition.y * 5f*/-3;
 
                 AddTriangle(currentBufferedCorner, currentCorner, currentInnerCorner);
                 AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor3);
