@@ -10,6 +10,7 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
     public Image AbilityButtonImage;
     private Color color;
     public AbilityCastButton MainButton;
+    public Image AbilityPreview;
 
    
     
@@ -26,7 +27,7 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
 
 
 
-            MakeAbilityToGrid();
+            MakeAbilityToGrid(ability);
             //CorrectResource();
             AbilityButtonImage.sprite = Background;
         }
@@ -78,7 +79,7 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
             ResetButton();
             return;
         }
-        MakeAbilityToGrid();
+        MakeAbilityToGrid(ability);
         AbilityButtonImage.sprite = Background;
         CorrectResource();
         //catch
@@ -183,6 +184,7 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
         {
             Destroy(rsh.gameObject);
         }
+        AbilityPreview.enabled = false;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -215,5 +217,11 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
                 RessourceHighlight.transform.SetParent(UIManager.Instance.ressourceDText.transform);
                 break;
         }
+
+
+        AbilityPreview.enabled = true;
+        
+
+        
     }
 }

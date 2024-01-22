@@ -76,7 +76,7 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
                 transform.SetParent(playerArea.InventoryArea.transform);
                 EventManager.OnAbilityChosen(this, playerArea.player);
                 currentParent = playerArea.InventoryArea;
-currentState = ButtonState.selectedInLoadOut;
+                currentState = ButtonState.selectedInLoadOut;
             }
 
         }
@@ -140,6 +140,7 @@ currentState = ButtonState.selectedInLoadOut;
         {
             GetComponent<Image>().sprite = Nope;
         }
+
     }  
     
     public void OnPointerExit(PointerEventData eventData)

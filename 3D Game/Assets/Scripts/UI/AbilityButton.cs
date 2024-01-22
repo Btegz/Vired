@@ -132,11 +132,11 @@ public class AbilityButton : MonoBehaviour
             //    newHex.transform.localPosition = new Vector2(wordPos.x, wordPos.z);
             //    CostText.text = ability.MyCostAmount.ToString();
             //}
-            MakeAbilityToGrid();
+            MakeAbilityToGrid(ability);
         }
     }
 
-    public void MakeAbilityToGrid()
+    public void MakeAbilityToGrid(Ability ability)
     {
         if(ability==null)
         {
