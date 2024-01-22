@@ -72,7 +72,7 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         //transform.position = tile.transform.position;
         //transform.parent = tile.transform;
         transform.SetParent(tile.gameObject.transform);
-        mr = GetComponent<MeshRenderer>();
+        mr = GetComponentInChildren<MeshRenderer>();
 
 
         //transform.DOScale(transform.localScale, 0.5f).From(Vector3.one * 0.3f);
@@ -91,7 +91,7 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
 
 
-        mr = GetComponent<MeshRenderer>();
+        mr = GetComponentInChildren<MeshRenderer>();
         switch (ressource)
         {
             case Ressource.ressourceA:

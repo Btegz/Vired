@@ -88,32 +88,32 @@ public class Boss : Enemy
             }
         }
 
-        if (AliveCounter % everyXTurns == 0)
-        {
-            if (spreadbehaviours != null)
-            {
-                if (spreadbehaviours.Count > 0)
-                {
-                    foreach (Spreadbehaviours sb in spreadbehaviours)
-                    {
-                        if (sb.TargetTiles(HexGridUtil.AxialToCubeCoord(location[0]), out List<Vector3Int> targets, FindClosestPlayer().CoordinatePosition))
-                        {
-                            foreach (Vector3Int coord in targets)
-                            {
-                                Vector2Int c = HexGridUtil.CubeToAxialCoord(coord);
-                                if (GridManager.Instance.Grid.ContainsKey(c))
-                                {
-                                    if (GridManager.Instance.Grid[c].currentGridState.StateValue() >= 0 && GridManager.Instance.Grid[c].currentGridState.StateValue() < 4)
-                                    {
-                                        GridManager.Instance.Grid[c].ChangeCurrentState(GridManager.Instance.gS_Negative);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        //if (AliveCounter % everyXTurns == 0)
+        //{
+        //    if (spreadbehaviours != null)
+        //    {
+        //        if (spreadbehaviours.Count > 0)
+        //        {
+        //            foreach (Spreadbehaviours sb in spreadbehaviours)
+        //            {
+        //                if (sb.TargetTiles(HexGridUtil.AxialToCubeCoord(axialLocation), out List<Vector3Int> targets, FindClosestPlayer().CoordinatePosition))
+        //                {
+        //                    foreach (Vector3Int coord in targets)
+        //                    {
+        //                        Vector2Int c = HexGridUtil.CubeToAxialCoord(coord);
+        //                        if (GridManager.Instance.Grid.ContainsKey(c))
+        //                        {
+        //                            if (GridManager.Instance.Grid[c].currentGridState.StateValue() >= 0 && GridManager.Instance.Grid[c].currentGridState.StateValue() < 4)
+        //                            {
+        //                                GridManager.Instance.Grid[c].ChangeCurrentState(GridManager.Instance.gS_Negative);
+        //                            }
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
     }
 
     public override void Death()
