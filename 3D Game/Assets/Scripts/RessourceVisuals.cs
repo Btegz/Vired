@@ -113,7 +113,7 @@ public class RessourceVisuals : MonoBehaviour
             for (int i = 0; i < amount; i++)
             {
                 Direction randomDirection;
-                if (amount!= 1 || i == 0)
+                if (amount!= 1 && i!=0)
                 {
                     randomDirection = (Direction)Random.Range(0, 7);
                     while (CurrentKlopse.ContainsKey(randomDirection))
