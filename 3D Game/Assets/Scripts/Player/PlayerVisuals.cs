@@ -12,10 +12,22 @@ public class PlayerVisuals : MonoBehaviour
     public Material PlayerMaterial;
     public Material Outline;
 
+    [SerializeField] float shootDuraiton;
+    [SerializeField] float moveDuration;
+
+
+    Animator animator;
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
+
     public void Start()
     {
         EventManager.OnMoveEvent += Movement;
         EventManager.OnSelectPlayerEvent += PlayerSelection;
+        EventManager.OnAbilityCastEvent += AbilityCast;
 
     }
 
@@ -25,15 +37,25 @@ public class PlayerVisuals : MonoBehaviour
         EventManager.OnSelectPlayerEvent -= PlayerSelection;
     }
 
+    public void AbilityCast(Player player)
+    {
+        if(player == playwer)
+        {
+            StartCoroutine(AnimationCoroutine(shootDuraiton, "IsShooting"));
+        }
+    }
+
+
     public void Movement(Player player)
     {
         try
         {
             if (player == playwer)
             {
-                ParticleSystem landingCloud = GetComponentInChildren<ParticleSystem>();
-                transform.DOLocalJump(Vector3.up * 0.45f, 2, 1, .25f);
-                transform.DOPunchScale(Vector3.one * .1f, .25f).OnComplete(landingCloud.Play);
+                //ParticleSystem landingCloud = GetComponentInChildren<ParticleSystem>();
+                //transform.DOLocalJump(Vector3.up * 0.45f, 2, 1, .25f);
+                //transform.DOPunchScale(Vector3.one * .1f, .25f).OnComplete(landingCloud.Play);
+                StartCoroutine(AnimationCoroutine(moveDuration, "IsMoving"));
             }
 
         }
@@ -43,6 +65,15 @@ public class PlayerVisuals : MonoBehaviour
         }
 
     }
+
+    public IEnumerator AnimationCoroutine(float duration, string animation)
+    {
+        animator.SetBool(animation,true);
+        yield return new WaitForSeconds(duration);
+        animator.SetBool(animation,false);
+        yield return null;
+    }
+
 
     public void PlayerSelection(Player player)
     {
@@ -55,9 +86,12 @@ public class PlayerVisuals : MonoBehaviour
             PlayerMaterial,
             Outline
         };
-            MeshRenderer mr = GetComponent<MeshRenderer>();
-
-            mr.materials = PlayerVisuals;
+            MeshRenderer[] mr = GetComponentsInChildren<MeshRenderer>();
+            foreach(MeshRenderer mr2 in mr)
+            {
+                mr2.materials = PlayerVisuals;
+            }
+            
         }
 
         else
@@ -67,9 +101,11 @@ public class PlayerVisuals : MonoBehaviour
                     PlayerMaterial
             };
 
-            MeshRenderer mr = GetComponent<MeshRenderer>();
-
-            mr.materials = PlayerVisual;
+            MeshRenderer[] mr = GetComponentsInChildren<MeshRenderer>();
+            foreach (MeshRenderer mr2 in mr)
+            {
+                mr2.materials = PlayerVisual;
+            }
         }
             
 

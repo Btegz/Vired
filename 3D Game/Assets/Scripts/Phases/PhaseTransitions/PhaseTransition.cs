@@ -8,7 +8,7 @@ public abstract class PhaseTransition : ScriptableObject
 {
     public abstract void InitPhaseTransitionCheck();
 
-    public abstract void ConditionFullfilledCheck();
+    public abstract void ConditionFullfilledCheck(Player player);
 
     public WhenCheckCondition whenCheckCondition;
 }

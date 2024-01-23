@@ -12,12 +12,12 @@ public class EventManager
         OnEndTurnEvent?.Invoke();
     }
 
-    public delegate void AbilityCast();
+    public delegate void AbilityCast(Player player);
     public static event AbilityCast OnAbilityCastEvent;
 
-    public static void OnAbilityCast()
+    public static void OnAbilityCast(Player player)
     {
-        OnAbilityCastEvent?.Invoke();
+        OnAbilityCastEvent?.Invoke(player);
     }
 
     public delegate void ConfirmButtonDelegate();

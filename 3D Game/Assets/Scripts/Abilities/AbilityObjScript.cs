@@ -12,6 +12,8 @@ public class AbilityObjScript : MonoBehaviour
     public GridTile gridTile;
     public List<Vector2Int> AbilityShapeLocation;
 
+    Player player;
+
     [SerializeField] GameObject PositiveEffectPrefab;
     [SerializeField] GameObject Damage1EffectPrefab;
     [SerializeField] GameObject Damage2EffectPrefab;
@@ -55,6 +57,7 @@ public class AbilityObjScript : MonoBehaviour
 
     public void ShowMesh(Ability ability, Vector3Int SpawnPoint, Vector3Int playerPos, Player player)
     {
+        this.player = player;
         transform.position = HexGridUtil.AxialHexToPixel(HexGridUtil.CubeToAxialCoord(playerPos), 1);
         this.ability = ability;
         Vector2Int axialPlayerPos = HexGridUtil.CubeToAxialCoord(playerPos);
@@ -375,7 +378,7 @@ public class AbilityObjScript : MonoBehaviour
         Payment();
         castAbiltyInputActionReference.action.performed -= CastAbility;
         //PlayerManager.Instance.AbilityCasted();
-        EventManager.OnAbilityCast();
+        EventManager.OnAbilityCast(player);
         PlayerManager.Instance.move = true;
         KillYourSelf();
     }
@@ -395,7 +398,7 @@ public class AbilityObjScript : MonoBehaviour
         PlayerManager.Instance.selectedPlayer.AbilityCastButton.onClick.RemoveAllListeners();
         PlayerManager.Instance.selectedPlayer.CloseAbilityCastCanvas();
         //PlayerManager.Instance.AbilityCasted();
-        EventManager.OnAbilityCast();
+        EventManager.OnAbilityCast(player);
 
         Destroy(gameObject);
     }

@@ -476,7 +476,7 @@ public class PlayerManager : MonoBehaviour
     //}
 
 
-    public void AbilityCasted()
+    public void AbilityCasted(Player player)
     {
         StartCoroutine(AbilityCastCoroutine());
         //EventManager.OnAbilityCastEvent -= AbilityCasted;
