@@ -48,7 +48,7 @@ public class GS_positive : GridState
     {
         RessourceGainEffect rsg = Instantiate(PlayerManager.Instance.ressourceGainEffect,UIManager.Instance.transform);
         AudioManager.Instance.PlaySoundAtLocation(ResourceCollected, soundEffect, null);
-       SaveManager.Instance.TotalResources++;
+        SaveManager.Instance.TotalResources++;
         Ressource res = Ressource.ressourceD;
         Vector2 startPoint = Camera.main.WorldToScreenPoint(parent.transform.position);
         Vector2 goalPoint = new Vector2();
