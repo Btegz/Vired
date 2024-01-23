@@ -19,6 +19,11 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField] public Material CMAterial;
     [SerializeField] public Material DMAterial;
 
+    [SerializeField] public Material AOutlineMAterial;
+    [SerializeField] public Material BOutlineMAterial;
+    [SerializeField] public Material COutlineMAterial;
+    [SerializeField] public Material DOutlineMAterial;
+
     [SerializeField] GameObject HealthPointsLayout;
     [SerializeField] Image HealthpointPrefab;
     List<Image> healthpoints;
@@ -116,16 +121,16 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         switch (ressource)
         {
             case Ressource.ressourceA:
-                mr.material = AMAterial;
+                mr.materials = new Material[] { AMAterial, AOutlineMAterial };
                 break;
             case Ressource.ressourceB:
-                mr.material = BMAterial;
+                mr.materials = new Material[] { BMAterial, BOutlineMAterial };
                 break;
             case Ressource.ressourceC:
-                mr.material = CMAterial;
+                mr.materials = new Material[] { CMAterial, COutlineMAterial };
                 break;
             case Ressource.ressourceD:
-                mr.material = DMAterial;
+                mr.materials = new Material[] { DMAterial, DOutlineMAterial };
                 break;
         }
 
