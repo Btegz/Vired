@@ -45,7 +45,7 @@ public class Boss : Enemy
     }
     private void Update()
     {
-        AudioManager.Instance.PlayMusic(AudioManager.Instance.EnemyHovern);
+       // AudioManager.Instance.PlayMusic(AudioManager.Instance.EnemyHovern);
     }
     private void OnDestroy()
     {

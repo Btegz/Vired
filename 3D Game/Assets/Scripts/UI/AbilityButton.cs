@@ -19,6 +19,7 @@ public class AbilityButton : MonoBehaviour
     [SerializeField] protected Sprite C_Background;
     [SerializeField] protected Sprite D_Background;
     [SerializeField] protected Sprite Background;
+    public GameObject ResourceButton;
 
     [SerializeField] protected int index;
 
@@ -97,18 +98,18 @@ public class AbilityButton : MonoBehaviour
             switch (ability.MyCostRessource)
             {
                 case Ressource.ressourceA:
-                    transform.GetChild(1).GetComponent<Image>().sprite = A_Background;
+                    ResourceButton.GetComponent<Image>().sprite = A_Background;
                     break;
                 case Ressource.ressourceB:
                     Debug.Log(ability);
-                    transform.GetChild(1).GetComponent<Image>().sprite = B_Background;
+                    ResourceButton.GetComponent<Image>().sprite = B_Background;
 
                     break;
                 case Ressource.ressourceC:
-                    transform.GetChild(1).GetComponent<Image>().sprite = C_Background;
+                    ResourceButton.GetComponent<Image>().sprite = C_Background;
                     break;
                 case Ressource.ressourceD:
-                    transform.GetChild(1).GetComponent<Image>().sprite = D_Background;
+                    ResourceButton.GetComponent<Image>().sprite = D_Background;
                     break;
             }
         }

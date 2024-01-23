@@ -14,6 +14,7 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
     public Image AbilityPreview;
     public AudioData AbilitySelect;
     public AudioMixerGroup soundEffect;
+    [SerializeField] Image ressourceIconImage;
 
    
     
@@ -25,8 +26,8 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
 
             color.a = 1f;
             AbilityButtonImage.GetComponent<Image>().color = color;
-            transform.GetChild(1).GetComponent<Image>().enabled = true;
-            transform.GetChild(1).GetComponent<Image>().color = color;
+            ResourceButton.GetComponent<Image>().enabled = true;
+            ResourceButton.GetComponent<Image>().color = color;
 
 
 
@@ -39,7 +40,7 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
             ability = null;
             color.a = 0.2f;
             AbilityButtonImage.GetComponent<Image>().color = color;
-            transform.GetChild(1).GetComponent<Image>().enabled = false;
+            ResourceButton.GetComponent<Image>().enabled = false;
             AbilityButtonImage.sprite = Background;
 
 
@@ -58,7 +59,7 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
             ability = PlayerManager.Instance.selectedPlayer.AbilityInventory[index];
             color.a = 1f;
             AbilityButtonImage.GetComponent<Image>().color = color;
-            transform.GetChild(1).GetComponent<Image>().color = color;
+            ResourceButton.GetComponent<Image>().color = color;
             AbilityButtonImage.sprite = Background;
 
 
@@ -70,7 +71,7 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
             ability = null;
             color.a = 0.2f;
             AbilityButtonImage.GetComponent<Image>().color = color;
-            transform.GetChild(1).GetComponent<Image>().color = color;
+            ResourceButton.GetComponent<Image>().color = color;
             AbilityButtonImage.sprite = Background;
 
             UpgradeGridHex[] children = GetComponentsInChildren<UpgradeGridHex>();
