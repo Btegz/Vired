@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -1006,6 +1007,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             if (neighbors.Contains(HexGridUtil.AxialToCubeCoord(AxialCoordinate)))
             {
                 Instantiate(moveTileHighlightPrefab, transform.localPosition, Quaternion.identity, transform);
+                PlayerManager.Instance.selectedPlayer.transform.DOLookAt(new Vector3(transform.position.x, PlayerManager.Instance.selectedPlayer.transform.position.y, transform.position.z), .1f,up:Vector3.up);
             }
         }
     }
