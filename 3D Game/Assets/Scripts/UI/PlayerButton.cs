@@ -60,7 +60,7 @@ public class PlayerButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        // hier soll der Glitcheffekt abgespielt werden uwu
     }
 
 
