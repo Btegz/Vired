@@ -281,16 +281,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d86d9af24f630d4488caf19deb638579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 1
-  maxHealth: 1
   ressource: 0
+  axialLocation: {x: 0, y: 0}
+  currentHealth: 1
   AMAterial: {fileID: 2100000, guid: 418edcc1881116d49a7f077b0bb080e4, type: 2}
   BMAterial: {fileID: 2100000, guid: a6a2bf096af777a4c863878c5eaa7137, type: 2}
   CMAterial: {fileID: 2100000, guid: e4c2b7c645ddbb042a24261a293053c4, type: 2}
   DMAterial: {fileID: 2100000, guid: 4c6b16f0e6087ec46b80beac2f0b37b7, type: 2}
   HealthPointsLayout: {fileID: 7073082774712012848}
   HealthpointPrefab: {fileID: 4546101371875049633, guid: 653162b7ccefd14408d3d51e5851e964, type: 3}
-  healthpoints: []
   SpawnJumpAnimationCurve:
     serializedVersion: 2
     m_Curve: []
@@ -298,16 +297,20 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   Particle_EnemyDeath: {fileID: 726535386845715946, guid: 005fc7e0d2c6e1247b7b8880e93a8099, type: 3}
+  maxHealth: 1
   SkillPointReward: 1
+  SpreadAmount: 1
+  everyXTurns: 3
   spreadbehaviours:
   - {fileID: 11400000, guid: 36e1b6eb070f48842ad428e9b27eeae5, type: 2}
   - {fileID: 11400000, guid: ab7ddd9a180f3884899cb7ed093172ce, type: 2}
   - {fileID: 11400000, guid: cc14b309b15ea324aa4ac59fee75e705, type: 2}
-  SpreadAmount: 1
-  everyXTurns: 3
-  axialLocation: {x: 0, y: 0}
-  death: {fileID: 11400000, guid: 52c5c7a45c8060342836570eb8ce113a, type: 2}
+  EnemyDeath: {fileID: 11400000, guid: 543eac6ca468233458a6a66bea5d0b49, type: 2}
+  EnemyDamage: {fileID: 11400000, guid: 092b8a9c944e0774cbe6061d4891242e, type: 2}
+  BossDamage: {fileID: 11400000, guid: 15029cb6a9d3f364bab1829314b09ae8, type: 2}
   spawn: {fileID: 11400000, guid: cf068642af0e61e4c879e07d4cb7df86, type: 2}
+  SpreadBar: {fileID: 11400000, guid: cd4ed078263463b4aa7804eedf17a1b2, type: 2}
+  soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
   FirstAndLast: 1
   isFirstZergling: 1
   zerglingPrefab: {fileID: 3100616434115519233}
