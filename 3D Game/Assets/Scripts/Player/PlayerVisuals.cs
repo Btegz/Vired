@@ -55,7 +55,7 @@ public class PlayerVisuals : MonoBehaviour
             PlayerMaterial,
             Outline
         };
-            MeshRenderer mr = GetComponentInParent<MeshRenderer>();
+            MeshRenderer mr = GetComponent<MeshRenderer>();
 
             mr.materials = PlayerVisuals;
         }
@@ -67,7 +67,7 @@ public class PlayerVisuals : MonoBehaviour
                     PlayerMaterial
             };
 
-            MeshRenderer mr = GetComponentInParent<MeshRenderer>();
+            MeshRenderer mr = GetComponent<MeshRenderer>();
 
             mr.materials = PlayerVisual;
         }
