@@ -11,13 +11,14 @@ GameObject:
   - component: {fileID: 189587214}
   - component: {fileID: 189587216}
   - component: {fileID: 189587215}
+  - component: {fileID: 922622853824257393}
   m_Layer: 5
   m_Name: Preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &189587214
 RectTransform:
   m_ObjectHideFlags: 0
@@ -53,14 +54,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 189587213}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -76,6 +77,38 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &922622853824257393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 189587213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dce793aba76995b418547c37e8b44329, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EmptyHexSprite: {fileID: 21300000, guid: b6cb4a2763450ad4a8fffa20148535b1, type: 3}
+  PlayerHexSprite: {fileID: 21300000, guid: 2c1b251a4b20d0542932632d7ff4a1a5, type: 3}
+  DamageHexSprite: {fileID: 21300000, guid: c09e274d4769e9e45b5df3d966bc20db, type: 3}
+  PositiveHexSprite: {fileID: 21300000, guid: f004a7595b32c1b4e81f361f18e8e9d5, type: 3}
+  upgradeHexPrefab: {fileID: 668925117610220325, guid: ffad365964eaf7c49b403e4deb518f2d, type: 3}
+  A_Background: {fileID: 21300000, guid: 807a8485aa9d2b24087997cf2c3db309, type: 3}
+  B_Background: {fileID: 21300000, guid: 91fa0b7597696ca4e81087d552a53bfd, type: 3}
+  C_Background: {fileID: 21300000, guid: cc7f3604acf3ea0488a222356e9e5afc, type: 3}
+  D_Background: {fileID: 21300000, guid: 2102a91181e472545850219aface5df8, type: 3}
+  Background: {fileID: 21300000, guid: 69d5fc3809817a74c974f1fb75bc93e2, type: 3}
+  index: 0
+  ability: {fileID: 0}
+  emptyAbilitySlotSprite: {fileID: 0}
+  CostText: {fileID: 0}
+  infoTextPopUp: {fileID: 0}
+  currentState: 2
+  abilityLoadout: {fileID: 0}
+  HexSizePerButtonSize: 0.2
+  HexSizeFactorPerAbilityTealevel: 0.1
+  abilityCastButton: {fileID: 819440820460409782}
 --- !u!1 &927935220
 GameObject:
   m_ObjectHideFlags: 0
@@ -5625,13 +5658,14 @@ GameObject:
   - component: {fileID: 3702366844626567982}
   - component: {fileID: 4683266871710875048}
   - component: {fileID: 2085108842221147185}
+  - component: {fileID: 5203729175560563263}
   m_Layer: 5
   m_Name: 'Preview '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3702366844626567982
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5667,14 +5701,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 569618090137919296}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -5690,6 +5724,38 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5203729175560563263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 569618090137919296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dce793aba76995b418547c37e8b44329, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EmptyHexSprite: {fileID: 21300000, guid: b6cb4a2763450ad4a8fffa20148535b1, type: 3}
+  PlayerHexSprite: {fileID: 21300000, guid: 2c1b251a4b20d0542932632d7ff4a1a5, type: 3}
+  DamageHexSprite: {fileID: 21300000, guid: c09e274d4769e9e45b5df3d966bc20db, type: 3}
+  PositiveHexSprite: {fileID: 21300000, guid: f004a7595b32c1b4e81f361f18e8e9d5, type: 3}
+  upgradeHexPrefab: {fileID: 668925117610220325, guid: ffad365964eaf7c49b403e4deb518f2d, type: 3}
+  A_Background: {fileID: 21300000, guid: 807a8485aa9d2b24087997cf2c3db309, type: 3}
+  B_Background: {fileID: 21300000, guid: 91fa0b7597696ca4e81087d552a53bfd, type: 3}
+  C_Background: {fileID: 21300000, guid: cc7f3604acf3ea0488a222356e9e5afc, type: 3}
+  D_Background: {fileID: 21300000, guid: 2102a91181e472545850219aface5df8, type: 3}
+  Background: {fileID: 21300000, guid: 69d5fc3809817a74c974f1fb75bc93e2, type: 3}
+  index: 0
+  ability: {fileID: 0}
+  emptyAbilitySlotSprite: {fileID: 0}
+  CostText: {fileID: 0}
+  infoTextPopUp: {fileID: 0}
+  currentState: 2
+  abilityLoadout: {fileID: 0}
+  HexSizePerButtonSize: 0.2
+  HexSizeFactorPerAbilityTealevel: 0.1
+  abilityCastButton: {fileID: 3023205445542522435}
 --- !u!1 &571928559264417428
 GameObject:
   m_ObjectHideFlags: 0
@@ -12219,7 +12285,7 @@ MonoBehaviour:
   HexSizeFactorPerAbilityTealevel: 0.1
   AbilityButtonImage: {fileID: 4134337856932185950}
   MainButton: {fileID: 3344083718257309834}
-  AbilityPreview: {fileID: 189587215}
+  AbilityPreview: {fileID: 2085108842221147185}
   AbilitySelect: {fileID: 11400000, guid: eac53c084f5caa84799f139772609370, type: 2}
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
 --- !u!1 &4134337857578439920
@@ -13362,7 +13428,7 @@ MonoBehaviour:
   HexSizeFactorPerAbilityTealevel: 0.1
   AbilityButtonImage: {fileID: 4538530394703057303}
   MainButton: {fileID: 3344083718257309834}
-  AbilityPreview: {fileID: 189587215}
+  AbilityPreview: {fileID: 5559379179854246565}
   AbilitySelect: {fileID: 11400000, guid: eac53c084f5caa84799f139772609370, type: 2}
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
 --- !u!1 &4538530395170807994
@@ -16964,13 +17030,14 @@ GameObject:
   - component: {fileID: 342024041857030512}
   - component: {fileID: 6558797462089094561}
   - component: {fileID: 5559379179854246565}
+  - component: {fileID: 1553861416837971763}
   m_Layer: 5
   m_Name: 'Preview '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &342024041857030512
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17006,14 +17073,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6424866547008646112}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -17029,6 +17096,38 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1553861416837971763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6424866547008646112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dce793aba76995b418547c37e8b44329, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EmptyHexSprite: {fileID: 21300000, guid: b6cb4a2763450ad4a8fffa20148535b1, type: 3}
+  PlayerHexSprite: {fileID: 21300000, guid: 2c1b251a4b20d0542932632d7ff4a1a5, type: 3}
+  DamageHexSprite: {fileID: 21300000, guid: c09e274d4769e9e45b5df3d966bc20db, type: 3}
+  PositiveHexSprite: {fileID: 21300000, guid: f004a7595b32c1b4e81f361f18e8e9d5, type: 3}
+  upgradeHexPrefab: {fileID: 668925117610220325, guid: ffad365964eaf7c49b403e4deb518f2d, type: 3}
+  A_Background: {fileID: 21300000, guid: 807a8485aa9d2b24087997cf2c3db309, type: 3}
+  B_Background: {fileID: 21300000, guid: 91fa0b7597696ca4e81087d552a53bfd, type: 3}
+  C_Background: {fileID: 21300000, guid: cc7f3604acf3ea0488a222356e9e5afc, type: 3}
+  D_Background: {fileID: 21300000, guid: 2102a91181e472545850219aface5df8, type: 3}
+  Background: {fileID: 21300000, guid: 69d5fc3809817a74c974f1fb75bc93e2, type: 3}
+  index: 0
+  ability: {fileID: 0}
+  emptyAbilitySlotSprite: {fileID: 0}
+  CostText: {fileID: 0}
+  infoTextPopUp: {fileID: 0}
+  currentState: 2
+  abilityLoadout: {fileID: 0}
+  HexSizePerButtonSize: 0.2
+  HexSizeFactorPerAbilityTealevel: 0.1
+  abilityCastButton: {fileID: 3344083718257309834}
 --- !u!1 &6504295970230127562
 GameObject:
   m_ObjectHideFlags: 0

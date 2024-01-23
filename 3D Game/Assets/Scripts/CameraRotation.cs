@@ -142,7 +142,7 @@ public class CameraRotation : MonoBehaviour
         WorldcamStart = transform.position;
         startingPosition = cam.transform.localPosition;
         startMovementSpeed = maxMovementSpeed;
-        dropdown = cameraDropDown.dropdown;
+       // dropdown = cameraDropDown.dropdown;
 
         foreach (KeyValuePair<Vector2Int, GridTile> kvp in GridManager.Instance.Grid)
         {

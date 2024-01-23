@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum ButtonState { newInLoadout,fixedInLoadout, inMainScene, inUpgrade, selectedInLoadOut}
+public enum ButtonState { newInLoadout, fixedInLoadout, inMainScene, inUpgrade, selectedInLoadOut }
 
 public class AbilityButton : MonoBehaviour
 {
@@ -51,7 +51,7 @@ public class AbilityButton : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
         width = rectTransform.rect.width;
         height = rectTransform.rect.height;
-        if(rectTransform.anchorMax == Vector2.one * .5f)
+        if (rectTransform.anchorMax == Vector2.one * .5f)
         {
             centerDelta = new Vector2(0, 0);
         }
@@ -79,7 +79,7 @@ public class AbilityButton : MonoBehaviour
             case Ressource.ressourceB:
                 Debug.Log(ability);
                 GetComponent<Image>().sprite = B_Background;
-                
+
                 break;
             case Ressource.ressourceC:
                 GetComponent<Image>().sprite = C_Background;
@@ -92,7 +92,7 @@ public class AbilityButton : MonoBehaviour
 
     public void CorrectResourceInAbility()
     {
-        if(ability != null )
+        if (ability != null)
         {
             switch (ability.MyCostRessource)
             {
@@ -138,7 +138,7 @@ public class AbilityButton : MonoBehaviour
 
     public void MakeAbilityToGrid(Ability ability)
     {
-        if(ability==null)
+        if (ability == null)
         {
             Debug.Log("no ability to make to grid");
             return;
@@ -164,11 +164,11 @@ public class AbilityButton : MonoBehaviour
             UIGrid = new Dictionary<Vector2Int, UpgradeGridHex>();
         }
         float buttonSize = width * HexSizePerButtonSize;
-        float abilityTierSize = 1f - (HexSizeFactorPerAbilityTealevel * (0.25f*(Mathf.Pow((float)ability.MyTierLevel, 2f))));
+        float abilityTierSize = 1f - (HexSizeFactorPerAbilityTealevel * (0.25f * (Mathf.Pow((float)ability.MyTierLevel, 2f))));
         for (int i = 0; i < ability.Coordinates.Count; i++)
         {
             //Debug.Log("I make a tile of the ability now");
-           Sprite sp = GetFittingSprite(ability.Effects[i], out string text);
+            Sprite sp = GetFittingSprite(ability.Effects[i], out string text);
             if (UIGrid.ContainsKey(ability.Coordinates[i]))
             {
                 UIGrid[ability.Coordinates[i]].Fill(sp, text);
@@ -185,10 +185,10 @@ public class AbilityButton : MonoBehaviour
                 newHexRect.sizeDelta = Vector2.one * buttonSize * abilityTierSize;
 
                 //newHex.transform.localScale = Vector2.one * 0.2f;
-                Vector3 wordPos = HexGridUtil.AxialHexToPixel(ability.Coordinates[i], newHexRect.rect.width/2f);
-                newHex.transform.localPosition = new Vector2(wordPos.x, wordPos.z)+centerDelta;
+                Vector3 wordPos = HexGridUtil.AxialHexToPixel(ability.Coordinates[i], newHexRect.rect.width / 2f);
+                newHex.transform.localPosition = new Vector2(wordPos.x, wordPos.z) + centerDelta;
                 newHex.coordinate = ability.Coordinates[i];
-                UIGrid.Add(ability.Coordinates[i], newHex); 
+                UIGrid.Add(ability.Coordinates[i], newHex);
                 UIGrid[ability.Coordinates[i]].Fill(sp, text);
                 UIGrid[ability.Coordinates[i]].effect = ability.Effects[i];
             }
@@ -204,7 +204,7 @@ public class AbilityButton : MonoBehaviour
 
 
         Vector3 playerWorldPos = HexGridUtil.AxialHexToPixel(Vector2Int.zero, newPlayerHexRect.rect.width / 2f);
-        playerHex.transform.localPosition = new Vector2(playerWorldPos.x, playerWorldPos.z)+centerDelta;
+        playerHex.transform.localPosition = new Vector2(playerWorldPos.x, playerWorldPos.z) + centerDelta;
         playerHex.coordinate = Vector2Int.zero;
         UIGrid.Add(Vector2Int.zero, playerHex);
         UIGrid[Vector2Int.zero].Fill(PlayerHexSprite, "Player");
@@ -265,6 +265,15 @@ public class AbilityButton : MonoBehaviour
         }
         GetComponent<Image>().sprite = Background;
         //UIGrid.Clear();
-        CostText.text = "";
+        try
+        {
+            CostText.text = "";
+        }
+        catch
+        {
+
+        }
+
+
     }
 }

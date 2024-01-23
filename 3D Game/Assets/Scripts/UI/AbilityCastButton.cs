@@ -190,7 +190,7 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
         {
             Destroy(rsh.gameObject);
         }
-        AbilityPreview.enabled = false;
+        AbilityPreview.gameObject.SetActive(false);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -225,7 +225,7 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
         }
 
 
-        AbilityPreview.enabled = true;
+        AbilityPreview.gameObject.SetActive(true);
         
 
         
