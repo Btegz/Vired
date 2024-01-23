@@ -32,32 +32,40 @@ public class AudioManager : MonoBehaviour
                 audios = Resources.LoadAll(path, typeof(AudioData));
 
                 audio = (AudioData)audios[Random.Range(0, audios.Length)];
-                Debug.Log(audio);
                 audioSource.clip = audio.audioClip;
-                audioSource.volume = audio.volume;
-                audioSource.Play();
-                audioSource.outputAudioMixerGroup = output;
+                if (PlayerManager.Instance.AbilityLoadoutActive)
+                    audioSource.volume = 0;
+                else
+                {
+                    audioSource.volume = audio.volume;
+                    audioSource.Play();
+                    audioSource.outputAudioMixerGroup = output;
+                }
 
             }
             catch
             {
-
-                audioSource.clip = data.audioClip;
-                audioSource.volume = data.volume;
-                audioSource.Play();
-                audioSource.outputAudioMixerGroup = output;
+                if (PlayerManager.Instance.AbilityLoadoutActive)
+                    audioSource.volume = 0;
+                else
+                {
+                    audioSource.clip = data.audioClip;
+                    audioSource.volume = data.volume;
+                    audioSource.Play();
+                    audioSource.outputAudioMixerGroup = output;
+                }
             }
 
-            Destroy(audioPlayer.gameObject, data.audioClip.length);
+            //Destroy(audioPlayer.gameObject, data.audioClip.length);
         }
     }
     public void PlayMusic(AudioSource _audioSource)
     {
-        if (!PlayerManager.Instance.AbilityLoadoutActive)
-        {
+       // if (!PlayerManager.Instance.AbilityLoadoutActive)
+        
             if (_audioSource.isPlaying) return;
             _audioSource.Play();
-        }
+        
     }
 
     public void StopMusic(AudioSource _audioSource)

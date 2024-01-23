@@ -51,7 +51,7 @@ public class Boss : Enemy
     {
         EventManager.OnEndTurnEvent -= Spread;
         EventManager.OnEndTurnEvent -= BossNeighbors;
-        AudioManager.Instance.StopMusic(AudioManager.Instance.EnemyHovern);
+      //  AudioManager.Instance.StopMusic(AudioManager.Instance.EnemyHovern);
     }
 
     public override void Setup(GridTile tile)
