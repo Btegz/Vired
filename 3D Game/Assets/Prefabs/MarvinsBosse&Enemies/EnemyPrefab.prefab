@@ -37,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0.05, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: 1.366}
   m_SizeDelta: {x: 1, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &99537732848040247
@@ -192,7 +192,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8254572460369654827}
   - component: {fileID: 2148683299467376766}
-  - component: {fileID: 5662607046732415275}
   m_Layer: 0
   m_Name: EnemyPrefab
   m_TagString: Untagged
@@ -272,23 +271,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 36e1b6eb070f48842ad428e9b27eeae5, type: 2}
   - {fileID: 11400000, guid: ab7ddd9a180f3884899cb7ed093172ce, type: 2}
   - {fileID: 11400000, guid: cc14b309b15ea324aa4ac59fee75e705, type: 2}
-  death: {fileID: 11400000, guid: 52c5c7a45c8060342836570eb8ce113a, type: 2}
+  EnemyDeath: {fileID: 0}
+  EnemyDamage: {fileID: 0}
+  BossDamage: {fileID: 0}
   spawn: {fileID: 11400000, guid: cf068642af0e61e4c879e07d4cb7df86, type: 2}
+  SpreadBar: {fileID: 0}
   soundEffect: {fileID: 0}
   FirstAndLast: 1
---- !u!65 &5662607046732415275
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8254572460369654823}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.3683201, y: 0.96686375, z: 1.5799999}
-  m_Center: {x: 0, y: 0.47766334, z: 0}
 --- !u!1001 &815630487181665089
 PrefabInstance:
   m_ObjectHideFlags: 0
