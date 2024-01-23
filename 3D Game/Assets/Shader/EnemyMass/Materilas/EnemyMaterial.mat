@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-839204402638915307
+--- !u!114 &-4040389950439781660
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: EnemyMass
+  m_Name: EnemyMaterial
   m_Shader: {fileID: -6465566751694194690, guid: f5c76812a5ccb0842b2378faf9cfcf56, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -47,29 +47,29 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AmbientOcclusionAdd: 0.368
+    - _AmbientOcclusionAdd: 1
     - _AmbientOcclusionMult: 0.2
-    - _Color1Mult: 1.17
+    - _Color1Mult: 1
     - _Deform: 0
     - _EMISSION: 0
     - _MetallicMultiply: 0
-    - _NormalMax: 2
+    - _NormalMax: 0.9
     - _NormalMin: -2
-    - _NormalStrength: 0.101
+    - _NormalStrength: 0.1
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _SmoothnessAdditive: 0.076
-    - _SmoothnessMultiply: 0.225
-    - _brightness: 3.43
-    - _iterations: 10.7
-    - _rippleMaxFrequency: 11.86
-    - _rippleSpeed: 0.56
-    - _rippleStrength: 2.07
-    - _rotationStep: 4.31
-    - _scale: 32.1
+    - _SmoothnessAdditive: 0.566
+    - _SmoothnessMultiply: 1
+    - _brightness: -4.22
+    - _iterations: 11
+    - _rippleMaxFrequency: 11
+    - _rippleSpeed: 0.5
+    - _rippleStrength: 2
+    - _rotationStep: 4
+    - _scale: 32
     - _scaleMultStep: -0.8
     - _uvAnimationSpeed: 0.1
     m_Colors:
-    - _Color1: {r: 0, g: 0, b: 0, a: 1}
-    - _Color2: {r: 0.12802598, g: 0.14633517, b: 0.1981132, a: 1}
+    - _Color1: {r: 0.3584906, g: 0.113296546, b: 0.113296546, a: 1}
+    - _Color2: {r: 0.33962262, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

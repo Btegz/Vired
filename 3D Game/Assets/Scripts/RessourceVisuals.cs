@@ -213,7 +213,7 @@ public class RessourceVisuals : MonoBehaviour
             GameObject newEnemyMass = Instantiate(EnemyMassKlopse[Random.Range(0, EnemyMassKlopse.Count)], transform);
             Vector3 goalPosition = transform.position;
             goalPosition += new Vector3(Random.Range(-.5f, .5f), 0, Random.Range(-.4f, .4f));
-            goalPosition -= new Vector3(0, Random.Range(getOffset().x, getOffset().y), 0);
+            goalPosition -= new Vector3(0, Random.Range(EnemyMassrandomYOffsetFromTo.x, EnemyMassrandomYOffsetFromTo.y), 0);
             newEnemyMass.transform.rotation = Quaternion.Euler(0, Random.Range(getRotation().x, getRotation().y), 0);
             CurrentEnemyMasses.Add(newEnemyMass);
             newEnemyMass.transform.DOMove(goalPosition, TweenDuration).From(goalPosition + Vector3.down * .5f).OnComplete(() => newEnemyMass.transform.DOPunchScale(newEnemyMass.transform.localScale * .25f, TweenDuration / 2f));
