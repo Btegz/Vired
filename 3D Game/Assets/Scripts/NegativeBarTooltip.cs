@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.EventSystems;
 
 public class NegativeBarTooltip : ToolTipContent
 {
     int TilesTotal;
     string defaultContent;
+   
 
     private void Start()
     {
@@ -38,6 +40,7 @@ public class NegativeBarTooltip : ToolTipContent
         foreach(Enemy enemy in GridManager.Instance.gameObject.GetComponentsInChildren<Enemy>())
         {
             amount += enemy.AmountSpreadNextTurn();
+       
             
         }
         return amount;

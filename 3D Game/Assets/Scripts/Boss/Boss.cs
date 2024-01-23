@@ -33,6 +33,9 @@ public class Boss : Enemy
     public GameObject redParticle;
     public GameObject greenParticle;
 
+    public AudioData BossDeath;
+    public AudioData BossNegativity;
+
     private void Start()
     {
         EventManager.OnEndTurnEvent += BossNeighbors;
@@ -123,6 +126,7 @@ public class Boss : Enemy
         if (NextBosses == null || NextBosses.Count == 0)
         {
             GridManager.Instance.GameWon();
+            AudioManager.Instance.PlaySoundAtLocation(BossDeath, soundEffect, null);
             return;
         }
 
@@ -196,6 +200,7 @@ public class Boss : Enemy
                     GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].ChangeCurrentState(GridManager.Instance.gS_BossNegative);
 
                     BossNegative++;
+                    AudioManager.Instance.PlaySoundAtLocation(BossNegativity, soundEffect, null);
                 }
             }
         }

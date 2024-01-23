@@ -35,7 +35,7 @@ public class RessourceGainEffect : MonoBehaviour
                 break;
         }
 
-        AudioManager.Instance.PlaySoundAtLocation(collectResource, soundEffect);
+        AudioManager.Instance.PlaySoundAtLocation(collectResource, soundEffect, null);
         transform.DOJump(goal, 200,1, 2f).OnComplete(()=> Destroy(gameObject));
 
         Invoke("completedRessourceGain", 1.5f);

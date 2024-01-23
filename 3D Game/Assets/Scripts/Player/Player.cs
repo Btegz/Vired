@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 using Cinemachine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.Audio;
 
 public class Player : MonoBehaviour, IPointerClickHandler
 
@@ -17,11 +18,12 @@ public class Player : MonoBehaviour, IPointerClickHandler
     public Vector2Int CoordinatePosition;
 
     public Vector2Int SpawnPoint;
+ 
 
 
     [SerializeField] CinemachineVirtualCamera PlayerCam;
 
-
+   
     public void OnPointerClick(PointerEventData eventData)
     {
         

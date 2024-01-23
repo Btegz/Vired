@@ -7428,6 +7428,11 @@ MonoBehaviour:
   gridHexPrefab: {fileID: 45630036968518105, guid: 1a0950c802ed5e34fa2e64fee2f92ec4, type: 3}
   CostText: {fileID: 5399586429454219409}
   particle: {fileID: 0}
+  AbilityUpgrade: {fileID: 886145878456113720}
+  soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
+  NoMonetos: {fileID: 11400000, guid: 8ced28ab65a6c8549a86cffe1927b859, type: 2}
+  positiveUpgrade: {fileID: 11400000, guid: f3f596e6881909446abe23a1f2622da2, type: 2}
+  negativeUpgrade: {fileID: 11400000, guid: a112171d13d3fea43a858b7e5ee1704e, type: 2}
   Cost: 0
 --- !u!114 &6877449281825061094
 MonoBehaviour:
@@ -8523,6 +8528,8 @@ MonoBehaviour:
   AbilityButtonImage: {fileID: 2002894708632550059}
   MainButton: {fileID: 3344083718257309834}
   AbilityPreview: {fileID: 189587215}
+  AbilitySelect: {fileID: 11400000, guid: eac53c084f5caa84799f139772609370, type: 2}
+  soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
 --- !u!1 &2037233386029073250
 GameObject:
   m_ObjectHideFlags: 0
@@ -9279,6 +9286,11 @@ MonoBehaviour:
   gridHexPrefab: {fileID: 45630036968518105, guid: 1a0950c802ed5e34fa2e64fee2f92ec4, type: 3}
   CostText: {fileID: 5662255992100529695}
   particle: {fileID: 0}
+  AbilityUpgrade: {fileID: 886145878456113720}
+  soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
+  NoMonetos: {fileID: 11400000, guid: 8ced28ab65a6c8549a86cffe1927b859, type: 2}
+  positiveUpgrade: {fileID: 11400000, guid: f3f596e6881909446abe23a1f2622da2, type: 2}
+  negativeUpgrade: {fileID: 11400000, guid: a112171d13d3fea43a858b7e5ee1704e, type: 2}
   Cost: 0
 --- !u!114 &4547725019989334081
 MonoBehaviour:
@@ -9859,6 +9871,8 @@ MonoBehaviour:
   upgradeHexGrid: {fileID: 5962801038591255301}
   UpgradeCost: 0
   costText: {fileID: 3444960172950485355}
+  soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
+  NoMonetos: {fileID: 11400000, guid: 8ced28ab65a6c8549a86cffe1927b859, type: 2}
 --- !u!114 &2072657636859483473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10110,6 +10124,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AbilityUpgradeObj: {fileID: 7597039996449589668}
+  OpenUpgradeMenu: {fileID: 0}
+  soundEffect: {fileID: 0}
 --- !u!114 &2220697376328809849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12203,7 +12219,9 @@ MonoBehaviour:
   HexSizeFactorPerAbilityTealevel: 0.1
   AbilityButtonImage: {fileID: 4134337856932185950}
   MainButton: {fileID: 3344083718257309834}
-  AbilityPreview: {fileID: 2085108842221147185}
+  AbilityPreview: {fileID: 189587215}
+  AbilitySelect: {fileID: 11400000, guid: eac53c084f5caa84799f139772609370, type: 2}
+  soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
 --- !u!1 &4134337857578439920
 GameObject:
   m_ObjectHideFlags: 0
@@ -13344,7 +13362,9 @@ MonoBehaviour:
   HexSizeFactorPerAbilityTealevel: 0.1
   AbilityButtonImage: {fileID: 4538530394703057303}
   MainButton: {fileID: 3344083718257309834}
-  AbilityPreview: {fileID: 5559379179854246565}
+  AbilityPreview: {fileID: 189587215}
+  AbilitySelect: {fileID: 11400000, guid: eac53c084f5caa84799f139772609370, type: 2}
+  soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
 --- !u!1 &4538530395170807994
 GameObject:
   m_ObjectHideFlags: 0
@@ -14554,6 +14574,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AbilityUpgradeObj: {fileID: 7597039996449589668}
+  OpenUpgradeMenu: {fileID: 11400000, guid: 1357d80d6949ce849b193457ac84f26d, type: 2}
+  soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
 --- !u!114 &1717548340930472074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17272,6 +17294,9 @@ MonoBehaviour:
   pointsSpent: 0
   TierUPgrades: 0
   AbilityTierLevel: 0
+  soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
+  ConfirmUpgrade: {fileID: 11400000, guid: 2fb1cc00172109b478610bf49712d86e, type: 2}
+  CancelUpgrade: {fileID: 11400000, guid: 278b9e49d7962b54086f411d81563662, type: 2}
 --- !u!1 &6719469341334917157
 GameObject:
   m_ObjectHideFlags: 0

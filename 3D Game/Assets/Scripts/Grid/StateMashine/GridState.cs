@@ -46,4 +46,6 @@ public abstract class GridState : ScriptableObject
     /// </summary>
     /// <returns></returns>
     public abstract int StateValue();
+
+
 }

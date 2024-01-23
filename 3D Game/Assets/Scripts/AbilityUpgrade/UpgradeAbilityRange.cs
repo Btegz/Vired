@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using UnityEngine.Audio;
 
 public class UpgradeAbilityRange : MonoBehaviour, IPointerClickHandler
 {
@@ -12,6 +13,8 @@ public class UpgradeAbilityRange : MonoBehaviour, IPointerClickHandler
     [SerializeField] int UpgradeCost = 0;
 
     [SerializeField]TMP_Text costText;
+    public AudioMixerGroup soundEffect;
+    public AudioData NoMonetos;
 
     private void Start()
     {
@@ -43,6 +46,8 @@ public class UpgradeAbilityRange : MonoBehaviour, IPointerClickHandler
             else
             {
                 transform.DOPunchRotation(Vector3.back*10,0.25f);
+                AudioManager.Instance.PlaySoundAtLocation(NoMonetos, soundEffect, null);
+
             }
 
         }

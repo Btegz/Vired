@@ -2,10 +2,13 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 [CreateAssetMenu(fileName = "GS_Positive", menuName = "GridStates/GS_Positive")]
 public class GS_positive : GridState
 {
+    public AudioMixerGroup soundEffect;
+    public AudioData ResourceCollected; 
     public override GridState CurrentState()
     {
         return this;
@@ -44,6 +47,7 @@ public class GS_positive : GridState
     public override void PlayerEnters(GridTile parent)
     {
         RessourceGainEffect rsg = Instantiate(PlayerManager.Instance.ressourceGainEffect,UIManager.Instance.transform);
+        AudioManager.Instance.PlaySoundAtLocation(ResourceCollected, soundEffect, null);
        SaveManager.Instance.TotalResources++;
         Ressource res = Ressource.ressourceD;
         Vector2 startPoint = Camera.main.WorldToScreenPoint(parent.transform.position);
@@ -82,4 +86,6 @@ public class GS_positive : GridState
     {
         return 1;
     }
+
+    
 }

@@ -2,11 +2,13 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 [CreateAssetMenu(fileName ="GS_Negative",menuName ="GridStates/GS_Negative")]
 public class GS_negative : GridState
 {
-
+    public AudioMixerGroup soundEffect;
+    public AudioData SpreadNegativity;
     public override GridState CurrentState()
     {
         return this;
@@ -21,8 +23,12 @@ public class GS_negative : GridState
         parent.GetComponent<RessourceVisuals>().SpawnEnemyMass();
 
         parent.transform.DOPunchRotation(Vector3.one*TweenScale,.5f);
+        AudioManager.Instance.PlaySoundAtLocation(SpreadNegativity, soundEffect, null);
 
-    }
+
+    
+
+}
 
     public override void ExitState(GridTile parent)
     {
@@ -31,6 +37,7 @@ public class GS_negative : GridState
 
     public override void PlayerEnters(GridTile parent)
     {
+        
         //tirgger Ressource loss for player
     }
 

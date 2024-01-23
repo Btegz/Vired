@@ -54,7 +54,11 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] AudioData movementSound;
     [SerializeField] AudioData noMovementSound;
     [SerializeField] AudioData switchPlayer;
+    [SerializeField] AudioData selectedAbility;
+    [SerializeField] AudioData AbilityCanceled;
+    [SerializeField] AudioSource hovern;
     [SerializeField] AudioMixerGroup soundEffect;
+  
 
     private void Awake()
     {
@@ -115,6 +119,7 @@ public class PlayerManager : MonoBehaviour
     private void Update()
     {
 
+        AudioManager.Instance.PlayMusic(hovern);
         if (!AbilityLoadoutActive)
         {
             // takes mouse positition
@@ -187,7 +192,7 @@ public class PlayerManager : MonoBehaviour
                     {
                         selectedPlayer.gameObject.transform.GetChild(0).transform.DOComplete();
                         selectedPlayer.gameObject.transform.GetChild(0).transform.DOPunchRotation(new Vector3(10f, 2f), 1f);
-                        AudioManager.Instance.PlaySoundAtLocation(noMovementSound, soundEffect);
+                        AudioManager.Instance.PlaySoundAtLocation(noMovementSound, soundEffect, null);
                     }
                     // saves the Grid Tile Location that was clicked
 
@@ -212,7 +217,7 @@ public class PlayerManager : MonoBehaviour
                             {
                                 selectedPlayer.gameObject.transform.GetChild(0).transform.DOComplete();
                                 selectedPlayer.gameObject.transform.GetChild(0).transform.DOPunchRotation(new Vector3(10f, 2f), .5f);
-                                AudioManager.Instance.PlaySoundAtLocation(noMovementSound, soundEffect);
+                                AudioManager.Instance.PlaySoundAtLocation(noMovementSound, soundEffect, null);
                             }
 
                         }
@@ -281,6 +286,8 @@ public class PlayerManager : MonoBehaviour
     /// <returns></returns>
     IEnumerator Move(Vector2Int moveTo)
     {
+        AudioManager.Instance.StopMusic(hovern);
+
         target = GridManager.Instance.Grid[moveTo];
         if (((movementAction == 0) && (extraMovement > 0)))
         {
@@ -335,7 +342,10 @@ public class PlayerManager : MonoBehaviour
     {
         if (button.currentState == ButtonState.inMainScene)
         {
+           
+            
             AbilityClicked(ability);
+            
         }
     }
 
@@ -350,6 +360,8 @@ public class PlayerManager : MonoBehaviour
         if (abilityActivated == false && InventoryCheck(ability, selectedPlayer))
         {
             move = false;
+           // AudioManager.Instance.PlaySoundAtLocation(selectedAbility, soundEffect, null);
+
             cancelAbilityInputActionReference.action.performed += CancelAbilityChoice;
             abilityActivated = true;
             EventManager.OnAbilityCastEvent += AbilityCasted;
@@ -490,6 +502,7 @@ public class PlayerManager : MonoBehaviour
         move = true;
         EventManager.OnAbilityCastEvent -= AbilityCasted;
         cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice;
+        AudioManager.Instance.PlaySoundAtLocation(AbilityCanceled, soundEffect, null);
     }
 
     public void CancelAbilityChoice()
@@ -498,6 +511,8 @@ public class PlayerManager : MonoBehaviour
         move = true;
         EventManager.OnAbilityCastEvent -= AbilityCasted;
         cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice;
+        AudioManager.Instance.PlaySoundAtLocation(AbilityCanceled, soundEffect, null);
+
     }
 
     public List<Vector2Int> PlayerPositions()
@@ -514,7 +529,7 @@ public class PlayerManager : MonoBehaviour
     {
         
         CameraRotation.Instance.MainCam = true;
-        AudioManager.Instance.PlaySoundAtLocation(switchPlayer, soundEffect);
+        AudioManager.Instance.PlaySoundAtLocation(switchPlayer, soundEffect, null);
         PlayerManager.Instance.selectedPlayer = player/*PlayerManager.Instance.Players[(int)keyPressed]*/;
         // EventManager.OnSelectPlayer(selectedPlayer);
 
@@ -528,8 +543,10 @@ public class PlayerManager : MonoBehaviour
     }
     public void Audio(Player player)
     {
-        AudioManager.Instance.PlaySoundAtLocation(movementSound, soundEffect);
+        AudioManager.Instance.PlaySoundAtLocation(movementSound, soundEffect, null);
     }
 
-   
+
+
+
 }

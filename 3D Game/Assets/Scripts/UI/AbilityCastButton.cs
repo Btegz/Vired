@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -11,6 +12,8 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
     private Color color;
     public AbilityCastButton MainButton;
     public Image AbilityPreview;
+    public AudioData AbilitySelect;
+    public AudioMixerGroup soundEffect;
 
    
     
@@ -151,7 +154,10 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
 
     public void OnPointerClick(PointerEventData eventData)
     {
+       AudioManager.Instance.PlaySoundAtLocation(AbilitySelect, soundEffect, null);
+        
         clicked();
+        
     }
 
     public void OnPointerExit(PointerEventData eventData)

@@ -35,7 +35,8 @@ public class GS_Pofl : GridState
         pofi = Instantiate(PointOfInterest, PointOfInterest.transform.position, Quaternion.identity);
         parent.ChangeCurrentState(GridManager.Instance.gS_Neutral);
         Destroy(parent.gameObject.GetComponentInChildren<PofIVisuals>().gameObject);
-        AudioManager.Instance.PlaySoundAtLocation(PofISound, soundEffect);  
+
+        AudioManager.Instance.PlaySoundAtLocation(PofISound, soundEffect, null);  
     }
 
     public override int StateValue()

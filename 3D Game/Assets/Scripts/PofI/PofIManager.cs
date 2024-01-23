@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class PofIManager : MonoBehaviour
@@ -14,6 +15,9 @@ public class PofIManager : MonoBehaviour
     public GS_Pofl gS_PofI;
     [HideInInspector] public int extraMovement;
     [SerializeField] public GameObject posSwitch;
+
+    [SerializeField] public AudioMixerGroup soundEffect;
+    [SerializeField] public AudioData PofISelect;
 
     public GameObject SkillPoints, NewResource, Movement;
 
@@ -57,11 +61,13 @@ public class PofIManager : MonoBehaviour
         switch (pofi)
         {
             case PofI.PofI_SkillPoints:
+                AudioManager.Instance.PlaySoundAtLocation(PofISelect, soundEffect, null);
                 Destroy(gS_PofI.pofi);
                 PlayerManager.Instance.SkillPoints += 2;
                 break;
 
             case PofI.PofI_NewResource:
+                AudioManager.Instance.PlaySoundAtLocation(PofISelect, soundEffect, null);
                 Destroy(gS_PofI.pofi);
                 Instantiate(NewResource, NewResource.transform.position, Quaternion.identity);
                 break;
@@ -72,6 +78,7 @@ public class PofIManager : MonoBehaviour
                 break;*/
 
             case PofI.PofI_MovementPoints:
+                AudioManager.Instance.PlaySoundAtLocation(PofISelect, soundEffect, null);
                 Destroy(gS_PofI.pofi);
                 EventManager.OnBonusMovementPointGain(3);
                 PlayerManager.Instance.extraMovement += 3;

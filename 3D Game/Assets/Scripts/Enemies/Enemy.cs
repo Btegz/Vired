@@ -42,13 +42,19 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     [Header("Audio")]
 
-    public AudioData death;
+    public AudioData EnemyDeath;
+    public AudioData EnemyDamage;
+    public AudioData BossDamage;
     public AudioData spawn;
+    public AudioData SpreadBar;
     public AudioMixerGroup soundEffect;
+
+
+    Image hp;
 
     private void Awake()
     {
-        AudioManager.Instance.PlaySoundAtLocation(spawn, soundEffect);
+        AudioManager.Instance.PlaySoundAtLocation(spawn, soundEffect, null);
     }
 
     [HideInInspector] public bool FirstAndLast = true;
@@ -129,6 +135,7 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if (currentHealth <= 0)
         {
             SaveManager.Instance.TotalKills++;
+            
             Death();
            
         }
@@ -136,10 +143,20 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             for (int i = 0; i < damage; i++)
             {
-                Image hp = healthpoints[healthpoints.Count - 1];
+                if (GetComponent<Boss>() != null)
+                {
+                    AudioManager.Instance.PlaySoundAtLocation(BossDamage, soundEffect, null);
+                    hp = healthpoints[healthpoints.Count - 1];
+                    healthpoints.RemoveAt(healthpoints.Count - 1);
+                    SaveManager.Instance.DamageDealt++;
+                }
+                else
+                    AudioManager.Instance.PlaySoundAtLocation(EnemyDamage, soundEffect, null);
+                 hp = healthpoints[healthpoints.Count - 1];
                 healthpoints.RemoveAt(healthpoints.Count - 1);
                 SaveManager.Instance.DamageDealt++;
-             
+
+
                 Destroy(hp.gameObject);
             }
         }
@@ -150,7 +167,9 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         PlayerManager.Instance.SkillPoints += SkillPointReward;
         GetComponentInParent<GridTile>().ChangeCurrentState(GridManager.Instance.gS_Negative);
         Instantiate(Particle_EnemyDeath, transform.position, Quaternion.Euler(-90, 0, 0));
-       
+        AudioManager.Instance.PlaySoundAtLocation(EnemyDeath, soundEffect, null);
+
+
         Destroy(gameObject);
     }
 
@@ -168,6 +187,7 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 {
                     GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)].ChangeCurrentState(GridManager.Instance.gS_Negative);
                     SaveManager.Instance.TotalSpread++;
+                    AudioManager.Instance.PlaySoundAtLocation(SpreadBar, soundEffect, null);
                     break;
                 }
             }

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
+using UnityEngine.Audio;
 
 public class UpgradeHexGrid : MonoBehaviour
 {
@@ -26,7 +27,12 @@ public class UpgradeHexGrid : MonoBehaviour
 
     public int AbilityTierLevel;
 
-    
+    public AudioMixerGroup soundEffect;
+
+    public AudioData ConfirmUpgrade;
+    public AudioData CancelUpgrade;
+
+
 
     // Start is called before the first frame update
     void OnEnable()
@@ -190,6 +196,7 @@ public class UpgradeHexGrid : MonoBehaviour
                 return DamageHexSprite;
             case Effect.Negative300:
                 text = "300";
+
                 return DamageHexSprite;
             case Effect.Negative400:
                 text = "400";
@@ -223,6 +230,7 @@ public class UpgradeHexGrid : MonoBehaviour
         else
         {
             AbilityGrid.Add(coord, newEffect);
+
             //Hier kannst du wackeln für PositivEffekte
             //Particle Effekte kannste hier auch machen
         }
@@ -272,6 +280,8 @@ public class UpgradeHexGrid : MonoBehaviour
             }
             loadedAbility.RecalculatePreviewMesh(AbilityGrid);
             EventManager.OnAbilityChange(Grid,loadedAbility);
+            AudioManager.Instance.PlaySoundAtLocation(ConfirmUpgrade, soundEffect, null);
+
         }
         //loadedAbility = null;
     }
@@ -285,6 +295,9 @@ public class UpgradeHexGrid : MonoBehaviour
             pointsSpent = 0;
             TierUPgrades = 0;
             MakeAbilityToGrid(loadedAbility);
+            AudioManager.Instance.PlaySoundAtLocation(CancelUpgrade, soundEffect, null);
+
+
         }
     }
 
@@ -299,6 +312,7 @@ public class UpgradeHexGrid : MonoBehaviour
             pointsSpent = 0;
             TierUPgrades = 0;
             MakeAbilityToGrid(loadedAbility);
+
         }
     }
 }
