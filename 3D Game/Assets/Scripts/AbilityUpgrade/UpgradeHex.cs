@@ -79,6 +79,7 @@ public class UpgradeHex : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     {
         try
         {
+            if(PlayerManager.Instance.SkillPoints > Cost)
             switch(effect)
             {
                 case Effect.Positive: AudioManager.Instance.PlaySoundAtLocation(positiveUpgrade, soundEffect, null); break; 

@@ -128,6 +128,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5335903960703223678, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
   m_PrefabInstance: {fileID: 1239626424}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &38697894 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 7217042830566480837, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
+  m_PrefabInstance: {fileID: 2082525775}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &84932106
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,7 +466,7 @@ PrefabInstance:
     - target: {fileID: 1365018791700332626, guid: 11b34f7d6d9bf504e95faf77866c009c, type: 3}
       propertyPath: normalFollow
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1078751517}
     - target: {fileID: 1365018791700332626, guid: 11b34f7d6d9bf504e95faf77866c009c, type: 3}
       propertyPath: cameraDropDown
       value: 
@@ -830,6 +835,11 @@ PrefabInstance:
 Canvas:
   m_CorrespondingSourceObject: {fileID: 4538530394698957689, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
   m_PrefabInstance: {fileID: 1239626424}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &497551234 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1572230070853581192, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
+  m_PrefabInstance: {fileID: 2082525775}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &502030723 stripped
 Transform:
@@ -1272,6 +1282,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 488724404}
     - target: {fileID: 6993991225135169736, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
+      propertyPath: Audioplayer
+      value: 
+      objectReference: {fileID: 497551234}
+    - target: {fileID: 6993991225135169736, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
       propertyPath: BossEnemySO
       value: 
       objectReference: {fileID: 11400000, guid: 835522eebbfc13c4e922c45e683ba113, type: 2}
@@ -1526,6 +1540,11 @@ MonoBehaviour:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 101340bd64d1fa04f8fa9a067948fbb1, type: 3}
   m_PrefabInstance: {fileID: 1699976840}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1078751517 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8621163657839492657, guid: 11b34f7d6d9bf504e95faf77866c009c, type: 3}
+  m_PrefabInstance: {fileID: 328168434}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1144915766 stripped
 Transform:
@@ -1832,6 +1851,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
+--- !u!20 &1312187475 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1365018791435240836, guid: 11b34f7d6d9bf504e95faf77866c009c, type: 3}
+  m_PrefabInstance: {fileID: 328168434}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1440621123
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2732,7 +2756,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8ba97cfb814a1e4ba94432894cbad6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
+  cam: {fileID: 1312187475}
   abilityLoadout: {fileID: 168507999}
   cancelAbilityInputActionReference: {fileID: 2201862511427077551, guid: 26454fd94e486c84595f431522cf20cf, type: 3}
   abilityObj: {fileID: 8527911146813857575, guid: a3e553756b59e4d46b657791d81a0ea3, type: 3}
@@ -2759,7 +2783,7 @@ MonoBehaviour:
   movementPointsPerTurn: 8
   movementAction: 8
   totalSteps: 0
-  SkillPoints: 3
+  SkillPoints: 100
   extraMovement: 0
   selectedPlayer: {fileID: 0}
   target: {fileID: 0}
@@ -2769,15 +2793,15 @@ MonoBehaviour:
   PlayerSpawnPoint: {x: 0, y: 0}
   collisionPoint: {x: 0, y: 0}
   playerPosition: {x: 0, y: 0}
-  RessourceAInventory: 0
-  RessourceBInventory: 0
-  RessourceCInventory: 0
-  RessourceDInventory: 0
+  RessourceAInventory: 100
+  RessourceBInventory: 100
+  RessourceCInventory: 100
+  RessourceDInventory: 100
   ressourceGainEffect: {fileID: 597970138054513854, guid: 3252c3ee4ee1a7a459e954aa47b08cc8, type: 3}
   movementSound: {fileID: 11400000, guid: 747ce51dff9e2c141bdf123f88d190e4, type: 2}
   noMovementSound: {fileID: 11400000, guid: 1513b2a68a429c54eb2e10e397e5448d, type: 2}
   switchPlayer: {fileID: 11400000, guid: 33ec817d22280844ab839196620d4cb5, type: 2}
-  selectedAbility: {fileID: 11400000, guid: 2605d71b3f1b39a459bc893a5fb1ddab, type: 2}
+  selectedAbility: {fileID: 11400000, guid: eac53c084f5caa84799f139772609370, type: 2}
   AbilityCanceled: {fileID: 11400000, guid: 260f2d64844457d4780b9738b9742c3a, type: 2}
   hovern: {fileID: 725723244}
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
@@ -2806,6 +2830,10 @@ PrefabInstance:
     - target: {fileID: 1572230070853581192, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
       propertyPath: m_Name
       value: AudioPlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061313347061360460, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
+      propertyPath: m_audioClip
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4318362013714721105, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
       propertyPath: m_RootOrder
@@ -2850,6 +2878,14 @@ PrefabInstance:
     - target: {fileID: 4318362013714721105, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6220655972957682692, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
+      propertyPath: EnemyHovern
+      value: 
+      objectReference: {fileID: 38697894}
+    - target: {fileID: 7217042830566480837, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
+      propertyPath: m_audioClip
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}

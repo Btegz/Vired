@@ -56,6 +56,7 @@ public class GridManager : MonoBehaviour
 
     [HideInInspector] public int TurnCounter;
 
+
     private void Awake()
     {
         if (Instance == null)

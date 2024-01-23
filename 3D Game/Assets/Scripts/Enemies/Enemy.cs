@@ -47,6 +47,8 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public AudioData BossDamage;
     public AudioData spawn;
     public AudioData SpreadBar;
+    public AudioData EnemySpawn;
+    public AudioData BossSpread;
     public AudioMixerGroup soundEffect;
 
 
@@ -55,6 +57,19 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private void Awake()
     {
         AudioManager.Instance.PlaySoundAtLocation(spawn, soundEffect, null);
+
+        if (GetComponent<Boss>() == null)
+        {
+            AudioManager.Instance.PlaySoundAtLocation(EnemySpawn, soundEffect, null);
+
+        }
+
+        else
+        {
+            Debug.Log("Hi");
+            AudioManager.Instance.PlaySoundAtLocation(BossSpread, soundEffect, null);
+        }
+
     }
 
     [HideInInspector] public bool FirstAndLast = true;

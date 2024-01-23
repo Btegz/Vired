@@ -36,17 +36,22 @@ public class Boss : Enemy
     public AudioData BossDeath;
     public AudioData BossNegativity;
 
+
     private void Start()
     {
         EventManager.OnEndTurnEvent += BossNeighbors;
         EventManager.OnEndTurnEvent += Spread;
         BossParticle(gameObject);
     }
-
+    private void Update()
+    {
+        AudioManager.Instance.PlayMusic(AudioManager.Instance.EnemyHovern);
+    }
     private void OnDestroy()
     {
         EventManager.OnEndTurnEvent -= Spread;
         EventManager.OnEndTurnEvent -= BossNeighbors;
+        AudioManager.Instance.StopMusic(AudioManager.Instance.EnemyHovern);
     }
 
     public override void Setup(GridTile tile)
@@ -126,9 +131,10 @@ public class Boss : Enemy
         if (NextBosses == null || NextBosses.Count == 0)
         {
             GridManager.Instance.GameWon();
-            AudioManager.Instance.PlaySoundAtLocation(BossDeath, soundEffect, null);
+           
             return;
         }
+            AudioManager.Instance.PlaySoundAtLocation(BossDeath, soundEffect, null);
 
         PlayerManager.Instance.abilityLoadout.amountToChoose = AbilityLoadoutReward;
         PlayerManager.Instance.abilityLoadout.gameObject.SetActive(true);
