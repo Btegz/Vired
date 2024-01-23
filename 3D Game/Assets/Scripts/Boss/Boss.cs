@@ -9,6 +9,7 @@ public class Boss : Enemy
     List<Vector3Int> BossReachableTiles;
     [HideInInspector] public List<Vector2Int> location;
     [HideInInspector] public float AliveCounter = 0;
+    [SerializeField] public SkinnedMeshRenderer SkinnedMeshRenderer;
 
 
     [Header("Enemy Spawn")]
@@ -57,6 +58,7 @@ public class Boss : Enemy
     public override void Setup(GridTile tile)
     {
         base.Setup(tile);
+        SkinnedMeshRenderer.material = GetComponentInChildren<MeshRenderer>().material;
         tile.ChangeCurrentState(GridManager.Instance.gS_Boss);
         BossNeighbors();
         //EventManager.OnEndTurnEvent += BossNeighbors;

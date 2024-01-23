@@ -108,7 +108,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4614363456210993301}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.21}
   m_LocalScale: {x: 0.8333333, y: 0.5, z: 0.8333333}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -118,7 +118,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.75}
+  m_AnchoredPosition: {x: 0, y: 1.47}
   m_SizeDelta: {x: 1, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1307149070820131678
@@ -208,7 +208,7 @@ Transform:
   m_GameObject: {fileID: 8254572460369654823}
   m_LocalRotation: {x: 0, y: 0.2588191, z: 0, w: 0.9659258}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2, y: 2, z: 1.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7659672189754315926}
@@ -231,10 +231,14 @@ MonoBehaviour:
   ressource: 0
   axialLocation: {x: 0, y: 0}
   currentHealth: 1
-  AMAterial: {fileID: 2100000, guid: 418edcc1881116d49a7f077b0bb080e4, type: 2}
-  BMAterial: {fileID: 2100000, guid: a6a2bf096af777a4c863878c5eaa7137, type: 2}
-  CMAterial: {fileID: 2100000, guid: e4c2b7c645ddbb042a24261a293053c4, type: 2}
-  DMAterial: {fileID: 2100000, guid: abea60ac555495b408f7470cb9c7b742, type: 2}
+  AMAterial: {fileID: 2100000, guid: d2d7c06c9618ced4f9c4d12a0ce6a0aa, type: 2}
+  BMAterial: {fileID: 2100000, guid: fd56afaf860752148a14a1addde5383a, type: 2}
+  CMAterial: {fileID: 2100000, guid: 00168715907cd4e458fe311f1baf785d, type: 2}
+  DMAterial: {fileID: 2100000, guid: 520bebbf79ba2be459a763c3c69c823c, type: 2}
+  AOutlineMAterial: {fileID: 2100000, guid: aa37d8b1e4f080f4cb534f74e6e5b341, type: 2}
+  BOutlineMAterial: {fileID: 2100000, guid: 4edc21b998c3ae84e84f1e02113f6940, type: 2}
+  COutlineMAterial: {fileID: 2100000, guid: a52201f31a7ba4e409f4154391af15de, type: 2}
+  DOutlineMAterial: {fileID: 2100000, guid: 6173ca4e58dac184cb84f54d5a8bf33c, type: 2}
   HealthPointsLayout: {fileID: 2703274353667822884}
   HealthpointPrefab: {fileID: 4546101371875049633, guid: 653162b7ccefd14408d3d51e5851e964, type: 3}
   SpawnJumpAnimationCurve:
@@ -270,6 +274,7 @@ MonoBehaviour:
   FirstAndLast: 1
   location: []
   AliveCounter: 0
+  SkinnedMeshRenderer: {fileID: 795113993300991222}
   EnemiesEveryXTurns: 0
   enemyPrefabPool:
   - {fileID: 3100616434115519233, guid: b3a08cba775c46641afbdca0440b242a, type: 3}
@@ -347,6 +352,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d61650735e307e24cb1536dadde65a75, type: 3}
+--- !u!137 &795113993300991222 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -176330451285856252, guid: d61650735e307e24cb1536dadde65a75, type: 3}
+  m_PrefabInstance: {fileID: 8540306577194773746}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8147006125814647577 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d61650735e307e24cb1536dadde65a75, type: 3}
@@ -378,3 +388,45 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!23 &5122707339265386324
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8810213245721596323}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
