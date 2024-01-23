@@ -17,7 +17,15 @@ public class AudioManager : MonoBehaviour
 
     public void Awake()
     {
-        Instance = this;
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        
         
     }
     public void PlaySoundAtLocation(AudioData data, AudioMixerGroup output, string path)
@@ -56,7 +64,7 @@ public class AudioManager : MonoBehaviour
                 }
             }
 
-            //Destroy(audioPlayer.gameObject, data.audioClip.length);
+            Destroy(audioPlayer.gameObject, data.audioClip.length);
         }
     }
     public void PlayMusic(AudioSource _audioSource)
