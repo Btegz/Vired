@@ -85,7 +85,7 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
         }
         MakeAbilityToGrid(ability);
         AbilityButtonImage.sprite = Background;
-        CorrectResource();
+        //CorrectResource();
         //catch
         //{
         //    ability = null;
