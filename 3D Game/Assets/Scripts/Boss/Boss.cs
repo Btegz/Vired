@@ -42,7 +42,7 @@ public class Boss : Enemy
     {
         EventManager.OnEndTurnEvent += BossNeighbors;
         EventManager.OnEndTurnEvent += Spread;
-        BossParticle(gameObject);
+     //   BossParticle(gameObject);
     }
     private void Update()
     {
