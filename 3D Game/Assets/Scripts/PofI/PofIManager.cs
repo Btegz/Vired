@@ -62,13 +62,13 @@ public class PofIManager : MonoBehaviour
         {
             case PofI.PofI_SkillPoints:
                 AudioManager.Instance.PlaySoundAtLocation(PofISelect, soundEffect, null);
-                Destroy(gS_PofI.pofi);
+                Destroy(gS_PofI.pofi.gameObject);
                 PlayerManager.Instance.SkillPoints += 2;
                 break;
 
             case PofI.PofI_NewResource:
                 AudioManager.Instance.PlaySoundAtLocation(PofISelect, soundEffect, null);
-                Destroy(gS_PofI.pofi);
+                Destroy(gS_PofI.pofi.gameObject);
                 Instantiate(NewResource, NewResource.transform.position, Quaternion.identity);
                 break;
 
@@ -79,13 +79,11 @@ public class PofIManager : MonoBehaviour
 
             case PofI.PofI_MovementPoints:
                 AudioManager.Instance.PlaySoundAtLocation(PofISelect, soundEffect, null);
-                Destroy(gS_PofI.pofi);
+                Destroy(gS_PofI.pofi.gameObject);
                 EventManager.OnBonusMovementPointGain(3);
                 PlayerManager.Instance.extraMovement += 3;
                 break;
         }
         PlayerManager.Instance.move = true;
-
-
     }
 }

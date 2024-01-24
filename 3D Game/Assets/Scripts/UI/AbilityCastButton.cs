@@ -110,6 +110,8 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
         //GetComponent<Button>().onClick.AddListener(clicked);
         EventManager.OnConfirmButtonEvent += AssignAbility;
         EventManager.AbilityChangeEvent += UpdateUI;
+
+
     }
 
     public void clicked()
