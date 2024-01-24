@@ -155,7 +155,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         AxialCoordinate = coordinate;
         this.ressource = ressource;
         currentGridState = GridManager.Instance.gS_Positive;
-
+        GetComponent<RessourceVisuals>().Setup();
         //meshFilter.mesh = DrawMesh();
 
     }

@@ -5,6 +5,20 @@ using UnityEngine;
 
 public class RessourceVisuals : MonoBehaviour
 {
+    [Header("TileRessourceParticleSystems")]
+    [SerializeField] List<ParticleSystem> PondRessourceParticleSystems;
+    [SerializeField] List<ParticleSystem> CocoonRessourceParticleSystems;
+    [SerializeField] List<ParticleSystem> SpikesRessourceParticleSystems;
+    [SerializeField] List<ParticleSystem> MossRessourceParticleSystems;
+    [Header("-------------------------------------")]
+    [SerializeField] List<ParticleSystem> PondCleanParticleSystems;
+    [SerializeField] List<ParticleSystem> CocoonCleanParticleSystems;
+    [SerializeField] List<ParticleSystem> SpikesCleanParticleSystems;
+    [SerializeField] List<ParticleSystem> MossCleanParticleSystems;
+    [Header("-------------------------------------")]
+    [SerializeField] List<ParticleSystem> EnemyMassParticleSystems;
+    [Header("-------------------------------------")]
+
     [Header("Klopse")]
     [SerializeField] List<TerrainFeature> KlopseA;
     [SerializeField] Vector2Int howManyKlopseAFromTo;
@@ -46,12 +60,17 @@ public class RessourceVisuals : MonoBehaviour
     [SerializeField] Vector2 EnemyMassrandomRotationFromTo;
     [SerializeField] Vector2 EnemyMassrandomYOffsetFromTo;
 
-    Dictionary<Direction,TerrainFeature> CurrentKlopse;
+    Dictionary<Direction, TerrainFeature> CurrentKlopse;
     List<GameObject> CurrentEnemyMasses;
 
     List<TerrainFeature> myKlopse;
     Material myKlopseMat;
     GridTile myTile;
+
+    [Header(">>>-------DONT TOUCH---------<<<")]
+    public List<ParticleSystem> myRessourceParticles;
+    public List<ParticleSystem> myCleanParticles;
+    public List<ParticleSystem> myEnemyParticles;
 
 
 
@@ -62,27 +81,117 @@ public class RessourceVisuals : MonoBehaviour
     {
         myTile = GetComponent<GridTile>();
         CurrentEnemyMasses = new List<GameObject>();
-        //switch (myTile.ressource)
-        //{
-        //    case Ressource.ressourceA:
-        //        myKlopse = KlopseA;
-        //        myKlopseMat = KlopseAMat;
-        //        break;
-        //    case Ressource.ressourceB:
-        //        myKlopse = KlopseB;
-        //        myKlopseMat = KlopseBMat;
-        //        break;
-        //    case Ressource.ressourceC:
-        //        myKlopse = KlopseC;
-        //        myKlopseMat = KlopseCMat;
-        //        break;
-        //    case Ressource.ressourceD:
-        //        myKlopse = KlopseD;
-        //        myKlopseMat = KlopseDMat;
-        //        break;
-        //}
-        //CurrentKlopse = new List<GameObject>();
+    }
 
+    public void Setup()
+    {
+        switch (myTile.ressource)
+        {
+            case Ressource.ressourceA:
+                myRessourceParticles = PondRessourceParticleSystems;
+                myCleanParticles = PondCleanParticleSystems;
+                myEnemyParticles = EnemyMassParticleSystems;
+
+                myKlopse = KlopseA;
+
+                break;
+            case Ressource.ressourceB:
+                myRessourceParticles = CocoonRessourceParticleSystems;
+                myCleanParticles = CocoonCleanParticleSystems;
+                myEnemyParticles = EnemyMassParticleSystems;
+
+
+                myKlopse = KlopseB;
+
+                break;
+            case Ressource.ressourceC:
+                myRessourceParticles = SpikesRessourceParticleSystems;
+                myCleanParticles = SpikesCleanParticleSystems;
+                myEnemyParticles = EnemyMassParticleSystems;
+                myKlopse = KlopseC;
+
+                break;
+            case Ressource.ressourceD:
+                myRessourceParticles = MossRessourceParticleSystems;
+                myCleanParticles = MossCleanParticleSystems;
+                myEnemyParticles = EnemyMassParticleSystems;
+                myKlopse = KlopseD;
+
+                break;
+        }
+
+    }
+
+    public void StartRessourceParticles()
+    {
+        if (myRessourceParticles == null)
+        {
+            return;
+        }
+        foreach(ParticleSystem particle in myRessourceParticles)
+        {
+            particle.Play();
+        }
+    }
+
+    public void StopRessourceParticles()
+    {
+        if (myRessourceParticles == null)
+        {
+            return;
+        }
+        foreach (ParticleSystem particle in myRessourceParticles)
+        {
+            particle.Stop();
+        }
+    }
+
+    public void StartEnemyMassParticles()
+    {
+        if (myEnemyParticles == null)
+        {
+            return;
+        }
+        foreach (ParticleSystem particle in myEnemyParticles)
+        {
+            particle.Play();
+        }
+    }
+
+    public void StopEnemyMassParticles()
+    {
+        if (myRessourceParticles == null)
+        {
+            return;
+        }
+        foreach (ParticleSystem particle in myRessourceParticles)
+        {
+            particle.Stop();
+        }
+    }
+
+    public void StartCleanParticles()
+    {
+        if (myCleanParticles == null)
+        {
+            return;
+        }
+        foreach (ParticleSystem particle in myCleanParticles)
+        {
+            particle.Play();
+        }
+    }
+
+    public void StopCleanParticles()
+    {
+        if (myCleanParticles== null)
+        {
+            return;
+        }
+        foreach (ParticleSystem particle in myCleanParticles)
+        {
+            particle.Stop();
+        }
     }
 
     private void Start()
@@ -91,16 +200,19 @@ public class RessourceVisuals : MonoBehaviour
         switch (myTile.currentGridState.StateValue())
         {
             case <= 0:
-                CleanUpKlopse();
+                CleanUpKlopse(); 
+                StartEnemyMassParticles();
                 break;
             case 1:
                 InfestKlopse();
+                StartRessourceParticles();
                 break;
             case 4:
                 CleanUpKlopse();
+                StartCleanParticles();
                 break;
         }
-        
+
     }
 
     public void SpawnKlopse()
@@ -109,11 +221,11 @@ public class RessourceVisuals : MonoBehaviour
         if (myKlopse.Count > 0)
         {
             int amount = Random.Range(getHowMany().x, getHowMany().y + 1);
-            
+
             for (int i = 0; i < amount; i++)
             {
                 Direction randomDirection;
-                if (amount!= 1 && i!=0)
+                if (amount != 1 && i != 0)
                 {
                     randomDirection = (Direction)Random.Range(0, 7);
                     while (CurrentKlopse.ContainsKey(randomDirection))
@@ -125,17 +237,17 @@ public class RessourceVisuals : MonoBehaviour
                 {
                     randomDirection = Direction.C;
                 }
-                
+
 
                 TerrainFeature newKlops = Instantiate(myKlopse[Random.Range(0, myKlopse.Count)], transform);
                 Vector3 goalPosition = transform.position;
                 goalPosition += myTile.Points[randomDirection];
-                goalPosition = Vector3.Lerp(goalPosition, myTile.Points[Direction.C]+transform.position, Random.Range(getCenterLerp().x, getCenterLerp().y));
+                goalPosition = Vector3.Lerp(goalPosition, myTile.Points[Direction.C] + transform.position, Random.Range(getCenterLerp().x, getCenterLerp().y));
                 //goalPosition += new Vector3(Random.Range(getXOffset().x, getXOffset().y), 0, Random.Range(getZOffset().x, getZOffset().y));
                 //goalPosition -= new Vector3(0, Random.Range(getOffset().x, getOffset().y), 0);
                 newKlops.transform.rotation = Quaternion.Euler(0, Random.Range(getRotation().x, getRotation().y), 0);
                 //newKlops.GetComponentInChildren<MeshRenderer>().material = myKlopseMat;
-                CurrentKlopse.Add(randomDirection,newKlops);
+                CurrentKlopse.Add(randomDirection, newKlops);
                 newKlops.transform.DOMove(goalPosition, TweenDuration).From(goalPosition + Vector3.down * .5f).OnComplete(() => newKlops.transform.DOPunchScale(newKlops.transform.localScale * .25f, TweenDuration / 2f));
                 //newKlops.CleanUp();
             }
@@ -162,27 +274,31 @@ public class RessourceVisuals : MonoBehaviour
                 myKlopse = KlopseD;
                 break;
         }
-        CurrentKlopse = new Dictionary<Direction,TerrainFeature>();
+        CurrentKlopse = new Dictionary<Direction, TerrainFeature>();
     }
 
     public void InfestKlopse()
     {
-        foreach (KeyValuePair<Direction,TerrainFeature> klops in CurrentKlopse)
+        StopEnemyMassParticles();
+        StopCleanParticles();
+        foreach (KeyValuePair<Direction, TerrainFeature> klops in CurrentKlopse)
         {
             klops.Value.Infest();
         }
+        StartRessourceParticles();
     }
 
     public void CleanUpKlopse()
     {
         try
         {
-
+            StopRessourceParticles();
+            StopEnemyMassParticles();
             foreach (KeyValuePair<Direction, TerrainFeature> klops in CurrentKlopse)
             {
                 klops.Value.CleanUp();
             }
-
+            StartCleanParticles();
         }
         catch
         {
@@ -194,6 +310,7 @@ public class RessourceVisuals : MonoBehaviour
     {
         try
         {
+            StopEnemyMassParticles();
             foreach (GameObject enemyMass in CurrentEnemyMasses)
             {
                 Destroy(enemyMass);
@@ -208,6 +325,8 @@ public class RessourceVisuals : MonoBehaviour
     public void SpawnEnemyMass()
     {
         int amount = Random.Range(howManyEnemyMassKlopseFromTo.x, howManyEnemyMassKlopseFromTo.y + 1);
+        StopRessourceParticles();
+        StopCleanParticles();
         for (int i = 0; i < amount; i++)
         {
             GameObject newEnemyMass = Instantiate(EnemyMassKlopse[Random.Range(0, EnemyMassKlopse.Count)], transform);
@@ -219,6 +338,8 @@ public class RessourceVisuals : MonoBehaviour
             newEnemyMass.transform.DOMove(goalPosition, TweenDuration).From(goalPosition + Vector3.down * .5f).OnComplete(() => newEnemyMass.transform.DOPunchScale(newEnemyMass.transform.localScale * .25f, TweenDuration / 2f));
 
         }
+        StartEnemyMassParticles();
+
     }
 
     private Vector2Int getHowMany()
