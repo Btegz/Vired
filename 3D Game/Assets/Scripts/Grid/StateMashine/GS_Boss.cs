@@ -12,7 +12,7 @@ public class GS_Boss : GridState
 
     public override void EnterState(GridTile parent)
     {
-        //throw new System.NotImplementedException();
+        parent.GetComponent<RessourceVisuals>().SpawnEnemyMass(); 
     }
 
     public override void ExitState(GridTile parent)

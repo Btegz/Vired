@@ -113,8 +113,9 @@ public class CameraRotation : MonoBehaviour
     {
         CameraCenterToPlayer(PlayerManager.Instance.selectedPlayer);
         Worldcam.Priority = 0;
-        AbilityUpgradeCam.Priority = 1;
-        TopDownCam.Priority = 2;
+        AbilityUpgradeCam.Priority = 2;
+        AbilityLoadoutCam.Priority = 1;
+        TopDownCam.Priority = 3;
         //Playercam.Priority = 0;
         MainCam = true;
         transform.position = WorldcamStart;

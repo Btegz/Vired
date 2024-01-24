@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 434748586418700118}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 816624995492342890}
@@ -69,7 +69,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2692648923174629694
 Transform:
   m_ObjectHideFlags: 0
@@ -9730,10 +9730,14 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 81fecad9692306c42b5269465683fff9, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: dfa5a8bdfb8297e478ca2d704679eab4, type: 2}
+      objectReference: {fileID: 2100000, guid: 979f6b181f4ecb44dabf4edf4154837f, type: 2}
     - target: {fileID: 919132149155446097, guid: 81fecad9692306c42b5269465683fff9, type: 3}
       propertyPath: m_Name
       value: BasaltRock1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 81fecad9692306c42b5269465683fff9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81fecad9692306c42b5269465683fff9, type: 3}
@@ -9796,14 +9800,14 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: f91afdd2f3f23124f8cad1e06ee29510, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 98ac1bafd117a52488e3201cbeb520d5, type: 2}
+      objectReference: {fileID: 2100000, guid: 979f6b181f4ecb44dabf4edf4154837f, type: 2}
     - target: {fileID: 919132149155446097, guid: f91afdd2f3f23124f8cad1e06ee29510, type: 3}
       propertyPath: m_Name
       value: BasaltMoss1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f91afdd2f3f23124f8cad1e06ee29510, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f91afdd2f3f23124f8cad1e06ee29510, type: 3}

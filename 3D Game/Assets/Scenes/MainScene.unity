@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1317,7 +1317,7 @@ PrefabInstance:
       objectReference: {fileID: 4670653473229717276, guid: 2876b66bbed4b274fbb9366c7f10a75b, type: 3}
     - target: {fileID: 6993991225135169736, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
       propertyPath: PofiSpawnCount
-      value: 10
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6993991225135169736, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
       propertyPath: StartBossPrefab
@@ -1634,6 +1634,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4538530395170807992, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e5b0a6fc7f3f4e94aac5c9e09acdea54, type: 3}
     - target: {fileID: 4538530395980208941, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -10.899902
@@ -1865,7 +1869,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3193864255932820683, guid: 1e2d197cefe84ea4db25c8bd1f70f20d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e2d197cefe84ea4db25c8bd1f70f20d, type: 3}

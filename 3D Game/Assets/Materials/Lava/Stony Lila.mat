@@ -114,7 +114,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture2D_Array:
-        m_Texture: {fileID: 18700000, guid: e4358d6968e2bf9418be28088653875e, type: 2}
+        m_Texture: {fileID: 18700000, guid: de718e85415dbcb4599a26d7f8a8d7d4, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -132,6 +132,8 @@ Material:
     m_Ints: []
     m_Floats:
     - PixelSnap: 0
+    - _AO: 1
+    - _Alpha: 1
     - _AlphaClip: 0
     - _Amplitude: 0.1
     - _Blend: 0
@@ -157,6 +159,8 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _Saturation: 1
+    - _SmoothOperator: 0
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -172,7 +176,7 @@ Material:
     - _noiseScale2: 100
     m_Colors:
     - _BaseColor: {r: 0.34901962, g: 0.24705884, b: 0.32941177, a: 1}
-    - _Color: {r: 0.3490196, g: 0.24705881, b: 0.32941175, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}

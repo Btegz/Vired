@@ -39,6 +39,7 @@ public class Battery : MonoBehaviour
             rectTransform.sizeDelta += new Vector2(0, movepointHeight);
             Debug.Log($"my new Height:{rectTransform.rect.height}");
             bonusMovementPoints.Add(newBonusPoint);
+
         }
     }
 
