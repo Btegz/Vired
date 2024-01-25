@@ -115,7 +115,7 @@ public class UpgradeHexGrid : MonoBehaviour
             Grid.Add(coordinate, newHex);
         }
 
-        Grid[Vector2Int.zero].Fill(PlayerHexSprite, "Player");
+        Grid[Vector2Int.zero].Fill(PlayerHexSprite, "");
     }
 
     public void UpdateGrid()
