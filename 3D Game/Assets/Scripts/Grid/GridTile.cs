@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using static UnityEngine.Experimental.Rendering.RayTracingAccelerationStructure;
@@ -722,9 +723,9 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         try
         {
-            int resa = tileA.currentGridState.StateValue() >= 0 ? getTerrainIndex(tileA.ressource) : 4;
-            int resb = tileB.currentGridState.StateValue() >= 0 ? getTerrainIndex(tileB.ressource) : 4;
-            int resc = tileC.currentGridState.StateValue() >= 0 ? getTerrainIndex(tileC.ressource) : 4;
+            int resa = getTerrainIndexWithDesat(tileA);
+            int resb = getTerrainIndexWithDesat(tileB);
+            int resc = getTerrainIndexWithDesat(tileC);
             AddTriangleTerrainTypes(resa, resb, resc);
         }
         catch
@@ -732,7 +733,22 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             Debug.LogWarning("CATCHBLOCK: --------------> Function AddTerrainIndexes has been called with a GridTile == null. \n Setting terrainIndexes to my own default ressource now");
             AddTriangleTerrainTypes(getTerrainIndex(ressource), getTerrainIndex(ressource), getTerrainIndex(ressource));
         }
+    }
 
+    public int getTerrainIndexWithDesat(GridTile tile)
+    {
+        if (tile.currentGridState.StateValue() < 0)
+        {
+            return 4;
+        }
+        else if (tile.currentGridState.StateValue() == 0)
+        {
+            return getTerrainIndex(tile.ressource) + 4;
+        }
+        else
+        {
+            return getTerrainIndex(tile.ressource);
+        }
     }
 
     public int getTerrainIndex(Ressource ressource)
