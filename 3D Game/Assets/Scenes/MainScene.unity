@@ -154,6 +154,17 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &64400028 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6993991225135169736, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
+  m_PrefabInstance: {fileID: 975089035}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69f8512ab9e1bdb4890b070348722e51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &83074725
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -161,6 +172,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 103029332313447851, guid: 979068ea49c7d854285b6b4054b82919, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 233598984381722165, guid: 979068ea49c7d854285b6b4054b82919, type: 3}
       propertyPath: m_LocalScale.x
       value: 450
@@ -216,6 +231,10 @@ PrefabInstance:
     - target: {fileID: 1323857433352665171, guid: 979068ea49c7d854285b6b4054b82919, type: 3}
       propertyPath: m_Name
       value: ParticleWorld
+      objectReference: {fileID: 0}
+    - target: {fileID: 1323857433352665171, guid: 979068ea49c7d854285b6b4054b82919, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1661722396388421046, guid: 979068ea49c7d854285b6b4054b82919, type: 3}
       propertyPath: m_CastShadows
@@ -1317,7 +1336,7 @@ PrefabInstance:
       objectReference: {fileID: 4670653473229717276, guid: 2876b66bbed4b274fbb9366c7f10a75b, type: 3}
     - target: {fileID: 6993991225135169736, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
       propertyPath: PofiSpawnCount
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6993991225135169736, guid: 26b1a86594d419a4ea6bed9c8896c6c7, type: 3}
       propertyPath: StartBossPrefab
@@ -1702,6 +1721,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6186749681696862492, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6186749681696862494, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 64400028}
+    - target: {fileID: 6186749681696862494, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TransferGridSOData
+      objectReference: {fileID: 0}
     - target: {fileID: 6403952362678878352, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1873,7 +1904,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3193864255932820683, guid: 1e2d197cefe84ea4db25c8bd1f70f20d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e2d197cefe84ea4db25c8bd1f70f20d, type: 3}

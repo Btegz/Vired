@@ -19,6 +19,21 @@ public class RessourceVisuals : MonoBehaviour
     [SerializeField] List<ParticleSystem> EnemyMassParticleSystems;
     [Header("-------------------------------------")]
 
+    [Header("Aesthetic MeshesGeneration")]
+    [SerializeField] List<TerrainFeature> BäumeFeatures;
+    [SerializeField] Vector2 BäumeNoiseValueFromTo;
+    [SerializeField] Vector2 CenterLerpBäumeFromTo;
+    [SerializeField] Vector2Int BäumeAmountFromTo;
+    [SerializeField] float propabilityBäume;
+
+
+    [SerializeField] List<TerrainFeature> SpikeFeatures;
+    [SerializeField] Vector2 SpikeNoiseValueFromTo;
+    [SerializeField] Vector2 CenterLerpSpikeFromTo;
+    [SerializeField] Vector2Int SpikeAmountFromTo;
+    [SerializeField] float propabilitySpike;
+
+
     [Header("Klopse")]
     [SerializeField] List<TerrainFeature> KlopseA;
     [SerializeField] Vector2Int howManyKlopseAFromTo;
@@ -83,8 +98,9 @@ public class RessourceVisuals : MonoBehaviour
         CurrentEnemyMasses = new List<GameObject>();
     }
 
-    public void Setup()
+    public void Setup(GridTile myTile)
     {
+        this.myTile = myTile;
         switch (myTile.ressource)
         {
             case Ressource.ressourceA:
@@ -119,6 +135,48 @@ public class RessourceVisuals : MonoBehaviour
 
                 break;
         }
+
+        float randomBaumNumber = Random.Range(0f,1f);
+        float randomSpikeNumber = Random.Range(0f, 1f);
+
+        if (myTile.tileInfo.noiseValue >= BäumeNoiseValueFromTo.x && myTile.tileInfo.noiseValue <= BäumeNoiseValueFromTo.y && randomBaumNumber >= propabilityBäume)
+        {
+            int randomBaumAmount = Random.Range(BäumeAmountFromTo.x, BäumeAmountFromTo.y);
+            for(int i = 0; i < randomBaumAmount; i++)
+            {
+                Direction randomDirection;
+                    randomDirection = (Direction)Random.Range(0, 7);
+                //else
+                //{
+                //    randomDirection = Direction.C;
+                //}
+                TerrainFeature newBaum = Instantiate(BäumeFeatures[Random.Range(0, BäumeFeatures.Count)], transform);
+                Vector3 goalPosition = transform.position;
+                goalPosition += myTile.Points[randomDirection];
+                goalPosition = Vector3.Lerp(goalPosition, myTile.Points[Direction.C] + transform.position, Random.Range(CenterLerpBäumeFromTo.x, CenterLerpBäumeFromTo.y));
+                newBaum.transform.position = goalPosition;
+            }
+        }
+
+        if(myTile.tileInfo.noiseValue >= SpikeNoiseValueFromTo.x && myTile.tileInfo.noiseValue <= SpikeNoiseValueFromTo.y && randomSpikeNumber >= propabilitySpike && myTile.ressource != Ressource.ressourceD)
+        {
+            int randomSpikeAmount = Random.Range(SpikeAmountFromTo.x, SpikeAmountFromTo.y);
+            for (int i = 0; i < randomSpikeAmount; i++)
+            {
+                Direction randomDirection;
+                    randomDirection = (Direction)Random.Range(0, 7);
+                //else
+                //{
+                //randomDirection = Direction.C;
+                //}
+                TerrainFeature newBaum = Instantiate(SpikeFeatures[Random.Range(0, SpikeFeatures.Count)], transform);
+                Vector3 goalPosition = transform.position;
+                goalPosition += myTile.Points[randomDirection];
+                goalPosition = Vector3.Lerp(goalPosition, myTile.Points[Direction.C] + transform.position, Random.Range(CenterLerpSpikeFromTo.x, CenterLerpSpikeFromTo.y));
+                newBaum.transform.position = goalPosition;
+            }
+        }
+
 
     }
 

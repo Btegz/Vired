@@ -21,22 +21,16 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Ground Lava
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: afa156500d1aa584682b71335c36a205, type: 3}
   m_ValidKeywords:
-  - _ENVIRONMENTREFLECTIONS_OFF
-  - _RECEIVE_SHADOWS_OFF
-  - _SPECULARHIGHLIGHTS_OFF
-  - _SURFACE_TYPE_TRANSPARENT
+  - _NOISETYPE_SIMPLENOISE
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2950
-  stringTagMap:
-    RenderType: Transparent
-  disabledShaderPasses:
-  - DepthOnly
-  - SHADOWCASTER
+  stringTagMap: {}
+  disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -125,12 +119,17 @@ Material:
     - _GlossyReflections: 0
     - _Metallic: 0.1
     - _Mode: 0
+    - _MovementFactor: 0.005
+    - _NOISETYPE: 0
+    - _NoiseScale: 900
     - _OcclusionStrength: 1
+    - _OpacityFactor: -0.29
     - _Parallax: 0.005
+    - _QueueControl: 0
     - _QueueOffset: -50
     - _ReceiveShadows: 0
     - _SampleGI: 0
-    - _Smoothness: 0.1
+    - _Smoothness: 0.01
     - _SmoothnessTextureChannel: 0
     - _SoftParticlesEnabled: 0
     - _SoftParticlesFarFadeDistance: 1
@@ -138,14 +137,18 @@ Material:
     - _SpecularHighlights: 0
     - _SrcBlend: 5
     - _Surface: 1
+    - _VoronoiAngleOffset: 10
     - _WorkflowMode: 1
     - _ZWrite: 0
+    - _metallic: 0.71
+    - _normalStrength: 0
     m_Colors:
-    - _BaseColor: {r: 0.348, g: 0.12654546, b: 0.18981814, a: 0.29803923}
+    - _BaseColor: {r: 0.6603774, g: 0.43921328, b: 0.43921328, a: 0.29803923}
     - _BaseColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
-    - _Color: {r: 0.34799996, g: 0.12654543, b: 0.18981811, a: 0.29803923}
+    - _Color: {r: 0.5943396, g: 0.25511745, b: 0.47639453, a: 0.29803923}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SecondaryColor: {r: 0.1509434, g: 0.026343895, b: 0.026343895, a: 0.29803923}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
