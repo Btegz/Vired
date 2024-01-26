@@ -743,7 +743,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
         else if (tile.currentGridState.StateValue() == 0)
         {
-            return getTerrainIndex(tile.ressource) + 4;
+            return getTerrainIndex(tile.ressource) + 5;
         }
         else
         {
