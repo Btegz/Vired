@@ -35,7 +35,7 @@ public class GS_positive : GridState
         }
         parent.transform.DOComplete();
 
-        parent.transform.DOPunchRotation(Vector3.one * TweenScale, .5f);
+        //parent.transform.DOPunchRotation(Vector3.one * TweenScale, .5f);
     }
 
     public override void ExitState(GridTile parent)

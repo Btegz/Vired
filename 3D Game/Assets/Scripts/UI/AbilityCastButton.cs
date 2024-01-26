@@ -122,11 +122,11 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
         }
         if (!PlayerManager.Instance.InventoryCheck(ability, PlayerManager.Instance.selectedPlayer) && currentState == ButtonState.inMainScene)
         {
-            InfoTextPopUp newthing = Instantiate(infoTextPopUp, transform.position + Vector3.up * 100, Quaternion.identity, UIManager.Instance.transform);
-            newthing.Text = "Not enough Ressource";
-            RectTransform thisRectT = GetComponent<RectTransform>();
-            thisRectT.DOComplete();
-            thisRectT.DOPunchRotation(Vector3.back * 30, .25f).SetEase(Ease.OutExpo);
+            //InfoTextPopUp newthing = Instantiate(infoTextPopUp, transform.position + Vector3.up * 100, Quaternion.identity, UIManager.Instance.transform);
+            //newthing.Text = "Not enough Ressource";
+            //RectTransform thisRectT = GetComponent<RectTransform>();
+            //thisRectT.DOComplete();
+            //thisRectT.DOPunchRotation(Vector3.back * 30, .25f).SetEase(Ease.OutExpo);
             return;
         }
 

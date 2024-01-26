@@ -18,7 +18,7 @@ public class GS_BossNegative : GridState
 
         parent.meshRenderer.material = parent.gridTileSO.negativeMaterial;
         parent.transform.DOComplete();
-        parent.transform.DOPunchRotation(Vector3.one * TweenScale, .5f);
+        //parent.transform.DOPunchRotation(Vector3.one * TweenScale, .5f);
     }
 
     public override void ExitState(GridTile parent)
