@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed05b6cef42ebf74c8b020992c64ec30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Rampigkeit: 0
   SplatMapColor1: {r: 1, g: 0, b: 0, a: 1}
   SplatMapColor2: {r: 0, g: 1, b: 0, a: 1}
   SplatMapColor3: {r: 0, g: 0, b: 1, a: 1}
@@ -162,8 +163,15 @@ MonoBehaviour:
   CenterLerpSpikeFromTo: {x: 0, y: 0.9}
   SpikeAmountFromTo: {x: 0, y: 5}
   propabilitySpike: 0
+  RockFeatures:
+  - {fileID: 2254339661418034423, guid: b58d83e4ef7d9f3448b699f4566b286a, type: 3}
+  RockNoiseValueFromTo: {x: -1, y: 1}
+  CenterLerpRockFromTo: {x: 0, y: 0}
+  RockAmountFromTo: {x: 2, y: 3}
+  propabilityRock: 0.3
   KlopseA:
   - {fileID: 1029664303015648350, guid: 0099413d9f2cafd4b8f721e3f68af590, type: 3}
+  - {fileID: 2254339661418034423, guid: 1565a95e7ea1f57449d7a079d57dbfd6, type: 3}
   howManyKlopseAFromTo: {x: 0, y: 0}
   randomXOffsetAFromTo: {x: 0, y: 0}
   randomZOffsetAFromTo: {x: 0, y: 0}

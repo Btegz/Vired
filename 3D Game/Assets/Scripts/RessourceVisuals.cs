@@ -33,6 +33,12 @@ public class RessourceVisuals : MonoBehaviour
     [SerializeField] Vector2Int SpikeAmountFromTo;
     [SerializeField] float propabilitySpike;
 
+    [SerializeField] List<TerrainFeature> RockFeatures;
+    [SerializeField] Vector2 RockNoiseValueFromTo;
+    [SerializeField] Vector2 CenterLerpRockFromTo;
+    [SerializeField] Vector2Int RockAmountFromTo;
+    [SerializeField] float propabilityRock;
+
 
     [Header("Klopse")]
     [SerializeField] List<TerrainFeature> KlopseA;
@@ -138,6 +144,7 @@ public class RessourceVisuals : MonoBehaviour
 
         float randomBaumNumber = Random.Range(0f,1f);
         float randomSpikeNumber = Random.Range(0f, 1f);
+        float randomRockNumber = Random.Range(0f, 1f);
 
         if (myTile.tileInfo.noiseValue >= BäumeNoiseValueFromTo.x && myTile.tileInfo.noiseValue <= BäumeNoiseValueFromTo.y && randomBaumNumber >= propabilityBäume)
         {
@@ -155,6 +162,7 @@ public class RessourceVisuals : MonoBehaviour
                 goalPosition += myTile.Points[randomDirection];
                 goalPosition = Vector3.Lerp(goalPosition, myTile.Points[Direction.C] + transform.position, Random.Range(CenterLerpBäumeFromTo.x, CenterLerpBäumeFromTo.y));
                 newBaum.transform.position = goalPosition;
+                newBaum.transform.rotation = Quaternion.Euler(Vector3.up * Random.Range(0, 360));
             }
         }
 
@@ -169,14 +177,34 @@ public class RessourceVisuals : MonoBehaviour
                 //{
                 //randomDirection = Direction.C;
                 //}
-                TerrainFeature newBaum = Instantiate(SpikeFeatures[Random.Range(0, SpikeFeatures.Count)], transform);
+                TerrainFeature newSpike = Instantiate(SpikeFeatures[Random.Range(0, SpikeFeatures.Count)], transform);
                 Vector3 goalPosition = transform.position;
                 goalPosition += myTile.Points[randomDirection];
                 goalPosition = Vector3.Lerp(goalPosition, myTile.Points[Direction.C] + transform.position, Random.Range(CenterLerpSpikeFromTo.x, CenterLerpSpikeFromTo.y));
-                newBaum.transform.position = goalPosition;
+                newSpike.transform.position = goalPosition;
+                newSpike.transform.rotation = Quaternion.Euler(Vector3.up * Random.Range(0, 360));
             }
         }
 
+        if (myTile.tileInfo.noiseValue >= RockNoiseValueFromTo.x && myTile.tileInfo.noiseValue <= RockNoiseValueFromTo.y && randomSpikeNumber >= propabilityRock)
+        {
+            int randomRockAmount = Random.Range(RockAmountFromTo.x, RockAmountFromTo.y);
+            for (int i = 0; i < randomRockAmount; i++)
+            {
+                Direction randomDirection;
+                randomDirection = (Direction)Random.Range(0, 7);
+                //else
+                //{
+                //randomDirection = Direction.C;
+                //}
+                TerrainFeature newRock = Instantiate(RockFeatures[Random.Range(0, RockFeatures.Count)], transform);
+                Vector3 goalPosition = transform.position;
+                goalPosition += myTile.Points[randomDirection];
+                goalPosition = Vector3.Lerp(goalPosition, myTile.Points[Direction.C] + transform.position, Random.Range(CenterLerpSpikeFromTo.x, CenterLerpSpikeFromTo.y));
+                newRock.transform.position = goalPosition;
+                newRock.transform.rotation = Quaternion.Euler(Vector3.up * Random.Range(0, 360));
+            }
+        }
 
     }
 
