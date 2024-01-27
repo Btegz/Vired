@@ -40,6 +40,9 @@ public enum Direction { C = 0, NE = 1, SE = 2, S = 3, SW = 4, NW = 5, N = 6 }
 /// </summary>
 public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    [SerializeField] float Rampigkeit;
+
+
     public ProceduralTileInfo tileInfo;
 
 
@@ -440,10 +443,10 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             else if (currentNeighbor == null)
             {
                 // Walls on worlds edge
-                currentInnerCorner.y = /*-transform.localPosition.y*/-3;
-                currentInnerInbetweenCorner.y = /*-transform.localPosition.y **/-3;
-                nextInnerInbetweenCorner.y = /*-transform.localPosition.y **/-3;
-                nextInnerCorner.y = /*-transform.localPosition.y **/ -3;
+                currentInnerCorner.y = /*-transform.localPosition.y*/-1;
+                currentInnerInbetweenCorner.y = /*-transform.localPosition.y **/-1;
+                nextInnerInbetweenCorner.y = /*-transform.localPosition.y **/-1;
+                nextInnerCorner.y = /*-transform.localPosition.y **/ -1;
 
                 AddTriangle(currentBufferedCorner, currentInnerCorner, currentInnerInbetweenCorner);
                 AddTriangle(currentBufferedCorner, currentInnerInbetweenCorner, currentInbetween);
@@ -503,8 +506,8 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             {
                 // triangles on World Edge
 
-                currentCorner.y = /*-transform.localPosition.y * 5f*/-3;
-                nextCorner.y = /*-transform.localPosition.y * 5f*/-3;
+                currentCorner.y = /*-transform.localPosition.y * 5f*/-1;
+                nextCorner.y = /*-transform.localPosition.y * 5f*/-1;
 
                 AddTriangle(currentBufferedCorner, currentCorner, currentInnerCorner);
                 AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor3);
