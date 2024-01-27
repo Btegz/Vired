@@ -104,7 +104,7 @@ public class TutorialManager : MonoBehaviour
     {
 
 
-
+        tutorial = false;
 
         while (abilityLoadout.amountToChoose > 1)
         {
@@ -256,5 +256,11 @@ public class TutorialManager : MonoBehaviour
         
         }
 
-    
+
+    public void OnDestroy()
+    {
+       // tutorial = false; 
+    }
+
+
 }

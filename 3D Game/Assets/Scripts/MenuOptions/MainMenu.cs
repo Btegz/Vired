@@ -74,6 +74,7 @@ public class MainMenu : MonoBehaviour
         {
             TutorialObj.tutorial = true;
             PlayerPrefs.SetInt("Tutorial", 1);
+            
         }
 
         else

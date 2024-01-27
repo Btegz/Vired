@@ -13,7 +13,7 @@ public class ButtonScale : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
 
         
-        if (TutorialManager.Instance.tutorial)
+        if (TutorialManager.Instance != null)
         {
            
             TutorialManager.Instance.StopCoroutine(TutorialManager.Instance.enabled);
@@ -40,8 +40,8 @@ public class ButtonScale : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void OnPointerExit(PointerEventData eventData)
     {
-
-        if (TutorialManager.Instance.tutorial)
+        
+        if (TutorialManager.Instance != null)
         {
             if (Highlight != null)
             {
