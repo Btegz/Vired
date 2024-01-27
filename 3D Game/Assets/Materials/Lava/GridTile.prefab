@@ -153,26 +153,28 @@ MonoBehaviour:
   EnemyMassParticleSystems: []
   "B\xE4umeFeatures":
   - {fileID: 558043579808197886, guid: 2260950117c5ab74da52d5396221d7c1, type: 3}
+  - {fileID: 558043579808197886, guid: a43338ec3e2350446ae5e4e4e080569b, type: 3}
   "B\xE4umeNoiseValueFromTo": {x: -1, y: 1}
   "CenterLerpB\xE4umeFromTo": {x: 0, y: 0.9}
   "B\xE4umeAmountFromTo": {x: 0, y: 4}
   "propabilityB\xE4ume": 0.67
   SpikeFeatures:
   - {fileID: 2254339661418034423, guid: 159a156dce905de459a6c1e56a317140, type: 3}
+  - {fileID: 2254339661418034423, guid: a189b911230008841a9f476b7abb89ca, type: 3}
   SpikeNoiseValueFromTo: {x: -1, y: 1}
   CenterLerpSpikeFromTo: {x: 0, y: 0.9}
-  SpikeAmountFromTo: {x: 0, y: 5}
-  propabilitySpike: 0
+  SpikeAmountFromTo: {x: 0, y: 4}
+  propabilitySpike: 0.1
   RockFeatures:
   - {fileID: 2254339661418034423, guid: b58d83e4ef7d9f3448b699f4566b286a, type: 3}
+  - {fileID: 2254339661418034423, guid: 1565a95e7ea1f57449d7a079d57dbfd6, type: 3}
   RockNoiseValueFromTo: {x: -1, y: 1}
-  CenterLerpRockFromTo: {x: 0, y: 0}
-  RockAmountFromTo: {x: 2, y: 3}
-  propabilityRock: 0.3
+  CenterLerpRockFromTo: {x: 0, y: 0.9}
+  RockAmountFromTo: {x: 1, y: 3}
+  propabilityRock: 0.45
   KlopseA:
   - {fileID: 1029664303015648350, guid: 0099413d9f2cafd4b8f721e3f68af590, type: 3}
-  - {fileID: 2254339661418034423, guid: 1565a95e7ea1f57449d7a079d57dbfd6, type: 3}
-  howManyKlopseAFromTo: {x: 0, y: 0}
+  howManyKlopseAFromTo: {x: 0, y: 1}
   randomXOffsetAFromTo: {x: 0, y: 0}
   randomZOffsetAFromTo: {x: 0, y: 0}
   randomRotationAFromTo: {x: 0, y: 0}

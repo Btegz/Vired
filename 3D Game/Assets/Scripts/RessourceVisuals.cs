@@ -186,7 +186,7 @@ public class RessourceVisuals : MonoBehaviour
             }
         }
 
-        if (myTile.tileInfo.noiseValue >= RockNoiseValueFromTo.x && myTile.tileInfo.noiseValue <= RockNoiseValueFromTo.y && randomSpikeNumber >= propabilityRock)
+        if (myTile.tileInfo.noiseValue >= RockNoiseValueFromTo.x && myTile.tileInfo.noiseValue <= RockNoiseValueFromTo.y && randomSpikeNumber >= propabilityRock && myTile.ressource != Ressource.ressourceB)
         {
             int randomRockAmount = Random.Range(RockAmountFromTo.x, RockAmountFromTo.y);
             for (int i = 0; i < randomRockAmount; i++)
