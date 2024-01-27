@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8206b7937082734cad26d2f44a68075, type: 3}
+  m_Name: TutorialMapSettings
+  m_EditorClassIdentifier: 
+  IrregularityFrequency: 0.15
+  IrregularityFactor: 1
+  constantHeighVarianceFactor: 0
+  mySeed: 0
+  myGenerateRandomSeed: 0
+  myTileCount: 30
+  noiseType1: 1
+  noiseType2: 0
+  frequency: 1
+  myCellularDistanceFunction: 1
+  myCellularReturnType: 0
+  myJitter: 0
+  noiseDataSize: {x: 2, y: 2}
+  m_noiseType1: 2
+  m_frequency: 0.086
+  m_distanceThreshold: 4
+  m_HillNoiseType: 3
+  m_HillFrequency: 0.001
+  m_HillnoiseThresholds: {x: 0, y: 0}

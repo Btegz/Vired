@@ -58,6 +58,8 @@ public class CameraRotation : MonoBehaviour
     private Vector3 camPosition;
     private Vector3 startingPosition;
 
+    public bool dontMove;
+
 
     [HideInInspector][SerializeField] public bool MainCam = true;
     private Vector3 WorldcamStart;
@@ -208,7 +210,8 @@ public class CameraRotation : MonoBehaviour
         }
         try
         {
-            StopCoroutine(rotationCoroutine);
+            if (!dontMove)
+                StopCoroutine(rotationCoroutine);
 
         }
         catch { }
@@ -217,18 +220,24 @@ public class CameraRotation : MonoBehaviour
     {
         if (AbilityUpgradeCam.Priority == 3 || AbilityLoadoutCam.Priority == 3)
         {
-            return;
+          
+
+                return;
         }
-        rotationCoroutine = StartCoroutine(Rotato());
+        if (!dontMove)
+            rotationCoroutine = StartCoroutine(Rotato());
     }
 
     void StartMovement(InputAction.CallbackContext obj)
     {
+        if(!dontMove)
         movementCoroutine = StartCoroutine(Movement());
     }
     void StopMovement(InputAction.CallbackContext obj)
     {
-        StopCoroutine(movementCoroutine);
+        if (!dontMove)
+
+            StopCoroutine(movementCoroutine);
 
     }
 
@@ -357,6 +366,8 @@ public class CameraRotation : MonoBehaviour
             TopDownCam.LookAt = null;
             //TopDownCam.Follow = null;
         }
+        
+       
         while (true)
         {
             Vector2 currentMousePosition = Pointer.current.position.ReadValue();
@@ -392,6 +403,7 @@ public class CameraRotation : MonoBehaviour
 
 
         }
+
 
     }
 

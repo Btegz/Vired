@@ -1,0 +1,260 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
+using UnityEngine.UI;
+using TMPro;
+using Cinemachine;
+using UnityEngine.Timeline;
+using UnityEngine.Playables;
+
+public class TutorialManager : MonoBehaviour
+{
+    [Header("UI")]
+    [SerializeField] AbilityLoadout abilityLoadout;
+    [SerializeField] GameObject PlayerArea1;
+    [SerializeField] GameObject PlayerArea2;
+    [SerializeField] GameObject PlayerButton;
+    [SerializeField] GameObject PlayerButton1;
+    [SerializeField] GameObject PlayerButton2;
+    [SerializeField] GameObject PlayerButton3;
+    [SerializeField] GameObject Settings;
+    [SerializeField] GameObject Info;
+    [SerializeField] GameObject WorldButton;
+    [SerializeField] GameObject TopdownButton;
+    [SerializeField] GameObject NextTurn;
+    [SerializeField] GameObject AbilityButtons;
+    [SerializeField] GameObject ResourceObject;
+    [SerializeField] GameObject Wrench;
+    [SerializeField] GameObject Chunk;
+    [SerializeField] GameObject Battery;
+    [SerializeField] GameObject GridTilePreview;
+
+
+    [Header("TutorialTexts")]
+    [SerializeField] GameObject DroneImage;
+    [SerializeField] GameObject BottomText;
+    [SerializeField] GameObject BottomBox;
+    [SerializeField] GameObject RightText;
+    [SerializeField] GameObject LeftText;
+    
+    public GameObject PlayerButtonHighlight;
+    public GameObject PlayerButtonText;
+    public GameObject PlayerButtonTextText;
+
+    public GameObject chooseAbilityText;
+    public GameObject confirmText;
+
+
+    public CinemachineTrack dolly;
+    public List<GameObject> HighlightObject;
+    public bool tutorial;
+    public Button ButtonHighlight;
+    public IEnumerator enabled;
+    public bool enabledIsRunning;
+    public GameObject InventoryHighlight;
+    List<Vector2Int> neighbors;
+
+    public CinemachinePathBase path;
+
+
+    private Vector3 DroneStart;
+    public static TutorialManager Instance;
+    public List<GameObject> Preview;
+
+    public PlayableDirector PlayerButtonTrack;
+    public PlayableDirector AbilityTrack;
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+    }
+
+
+
+
+    void OnEnable()
+    {
+        //BottomText.GetComponent<TextMeshProUGUI>().text = chooseAbilityText;
+        tutorial = true;
+        PlayerArea1.SetActive(false);
+        PlayerArea2.SetActive(false);
+        abilityLoadout.GetComponentInChildren<HorizontalLayoutGroup>().childAlignment = TextAnchor.MiddleCenter;
+        abilityLoadout.amountToChoose = 1;
+
+
+        /* AbilityButtons.SetActive(false);
+         ResourceObject.SetActive(false);
+         Wrench.SetActive(false);
+         NextTurn.SetActive(false);
+         */
+        BottomBox.SetActive(true);
+        BottomText.SetActive(true);
+        DroneImage.SetActive(true);
+
+        enabled = Enabling(HighlightObject);
+        StartCoroutine(enabled);
+
+
+
+    }
+
+    private void Update()
+    {
+
+
+
+
+        while (abilityLoadout.amountToChoose > 1)
+        {
+            abilityLoadout.amountToChoose = 1;
+            break;
+        }
+
+        if (CameraRotation.Instance.AbilityLoadoutCam.Priority == 3)
+        {
+            PlayerManager.Instance.abilityLoadoutTutorial = true;
+        }
+
+        else
+        {
+            PlayerManager.Instance.abilityLoadoutTutorial = false;
+        }
+
+        //follow Objekt 
+        // 
+
+
+
+    }
+
+    public IEnumerator Enabling(List<GameObject> EnablingObjects)
+    {
+        while (true)
+        {
+            enabledIsRunning = true;
+            for (int i = 0; i < EnablingObjects.Count; i++)
+            {
+                EnablingObjects[i].SetActive(true);
+                yield return new WaitForSeconds(2f);
+                EnablingObjects[i].SetActive(false);
+
+            }
+
+            yield return null;
+        }
+    }
+
+    public void Deactivate()
+    {
+        BottomText.SetActive(false);
+        BottomBox.SetActive(false);
+        
+        confirmText.SetActive(false);
+        PlayerButtonTrack.Play();
+        StartCoroutine(StartGame());
+      
+
+
+        //PlsMove();
+
+
+
+
+
+        /*   CameraRotation.Instance.AbilityLoadoutCam.GetComponent<CinemachineDollyCart>().m_Path = path;
+            CameraRotation.Instance.AbilityLoadoutCam.GetComponent<CinemachineDollyCart>().m_Speed = 15;
+           Chunk.GetComponent<CinemachineDollyCart>().m_Speed = 15;
+
+
+               CameraRotation.Instance.AbilityLoadoutCam.transform.rotation = new Quaternion(0, 0, 0, 0);
+
+           if (CameraRotation.Instance.AbilityLoadoutCam.GetComponent<CinemachineDollyCart>().m_Position >6)
+           {
+               Debug.Log("hi");
+               CameraRotation.Instance.AbilityLoadoutCam.GetComponent<CinemachineDollyCart>().m_Path = null;
+
+           }
+
+           if (Chunk.GetComponent<CinemachineDollyCart>().m_Position >= 248)
+           {
+               Chunk.SetActive(false);
+           }
+
+
+           if (CameraRotation.Instance.AbilityLoadoutCam.GetComponent<CinemachineTrackedDolly>().m_PathPosition == 8)
+           {
+               CameraRotation.Instance.AbilityLoadoutCam.GetComponent<CinemachineTrackedDolly>().m_Path = null; 
+          */
+
+
+
+
+    }
+
+    public IEnumerator StartGame()
+    {
+        enabledIsRunning = true;
+        PlayerManager.Instance.abilityActivated = true;
+        CameraRotation.Instance.dontMove = true;
+        yield return new WaitForSeconds(0.5f);
+        //PlayerButton.SetActive(true);
+        //PlayerButton2.SetActive(false);
+        //PlayerButton3.SetActive(false);
+        
+        
+        PlayerButton1.GetComponent<Image>().DOFade(1, 1f);
+
+       // PlayerButton1.GetComponent<RectTransform>().DOScale(1.2f, 1f).OnComplete(() => PlayerButton1.GetComponent<RectTransform>().DOScale(1f, 1f));
+       
+        PlayerButton1.GetComponentInChildren<TextMeshProUGUI>().DOFade(1, 1f);
+
+        PlayerButtonHighlight.GetComponent<RectTransform>().DOScale(1.3f, 1f).OnComplete(() => PlayerButtonHighlight.GetComponent<RectTransform>().DOScale(1f, 1f));
+        
+        PlayerButtonHighlight.GetComponent<Image>().DOFade(1f, 1f);
+
+  
+        yield return new WaitForSeconds(1f);
+       
+
+
+        yield return null;
+    }
+
+    public void PlsMove()
+    { 
+        if (CameraRotation.Instance.Worldcam.Priority == 3)
+        {
+            neighbors = HexGridUtil.AxialNeighbors(PlayerManager.Instance.Players[0].CoordinatePosition);
+           
+            foreach (Vector2Int neighbor in neighbors)
+            {
+                Preview.Add(Instantiate(GridTilePreview, HexGridUtil.AxialToCubeCoord(neighbor), Quaternion.identity));
+            }
+            if (PlayerManager.Instance.move)
+            {
+                for (int i = 0; i < Preview.Count; i++)
+                {
+                    Destroy(Preview[i]);
+                }
+
+            }
+        }
+    }
+    public IEnumerator Flicker(GameObject Object)
+        {
+        while (true)
+        {
+            Object.GetComponent<Image>().DOComplete();
+            Object.GetComponent<Image>().DOFade(Random.RandomRange(0.3f,0.6f), 0.2f).OnComplete(() => Object.GetComponent<Image>().DOFade(0.9f, 0.4f));
+
+            Object.GetComponent<TextMeshProUGUI>().DOComplete();
+            Object.GetComponentInChildren<TextMeshProUGUI>().DOFade(Random.RandomRange(0.3f, 0.6f), 0.2f).OnComplete(() => Object.GetComponentInChildren<TextMeshProUGUI>().DOFade(0.9f, 0.4f));
+            yield return new WaitForSeconds(0.5f);
+        }
+        
+        }
+
+    
+}

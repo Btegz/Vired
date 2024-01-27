@@ -58,6 +58,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] AudioData AbilityCanceled;
     [SerializeField] AudioSource hovern;
     [SerializeField] AudioMixerGroup soundEffect;
+
+     public bool abilityLoadoutTutorial = false;
   
 
     private void Awake()
@@ -75,13 +77,16 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
-        foreach (Player p in Players)
-        {
-            p.transform.position = GridManager.Instance.Grid[p.SpawnPoint].transform.position;
-            p.CoordinatePosition = GridManager.Instance.Grid[p.SpawnPoint].AxialCoordinate;
-        }
 
-        selectedPlayer = Players[0];
+        
+            foreach (Player p in Players)
+            {
+                p.transform.position = GridManager.Instance.Grid[p.SpawnPoint].transform.position;
+                p.CoordinatePosition = GridManager.Instance.Grid[p.SpawnPoint].AxialCoordinate;
+            }
+
+            selectedPlayer = Players[0];
+        
         
 
 
@@ -175,7 +180,8 @@ public class PlayerManager : MonoBehaviour
                 }
                 if (lost)
                 {
-                    SceneManager.LoadScene("GameOverScene");
+                    //SceneManager.LoadScene("GameOverScene");
+                    Debug.Log("Dead");
                 }
             }
 

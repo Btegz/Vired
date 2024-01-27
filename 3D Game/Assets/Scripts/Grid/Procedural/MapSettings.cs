@@ -45,7 +45,7 @@ public class ProceduralTileInfo : IComparable<ProceduralTileInfo>
     }
 }
 
-[CreateAssetMenu(fileName = "MapSettings", menuName = "Procedural")]
+[CreateAssetMenu(fileName = "MapSettings", menuName = "MapSettings")]
 public class MapSettings : ScriptableObject
 {
     FastNoiseLite noise1 = new FastNoiseLite();

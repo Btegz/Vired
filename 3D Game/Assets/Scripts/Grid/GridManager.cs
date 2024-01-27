@@ -302,6 +302,9 @@ public class GridManager : MonoBehaviour
         //random = Random.Range(0, coords.Length);
         //BossSpawn = Border[0];
         List<Player> players = PlayerManager.Instance.Players;
+        try
+        {
+        
         players[0].SpawnPoint = Border[Border.Count / 4 * 1];
         players[1].SpawnPoint = Border[Border.Count / 4 * 2];
         players[2].SpawnPoint = Border[Border.Count / 4 * 3];
@@ -309,6 +312,18 @@ public class GridManager : MonoBehaviour
         players[0].CoordinatePosition = Border[Border.Count / 4 * 1];
         players[1].CoordinatePosition = Border[Border.Count / 4 * 2];
         players[2].CoordinatePosition = Border[Border.Count / 4 * 3];
+        }
+
+        catch
+        {
+            players[0].SpawnPoint = Border[Border.Count / 4 * 1];
+       
+
+            players[0].CoordinatePosition = Border[Border.Count / 4 * 1];
+     
+        }
+       
+        
 
         Boss newBoss = Instantiate(StartBossPrefab);
         List<Vector2Int> newBossTiles = HexGridUtil.AxialNeighbors(Border[0]);
@@ -338,10 +353,21 @@ public class GridManager : MonoBehaviour
         foreach (KeyValuePair<Vector2Int, GridTile> kvp in Grid)
 
         {
-            if (kvp.Value.currentGridState == gS_Positive && kvp.Key != PlayerManager.Instance.Players[0].CoordinatePosition && kvp.Key != PlayerManager.Instance.Players[1].CoordinatePosition && kvp.Key != PlayerManager.Instance.Players[2].CoordinatePosition)
+            try
             {
-                if (kvp.Value.currentGridState != gS_BossNegative && kvp.Value.currentGridState != gS_Negative && kvp.Value.currentGridState != gS_Enemy && kvp.Value.currentGridState != gS_Boss)
-                    possibleTiles.Add(kvp.Key);
+                if (kvp.Value.currentGridState == gS_Positive && kvp.Key != PlayerManager.Instance.Players[0].CoordinatePosition && kvp.Key != PlayerManager.Instance.Players[1].CoordinatePosition && kvp.Key != PlayerManager.Instance.Players[2].CoordinatePosition)
+                {
+                    if (kvp.Value.currentGridState != gS_BossNegative && kvp.Value.currentGridState != gS_Negative && kvp.Value.currentGridState != gS_Enemy && kvp.Value.currentGridState != gS_Boss)
+                        possibleTiles.Add(kvp.Key);
+                }
+            }
+            catch
+            {
+                if (kvp.Value.currentGridState == gS_Positive && kvp.Key != PlayerManager.Instance.Players[0].CoordinatePosition)
+                {
+                    if (kvp.Value.currentGridState != gS_BossNegative && kvp.Value.currentGridState != gS_Negative && kvp.Value.currentGridState != gS_Enemy && kvp.Value.currentGridState != gS_Boss)
+                        possibleTiles.Add(kvp.Key);
+                }
             }
         }
         for (int i = 0; i < PofiSpawnCount; i++)

@@ -36,7 +36,7 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
         }
@@ -49,13 +49,18 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        List<PlayerButton> playerButtons = GetComponentsInChildren<PlayerButton>().ToList<PlayerButton>();
-
-        for(int i = 0; i <PlayerManager.Instance.Players.Count; i++)
+        try
         {
-            playerButtons[i].Setup(PlayerManager.Instance.Players[i]);
+            List<PlayerButton> playerButtons = GetComponentsInChildren<PlayerButton>().ToList<PlayerButton>();
+
+            for (int i = 0; i < PlayerManager.Instance.Players.Count; i++)
+            {
+                playerButtons[i].Setup(PlayerManager.Instance.Players[i]);
+            }
+            EndTurnButton.onClick.AddListener(EventManager.OnEndTurn);
         }
-        EndTurnButton.onClick.AddListener(EventManager.OnEndTurn);
+        catch { }
+
         //EndTurnButton.onClick.AddListener(GridManager.Instance.TriggerPhase);
         //AbilitiesInventoryButton.onClick.AddListener(ExpandAbilityInventory);
     }
@@ -102,7 +107,7 @@ public class UIManager : MonoBehaviour
     void Update()
     {
 
-        
+
 
 
         List<GridTile> negativeTiles = GridManager.Instance.GetTilesWithState(GridManager.Instance.gS_Negative);
@@ -115,7 +120,7 @@ public class UIManager : MonoBehaviour
                 negativeFillBar.fillAmount = (float)negativeTiles.Count / (((float)GridManager.Instance.Grid.Count * 2) / 3);
                 if (negativeFillBar.fillAmount >= 1)
                 {
-                    GameOver();
+                    // GameOver();
                 }
             }
 
@@ -149,7 +154,7 @@ public class UIManager : MonoBehaviour
 
     public void GameOver()
     {
-        SceneManager.LoadScene("GameOverScene");
+        //    SceneManager.LoadScene("GameOverScene");
     }
 
     public void EnableCanvas()
@@ -187,7 +192,7 @@ public class UIManager : MonoBehaviour
         //        abilityButtons[i].GetComponent<Button>().image.sprite = emptyAbilitySlotSprite;
         //    }
         //}
-        
+
     }
 
 }

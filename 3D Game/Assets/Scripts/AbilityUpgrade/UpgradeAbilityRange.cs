@@ -45,6 +45,7 @@ public class UpgradeAbilityRange : MonoBehaviour, IPointerClickHandler
             }
             else
             {
+                transform.DOComplete();
                 transform.DOPunchRotation(Vector3.back*10,0.25f);
                 AudioManager.Instance.PlaySoundAtLocation(NoMonetos, soundEffect, null);
 
