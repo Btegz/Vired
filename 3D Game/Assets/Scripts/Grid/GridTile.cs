@@ -40,6 +40,12 @@ public enum Direction { C = 0, NE = 1, SE = 2, S = 3, SW = 4, NW = 5, N = 6 }
 /// </summary>
 public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    [SerializeField] float Rampigkeit;
+
+
+    public ProceduralTileInfo tileInfo;
+
+
     public Color SplatMapColor1;
     public Color SplatMapColor2;
     public Color SplatMapColor3;
@@ -144,8 +150,9 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     }
 
 
-    public void Setup(Vector2Int coordinate, Ressource ressource, bool withWalls)
+    public void Setup(Vector2Int coordinate, Ressource ressource, bool withWalls, ProceduralTileInfo tileInfo)
     {
+        this.tileInfo = tileInfo;
         this.withWalls = withWalls;
         meshCollider = GetComponent<MeshCollider>();
         meshFilter = GetComponent<MeshFilter>();
@@ -156,7 +163,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         AxialCoordinate = coordinate;
         this.ressource = ressource;
         currentGridState = GridManager.Instance.gS_Positive;
-        GetComponent<RessourceVisuals>().Setup();
+        
         //meshFilter.mesh = DrawMesh();
 
     }
@@ -354,10 +361,10 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
             }
 
-            // inner triangles
-            AddTriangle(Vector3.zero+ (ressource == 0?Vector3.down*.2f:Vector3.zero), currentBufferedCorner, currentInbetween);
-            AddTriangle(Vector3.zero + (ressource == 0 ? Vector3.down * .2f : Vector3.zero), currentInbetween, nextInbetween);
-            AddTriangle(Vector3.zero + (ressource == 0 ? Vector3.down * .2f : Vector3.zero), nextInbetween, nextBufferedCorner);
+            // inner triangles & PondElevation
+            AddTriangle(Vector3.zero/*+ (ressource == 0?Vector3.down*.2f:Vector3.zero)*/, currentBufferedCorner, currentInbetween);
+            AddTriangle(Vector3.zero/* + (ressource == 0 ? Vector3.down * .2f : Vector3.zero)*/, currentInbetween, nextInbetween);
+            AddTriangle(Vector3.zero/* + (ressource == 0 ? Vector3.down * .2f : Vector3.zero)*/, nextInbetween, nextBufferedCorner);
             AddTriangleColors(SplatMapColor1, SplatMapColor1, SplatMapColor1);
             AddTriangleColors(SplatMapColor1, SplatMapColor1, SplatMapColor1);
             AddTriangleColors(SplatMapColor1, SplatMapColor1, SplatMapColor1);
@@ -436,10 +443,10 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             else if (currentNeighbor == null)
             {
                 // Walls on worlds edge
-                currentInnerCorner.y = /*-transform.localPosition.y*/-3;
-                currentInnerInbetweenCorner.y = /*-transform.localPosition.y **/-3;
-                nextInnerInbetweenCorner.y = /*-transform.localPosition.y **/-3;
-                nextInnerCorner.y = /*-transform.localPosition.y **/ -3;
+                currentInnerCorner.y = /*-transform.localPosition.y*/-1;
+                currentInnerInbetweenCorner.y = /*-transform.localPosition.y **/-1;
+                nextInnerInbetweenCorner.y = /*-transform.localPosition.y **/-1;
+                nextInnerCorner.y = /*-transform.localPosition.y **/ -1;
 
                 AddTriangle(currentBufferedCorner, currentInnerCorner, currentInnerInbetweenCorner);
                 AddTriangle(currentBufferedCorner, currentInnerInbetweenCorner, currentInbetween);
@@ -499,8 +506,8 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             {
                 // triangles on World Edge
 
-                currentCorner.y = /*-transform.localPosition.y * 5f*/-3;
-                nextCorner.y = /*-transform.localPosition.y * 5f*/-3;
+                currentCorner.y = /*-transform.localPosition.y * 5f*/-1;
+                nextCorner.y = /*-transform.localPosition.y * 5f*/-1;
 
                 AddTriangle(currentBufferedCorner, currentCorner, currentInnerCorner);
                 AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor3);
@@ -561,6 +568,8 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             Debug.Log("Direction: " + kvp.Key + ", Vector: " + kvp.Value);
         }
         Debug.Log("----------------------------------------------");
+
+        GetComponent<RessourceVisuals>().Setup(this);
     }
 
     public void RecalculateTerrain()
@@ -743,7 +752,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
         else if (tile.currentGridState.StateValue() == 0)
         {
-            return getTerrainIndex(tile.ressource) + 4;
+            return getTerrainIndex(tile.ressource) + 5;
         }
         else
         {

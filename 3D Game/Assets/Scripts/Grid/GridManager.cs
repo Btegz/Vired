@@ -159,7 +159,8 @@ public class GridManager : MonoBehaviour
                 {
                     GridTile newTile = Instantiate(GridTilePrefab);
                     //newTile.ChangeCurrentState(gS_Positive);
-                    newTile.Setup(tileinfo.coord, tileinfo.resource, true);
+                    
+                    newTile.Setup(tileinfo.coord, tileinfo.resource, true, tileinfo);
                     newTile.transform.parent = transform;
                     newTile.transform.position = HexGridUtil.AxialHexToPixel(tileinfo.coord, 1);
 

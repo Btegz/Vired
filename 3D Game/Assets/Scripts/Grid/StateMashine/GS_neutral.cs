@@ -17,7 +17,7 @@ public class GS_neutral : GridState
         parent.GetComponent<RessourceVisuals>().CleanUpKlopse();
         parent.meshRenderer.material = parent.gridTileSO.neutralMaterial;
         parent.transform.DOComplete();
-        parent.transform.DOPunchRotation(Vector3.one * TweenScale, .5f);
+        //parent.transform.DOPunchRotation(Vector3.one * TweenScale, .5f);
     }
 
     public override void ExitState(GridTile parent)

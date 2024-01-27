@@ -9,19 +9,32 @@ public class TerrainFeature : MonoBehaviour
 
     public void Infest()
     {
-        InfestationMesh.SetActive(true);
-        foreach(ParticleSystem particleSystem in InfestationParticles)
+        if (InfestationMesh != null)
         {
-            particleSystem.Play();
+            InfestationMesh.SetActive(true);
         }
+        if (InfestationParticles != null)
+        {
+            foreach (ParticleSystem particleSystem in InfestationParticles)
+            {
+                particleSystem.Play();
+            }
+        }
+
     }
 
     public void CleanUp()
     {
-        InfestationMesh.SetActive(false);
-        foreach (ParticleSystem particleSystem in InfestationParticles)
+        if (InfestationMesh != null)
         {
-            particleSystem.Stop();
+            InfestationMesh.SetActive(false);
+        }
+        if (InfestationParticles != null)
+        {
+            foreach (ParticleSystem particleSystem in InfestationParticles)
+            {
+                particleSystem.Stop();
+            }
         }
     }
 }
