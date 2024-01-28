@@ -15,7 +15,7 @@ public class Ability : HexShape
     public List<Effect> Effects;
 
     public string Name;
-    public Mesh previewShape;
+    //public Mesh previewShape;
     public RotationMode rotato;
 
     [SerializeField] private Ressource myCostRessource;
@@ -81,37 +81,37 @@ public class Ability : HexShape
             Effects.Add(kvp.Value);
         }
 
-        List<Mesh> hexagone = new List<Mesh>();
+        //List<Mesh> hexagone = new List<Mesh>();
 
-        List<GridTile> GridTileList = new List<GridTile>();
+        //List<GridTile> GridTileList = new List<GridTile>();
 
 
-        foreach (Vector2Int coord in Coordinates)
-        {
-            GridTile gridTileInstanz = Instantiate(tileprefab);
+        //foreach (Vector2Int coord in Coordinates)
+        //{
+        //    GridTile gridTileInstanz = Instantiate(tileprefab);
 
-            gridTileInstanz.transform.position = HexGridUtil.AxialHexToPixel(coord, 1);
+        //    gridTileInstanz.transform.position = HexGridUtil.AxialHexToPixel(coord, 1);
 
-            GridTileList.Add(gridTileInstanz);
+        //    GridTileList.Add(gridTileInstanz);
 
-            hexagone.Add(gridTileInstanz.DrawMesh());
-        }
+        //    hexagone.Add(gridTileInstanz.DrawMesh());
+        //}
 
-        CombineInstance[] combine = new CombineInstance[hexagone.Count];
-        int i = 0;
-        while (i < hexagone.Count)
-        {
-            combine[i].mesh = hexagone[i];
-            combine[i].transform = GridTileList[i].transform.localToWorldMatrix;
-            i++;
-        }
-        Mesh mesh = new Mesh();
-        mesh.CombineMeshes(combine, false);
-        previewShape = mesh;
-        foreach (GridTile gr in GridTileList)
-        {
-            GameObject.DestroyImmediate(gr.gameObject);
-        }
+        //CombineInstance[] combine = new CombineInstance[hexagone.Count];
+        //int i = 0;
+        //while (i < hexagone.Count)
+        //{
+        //    combine[i].mesh = hexagone[i];
+        //    combine[i].transform = GridTileList[i].transform.localToWorldMatrix;
+        //    i++;
+        //}
+        //Mesh mesh = new Mesh();
+        //mesh.CombineMeshes(combine, false);
+        //previewShape = mesh;
+        //foreach (GridTile gr in GridTileList)
+        //{
+        //    GameObject.DestroyImmediate(gr.gameObject);
+        //}
         RecalculateCost();
     }
 
