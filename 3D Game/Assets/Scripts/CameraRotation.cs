@@ -19,9 +19,9 @@ public class CameraRotation : MonoBehaviour
     [SerializeField] InputActionReference rotatoAction;
     [SerializeField] InputActionReference zoomAction;
     [SerializeField] InputActionReference movementAction;
-    [SerializeField] InputActionReference switchAction;
+    //[SerializeField] InputActionReference switchAction;
     [SerializeField] InputActionReference playerswitchAction;
-    [SerializeField] InputActionReference topDownAction;
+    //[SerializeField] InputActionReference topDownAction;
     [SerializeField] InputAction playerAction;
     [SerializeField] public Camera cam;
     [SerializeField] public CinemachineVirtualCamera Playercam;
@@ -91,16 +91,16 @@ public class CameraRotation : MonoBehaviour
         movementAction.action.started += StartMovement;
         movementAction.action.canceled += StopMovement;
 
-        switchAction.action.Enable();
-        switchAction.action.performed += SwitchtoMain;
+        //switchAction.action.Enable();
+        //switchAction.action.performed += SwitchtoMain;
 
 
         playerswitchAction.action.Enable();
         playerswitchAction.action.performed += playerSelection;
         //playerswitchAction.action.performed += _ => EventManager.OnSelectPlayer(PlayerManager.Instance.Players[(int)_.ReadValue<float>()]);
 
-        topDownAction.action.Enable();
-        topDownAction.action.performed += SwitchToTopDown;
+        //topDownAction.action.Enable();
+        //topDownAction.action.performed += SwitchToTopDown;
 
         EventManager.OnSelectPlayerEvent += CameraCenterToPlayer;
 
@@ -190,16 +190,16 @@ public class CameraRotation : MonoBehaviour
         movementAction.action.started -= StartMovement;
         movementAction.action.canceled -= StopMovement;
 
-        switchAction.action.Disable();
-        switchAction.action.performed -= SwitchtoMain;
+        //switchAction.action.Disable();
+        //switchAction.action.performed -= SwitchtoMain;
 
 
         playerswitchAction.action.Disable();
         playerswitchAction.action.performed -= playerSelection;
         //playerswitchAction.action.performed += _ => EventManager.OnSelectPlayer(PlayerManager.Instance.Players[(int)_.ReadValue<float>()]);
 
-        topDownAction.action.Disable();
-        topDownAction.action.performed -= SwitchToTopDown;
+        //topDownAction.action.Disable();
+        //topDownAction.action.performed -= SwitchToTopDown;
     }
 
     void StopRotato(InputAction.CallbackContext obj)

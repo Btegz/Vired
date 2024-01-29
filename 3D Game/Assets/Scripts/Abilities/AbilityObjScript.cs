@@ -33,7 +33,7 @@ public class AbilityObjScript : MonoBehaviour
 
     [SerializeField] InputActionAsset inputAction;
     [SerializeField] InputActionReference rotationInputActionReference;
-    [SerializeField] InputActionReference castAbiltyInputActionReference;
+    //[SerializeField] InputActionReference castAbiltyInputActionReference;
     [SerializeField] InputActionReference CancelAbilityInputActionReference;
 
     [SerializeField] GameObject particle_AbilityPositive;
@@ -50,7 +50,7 @@ public class AbilityObjScript : MonoBehaviour
 
     private void OnDestroy()
     {
-        castAbiltyInputActionReference.action.performed -= CastAbility;
+        //castAbiltyInputActionReference.action.performed -= CastAbility;
         CancelAbilityInputActionReference.action.performed -= KillYourSelf;
         rotationInputActionReference.action.performed -= rotateAbility;
     }
@@ -142,7 +142,7 @@ public class AbilityObjScript : MonoBehaviour
 
         SetPositionToGridCoord(HexGridUtil.CubeToAxialCoord(playerPos));
 
-        castAbiltyInputActionReference.action.performed += CastAbility;
+        //castAbiltyInputActionReference.action.performed += CastAbility;
         player.OpenAbilityCastCanvas();
         player.AbilityCastButton.onClick.AddListener(CastAbility);
     }
@@ -376,7 +376,7 @@ public class AbilityObjScript : MonoBehaviour
             }
         }
         Payment();
-        castAbiltyInputActionReference.action.performed -= CastAbility;
+        //castAbiltyInputActionReference.action.performed -= CastAbility;
         //PlayerManager.Instance.AbilityCasted();
         EventManager.OnAbilityCast(player);
         PlayerManager.Instance.move = true;
@@ -394,7 +394,7 @@ public class AbilityObjScript : MonoBehaviour
             }
         }
         Payment();
-        castAbiltyInputActionReference.action.performed -= CastAbility;
+        //castAbiltyInputActionReference.action.performed -= CastAbility;
         PlayerManager.Instance.selectedPlayer.AbilityCastButton.onClick.RemoveAllListeners();
         PlayerManager.Instance.selectedPlayer.CloseAbilityCastCanvas();
         //PlayerManager.Instance.AbilityCasted();
