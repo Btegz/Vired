@@ -33,7 +33,7 @@ public class PlayerManager : MonoBehaviour
     [HideInInspector] public int totalSteps;
     public int SkillPoints;
     [HideInInspector] public int extraMovement;
-    [HideInInspector] public Player selectedPlayer;
+public Player selectedPlayer;
     [HideInInspector] public GridTile target;
     [HideInInspector] public bool move = true;
     [HideInInspector] public Vector3 mouse_pos;
@@ -362,6 +362,8 @@ public class PlayerManager : MonoBehaviour
     /// <param name="index">index of the Ability Clicked</param>
     public void AbilityClicked(Ability ability)
     {
+
+        Debug.Log(ability);
         // sets the "abilityAcitvated" bool to true, so player cant move anymore after choosing a Ability
         if (abilityActivated == false && InventoryCheck(ability, selectedPlayer))
         {

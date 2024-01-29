@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 public class UI : MonoBehaviour
 {
     public GameObject SettingsCanvas;
@@ -11,8 +12,12 @@ public class UI : MonoBehaviour
 
     public GameObject TopDownButton;
     public GameObject WorldButton;
+    public GameObject BlackScreen;
 
-
+    private void Start()
+    {
+        BlackScreen.GetComponentInChildren<Image>().DOFade(0f, 2f).OnComplete(() => BlackScreen.SetActive(false));
+    }
     public void Settings()
     {
         SettingsCanvas.SetActive(true);
@@ -87,6 +92,8 @@ public class UI : MonoBehaviour
             CameraRotation.Instance.SwitchToTopDown();
         }
     }
+
+    
 
 
     

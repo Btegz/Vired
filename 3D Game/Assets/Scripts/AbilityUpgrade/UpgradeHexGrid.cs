@@ -282,6 +282,9 @@ public class UpgradeHexGrid : MonoBehaviour
             EventManager.OnAbilityChange(Grid,loadedAbility);
             AudioManager.Instance.PlaySoundAtLocation(ConfirmUpgrade, soundEffect, null);
 
+            
+                
+
         }
 
         if(TutorialManager.Instance != null)

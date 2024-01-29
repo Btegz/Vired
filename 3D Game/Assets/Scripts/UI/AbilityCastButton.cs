@@ -16,8 +16,15 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
     public AudioMixerGroup soundEffect;
     [SerializeField] Image ressourceIconImage;
 
-   
-    
+
+    public void OnEnable()
+    {
+        color = Color.white;
+        AssignAbility();
+      
+    }
+
+
     public void AssignAbility(Player player)
     {
         if (player.AbilityInventory.Count > index)
@@ -116,9 +123,13 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
 
     public void clicked()
     {
+        
+
         if (ability == null)
         {
             return;
+            
+            
         }
         if (!PlayerManager.Instance.InventoryCheck(ability, PlayerManager.Instance.selectedPlayer) && currentState == ButtonState.inMainScene)
         {
@@ -127,6 +138,7 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
             //RectTransform thisRectT = GetComponent<RectTransform>();
             //thisRectT.DOComplete();
             //thisRectT.DOPunchRotation(Vector3.back * 30, .25f).SetEase(Ease.OutExpo);
+            Debug.Log("null1");
             return;
         }
 
@@ -139,6 +151,7 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
             PlayerManager.Instance.selectedPlayer.AbilityInventory[index] = previousMainAbility;
             AssignAbility();
             MainButton.AssignAbility();
+            Debug.Log("null2");
         }
 
         EventManager.OnAbilityButtonClicked(MainButton.ability, this);
@@ -156,7 +169,7 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
     }
 
     public void OnPointerClick(PointerEventData eventData)
-    {
+    { 
        AudioManager.Instance.PlaySoundAtLocation(AbilitySelect, soundEffect, null);
         
         clicked();
