@@ -307,6 +307,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8254572460369654827}
   - component: {fileID: 2148683299467376766}
+  - component: {fileID: 4540775272193811439}
   m_Layer: 0
   m_Name: EnemyPrefab
   m_TagString: Untagged
@@ -400,6 +401,19 @@ MonoBehaviour:
   BossSpread: {fileID: 11400000, guid: 192480326dc29db44bc0c2827c0d5bb8, type: 2}
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
   FirstAndLast: 1
+--- !u!65 &4540775272193811439
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8254572460369654823}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.25, z: 1}
+  m_Center: {x: 0, y: 0.6, z: 0}
 --- !u!1001 &815630487181665089
 PrefabInstance:
   m_ObjectHideFlags: 0
