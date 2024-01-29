@@ -25,15 +25,17 @@ public class GS_Pofl : GridState
 
     public override void ExitState(GridTile parent)
     {
-
+        // make pofi fly away yo
     }
 
     public override void PlayerEnters(GridTile parent)
     {
         PlayerManager.Instance.move = false;
         pofi = Instantiate(PointOfInterest, PointOfInterest.transform.position, Quaternion.identity);
-        parent.ChangeCurrentState(GridManager.Instance.gS_Neutral);
-        Destroy(parent.gameObject.GetComponentInChildren<PofIVisuals>().gameObject);
+        pofi.GetComponentInChildren<PofIManager>().pofiTile = parent;
+        pofi.GetComponentInChildren<PofIManager>().pofiPrefab = parent.GetComponentInChildren<PofIVisuals>();
+        //parent.ChangeCurrentState(GridManager.Instance.gS_Neutral);
+        //Destroy(parent.gameObject.GetComponentInChildren<PofIVisuals>().gameObject);
 
         AudioManager.Instance.PlaySoundAtLocation(PofISound, soundEffect, null);  
     }
