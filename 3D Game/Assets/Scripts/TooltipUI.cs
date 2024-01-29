@@ -52,29 +52,29 @@ public class TooltipUI : MonoBehaviour
     private void Update()
     {
 
-        if (toggle.tooltip)
-        {
-            Vector3 mousePos = Input.mousePosition;
-            float xOffset, yOffset;
-            if (mousePos.y > (canvas.renderingDisplaySize.y / 2))
-            {
-                yOffset = Input.mousePosition.y - offset.y;
-            }
-            else
-            {
-                yOffset = Input.mousePosition.y + offset.y + rect.rect.height;
-            }
+        //if (toggle.tooltip)
+        //{
+        //    Vector3 mousePos = Input.mousePosition;
+        //    float xOffset, yOffset;
+        //    if (mousePos.y > (canvas.renderingDisplaySize.y / 2))
+        //    {
+        //        yOffset = Input.mousePosition.y - offset.y;
+        //    }
+        //    else
+        //    {
+        //        yOffset = Input.mousePosition.y + offset.y + rect.rect.height;
+        //    }
 
-            if (mousePos.x > (canvas.renderingDisplaySize.x / 2))
-            {
-                xOffset = Input.mousePosition.x - offset.x - rect.rect.width;
-            }
-            else
-            {
-                xOffset = Input.mousePosition.x + offset.x;
-            }
-            transform.position = new Vector2(xOffset, yOffset);
-        }
+        //    if (mousePos.x > (canvas.renderingDisplaySize.x / 2))
+        //    {
+        //        xOffset = Input.mousePosition.x - offset.x - rect.rect.width;
+        //    }
+        //    else
+        //    {
+        //        xOffset = Input.mousePosition.x + offset.x;
+        //    }
+        //    transform.position = new Vector2(xOffset, yOffset);
+        //}
 
    
     }
