@@ -952,10 +952,15 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        foreach (TileHighlight tileHighlightInstance in GetComponentsInChildren<TileHighlight>())
+        if (TutorialManager.Instance.tutorial == true)
         {
-            Destroy(tileHighlightInstance.gameObject);
+            foreach (TileHighlight tileHighlightInstance in GetComponentsInChildren<TileHighlight>())
+            {
+                Destroy(tileHighlightInstance.gameObject);
+            }
         }
+        
+
     }
 
     public void neutralRegeneration()

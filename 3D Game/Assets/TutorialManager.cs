@@ -31,14 +31,16 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] GameObject Chunk;
     [SerializeField] GameObject Battery;
     [SerializeField] GameObject GridTilePreview;
+    [SerializeField] GameObject AbilityUpgrade;
 
 
     [Header("TutorialTexts")]
     [SerializeField] GameObject DroneImage;
     [SerializeField] GameObject BottomText;
     [SerializeField] GameObject BottomBox;
-    [SerializeField] GameObject RightText;
-    [SerializeField] GameObject LeftText;
+
+    [SerializeField] GameObject NextButtonBlock;
+    [SerializeField] GameObject AbilityBlock;
 
     public GameObject PlayerButtonHighlight;
     public GameObject PlayerButtonText;
@@ -53,7 +55,7 @@ public class TutorialManager : MonoBehaviour
     public List<GameObject> HighlightObject;
     public List<GameObject> ResourceHighlight;
     public bool tutorial;
-    public Button ButtonHighlight;
+   // public Button ButtonHighlight;
     public IEnumerator enabled;
     public bool enabledIsRunning;
     public GameObject InventoryHighlight;
@@ -82,6 +84,8 @@ public class TutorialManager : MonoBehaviour
     {
         if (Instance == null)
             Instance = this;
+        
+        
     }
 
 
@@ -95,7 +99,7 @@ public class TutorialManager : MonoBehaviour
         PlayerArea1.SetActive(false);
         PlayerArea2.SetActive(false);
         abilityLoadout.GetComponentInChildren<HorizontalLayoutGroup>().childAlignment = TextAnchor.MiddleCenter;
-        abilityLoadout.amountToChoose = 1;
+        
 
 
         /* AbilityButtons.SetActive(false);
@@ -121,6 +125,7 @@ public class TutorialManager : MonoBehaviour
     }
     private void Update()
     {
+        abilityLoadout.amountToChoose = 1;
 
         CameraRotation.Instance.AbilityUpgradeCam.Follow = PlayerManager.Instance.Players[0].transform;
 
@@ -148,9 +153,11 @@ public class TutorialManager : MonoBehaviour
         { 
             TutorialEndTrack.Play();
             enemySpawnt = false;
+            NextButtonBlock.SetActive(false);
+
         }
 
-        if (PlayerManager.Instance.RessourceAInventory == 0 || PlayerManager.Instance.RessourceBInventory == 0 || PlayerManager.Instance.RessourceCInventory == 0 || PlayerManager.Instance.RessourceDInventory == 0 )
+        if (PlayerManager.Instance.RessourceAInventory < 2 || PlayerManager.Instance.RessourceBInventory <2  || PlayerManager.Instance.RessourceCInventory <2 || PlayerManager.Instance.RessourceDInventory <2 )
         {
             PlayerManager.Instance.RessourceAInventory = 4;
             PlayerManager.Instance.RessourceBInventory = 4;
@@ -225,6 +232,9 @@ public class TutorialManager : MonoBehaviour
 
 
     }
+
+  
+    
 
     public IEnumerator StartGame()
     {
@@ -313,6 +323,7 @@ public class TutorialManager : MonoBehaviour
 
     public void EnemyTutorial()
     {
+        AbilityUpgrade.SetActive(false);
         PlayerManager.Instance.abilityActivated = false;
         CameraRotation.Instance.dontMove = true;
 
@@ -335,6 +346,8 @@ public class TutorialManager : MonoBehaviour
         Enemy enemy = Instantiate(GridManager.Instance.StartEnemyPrefabs[Random.Range(0, GridManager.Instance.StartEnemyPrefabs.Count)], HexGridUtil.AxialToCubeCoord(EnemyTut[Random.RandomRange(0, EnemyTut.Count)]), Quaternion.identity);
         enemy.Setup(neighborTile);
         enemySpawnt = true;
+        AbilityBlock.SetActive(false);
+       
 
     }
 
@@ -346,9 +359,7 @@ public class TutorialManager : MonoBehaviour
             BlackScreen.SetActive(true);
             
             BlackScreen.GetComponent<Image>().DOFade(1f, 1f).OnComplete(() => SceneManager.LoadScene("MainScene"));
-            
-                
-                
+            TutorialManager.Instance.tutorial = true;
                    
             }
            
