@@ -59,8 +59,8 @@ public class EditorAbilityMesh
             }
             Mesh mesh = new Mesh();
             mesh.CombineMeshes(combine, false);
-            a.previewShape = mesh;
-            AssetDatabase.CreateAsset(a.previewShape, $"Assets/Meshes/{a.Name}.mesh");
+            //a.previewShape = mesh;
+            //AssetDatabase.CreateAsset(a.previewShape, $"Assets/Meshes/{a.Name}.mesh");
             foreach (GridTile gr in GridTileList)
             {
                 GameObject.DestroyImmediate(gr.gameObject);

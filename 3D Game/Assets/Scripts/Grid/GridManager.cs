@@ -190,7 +190,7 @@ public class GridManager : MonoBehaviour
 
             foreach (KeyValuePair<Vector2Int, GridTile> kvp in Grid)
             {
-                kvp.Value.Triangluate();
+                kvp.Value.Triangulate();
                 kvp.Value.UpdateMyNeighbors();
                 //if (mapSettings != null)
                 //{
