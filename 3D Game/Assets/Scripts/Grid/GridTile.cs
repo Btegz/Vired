@@ -92,7 +92,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [HideInInspector] public float height = 0;
     Mesh mesh;
     MeshFilter meshFilter;
-    public MeshRenderer meshRenderer;
+    //public MeshRenderer meshRenderer;
     MeshCollider meshCollider;
     List<Face> faces;
 
@@ -110,36 +110,6 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private void Start()
     {
         EventManager.OnEndTurnEvent += neutralRegeneration;
-        switch (currentGridState)
-        {
-            case GS_positive:
-                switch (ressource)
-                {
-                    case Ressource.ressourceA:
-                        meshRenderer.material = gridTileSO.resourceAMaterial;
-                        ressource = Ressource.ressourceA;
-                        break;
-                    case Ressource.ressourceB:
-                        meshRenderer.material = gridTileSO.resourceBMaterial;
-                        ressource = Ressource.ressourceB;
-                        break;
-                    case Ressource.ressourceC:
-                        meshRenderer.material = gridTileSO.resourceCMaterial;
-                        ressource = Ressource.ressourceC;
-                        break;
-                    case Ressource.ressourceD:
-                        meshRenderer.material = gridTileSO.resourceDMaterial;
-                        ressource = Ressource.ressourceD;
-                        break;
-                }
-                break;
-            case GS_neutral: meshRenderer.material = gridTileSO.neutralMaterial; break;
-            case GS_negative: meshRenderer.material = gridTileSO.negativeMaterial; break;
-            case GS_Enemy: meshRenderer.material = gridTileSO.negativeMaterial; SpawnEnemy(); break;
-            case GS_Boss: meshRenderer.material = gridTileSO.negativeMaterial; SpawnEnemy(); break;
-            case GS_BossNegative: meshRenderer.material = gridTileSO.negativeMaterial; break;
-            case GS_Pofl: meshRenderer.material = gridTileSO.PofIMaterial; break;
-        }
     }
 
     private void OnDestroy()
@@ -161,7 +131,6 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         this.withWalls = withWalls;
         meshCollider = GetComponent<MeshCollider>();
         meshFilter = GetComponent<MeshFilter>();
-        meshRenderer = GetComponent<MeshRenderer>();
         mesh = new Mesh();
         mesh.name = $"Hex{coordinate.x},{coordinate.y}";
 
@@ -969,31 +938,23 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (TutorialManager.Instance.tutorial == true)
+        if ((PlayerManager.Instance.movementAction > 0 || PlayerManager.Instance.extraMovement > 0) && (!PlayerManager.Instance.abilityActivated && currentGridState.StateValue() >= 0))
         {
-            if ((PlayerManager.Instance.movementAction > 0 || PlayerManager.Instance.extraMovement>0) &&(!PlayerManager.Instance.abilityActivated && currentGridState.StateValue() >= 0))
-            {
-                List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(PlayerManager.Instance.selectedPlayer.CoordinatePosition));
+            List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(PlayerManager.Instance.selectedPlayer.CoordinatePosition));
 
-                if (neighbors.Contains(HexGridUtil.AxialToCubeCoord(AxialCoordinate)))
-                {
-                    Instantiate(moveTileHighlightPrefab, transform.localPosition, Quaternion.identity, transform);
-                    PlayerManager.Instance.selectedPlayer.transform.DOLookAt(new Vector3(transform.position.x, PlayerManager.Instance.selectedPlayer.transform.position.y, transform.position.z), .1f, up: Vector3.up);
-                }
+            if (neighbors.Contains(HexGridUtil.AxialToCubeCoord(AxialCoordinate)))
+            {
+                Instantiate(moveTileHighlightPrefab, transform.localPosition, Quaternion.identity, transform);
+                PlayerManager.Instance.selectedPlayer.transform.DOLookAt(new Vector3(transform.position.x, PlayerManager.Instance.selectedPlayer.transform.position.y, transform.position.z), .1f, up: Vector3.up);
             }
         }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (TutorialManager.Instance.tutorial == true)
+        foreach (TileHighlight tileHighlightInstance in GetComponentsInChildren<TileHighlight>())
         {
-            {
-                foreach (TileHighlight tileHighlightInstance in GetComponentsInChildren<TileHighlight>())
-                {
-                    Destroy(tileHighlightInstance.gameObject);
-                }
-            }
+            Destroy(tileHighlightInstance.gameObject);
         }
     }
 

@@ -20,8 +20,7 @@ public class GS_Pofl : GridState
 
     public override void EnterState(GridTile parent)
     {
-        parent.meshRenderer.material = parent.gridTileSO.PofIMaterial;
-
+        
     }
 
     public override void ExitState(GridTile parent)

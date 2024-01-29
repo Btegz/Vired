@@ -22,17 +22,17 @@ public class GS_positive : GridState
         parent.GetComponent<RessourceVisuals>().InfestKlopse();
         Debug.Log("I ENTER POSITIVE");
 
-        switch (parent.ressource)
-        {
-            case Ressource.ressourceA:
-                parent.meshRenderer.material = parent.gridTileSO.resourceAMaterial; break;
-            case Ressource.ressourceB:
-                parent.meshRenderer.material = parent.gridTileSO.resourceBMaterial; break;
-            case Ressource.ressourceC:
-                parent.meshRenderer.material = parent.gridTileSO.resourceCMaterial; break;
-            case Ressource.ressourceD:
-                parent.meshRenderer.material = parent.gridTileSO.resourceDMaterial; break;
-        }
+        //switch (parent.ressource)
+        //{
+        //    case Ressource.ressourceA:
+        //        parent.meshRenderer.material = parent.gridTileSO.resourceAMaterial; break;
+        //    case Ressource.ressourceB:
+        //        parent.meshRenderer.material = parent.gridTileSO.resourceBMaterial; break;
+        //    case Ressource.ressourceC:
+        //        parent.meshRenderer.material = parent.gridTileSO.resourceCMaterial; break;
+        //    case Ressource.ressourceD:
+        //        parent.meshRenderer.material = parent.gridTileSO.resourceDMaterial; break;
+        //}
         parent.transform.DOComplete();
 
         //parent.transform.DOPunchRotation(Vector3.one * TweenScale, .5f);
