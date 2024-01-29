@@ -971,7 +971,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (TutorialManager.Instance.tutorial == true)
         {
-            if (PlayerManager.Instance.movementAction > 0 && !PlayerManager.Instance.abilityActivated && currentGridState.StateValue() >= 0)
+            if ((PlayerManager.Instance.movementAction > 0 || PlayerManager.Instance.extraMovement>0) &&(!PlayerManager.Instance.abilityActivated && currentGridState.StateValue() >= 0))
             {
                 List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(PlayerManager.Instance.selectedPlayer.CoordinatePosition));
 
