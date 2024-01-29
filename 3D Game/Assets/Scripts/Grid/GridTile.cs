@@ -40,6 +40,11 @@ public enum Direction { C = 0, NE = 1, SE = 2, S = 3, SW = 4, NW = 5, N = 6 }
 /// </summary>
 public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    [Header("World Edge")]
+    [SerializeField] float EdgeFalloff;
+    [Header("----------------------------------")]
+
+
     [SerializeField] float Rampigkeit;
 
 
@@ -229,8 +234,9 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     // MESH TILE STUFF --------------------------------------------------------------------------------------------------------------
 
     // vvvv new World
-    public void Triangluate()
+    public void Triangulate()
     {
+        // Reseting all the Lists
         Points = new Dictionary<Direction, Vector3>();
         Points.Add(Direction.C, new Vector3(0, 0, 0));
         vertices = new List<Vector3>();
@@ -238,16 +244,21 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         vertexColors = new List<Color>();
         uvs = new List<Vector3>();
 
+        //get the Neighbors
         List<Vector2Int> neighborCords = HexGridUtil.AxialNeighbors(AxialCoordinate);
-
         GridTile prevNeigbor = null;
         GridTile currentNeighbor = null;
         GridTile nextNeighbor = null;
 
+        // The Hexagon Loop --> Loops 6 Times creating one Side of The Hexagon with each iteration
         for (int i = 0; i < 6; i++)
         {
-            prevNeigbor = null;
+            //reset Neighbors of the Hexagons Side because this changes with each side
+            // The Neighbor directly adjacent to the Hexes Side
             currentNeighbor = null;
+            // The Nieghbor adjacent to the counter clockwise Corner of the Hexes Side
+            prevNeigbor = null;
+            // The Nieghbor adjacent to the clockwise Corner of the Hexes Side
             nextNeighbor = null;
             Color prevNeighborColor;
             Color currentNeighborColor;
@@ -287,24 +298,28 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 prevNeighborColor = myColor;
             }
 
+            // -----------------> Setting initial Points
+            // counterclockwise outer corner 
             Vector3 currentCorner = corners[i];
+            // clockwise outer Corner
             Vector3 nextCorner = corners[i == 5 ? 0 : i + 1];
 
+            // counterClockwise Buffered Corner represents the corner of the Hex Core
             Vector3 currentBufferedCorner = currentCorner * bufferRadius;
+            // Clockwise Buffered Corner represents the corner of the Hex Core
             Vector3 nextBufferedCorner = nextCorner * bufferRadius;
 
+            // Points along the Side of the Hexes Core 
             Vector3 currentInbetween = Vector3.Lerp(currentBufferedCorner, nextBufferedCorner, 1f / 3f);
             Vector3 nextInbetween = Vector3.Lerp(currentBufferedCorner, nextBufferedCorner, 2f / 3f);
 
+            // points forming the Bridge to the Current Neighbor of the Side
             Vector3 currentInnerCorner = (currentCorner + nextCorner) * 0.5f * (1f - bufferRadius) + currentBufferedCorner;
             Vector3 currentInnerInbetweenCorner = (currentCorner + nextCorner) * 0.5f * (1f - bufferRadius) + currentInbetween;
             Vector3 nextInnerInbetweenCorner = (currentCorner + nextCorner) * 0.5f * (1f - bufferRadius) + nextInbetween;
             Vector3 nextInnerCorner = (currentCorner + nextCorner) * 0.5f * (1f - bufferRadius) + nextBufferedCorner;
 
-
-
-
-
+            // Adjusting height of points if current Neighbor is not null
             if (currentNeighbor != null)
             {
                 currentInnerCorner.y = (transform.localPosition.y + currentNeighbor.transform.localPosition.y) / 2f - transform.localPosition.y;
@@ -313,16 +328,11 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 nextInbetween.y = Mathf.Lerp(currentBufferedCorner.y, nextBufferedCorner.y, 2f / 3f);
                 currentInnerInbetweenCorner.y = Mathf.Lerp(currentInnerCorner.y, nextInnerCorner.y, 1f / 3f);
                 nextInnerInbetweenCorner.y = Mathf.Lerp(currentInnerCorner.y, nextInnerCorner.y, 2f / 3f);
-
             }
-
 
             Points.Add((Direction)i + 1, currentBufferedCorner);
 
-            //else
-            //{
-            //    nextInnerCorner.y = transform.localPosition.y;
-            //}
+            // adjusting Height of Points relevant for previous and Next neighbors
             if (prevNeigbor != null && currentNeighbor != null)
             {
                 currentCorner.y = (transform.localPosition.y + prevNeigbor.transform.localPosition.y + currentNeighbor.transform.localPosition.y) / 3f - transform.localPosition.y;
@@ -335,10 +345,6 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             {
                 currentCorner.y = (transform.localPosition.y + currentNeighbor.transform.localPosition.y) / 2f - transform.localPosition.y;
             }
-            //else
-            //{
-            //    currentCorner.y = transform.localPosition.y;
-            //}
             if (currentNeighbor != null && nextNeighbor != null)
             {
                 nextCorner.y = (transform.localPosition.y + currentNeighbor.transform.localPosition.y + nextNeighbor.transform.localPosition.y) / 3f - transform.localPosition.y;
@@ -351,20 +357,12 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             {
                 nextCorner.y = (transform.localPosition.y + nextNeighbor.transform.localPosition.y) / 2f - transform.localPosition.y;
             }
-            //else
-            //{
-            //    nextCorner.y = transform.localPosition.y;
-            //}
 
-            if(ressource == 0)
-            {
 
-            }
-
-            // inner triangles & PondElevation
-            AddTriangle(Vector3.zero/*+ (ressource == 0?Vector3.down*.2f:Vector3.zero)*/, currentBufferedCorner, currentInbetween);
-            AddTriangle(Vector3.zero/* + (ressource == 0 ? Vector3.down * .2f : Vector3.zero)*/, currentInbetween, nextInbetween);
-            AddTriangle(Vector3.zero/* + (ressource == 0 ? Vector3.down * .2f : Vector3.zero)*/, nextInbetween, nextBufferedCorner);
+            // inner triangles Hex Core
+            AddTriangle(Vector3.zero, currentBufferedCorner, currentInbetween);
+            AddTriangle(Vector3.zero, currentInbetween, nextInbetween);
+            AddTriangle(Vector3.zero, nextInbetween, nextBufferedCorner);
             AddTriangleColors(SplatMapColor1, SplatMapColor1, SplatMapColor1);
             AddTriangleColors(SplatMapColor1, SplatMapColor1, SplatMapColor1);
             AddTriangleColors(SplatMapColor1, SplatMapColor1, SplatMapColor1);
@@ -372,32 +370,6 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             AddTerrainIndexes(this, this, this);
             AddTerrainIndexes(this, this, this);
 
-            // the Quads combining two adjacent hexes or form the outer line
-            //if (currentNeighbor == null)
-            //{
-            //    // small bridge
-            //    AddTriangle(currentBufferedCorner, currentInnerCorner, currentInnerInbetweenCorner);
-            //    AddTriangle(currentBufferedCorner, currentInnerInbetweenCorner, currentInbetween);
-            //    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
-            //    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
-            //    AddTerrainIndexes(ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource), (currentNeighbor != null ? currentNeighbor.ressource : ressource));
-            //    AddTerrainIndexes(ressource, ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource));
-
-            //    AddTriangle(currentInbetween, currentInnerInbetweenCorner, nextInnerInbetweenCorner);
-            //    AddTriangle(currentInbetween, nextInnerInbetweenCorner, nextInbetween);
-            //    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
-            //    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
-            //    AddTerrainIndexes(ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource), (currentNeighbor != null ? currentNeighbor.ressource : ressource));
-            //    AddTerrainIndexes(ressource, ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource));
-
-            //    AddTriangle(nextInbetween, nextInnerInbetweenCorner, nextInnerCorner);
-            //    AddTriangle(nextInbetween, nextInnerCorner, nextBufferedCorner);
-            //    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor2);
-            //    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
-            //    AddTerrainIndexes(ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource), (currentNeighbor != null ? currentNeighbor.ressource : ressource));
-            //    AddTerrainIndexes(ressource, ressource, (currentNeighbor != null ? currentNeighbor.ressource : ressource));
-            //}
-            /*//else */
 
             // Bridge Triangles to directly adjacent Neighbors
             if (i < 3 && currentNeighbor != null)
@@ -437,16 +409,14 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor1);
                 AddTerrainIndexes(this, (currentNeighbor != null ? currentNeighbor : this), (currentNeighbor != null ? currentNeighbor : this));
                 AddTerrainIndexes(this, (currentNeighbor != null ? currentNeighbor : this), this);
-
-
             }
             else if (currentNeighbor == null)
             {
                 // Walls on worlds edge
-                currentInnerCorner.y = /*-transform.localPosition.y*/-1;
-                currentInnerInbetweenCorner.y = /*-transform.localPosition.y **/-1;
-                nextInnerInbetweenCorner.y = /*-transform.localPosition.y **/-1;
-                nextInnerCorner.y = /*-transform.localPosition.y **/ -1;
+                currentInnerCorner.y = -1 * EdgeFalloff;
+                currentInnerInbetweenCorner.y = -1 * EdgeFalloff;
+                nextInnerInbetweenCorner.y = -1 * EdgeFalloff;
+                nextInnerCorner.y = -1 * EdgeFalloff;
 
                 AddTriangle(currentBufferedCorner, currentInnerCorner, currentInnerInbetweenCorner);
                 AddTriangle(currentBufferedCorner, currentInnerInbetweenCorner, currentInbetween);
@@ -495,19 +465,18 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 AddTerrainIndexes(this, (currentNeighbor != null ? currentNeighbor : this), (nextNeighbor != null ? nextNeighbor : this));
 
                 Vector3 uwu = currentCorner;
-                uwu.y = /*-transform.localPosition.y*/-3;
+                uwu.y = -1 * EdgeFalloff;
                 // small triangle
                 AddTriangle(currentBufferedCorner, uwu, currentInnerCorner);
                 AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor3);
                 AddTerrainIndexes(this, this, (currentNeighbor != null ? currentNeighbor : this));
-
             }
             else
             {
                 // triangles on World Edge
 
-                currentCorner.y = /*-transform.localPosition.y * 5f*/-1;
-                nextCorner.y = /*-transform.localPosition.y * 5f*/-1;
+                currentCorner.y = -1 * EdgeFalloff;
+                nextCorner.y = -1 * EdgeFalloff;
 
                 AddTriangle(currentBufferedCorner, currentCorner, currentInnerCorner);
                 AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor3);
@@ -517,32 +486,8 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor3);
                 AddTerrainIndexes(this, this, (currentNeighbor != null ? currentNeighbor : this));
 
-
             }
-            //else/* (prevNeigbor == null || nextNeighbor == null || currentNeighbor == null)*/
-            //{
-            //    AddTriangle(currentBufferedCorner, currentCorner, currentInnerCorner);
-            //    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor3);
-            //    AddTerrainIndexes(ressource, ressource, ressource);
-
-            //    AddTriangle(nextBufferedCorner, nextInnerCorner, nextCorner);
-            //    AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor3);
-            //    AddTerrainIndexes(ressource, ressource, ressource);
-            //}
-
         }
-
-
-
-
-
-
-
-
-        // triangles for the Corner of the Hexagon
-
-
-
 
         pertulate(GridManager.Instance.mapSettings);
         mesh = new Mesh();
@@ -562,12 +507,12 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
         GetComponent<MeshFilter>().mesh = mesh;
 
-        Debug.Log("----------------------------------------------");
-        foreach(KeyValuePair<Direction,Vector3> kvp in Points)
-        {
-            Debug.Log("Direction: " + kvp.Key + ", Vector: " + kvp.Value);
-        }
-        Debug.Log("----------------------------------------------");
+        //Debug.Log("----------------------------------------------");
+        //foreach(KeyValuePair<Direction,Vector3> kvp in Points)
+        //{
+        //    Debug.Log("Direction: " + kvp.Key + ", Vector: " + kvp.Value);
+        //}
+        //Debug.Log("----------------------------------------------");
 
         GetComponent<RessourceVisuals>().Setup(this);
     }
@@ -683,7 +628,6 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 // small triangle
                 AddTriangleColors(SplatMapColor1, SplatMapColor2, SplatMapColor3);
                 AddTerrainIndexes(this, this, (currentNeighbor != null ? currentNeighbor : this));
-
             }
             else
             {
@@ -866,7 +810,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         mesh = new Mesh();
         //List<Face> theseFaces = DrawFaces();
         //mesh = CombineFaces(theseFaces);
-        Triangluate();
+        Triangulate();
         mesh.vertices = vertices.ToArray();
         mesh.triangles = triangles.ToArray();
         mesh.colors = vertexColors.ToArray();
