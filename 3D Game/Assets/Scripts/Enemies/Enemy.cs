@@ -71,7 +71,6 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         else
         {
-            Debug.Log("Hi");
             AudioManager.Instance.PlaySoundAtLocation(BossSpread, soundEffect, null);
         }
 

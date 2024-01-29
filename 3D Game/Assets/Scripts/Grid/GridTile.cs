@@ -142,7 +142,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         EventManager.OnEndTurnEvent -= neutralRegeneration;
     }
 
-   
+
 
     public void HighlightEnemySpreadPrediction()
     {
@@ -163,7 +163,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         AxialCoordinate = coordinate;
         this.ressource = ressource;
         currentGridState = GridManager.Instance.gS_Positive;
-        
+
         //meshFilter.mesh = DrawMesh();
 
     }
@@ -205,7 +205,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         catch
         {
         }
-        
+
 
     }
 
@@ -356,7 +356,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             //    nextCorner.y = transform.localPosition.y;
             //}
 
-            if(ressource == 0)
+            if (ressource == 0)
             {
 
             }
@@ -563,7 +563,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         GetComponent<MeshFilter>().mesh = mesh;
 
         Debug.Log("----------------------------------------------");
-        foreach(KeyValuePair<Direction,Vector3> kvp in Points)
+        foreach (KeyValuePair<Direction, Vector3> kvp in Points)
         {
             Debug.Log("Direction: " + kvp.Key + ", Vector: " + kvp.Value);
         }
@@ -800,7 +800,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 continue;
             }
             vertices[i] += mapsettings.GetIrregularityNoiseData(vertices[i] + transform.localPosition) * mapsettings.IrregularityFactor;
-            
+
         }
     }
 
@@ -1025,23 +1025,31 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (PlayerManager.Instance.movementAction > 0 && !PlayerManager.Instance.abilityActivated && currentGridState.StateValue() >= 0)
+        if (TutorialManager.Instance.tutorial == true)
         {
-            List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(PlayerManager.Instance.selectedPlayer.CoordinatePosition));
-
-            if (neighbors.Contains(HexGridUtil.AxialToCubeCoord(AxialCoordinate)))
+            if (PlayerManager.Instance.movementAction > 0 && !PlayerManager.Instance.abilityActivated && currentGridState.StateValue() >= 0)
             {
-                Instantiate(moveTileHighlightPrefab, transform.localPosition, Quaternion.identity, transform);
-                PlayerManager.Instance.selectedPlayer.transform.DOLookAt(new Vector3(transform.position.x, PlayerManager.Instance.selectedPlayer.transform.position.y, transform.position.z), .1f,up:Vector3.up);
+                List<Vector3Int> neighbors = HexGridUtil.CubeNeighbors(HexGridUtil.AxialToCubeCoord(PlayerManager.Instance.selectedPlayer.CoordinatePosition));
+
+                if (neighbors.Contains(HexGridUtil.AxialToCubeCoord(AxialCoordinate)))
+                {
+                    Instantiate(moveTileHighlightPrefab, transform.localPosition, Quaternion.identity, transform);
+                    PlayerManager.Instance.selectedPlayer.transform.DOLookAt(new Vector3(transform.position.x, PlayerManager.Instance.selectedPlayer.transform.position.y, transform.position.z), .1f, up: Vector3.up);
+                }
             }
         }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        foreach (TileHighlight tileHighlightInstance in GetComponentsInChildren<TileHighlight>())
+        if (TutorialManager.Instance.tutorial == true)
         {
-            Destroy(tileHighlightInstance.gameObject);
+            {
+                foreach (TileHighlight tileHighlightInstance in GetComponentsInChildren<TileHighlight>())
+                {
+                    Destroy(tileHighlightInstance.gameObject);
+                }
+            }
         }
     }
 

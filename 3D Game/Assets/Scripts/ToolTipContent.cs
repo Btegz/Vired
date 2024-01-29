@@ -10,11 +10,17 @@ public class ToolTipContent : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
-        TooltipUI.Instance.DisplayTooltip(Header, Content);
+        if (TutorialManager.Instance == null)
+        {
+            TooltipUI.Instance.DisplayTooltip(Header, Content);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        TooltipUI.Instance.HideTooltip();
+        if (TutorialManager.Instance == null)
+        {
+            TooltipUI.Instance.HideTooltip();
+        }
     }
 }

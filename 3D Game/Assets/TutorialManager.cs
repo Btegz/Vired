@@ -45,26 +45,31 @@ public class TutorialManager : MonoBehaviour
 
     public GameObject chooseAbilityText;
     public GameObject confirmText;
+    public GridManager gridManager;
 
 
     public CinemachineTrack dolly;
     public List<GameObject> HighlightObject;
+    public List<GameObject> ResourceHighlight;
     public bool tutorial;
     public Button ButtonHighlight;
     public IEnumerator enabled;
     public bool enabledIsRunning;
     public GameObject InventoryHighlight;
     List<Vector2Int> neighbors;
+    List<GameObject> Neighbor;
 
     public CinemachinePathBase path;
 
 
     private Vector3 DroneStart;
     public static TutorialManager Instance;
-    public List<GameObject> Preview;
+    public List<Vector2Int> Preview;
+    public List<Vector2Int> EnemyTut;
 
     public PlayableDirector PlayerButtonTrack;
-    public PlayableDirector AbilityTrack;
+    public PlayableDirector UpgradeTrack;
+    public PlayableDirector EnemyTrack;
     private void Awake()
     {
         if (Instance == null)
@@ -95,7 +100,7 @@ public class TutorialManager : MonoBehaviour
 
         enabled = Enabling(HighlightObject);
         StartCoroutine(enabled);
-
+        tutorial = false;
 
 
     }
@@ -104,7 +109,7 @@ public class TutorialManager : MonoBehaviour
     {
 
 
-        tutorial = false;
+       
 
         while (abilityLoadout.amountToChoose > 1)
         {
@@ -125,7 +130,7 @@ public class TutorialManager : MonoBehaviour
         //follow Objekt 
         // 
 
-
+     
 
     }
 
@@ -133,18 +138,22 @@ public class TutorialManager : MonoBehaviour
     {
         while (true)
         {
+          
+
             enabledIsRunning = true;
             for (int i = 0; i < EnablingObjects.Count; i++)
             {
                 EnablingObjects[i].SetActive(true);
                 yield return new WaitForSeconds(2f);
                 EnablingObjects[i].SetActive(false);
-
+                Debug.Log("enabled");
             }
 
             yield return null;
         }
     }
+
+
 
     public void Deactivate()
     {
@@ -154,14 +163,10 @@ public class TutorialManager : MonoBehaviour
         confirmText.SetActive(false);
         PlayerButtonTrack.Play();
         StartCoroutine(StartGame());
-      
 
+    
 
         //PlsMove();
-
-
-
-
 
         /*   CameraRotation.Instance.AbilityLoadoutCam.GetComponent<CinemachineDollyCart>().m_Path = path;
             CameraRotation.Instance.AbilityLoadoutCam.GetComponent<CinemachineDollyCart>().m_Speed = 15;
@@ -198,11 +203,7 @@ public class TutorialManager : MonoBehaviour
         enabledIsRunning = true;
         PlayerManager.Instance.abilityActivated = true;
         CameraRotation.Instance.dontMove = true;
-        yield return new WaitForSeconds(0.5f);
-        //PlayerButton.SetActive(true);
-        //PlayerButton2.SetActive(false);
-        //PlayerButton3.SetActive(false);
-        
+        yield return new WaitForSeconds(0.5f);     
         
         PlayerButton1.GetComponent<Image>().DOFade(1, 1f);
 
@@ -226,21 +227,46 @@ public class TutorialManager : MonoBehaviour
     { 
         if (CameraRotation.Instance.Worldcam.Priority == 3)
         {
-            neighbors = HexGridUtil.AxialNeighbors(PlayerManager.Instance.Players[0].CoordinatePosition);
+           
+            neighbors = HexGridUtil.AxialNeighbors (PlayerManager.Instance.Players[0].CoordinatePosition);
            
             foreach (Vector2Int neighbor in neighbors)
             {
-                Preview.Add(Instantiate(GridTilePreview, HexGridUtil.AxialToCubeCoord(neighbor), Quaternion.identity));
+                Preview.Add(neighbor);
+
+                foreach(KeyValuePair<Vector2Int, GridTile> kvp in GridManager.Instance.Grid)
+                {
+                    if(kvp.Key == neighbor)
+                    {
+                      tutorial = false;
+                      Instantiate(GridTilePreview, kvp.Value.transform);
+                    }
+                }
             }
-            if (PlayerManager.Instance.move)
+            
+          /*  if (PlayerManager.Instance.move)
             {
                 for (int i = 0; i < Preview.Count; i++)
                 {
                     Destroy(Preview[i]);
                 }
 
-            }
+            }*/
         }
+    }
+
+    public void NOMove()
+    {
+        foreach (TileHighlight tileHighlightInstance in gridManager.GetComponentsInChildren<TileHighlight>())
+        {
+         
+            Destroy(tileHighlightInstance.gameObject);
+        }
+        PlayerManager.Instance.movementAction = 1;
+        tutorial = true;
+        PlayerManager.Instance.abilityActivated = false;
+       
+     
     }
     public IEnumerator Flicker(GameObject Object)
         {
@@ -257,9 +283,29 @@ public class TutorialManager : MonoBehaviour
         }
 
 
-    public void OnDestroy()
+    public void EnemyTutorial()
     {
-       // tutorial = false; 
+        PlayerManager.Instance.abilityActivated = true; 
+        CameraRotation.Instance.dontMove = true;
+
+        neighbors = HexGridUtil.AxialNeighbors(PlayerManager.Instance.Players[0].CoordinatePosition);
+
+        foreach (Vector2Int neighbor in neighbors)
+        {
+            
+
+            foreach (KeyValuePair<Vector2Int, GridTile> kvp in GridManager.Instance.Grid)
+            {
+                if (kvp.Key == neighbor)
+                {
+                   EnemyTut.Add(neighbor);
+                }
+            }
+        }
+
+        Instantiate(GridManager.Instance.StartEnemyPrefabs[Random.Range(0, GridManager.Instance.StartEnemyPrefabs.Count)], HexGridUtil.AxialToCubeCoord(EnemyTut[Random.RandomRange(0, EnemyTut.Count)]), Quaternion.identity);
+
+
     }
 
 

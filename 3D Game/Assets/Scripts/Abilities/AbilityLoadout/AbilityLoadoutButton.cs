@@ -112,11 +112,10 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
 
         if (TutorialManager.Instance != null)
         {
-            if (TutorialManager.Instance.tutorial)
-            {
+            
                 TutorialManager.Instance.confirmText.SetActive(true);
                 TutorialManager.Instance.chooseAbilityText.SetActive(false);
-            }
+            
         }
     }
 

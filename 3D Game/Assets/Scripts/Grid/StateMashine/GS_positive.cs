@@ -46,6 +46,12 @@ public class GS_positive : GridState
 
     public override void PlayerEnters(GridTile parent)
     {
+        if(TutorialManager.Instance != null)
+        {
+            CameraRotation.Instance.dontMove = true;
+
+            TutorialManager.Instance.UpgradeTrack.Play();
+        }
         RessourceGainEffect rsg = Instantiate(PlayerManager.Instance.ressourceGainEffect,UIManager.Instance.transform);
         AudioManager.Instance.PlaySoundAtLocation(ResourceCollected, soundEffect, null);
         SaveManager.Instance.TotalResources++;

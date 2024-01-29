@@ -283,6 +283,38 @@ public class UpgradeHexGrid : MonoBehaviour
             AudioManager.Instance.PlaySoundAtLocation(ConfirmUpgrade, soundEffect, null);
 
         }
+
+        if(TutorialManager.Instance != null)
+        {
+            if(loadedAbility != null)
+            {
+                foreach (KeyValuePair<Vector2Int, Effect> upgradedAbilityGrid in AbilityGrid)
+                {
+                    if (upgradedAbilityGrid.Value == Effect.Neutral)
+                    {
+                        continue;
+                    }
+                    if (!loadedAbility.Coordinates.Contains(upgradedAbilityGrid.Key))
+                    {
+                        loadedAbility.Coordinates.Add(upgradedAbilityGrid.Key);
+                        loadedAbility.Effects.Add(upgradedAbilityGrid.Value);
+                    }
+                    else
+                    {
+                        int index = loadedAbility.Coordinates.IndexOf(upgradedAbilityGrid.Key);
+                        if (upgradedAbilityGrid.Value != loadedAbility.Effects[index])
+                        {
+                            loadedAbility.Effects[index] = upgradedAbilityGrid.Value;
+                        }
+                    }
+                }
+                loadedAbility.RecalculatePreviewMesh(AbilityGrid);
+                EventManager.OnAbilityChange(Grid, loadedAbility);
+                AudioManager.Instance.PlaySoundAtLocation(ConfirmUpgrade, soundEffect, null);
+                TutorialManager.Instance.EnemyTrack.Play();
+
+            }
+        }
         //loadedAbility = null;
     }
     

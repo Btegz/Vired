@@ -15,18 +15,23 @@ public class ButtonScale : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         
         if (TutorialManager.Instance != null)
         {
-           
-            TutorialManager.Instance.StopCoroutine(TutorialManager.Instance.enabled);
-            if (Highlight.GetComponent<Highlight>().highlight != null)
+            try
             {
-                TutorialManager.Instance.StopCoroutine(Highlight.GetComponent<Highlight>().highlight);
+                TutorialManager.Instance.StopCoroutine(TutorialManager.Instance.enabled);
+                if (Highlight.GetComponent<Highlight>().highlight != null)
+                {
+                    TutorialManager.Instance.StopCoroutine(Highlight.GetComponent<Highlight>().highlight);
+                }
+                TutorialManager.Instance.enabledIsRunning = false;
+                Highlight.SetActive(true);
+                Highlight.GetComponent<Image>().DOFade(1f, 1f);
+                TutorialManager.Instance.InventoryHighlight.SetActive(true);
+                TutorialManager.Instance.InventoryHighlight.GetComponent<Image>().DOFade(1f, 1f);
             }
-            TutorialManager.Instance.enabledIsRunning = false;
-            Highlight.SetActive(true);
-            Highlight.GetComponent<Image>().DOFade(1f, 1f);
-            TutorialManager.Instance.InventoryHighlight.SetActive(true);
-            TutorialManager.Instance.InventoryHighlight.GetComponent<Image>().DOFade(1f, 1f); 
+            catch
+            {
 
+            }
           
 
         }
@@ -60,6 +65,15 @@ public class ButtonScale : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
       
 
 
+    }
+
+    public void Scale()
+    {
+        if(TutorialManager.Instance != null)
+        {
+            GetComponent<RectTransform>().DOScale(1.3f, 1f);
+            GetComponent<RectTransform>().DOScale(1f, 1f);
+        }
     }
 
 }
