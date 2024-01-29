@@ -46,39 +46,6 @@
             "bindings": [
                 {
                     "name": "1D Axis",
-                    "id": "f7d08d20-d66a-440b-8a96-554ea4d52689",
-                    "path": "1DAxis",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "",
-                    "action": "AbilityRotation",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "477e3a36-3ecc-41d3-911e-aa9d3c37790b",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "AbilityRotation",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "9b92f9a2-a0a6-4e5d-a097-920fe7d9de82",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "AbilityRotation",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "1D Axis",
                     "id": "ce5c5f48-93df-452d-9d16-246876e40618",
                     "path": "1DAxis",
                     "interactions": "",
@@ -117,15 +84,6 @@
             "id": "aaea121a-b525-40aa-b00e-6c1c485fab1e",
             "actions": [
                 {
-                    "name": "CastAbility",
-                    "type": "Button",
-                    "id": "77a06be2-c72d-471a-a2f4-e85db8cdda5f",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "CancelAbility",
                     "type": "Button",
                     "id": "398f0154-d892-4b51-a62e-7ef7fde5497f",
@@ -136,17 +94,6 @@
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "dcad6129-a0ea-47a1-b91d-be1b032b2852",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "CastAbility",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "2d9b695f-247e-4609-a22b-4b0137ad6d41",
@@ -203,15 +150,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Switch",
-                    "type": "Button",
-                    "id": "d0c1e138-fe84-433a-8759-70863d467f7e",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Player",
                     "type": "Button",
                     "id": "802081b4-b2ef-4ecd-875d-94abdd320e3b",
@@ -219,15 +157,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "Topdown",
-                    "type": "Button",
-                    "id": "16fb6202-10a1-47f3-a81a-d052a250e220",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -266,17 +195,6 @@
                 },
                 {
                     "name": "",
-                    "id": "bed3c1cc-0c11-4b70-bac2-060d1760d0b5",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Switch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "c0307f89-0412-4459-b3fe-1294a83e62e9",
                     "path": "<Keyboard>/1",
                     "interactions": "Press",
@@ -307,35 +225,8 @@
                     "action": "Player",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "6e7a76b9-a094-4f77-b8f9-038b3ac54ace",
-                    "path": "<Keyboard>/t",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Topdown",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
-        },
-        {
-            "name": "New action map",
-            "id": "8982c4cd-6f6e-4050-8d01-da94c9fca60d",
-            "actions": [
-                {
-                    "name": "New action",
-                    "type": "PassThrough",
-                    "id": "eab5cdba-e19d-40fe-8b5c-2fd275dc3ce0",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": []
         }
     ],
     "controlSchemes": []

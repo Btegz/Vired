@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class PofIManager : MonoBehaviour
 {
+    public GridTile pofiTile;
+    public PofIVisuals pofiPrefab;
+
     public EventButton event1;
     [HideInInspector][SerializeField] public int pofi1;
     [HideInInspector][SerializeField] public int pofi2;
@@ -20,6 +23,8 @@ public class PofIManager : MonoBehaviour
     [SerializeField] public AudioData PofISelect;
 
     public GameObject SkillPoints, NewResource, Movement;
+
+    public GameObject parent;
 
 
 
@@ -84,6 +89,9 @@ public class PofIManager : MonoBehaviour
                 PlayerManager.Instance.extraMovement += 3;
                 break;
         }
+        pofiPrefab.FlyAway();
+        pofiTile.ChangeCurrentState(GridManager.Instance.gS_Neutral);
+
         PlayerManager.Instance.move = true;
     }
 }

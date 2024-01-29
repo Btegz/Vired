@@ -16,7 +16,7 @@ public class GS_negative : GridState
 
     public override void EnterState(GridTile parent)
     {
-        parent.meshRenderer.material = parent.gridTileSO.negativeMaterial;
+        //parent.meshRenderer.material = parent.gridTileSO.negativeMaterial;
         parent.transform.DOComplete();
         parent.GetComponent<RessourceVisuals>().CleanUpKlopse();
 

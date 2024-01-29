@@ -180,8 +180,8 @@ public Player selectedPlayer;
                 }
                 if (lost)
                 {
-                    //SceneManager.LoadScene("GameOverScene");
-                    Debug.Log("Dead");
+                    SceneManager.LoadScene("GameOverScene");
+                    //Debug.Log("Dead");
                 }
             }
 

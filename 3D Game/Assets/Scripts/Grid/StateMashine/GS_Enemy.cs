@@ -12,7 +12,7 @@ public class GS_Enemy : GridState
 
     public override void EnterState(GridTile parent)
     {
-        parent.meshRenderer.material = parent.gridTileSO.negativeMaterial;
+        //parent.meshRenderer.material = parent.gridTileSO.negativeMaterial;
     }
 
     public override void ExitState(GridTile parent)
