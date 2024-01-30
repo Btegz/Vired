@@ -17,6 +17,10 @@ public class MainMenu : MonoBehaviour
     public Image Fade;
     public DoFade doFade;
 
+    public ToggleObj toggle;
+
+    public Toggle TutorialToggle;
+
     public Button creditsBack;
  
 
@@ -43,6 +47,19 @@ public class MainMenu : MonoBehaviour
 
             }
         }
+        if (PlayerPrefs.HasKey("Tutorial"))
+        {
+            if (PlayerPrefs.GetInt("Tutorial") == 1)
+            {
+                Debug.Log(PlayerPrefs.GetInt("Tutorial"));
+                TutorialToggle.isOn = true;
+            }
+
+            else
+            {
+                TutorialToggle.isOn = false;
+            }
+        }
 
 
     }
@@ -61,6 +78,24 @@ public class MainMenu : MonoBehaviour
 
     }
 
+
+    public void Tutorial()
+    {
+        if (TutorialToggle.isOn)
+        {
+            toggle.tutorial = true;
+            PlayerPrefs.SetInt("Tutorial", 1);
+        }
+
+        else
+        {
+            toggle.tutorial = false;
+            PlayerPrefs.SetInt("Tutorial", 0);
+
+        }
+    }
+
+
     public void OptionsSwitch()
     {
         gameObject.SetActive(false);
@@ -68,7 +103,7 @@ public class MainMenu : MonoBehaviour
 
     }
 
-    public void Tutorial()
+    public void TutorialTooltip()
     {
         if (tutorialToggle.isOn == true)
         {

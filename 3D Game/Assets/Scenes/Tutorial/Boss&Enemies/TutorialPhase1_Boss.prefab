@@ -239,8 +239,8 @@ MonoBehaviour:
   BOutlineMAterial: {fileID: 2100000, guid: 4edc21b998c3ae84e84f1e02113f6940, type: 2}
   COutlineMAterial: {fileID: 2100000, guid: a52201f31a7ba4e409f4154391af15de, type: 2}
   DOutlineMAterial: {fileID: 2100000, guid: 6173ca4e58dac184cb84f54d5a8bf33c, type: 2}
-  HealthPointsLayout: {fileID: 2703274353667822884}
-  HealthpointPrefab: {fileID: 4546101371875049633, guid: 653162b7ccefd14408d3d51e5851e964, type: 3}
+  HealthPointsLayout: {fileID: 0}
+  HealthpointPrefab: {fileID: 0}
   SpawnJumpAnimationCurve:
     serializedVersion: 2
     m_Curve: []
@@ -248,7 +248,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   Particle_EnemyDeath: {fileID: 726535386845715946, guid: 005fc7e0d2c6e1247b7b8880e93a8099, type: 3}
-  maxHealth: 2
+  maxHealth: 2000
   SkillPointReward: 2
   SpreadAmount: 2
   everyXTurns: 1

@@ -137,12 +137,15 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             Destroy(img.gameObject);
         }
-
+    
         healthpoints = new List<Image>();
-        for (int i = 0; i < currentHealth; i++)
+        if (HealthpointPrefab != null)
         {
-            Image hpp = Instantiate(HealthpointPrefab, HealthPointsLayout.transform);
-            healthpoints.Add(hpp);
+            for (int i = 0; i < currentHealth; i++)
+            {
+                Image hpp = Instantiate(HealthpointPrefab, HealthPointsLayout.transform);
+                healthpoints.Add(hpp);
+            }
         }
 
         tile.ChangeCurrentState(GridManager.Instance.gS_Enemy);

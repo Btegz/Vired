@@ -11,6 +11,7 @@ public class Settings : MonoBehaviour
     public ToggleObj toggle;
     public Toggle FullScreenToggle;
     public Toggle ToolTipToggle;
+    public Toggle TutorialToggle;
 
 
 
@@ -99,4 +100,6 @@ public class Settings : MonoBehaviour
 
         }
     }
+
+ 
 }

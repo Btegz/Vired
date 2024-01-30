@@ -38,10 +38,15 @@ public class DoFade : MonoBehaviour
 
     public IEnumerator FadeOut()
     {
+        if(FadeImage != null && FadeImageObject != null)
+        {
         yield return new WaitForSeconds(timeImage);
         FadeImage.DOFade(0, duartionImage);
         yield return new WaitForSeconds(timeImage);
         FadeImageObject.SetActive(false);
+        }
+        yield return null;
+      
       
     }
 
