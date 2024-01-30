@@ -49,12 +49,13 @@ Material:
     m_Floats:
     - _AmbientOcclusionAdd: 0.368
     - _AmbientOcclusionMult: 0.2
+    - _Bubble: -3
     - _Color1Mult: 1.17
     - _Deform: 0
     - _EMISSION: 0
     - _MetallicMultiply: 0
     - _NormalMax: 2
-    - _NormalMin: -2
+    - _NormalMin: -1.335
     - _NormalStrength: 0.101
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -70,6 +71,7 @@ Material:
     - _scaleMultStep: -0.8
     - _uvAnimationSpeed: 0.1
     m_Colors:
+    - _BubbleColor: {r: 0, g: 0, b: 0, a: 0}
     - _Color1: {r: 0, g: 0, b: 0, a: 1}
     - _Color2: {r: 0.12802598, g: 0.14633517, b: 0.1981132, a: 1}
   m_BuildTextureStacks: []
