@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -504,8 +504,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Welcome! Let me provide you with the necessary information to complete
-    the mission succesfully. '
+  m_text: '[TRAINING SIMULATION]:
+
+    This is a simulation with reduced threat to
+    make you familiar with the system.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
   m_sharedMaterial: {fileID: 1570920318045738271, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
@@ -1522,8 +1524,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -636, y: -164}
-  m_SizeDelta: {x: 353.35, y: 352.9}
+  m_AnchoredPosition: {x: -639.83716, y: -139.4267}
+  m_SizeDelta: {x: 353.35, y: 385.0737}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &333416892
 MonoBehaviour:
@@ -1860,7 +1862,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Seems like ur drones energy run out. Recharge by ending ur turn...
+  m_text: '[NEXT TURN] to recharge your energy.
+
+    !!!ATTENTION!!!
+
+    Infestation
+    spreads with each new turn.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
   m_sharedMaterial: {fileID: 1570920318045738271, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
@@ -2333,7 +2340,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Guide ur drone '
+  m_text: '[MOVEMENT TASK]:
+
+    #2 move your drone by selecting a highlighted section,
+    adjacent to it.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
   m_sharedMaterial: {fileID: 1570920318045738271, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
@@ -2558,11 +2568,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hey there! Please choose one specification so we can provide you with a
-    drone designed for the field of work.
+  m_text: '...[SYSTEM INITAILIZING]...
+
+    #1: Choose one of the 4 modules by dragging
+    and dropping
+
+    one into the area above.'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
+  m_sharedMaterial: {fileID: 1570920318045738271, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3905,9 +3919,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Casting an ability will cost u resources
+  m_text: '[MODULE TASK]:
 
-'
+    #2: select the modified module. -> Rotate your modules
+    orientation with the scrollwheel.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
   m_sharedMaterial: {fileID: 1570920318045738271, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
@@ -4242,8 +4257,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Furthermore u are also able to change ur perspective by selecting the world/topdown
-    Button
+  m_text: '[MONITORING]:
+
+    To get an overview of the world, you can switch the
+    camera angles.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
   m_sharedMaterial: {fileID: 1570920318045738271, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
@@ -4306,7 +4323,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -50.16588, y: 63.17169, z: 27.820923, w: 45.906082}
+  m_margin: {x: -75.299545, y: 17.558044, z: 27.820923, w: -66.73158}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -4482,8 +4499,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -18}
-  m_SizeDelta: {x: 256.1707, y: 301.2184}
+  m_AnchoredPosition: {x: -1.1918, y: -21.411}
+  m_SizeDelta: {x: 287.14, y: 294.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &603245748
 MonoBehaviour:
@@ -4519,8 +4536,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: To controll one you will be able to select it by using the buttons in the
-    top left corner of your interface...
+  m_text: '...
+
+    outside the training simultation you will be managing 3 drones.
+    These buttons allow for quick navigation.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
   m_sharedMaterial: {fileID: 1570920318045738271, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
@@ -4940,8 +4959,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 367.62, y: 207.5796}
-  m_SizeDelta: {x: 311.1313, y: 298.0659}
+  m_AnchoredPosition: {x: 365.56604, y: 159.5171}
+  m_SizeDelta: {x: 307.0234, y: 394.1908}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &648462576
 MonoBehaviour:
@@ -5275,7 +5294,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: U can check past stats and the calculations for future occurences
+  m_text: '[INFESTATION GRAPH]:
+
+    Displays how much of the world is infested.
+    Reaching an infestation of 66% you will surpass the Tipping-Point and therefore
+    fail the mission.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
   m_sharedMaterial: {fileID: 1570920318045738271, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
@@ -5338,7 +5361,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -50.16588, y: 63.17169, z: 27.820923, w: 45.906082}
+  m_margin: {x: -75.299545, y: 17.558044, z: 27.820923, w: -66.73158}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -5756,9 +5779,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Upgrade ur damage ability & confirm
+  m_text: '[MODICIATION TASK]:
 
-'
+    Drag and drop a damage modification into your
+    module.
+
+    To continue, hit confirm.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
   m_sharedMaterial: {fileID: 1570920318045738271, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
@@ -6413,8 +6439,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1317969398}
   - {fileID: 1294399735}
+  - {fileID: 1317969398}
   - {fileID: 649114265}
   - {fileID: 1447235659}
   - {fileID: 932985505}
@@ -6655,9 +6681,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Damage = To kill enemies
+  m_text: '[DAMAGE MODIFICATION]:
 
-'
+    Stack these modifications to deal more damage.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
   m_sharedMaterial: {fileID: 1570920318045738271, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
@@ -7504,7 +7530,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Highlights will show u where u can send ur drones next...
+  m_text: '[MOVEMENT TASK]:
+
+    #1 Manouvering your drones is substantial to the
+    success of a mission.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
   m_sharedMaterial: {fileID: 1570920318045738271, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
@@ -8689,7 +8718,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ur drone will gather for different kinds of resources
+  m_text: '...
+
+    command your drone onto a new section to gather the ressource.
+
+    ...'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
   m_sharedMaterial: {fileID: 1570920318045738271, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
@@ -8802,8 +8835,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -55}
-  m_SizeDelta: {x: 256.1707, y: 301.2184}
+  m_AnchoredPosition: {x: -1.1913, y: -39.911133}
+  m_SizeDelta: {x: 287.1426, y: 331.3961}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1191736858
 MonoBehaviour:
@@ -8839,7 +8872,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: In the future you will be working with a bunch of different drones....
+  m_text: '[DRONE MANAGEMENT]:
+
+    This provides quick access to your drones.
+
+    ...'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
   m_sharedMaterial: {fileID: 1570920318045738271, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
@@ -8989,8 +9026,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: U also will be able to calculate future actions by checking the information
-    given on the top right of your interface
+  m_text: '[INFORMATION MANAGEMENT]:
+
+    This provides information about the infestation
+    of the world and your statistics.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
   m_sharedMaterial: {fileID: 1570920318045738271, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
@@ -9667,7 +9706,7 @@ RectTransform:
   - {fileID: 427160493}
   - {fileID: 922254764}
   m_Father: {fileID: 851297445}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -9930,7 +9969,7 @@ RectTransform:
   - {fileID: 1729712451}
   - {fileID: 2020234042}
   m_Father: {fileID: 851297445}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -11656,9 +11695,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Heal = Heals dead environment
+  m_text: '[HEAL MODIFICATION]:
 
-'
+    Regenerate infested sections'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
   m_sharedMaterial: {fileID: 1570920318045738271, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
@@ -12189,7 +12228,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Range = Upgrade range of your ability
+  m_text: '[RANGE MODIFICATION]:
+
+    Increases the range of this module.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
   m_sharedMaterial: {fileID: 1570920318045738271, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
@@ -12302,8 +12343,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -602, y: -147}
-  m_SizeDelta: {x: 256.1707, y: 301.2184}
+  m_AnchoredPosition: {x: -636, y: -136}
+  m_SizeDelta: {x: 316.4965, y: 310.2673}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1647538016
 MonoBehaviour:
@@ -12339,8 +12380,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Use the bottom left part of your interface to select which ability u wanna
-    use....
+  m_text: '[MODULE MANAGEMENT]:
+
+    This is where you will find your chosen modules.
+    Each drone will have their own. During a mission, there will be opportunities
+    to install more modules into your drones.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
   m_sharedMaterial: {fileID: 1570920318045738271, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
@@ -12403,7 +12447,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -50.16588, y: 63.17169, z: 27.820923, w: 45.937332}
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -12917,8 +12961,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -382.99994}
-  m_SizeDelta: {x: 1000, y: 50}
+  m_AnchoredPosition: {x: 0, y: -375}
+  m_SizeDelta: {x: 1100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1852634161
 MonoBehaviour:
@@ -12954,11 +12998,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Great! Please confirm your choice/ Changed your mind?  deselect the chosen
-    resource...
+  m_text: '...[MODULE CHOSEN]...
+
+    #2: Press confirm to continue.
+
+    If you
+    want a different option, click on the specification in the area above and choose
+    a different one.'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
+  m_sharedMaterial: {fileID: 1570920318045738271, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -13492,8 +13541,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Furthermore u will gather skillpoints, which will be used to develop ur
-    abilities
+  m_text: '...
+
+    Convert ressources to use a module.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
   m_sharedMaterial: {fileID: 1570920318045738271, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
@@ -14125,7 +14175,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Slay your Enemy. \n\nUse ur mousewheel to rotate"
+  m_text: '[MODULES]:
+
+    #1: Modules are your tools contain the worlds infestation.
+    Use them strategically.
+
+    ... Modules are stronger when used against opponents
+    of the same ressource.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
   m_sharedMaterial: {fileID: 1570920318045738271, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
@@ -15134,7 +15190,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Yo u see that big boy over there? Slay him gwurl
+  m_text: '[MODULE TASK]:
+
+    #2: [Launch] to use the module.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
   m_sharedMaterial: {fileID: 1570920318045738271, guid: a1cf92ca91ed18b499f6ae2eb6a4edcc, type: 2}
