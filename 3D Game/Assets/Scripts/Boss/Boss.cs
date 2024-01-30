@@ -90,8 +90,13 @@ public class Boss : Enemy
                         Debug.Log("targets" + targets.Count + "SpreadAmount" + SpreadAmount + "Spreads" + spreads);
                         Vector3Int target = targets[Random.Range(0, targets.Count)];
                         Enemy newEnemy = Instantiate(enemyPrefabPool[Random.Range(0, enemyPrefabPool.Count)], GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)].transform);
-                        newEnemy.transform.position = transform.position;
+
+                        Vector3 goalPosition = newEnemy.transform.position;
                         newEnemy.Setup(GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)]);
+
+                        
+                        newEnemy.transform.DOMove(goalPosition, 3).From(goalPosition + Vector3.down * .5f);
+
                         targets.Remove(target);
                     }
                 }
