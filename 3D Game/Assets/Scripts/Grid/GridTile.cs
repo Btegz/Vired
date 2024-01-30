@@ -952,14 +952,18 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (TutorialManager.Instance.tutorial == true)
+        if (TutorialManager.Instance != null)
         {
+            return;
+        }
+        //if (TutorialManager.Instance.tutorial == true)
+        //{
             foreach (TileHighlight tileHighlightInstance in GetComponentsInChildren<TileHighlight>())
             {
                 Destroy(tileHighlightInstance.gameObject);
             }
-        }
-        
+        //}
+
 
     }
 

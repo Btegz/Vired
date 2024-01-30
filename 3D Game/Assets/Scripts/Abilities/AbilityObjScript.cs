@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.Audio;
 using UnityEngine.UIElements;
+using Unity.VisualScripting;
 
 public class AbilityObjScript : MonoBehaviour
 {
@@ -14,15 +15,16 @@ public class AbilityObjScript : MonoBehaviour
 
     Player player;
 
-    [SerializeField] GameObject PositiveEffectPrefab;
-    [SerializeField] GameObject Damage1EffectPrefab;
-    [SerializeField] GameObject Damage2EffectPrefab;
-    [SerializeField] GameObject Damage3EffectPrefab;
-    [SerializeField] GameObject Damage4EffectPrefab;
-    [SerializeField] GameObject Damage5EffectPrefab;
-    [SerializeField] GameObject Damage6EffectPrefab;
+    [SerializeField] AbilityPreviewTile PositiveEffectPrefab;
+    [SerializeField] AbilityPreviewTile Damage1EffectPrefab;
+    [SerializeField] AbilityPreviewTile Damage2EffectPrefab;
+    [SerializeField] AbilityPreviewTile Damage3EffectPrefab;
+    [SerializeField] AbilityPreviewTile Damage4EffectPrefab;
+    [SerializeField] AbilityPreviewTile Damage5EffectPrefab;
+    [SerializeField] AbilityPreviewTile Damage6EffectPrefab;
 
-
+    List<AbilityPreviewTile> abilityPreviewInstances;
+    public bool shooting = false;
 
     MeshFilter meshFilter;
     MeshRenderer meshRenderer;
@@ -57,6 +59,7 @@ public class AbilityObjScript : MonoBehaviour
 
     public void ShowMesh(Ability ability, Vector3Int SpawnPoint, Vector3Int playerPos, Player player)
     {
+        abilityPreviewInstances = new List<AbilityPreviewTile>();
         this.player = player;
         transform.position = HexGridUtil.AxialHexToPixel(HexGridUtil.CubeToAxialCoord(playerPos), 1);
         this.ability = ability;
@@ -73,28 +76,41 @@ public class AbilityObjScript : MonoBehaviour
             switch (ability.Effects[i])
             {
                 case Effect.Positive:
-                    Instantiate(PositiveEffectPrefab, HexGridUtil.AxialHexToPixel(newCoord, 1), Quaternion.identity, transform);
+                    AbilityPreviewTile tile = Instantiate(PositiveEffectPrefab, HexGridUtil.AxialHexToPixel(newCoord, 1), Quaternion.identity, transform);
+                    tile.parent = this;
+                    abilityPreviewInstances.Add(tile);
                     break;
                 case Effect.Negative100:
-                    Instantiate(Damage1EffectPrefab, HexGridUtil.AxialHexToPixel(newCoord, 1), Quaternion.identity, transform);
+                    tile = Instantiate(Damage1EffectPrefab, HexGridUtil.AxialHexToPixel(newCoord, 1), Quaternion.identity, transform);
+                    tile.parent = this;
+                    abilityPreviewInstances.Add(tile);
                     break;
                 case Effect.Negative200:
-                    Instantiate(Damage2EffectPrefab, HexGridUtil.AxialHexToPixel(newCoord, 1), Quaternion.identity, transform);
+                    tile = Instantiate(Damage2EffectPrefab, HexGridUtil.AxialHexToPixel(newCoord, 1), Quaternion.identity, transform);
+                    tile.parent = this;
+                    abilityPreviewInstances.Add(tile);
                     break;
                 case Effect.Negative300:
-                    Instantiate(Damage3EffectPrefab, HexGridUtil.AxialHexToPixel(newCoord, 1), Quaternion.identity, transform);
+                    tile = Instantiate(Damage3EffectPrefab, HexGridUtil.AxialHexToPixel(newCoord, 1), Quaternion.identity, transform);
+                    tile.parent = this;
+                    abilityPreviewInstances.Add(tile);
                     break;
                 case Effect.Negative400:
-                    Instantiate(Damage4EffectPrefab, HexGridUtil.AxialHexToPixel(newCoord, 1), Quaternion.identity, transform);
+                    tile = Instantiate(Damage4EffectPrefab, HexGridUtil.AxialHexToPixel(newCoord, 1), Quaternion.identity, transform);
+                    tile.parent = this;
+                    abilityPreviewInstances.Add(tile);
                     break;
                 case Effect.Negative500:
-                    Instantiate(Damage5EffectPrefab, HexGridUtil.AxialHexToPixel(newCoord, 1), Quaternion.identity, transform);
+                    tile = Instantiate(Damage5EffectPrefab, HexGridUtil.AxialHexToPixel(newCoord, 1), Quaternion.identity, transform);
+                    tile.parent = this;
+                    abilityPreviewInstances.Add(tile);
                     break;
                 default:
-                    Instantiate(Damage6EffectPrefab, HexGridUtil.AxialHexToPixel(newCoord, 1), Quaternion.identity, transform);
+                    tile = Instantiate(Damage6EffectPrefab, HexGridUtil.AxialHexToPixel(newCoord, 1), Quaternion.identity, transform);
+                    tile.parent = this;
+                    abilityPreviewInstances.Add(tile);
                     break;
             }
-
             //GameObject EffectObj = Instantiate((ability.Effects[i] == Effect.Positive ? PositiveEffectPrefab : DamageEffectPrefab), HexGridUtil.AxialHexToPixel(newCoord, 1),Quaternion.identity,transform);
 
         }
@@ -155,7 +171,7 @@ public class AbilityObjScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        shooting = false;
         cam = Camera.main;
         inputAction.Enable();
         rotationInputActionReference.action.performed += rotateAbility;
@@ -364,43 +380,59 @@ public class AbilityObjScript : MonoBehaviour
     }
 
 
-    public void CastAbility(InputAction.CallbackContext action)
-    {
-        for (int i = 0; i < AbilityShapeLocation.Count; i++)
-        {
-            if (GridManager.Instance.Grid.ContainsKey(AbilityShapeLocation[i]))
-            {
-                gridTile = GridManager.Instance.Grid[AbilityShapeLocation[i]];
-                UsingEffect(ability.Effects[i]);
-                AudioManager.Instance.PlaySoundAtLocation(abilityCast, soundEffect, null);
-            }
-        }
-        Payment();
-        //castAbiltyInputActionReference.action.performed -= CastAbility;
-        //PlayerManager.Instance.AbilityCasted();
-        EventManager.OnAbilityCast(player);
-        PlayerManager.Instance.move = true;
-        KillYourSelf();
-    }
+    //public void CastAbility(InputAction.CallbackContext action)
+    //{
+    //    for (int i = 0; i < AbilityShapeLocation.Count; i++)
+    //    {
+    //        if (GridManager.Instance.Grid.ContainsKey(AbilityShapeLocation[i]))
+    //        {
+    //            gridTile = GridManager.Instance.Grid[AbilityShapeLocation[i]];
+    //            UsingEffect(ability.Effects[i]);
+    //            AudioManager.Instance.PlaySoundAtLocation(abilityCast, soundEffect, null);
+    //        }
+    //    }
+    //    Payment();
+    //    //castAbiltyInputActionReference.action.performed -= CastAbility;
+    //    //PlayerManager.Instance.AbilityCasted();
+    //    EventManager.OnAbilityCast(player);
+    //    PlayerManager.Instance.move = true;
+    //    KillYourSelf();
+    //}
     public void CastAbility()
     {
+        shooting = true;
+        PlayerManager.Instance.selectedPlayer.AbilityCastButton.onClick.RemoveAllListeners();
+        PlayerManager.Instance.selectedPlayer.CloseAbilityCastCanvas();
+        Payment();
+        AudioManager.Instance.PlaySoundAtLocation(abilityCast, soundEffect, null);
+        foreach (AbilityPreviewTile tile in abilityPreviewInstances)
+        {
+            tile.Shoot();
+        }
+        PlayerVisuals playerv = PlayerManager.Instance.selectedPlayer.GetComponentInChildren<PlayerVisuals>();
+        playerv.AbilityCast(PlayerManager.Instance.selectedPlayer);
+        StartCoroutine(AbilityCastCoroutine());
+    }
+
+    public IEnumerator AbilityCastCoroutine()
+    {
+        while (shooting)
+        {
+            yield return null;
+        }
+
         for (int i = 0; i < AbilityShapeLocation.Count; i++)
         {
             if (GridManager.Instance.Grid.ContainsKey(AbilityShapeLocation[i]))
             {
                 gridTile = GridManager.Instance.Grid[AbilityShapeLocation[i]];
                 UsingEffect(ability.Effects[i]);
-                AudioManager.Instance.PlaySoundAtLocation(abilityCast, soundEffect, null);
+                
             }
         }
-        Payment();
-        //castAbiltyInputActionReference.action.performed -= CastAbility;
-        PlayerManager.Instance.selectedPlayer.AbilityCastButton.onClick.RemoveAllListeners();
-        PlayerManager.Instance.selectedPlayer.CloseAbilityCastCanvas();
-        //PlayerManager.Instance.AbilityCasted();
         EventManager.OnAbilityCast(player);
-
         Destroy(gameObject);
+        yield return null;
     }
 
     public void Payment()
