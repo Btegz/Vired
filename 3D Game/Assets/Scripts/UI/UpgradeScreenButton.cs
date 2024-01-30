@@ -17,9 +17,9 @@ public class UpgradeScreenButton : MonoBehaviour, IPointerClickHandler
             AbilityUpgradeObj.gameObject.SetActive(true);
             EventManager.OnAbilityUpgrade(ButtonState.inUpgrade);
             CameraRotation.Instance.AbilityLoadOut();
-            AudioManager.Instance.PlaySoundAtLocation(OpenUpgradeMenu, soundEffect, null);
-           
+            AudioManager.Instance.PlaySoundAtLocation(OpenUpgradeMenu, soundEffect, null);  
         }
+
         else
         {
             AbilityUpgradeObj.gameObject.SetActive(false);
@@ -29,8 +29,6 @@ public class UpgradeScreenButton : MonoBehaviour, IPointerClickHandler
             CameraRotation.Instance.Worldcam.Priority = PlayerPrefs.GetInt("World");
             CameraRotation.Instance.AbilityUpgradeCam.Priority = PlayerPrefs.GetInt("AbilityLoadOut");
             CameraRotation.Instance.TopDownCam.Priority = PlayerPrefs.GetInt("Topdown");
-           
-
         }
 
 

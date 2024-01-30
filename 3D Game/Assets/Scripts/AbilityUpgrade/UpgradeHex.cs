@@ -90,8 +90,12 @@ public class UpgradeHex : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
             particle.SetActive(false);
             gridHex = null;
 
+            //if (TutorialManager.Instance != null)
+            //{
+            //    TutorialManager.Instance.ConfirmBlock.SetActive(false);
+            //}
 
-           
+
         }
         catch
         {

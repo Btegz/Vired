@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 
 public class RessourceVisuals : MonoBehaviour
@@ -410,21 +411,30 @@ public class RessourceVisuals : MonoBehaviour
 
     public void SpawnEnemyMass()
     {
-        int amount = Random.Range(howManyEnemyMassKlopseFromTo.x, howManyEnemyMassKlopseFromTo.y + 1);
-        StopRessourceParticles();
-        StopCleanParticles();
-        for (int i = 0; i < amount; i++)
+       try
+            { 
+
+            int amount = Random.Range(howManyEnemyMassKlopseFromTo.x, howManyEnemyMassKlopseFromTo.y + 1);
+            StopRessourceParticles();
+            StopCleanParticles();
+            for (int i = 0; i < amount; i++)
+            {
+                GameObject newEnemyMass = Instantiate(EnemyMassKlopse[Random.Range(0, EnemyMassKlopse.Count)], transform);
+                Vector3 goalPosition = transform.position;
+                goalPosition += new Vector3(Random.Range(-.5f, .5f), 0, Random.Range(-.4f, .4f));
+                goalPosition -= new Vector3(0, Random.Range(EnemyMassrandomYOffsetFromTo.x, EnemyMassrandomYOffsetFromTo.y), 0);
+                newEnemyMass.transform.rotation = Quaternion.Euler(0, Random.Range(getRotation().x, getRotation().y), 0);
+                CurrentEnemyMasses.Add(newEnemyMass);
+                newEnemyMass.transform.DOMove(goalPosition, TweenDuration).From(goalPosition + Vector3.down * .5f).OnComplete(() => newEnemyMass.transform.DOPunchScale(newEnemyMass.transform.localScale * .25f, TweenDuration / 2f));
+
+            }
+            StartEnemyMassParticles();
+        }
+
+        catch
         {
-            GameObject newEnemyMass = Instantiate(EnemyMassKlopse[Random.Range(0, EnemyMassKlopse.Count)], transform);
-            Vector3 goalPosition = transform.position;
-            goalPosition += new Vector3(Random.Range(-.5f, .5f), 0, Random.Range(-.4f, .4f));
-            goalPosition -= new Vector3(0, Random.Range(EnemyMassrandomYOffsetFromTo.x, EnemyMassrandomYOffsetFromTo.y), 0);
-            newEnemyMass.transform.rotation = Quaternion.Euler(0, Random.Range(getRotation().x, getRotation().y), 0);
-            CurrentEnemyMasses.Add(newEnemyMass);
-            newEnemyMass.transform.DOMove(goalPosition, TweenDuration).From(goalPosition + Vector3.down * .5f).OnComplete(() => newEnemyMass.transform.DOPunchScale(newEnemyMass.transform.localScale * .25f, TweenDuration / 2f));
 
         }
-        StartEnemyMassParticles();
 
     }
 

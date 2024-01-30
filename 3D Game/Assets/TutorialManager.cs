@@ -32,6 +32,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] GameObject Battery;
     [SerializeField] GameObject GridTilePreview;
     [SerializeField] GameObject AbilityUpgrade;
+    public UpgradeHexGrid Upgrade;
 
 
     [Header("TutorialTexts")]
@@ -41,6 +42,7 @@ public class TutorialManager : MonoBehaviour
 
     [SerializeField] GameObject NextButtonBlock;
     [SerializeField] GameObject AbilityBlock;
+    [SerializeField] public GameObject ConfirmBlock;
 
     public GameObject PlayerButtonHighlight;
     public GameObject PlayerButtonText;
@@ -75,7 +77,9 @@ public class TutorialManager : MonoBehaviour
     public PlayableDirector UpgradeTrack;
     public PlayableDirector EnemyTrack;
     public PlayableDirector TutorialEndTrack;
-    public GameObject BlackScreen; 
+    public GameObject BlackScreen;
+    public GameObject UpgradeGrid;
+    public Sprite damageHex; 
 
     private GridTile neighborTile;
     public Ability ability;
@@ -164,6 +168,10 @@ public class TutorialManager : MonoBehaviour
             PlayerManager.Instance.RessourceCInventory = 4;
             PlayerManager.Instance.RessourceDInventory = 4;
         }
+
+        
+        
+
             
 
     }
@@ -319,6 +327,7 @@ public class TutorialManager : MonoBehaviour
         }
 
     }
+
 
 
     public void EnemyTutorial()
