@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8097,6 +8097,10 @@ PrefabInstance:
       value: AudioPlayer
       objectReference: {fileID: 0}
     - target: {fileID: 4061313347061360460, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061313347061360460, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
@@ -8145,6 +8149,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7217042830566480837, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7217042830566480837, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 6bdf8afdb4a6d2740a8fea9373219dee, type: 3}
@@ -8169,7 +8177,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.4
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
