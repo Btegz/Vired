@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 533023721759951497}
   - component: {fileID: 6987447534848918722}
   - component: {fileID: 2788422223068934589}
+  - component: {fileID: 5976102703889290232}
   m_Layer: 0
   m_Name: Icosphere.001
   m_TagString: Untagged
@@ -78,7 +79,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: -1579241630799410176, guid: 5a8460ae2365c064694c7d13c9989faf, type: 3}
+  m_Mesh: {fileID: -1579241630799410176, guid: 59b24e26efb75834586500929cf03f6d, type: 3}
   m_Bones: []
   m_BlendShapeWeights:
   - 0
@@ -156,6 +157,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5976102703889290232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2815342374923323150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3a542b589f68e4479a02bc6a4a2e6b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Bubble: {fileID: 7149875954078700965}
 --- !u!1 &3058822576872186802
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,6 +180,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2393889984808040712}
   - component: {fileID: 2788422221961881239}
+  - component: {fileID: 7149875954078700965}
   m_Layer: 0
   m_Name: BlackEnemyMass
   m_TagString: Untagged
@@ -212,6 +227,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7149875954078700965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3058822576872186802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f30a4d1722b1e874da84bcae86358e71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rate: 0.3
+  secondsToWait: 0.05
+  enemyMassChildren: []
 --- !u!1 &4657887311806822966
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,7 +259,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8171154195479340734
 Transform:
   m_ObjectHideFlags: 0
@@ -5034,6 +5064,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8372881835505629486}
   - component: {fileID: 1143064672734353440}
+  - component: {fileID: 1624982032801866819}
   m_Layer: 0
   m_Name: Icosphere.002
   m_TagString: Untagged
@@ -5049,7 +5080,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9214187058073070302}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0.054}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5190,3 +5221,16 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.0001358632, y: 0.00036479672, z: -0.0002528727}
     m_Extent: {x: 0.013314897, y: 0.0133491475, z: 0.012862257}
   m_DirtyAABB: 0
+--- !u!114 &1624982032801866819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9214187058073070302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3a542b589f68e4479a02bc6a4a2e6b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Bubble: {fileID: 7149875954078700965}

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Linq;
 
 public class MainMenu : MonoBehaviour
 {
@@ -22,12 +23,21 @@ public class MainMenu : MonoBehaviour
     public Toggle TutorialToggle;
 
     public Button creditsBack;
- 
+
+    public List<AudioSource> musicSounds;
+    public GameObject SoundManager;
+    public AudioSource FirstSecond;
+    public AudioSource Third;
+    public AudioSource Fourth;
 
     public Button exitButton;
     // Start is called before the first frame update
+
+    
     public void Start()
     {
+        musicSounds = new List<AudioSource>();
+
         gameStartButton.onClick.AddListener(StartGame);
         optionsButton.onClick.AddListener(OptionsSwitch);
         exitButton.onClick.AddListener(ExitGame);
@@ -61,16 +71,52 @@ public class MainMenu : MonoBehaviour
             }
         }
 
+        musicSounds.Add(FirstSecond);
+        musicSounds.Add(Third);
+        musicSounds.Add(Fourth);
 
     }
 
+    private void Update()
+    {
+        musicSounds = SoundManager.GetComponentsInChildren<AudioSource>().ToList();
+
+    }
+   /* public IEnumerator SoundFade()
+    {
+       
+        foreach(AudioSource sound in musicSounds)
+        {
+            
+           for(int i= 0; i <5; i++)
+            {
+                if (PlayerPrefs.HasKey("Volume"))
+                  sound.volume=  PlayerPrefs.GetFloat("Volume");
+                sound.volume -= 0.2f;
+                PlayerPrefs.SetFloat("Volume", sound.volume);
+                yield return new WaitForSeconds(0.5f);
+               
+            }
+        }
+        
+        PlayerPrefs.SetFloat("Volume", 1);
+
+        //StartGame();
+    }*/
+
+   /* public void Sound()
+    {
+        StartCoroutine(SoundFade());
+    }*/
     public void StartGame()
     {
+       
+        
         if (TutorialObj.tutorial == true)
         {
             SceneManager.LoadScene("Tutorial");
         }
-        else
+        else 
         {
             StartCoroutine(LoadASync());
 

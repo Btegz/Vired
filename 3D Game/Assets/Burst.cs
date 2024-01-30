@@ -1,42 +1,72 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+using System.Linq;
 
 public class Burst : MonoBehaviour
 {
-    Material BubbleBurstInner;
-    Material BubbleBurstOutside;
-    float currentBurstAlpha;
-    public float rate; 
+
+    float currentOuterBurstAlpha;
+    public float rate;
     public float secondsToWait;
-    void Start()
+    public List<Material> enemyMassChildren;
+    void OnEnable()
     {
+        enemyMassChildren = new List<Material>();
+        foreach (SkinnedMeshRenderer rend in GetComponentsInChildren<SkinnedMeshRenderer>())
+        {
+            enemyMassChildren.Add(rend.material);
 
+        }
+        foreach(Material component in enemyMassChildren)
+        {
+            component.SetFloat("_Bubble", -30);
 
-
-
+        }
 
     }
 
     void Update()
     {
-        
+
     }
 
-    public IEnumerator BubblyBurst(Material BubbleBurst, float current)
+    public IEnumerator BubblyBurst()
     {
-        while (currentBurstAlpha < 20)
+        
+        transform.DOScale(0.5f, 2f);
+
+        while (true)
         {
-            BubbleBurst.SetFloat("_Bubble", currentBurstAlpha + rate);
+            foreach (Material component in enemyMassChildren)
+            {
+                component.SetFloat("_Bubble", component.GetFloat("_Bubble") + rate);
+
+            }
+            if(enemyMassChildren[1].GetFloat("_Bubble") >20)
+            { 
+                break;
+            }
             yield return new WaitForSeconds(secondsToWait);
-            currentBurstAlpha = BubbleBurst.GetFloat("_Bubble");
+        }
+        try
+        {
+            Destroy(gameObject);
+
         }
 
+        catch
+        {
+            Debug.Log("I JUST COULDNT HANDLE DESTORYING MY EnemyMass IM SORRY");
+
+        }
     }
 
 
-    public void Bursting(Material BubbleBurst, float current)
+    public void Bursting()
     {
-        StartCoroutine(BubblyBurst(BubbleBurst, current));
+        StartCoroutine(BubblyBurst());
+
     }
 }

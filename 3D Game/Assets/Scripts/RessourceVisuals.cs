@@ -82,8 +82,14 @@ public class RessourceVisuals : MonoBehaviour
     [SerializeField] Vector2 EnemyMassrandomRotationFromTo;
     [SerializeField] Vector2 EnemyMassrandomYOffsetFromTo;
 
+
+
     Dictionary<Direction, TerrainFeature> CurrentKlopse;
-    List<GameObject> CurrentEnemyMasses;
+    public List<GameObject> CurrentEnemyMasses;
+
+    [SerializeField] public Burst EnemyMassBurst;
+    [SerializeField] Material OuterBurst;
+    [SerializeField] float currentOuter;
 
     List<TerrainFeature> myKlopse;
     Material myKlopseMat;
@@ -400,7 +406,10 @@ public class RessourceVisuals : MonoBehaviour
             StopEnemyMassParticles();
             foreach (GameObject enemyMass in CurrentEnemyMasses)
             {
+
                 Destroy(enemyMass);
+                // enemyMass.GetComponent<Burst>().Bursting();
+                
             }
         }
         catch

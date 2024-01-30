@@ -206,10 +206,13 @@ MonoBehaviour:
   randomDCenterLerpFrmoTo: {x: 0.1, y: 0.8}
   EnemyMassKlopse:
   - {fileID: 3058822576872186802, guid: bf0fef95ae512a849bb2e0a79dff7928, type: 3}
-  - {fileID: 3058822576872186802, guid: cbecde31c0037f646a06c25ad45a061f, type: 3}
-  howManyEnemyMassKlopseFromTo: {x: 2, y: 5}
+  howManyEnemyMassKlopseFromTo: {x: 2, y: 3}
   EnemyMassrandomRotationFromTo: {x: 0, y: 360}
   EnemyMassrandomYOffsetFromTo: {x: 0.23, y: 0.88}
+  CurrentEnemyMasses: []
+  EnemyMassBurst: {fileID: 0}
+  OuterBurst: {fileID: 0}
+  currentOuter: 0
   myRessourceParticles: []
   myCleanParticles: []
   myEnemyParticles: []

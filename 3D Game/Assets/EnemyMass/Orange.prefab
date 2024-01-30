@@ -166,8 +166,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2393889984808040712}
   - component: {fileID: 2788422221961881239}
+  - component: {fileID: 8712587589033202115}
   m_Layer: 0
-  m_Name: Orange#
+  m_Name: Orange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -212,6 +213,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8712587589033202115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3058822576872186802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f30a4d1722b1e874da84bcae86358e71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rate: 0.3
+  secondsToWait: 0.05
+  enemyMassChildren: []
 --- !u!1 &4657887311806822966
 GameObject:
   m_ObjectHideFlags: 0
