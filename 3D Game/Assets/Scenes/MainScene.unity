@@ -6785,6 +6785,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &974211838 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1572230070853581192, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
+  m_PrefabInstance: {fileID: 2082525775}
+  m_PrefabAsset: {fileID: 0}
+--- !u!320 &974211839
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 974211838}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: a371b229eaae1434ea55b02c0345d9cc, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 7120273140621327997, guid: a371b229eaae1434ea55b02c0345d9cc, type: 2}
+    value: {fileID: 2082525778}
+  - key: {fileID: -104659363979539138, guid: a371b229eaae1434ea55b02c0345d9cc, type: 2}
+    value: {fileID: 1133095344}
+  m_ExposedReferences:
+    m_References: []
 --- !u!1001 &975089035
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8450,6 +8476,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 3940302003837325407, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4061313347061360460, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
       propertyPath: Loop
       value: 1
@@ -8510,6 +8540,10 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 6bdf8afdb4a6d2740a8fea9373219dee, type: 3}
+    - target: {fileID: 8581208585356872413, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
 --- !u!82 &2082525776 stripped
