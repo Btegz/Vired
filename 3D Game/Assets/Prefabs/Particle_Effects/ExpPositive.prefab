@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5816516215934026137}
   m_Layer: 0
-  m_Name: Explosion
+  m_Name: ExpPositive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,7 +52,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &765618132338466214
 Transform:
   m_ObjectHideFlags: 0
@@ -4922,7 +4922,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2601571051537022919
 Transform:
   m_ObjectHideFlags: 0
@@ -5021,8 +5021,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.6
-      minScalar: 0.4
+      scalar: 0.88
+      minScalar: 0.81
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -5127,8 +5127,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.20392157, g: 0.31279972, b: 0.39607844, a: 0.7490196}
-      maxColor: {r: 0.21356149, g: 0.4509804, b: 0.20392156, a: 0.7490196}
+      minColor: {r: 1, g: 1, b: 1, a: 0.7490196}
+      maxColor: {r: 1, g: 1, b: 1, a: 0.7490196}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -5653,7 +5653,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.2
+      value: 0.18
       mode: 0
       spread: 0
       speed:
@@ -6260,7 +6260,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   ColorModule:
-    enabled: 0
+    enabled: 1
     gradient:
       serializedVersion: 2
       minMaxState: 1
@@ -6268,8 +6268,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 1, b: 1, a: 1}
+        key0: {r: 0.18301003, g: 0.49056602, b: 0, a: 1}
+        key1: {r: 0.9499704, g: 1, b: 0.9481132, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -9724,7 +9724,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 258f7d85e9157ce4fa654d4a8cfe7c1e, type: 2}
+  - {fileID: 2100000, guid: 42587ccdecf6aee469636ecd375a96c5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9792,7 +9792,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6414314307172503978
 Transform:
   m_ObjectHideFlags: 0
@@ -14594,7 +14594,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b117ba1e9dafaf1408c51ce7bf273501, type: 2}
+  - {fileID: 2100000, guid: 42587ccdecf6aee469636ecd375a96c5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14662,7 +14662,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9216693480610978434
 Transform:
   m_ObjectHideFlags: 0
