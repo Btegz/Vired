@@ -17,7 +17,7 @@ public class MainMenu : MonoBehaviour
     public ToggleObj TutorialObj;
     public Image Fade;
     public DoFade doFade;
-
+    public float steps;
     public ToggleObj toggle;
 
     public Toggle TutorialToggle;
@@ -38,7 +38,7 @@ public class MainMenu : MonoBehaviour
     {
         musicSounds = new List<AudioSource>();
 
-        gameStartButton.onClick.AddListener(StartGame);
+        gameStartButton.onClick.AddListener(Sound);
         optionsButton.onClick.AddListener(OptionsSwitch);
         exitButton.onClick.AddListener(ExitGame);
         creditsBack.onClick.AddListener(ExitBack);
@@ -82,45 +82,41 @@ public class MainMenu : MonoBehaviour
         musicSounds = SoundManager.GetComponentsInChildren<AudioSource>().ToList();
 
     }
-   /* public IEnumerator SoundFade()
+    public IEnumerator SoundFade()
     {
-       
-        foreach(AudioSource sound in musicSounds)
-        {
+        //if (PlayerPrefs.HasKey("Volume"))
+        //          FirstSecond.volume=  PlayerPrefs.GetFloat("Volume");
+     
             
-           for(int i= 0; i <5; i++)
+           for(int i= 1; i <=(int) steps; i++)
             {
-                if (PlayerPrefs.HasKey("Volume"))
-                  sound.volume=  PlayerPrefs.GetFloat("Volume");
-                sound.volume -= 0.2f;
-                PlayerPrefs.SetFloat("Volume", sound.volume);
+
+                FirstSecond.volume = Mathf.Lerp(0, 1,1-i / steps);  
+                PlayerPrefs.SetFloat("Volume", FirstSecond.volume);
                 yield return new WaitForSeconds(0.5f);
                
             }
-        }
-        
-        PlayerPrefs.SetFloat("Volume", 1);
 
-        //StartGame();
-    }*/
 
-   /* public void Sound()
-    {
-        StartCoroutine(SoundFade());
-    }*/
-    public void StartGame()
-    {
-       
-        
+        //   PlayerPrefs.SetFloat("Volume", 1);
+
+        yield return new WaitForSeconds(1f);
+
         if (TutorialObj.tutorial == true)
         {
             SceneManager.LoadScene("Tutorial");
         }
-        else 
+        else
         {
             StartCoroutine(LoadASync());
 
         }
+    }
+
+    public void Sound()
+    {
+        StartCoroutine(SoundFade());
+    
 
     }
 
@@ -202,5 +198,10 @@ public class MainMenu : MonoBehaviour
     {
         mainMenuCanvas.SetActive(true);
         CreditCanvas.SetActive(false);
+    }
+
+    public void FadeStart()
+    {
+        gameStartButton.interactable = true;
     }
 }
