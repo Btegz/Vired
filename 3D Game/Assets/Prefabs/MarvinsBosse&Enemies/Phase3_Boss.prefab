@@ -344,6 +344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e358582cacc8867449f787d0154c3002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mr: {fileID: 0}
   ressource: 0
   axialLocation: {x: 0, y: 0}
   currentHealth: 5
@@ -448,6 +449,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -176330451285856252, guid: d61650735e307e24cb1536dadde65a75, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 25921ebffd57f40459aeba7f176f4478, type: 2}
     - target: {fileID: 919132149155446097, guid: d61650735e307e24cb1536dadde65a75, type: 3}
       propertyPath: m_Name
       value: Boss_whit_long_schlong

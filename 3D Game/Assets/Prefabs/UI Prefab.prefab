@@ -110,206 +110,6 @@ MonoBehaviour:
   HexSizePerButtonSize: 0.2
   HexSizeFactorPerAbilityTealevel: 0.1
   abilityCastButton: {fileID: 819440820460409782}
---- !u!1 &927935220
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 927935221}
-  - component: {fileID: 927935224}
-  - component: {fileID: 927935223}
-  - component: {fileID: 927935222}
-  m_Layer: 5
-  m_Name: Canvas
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &927935221
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 927935220}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1396180682763605625}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
---- !u!223 &927935224
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 927935220}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
---- !u!114 &927935223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 927935220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
---- !u!114 &927935222
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 927935220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
---- !u!1 &1533552352
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1533552353}
-  - component: {fileID: 1533552356}
-  - component: {fileID: 1533552355}
-  - component: {fileID: 1533552354}
-  m_Layer: 5
-  m_Name: Canvas
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1533552353
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1533552352}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1396180682763605625}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
---- !u!223 &1533552356
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1533552352}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
---- !u!114 &1533552355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1533552352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
---- !u!114 &1533552354
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1533552352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!1 &17531192376969256
 GameObject:
   m_ObjectHideFlags: 0
@@ -596,6 +396,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
   ButtonClick: {fileID: 0}
+  ButtonHover: {fileID: 0}
 --- !u!114 &1273193005351259779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -834,6 +635,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
   ButtonClick: {fileID: 0}
+  ButtonHover: {fileID: 0}
 --- !u!1 &199171459788731747
 GameObject:
   m_ObjectHideFlags: 0
@@ -2974,6 +2776,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
   ButtonClick: {fileID: 0}
+  ButtonHover: {fileID: 0}
 --- !u!114 &296319462968151748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3091,6 +2894,7 @@ MonoBehaviour:
   NoMonetos: {fileID: 11400000, guid: 8ced28ab65a6c8549a86cffe1927b859, type: 2}
   positiveUpgrade: {fileID: 11400000, guid: f3f596e6881909446abe23a1f2622da2, type: 2}
   negativeUpgrade: {fileID: 11400000, guid: a112171d13d3fea43a858b7e5ee1704e, type: 2}
+  DragBegin: {fileID: 0}
   Cost: 0
 --- !u!114 &6877449281825061094
 MonoBehaviour:
@@ -3613,6 +3417,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
   ButtonClick: {fileID: 0}
+  ButtonHover: {fileID: 0}
 --- !u!1 &1479617205234261283
 GameObject:
   m_ObjectHideFlags: 0
@@ -3901,6 +3706,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
   ButtonClick: {fileID: 0}
+  ButtonHover: {fileID: 0}
 --- !u!114 &1817323840229167230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5025,6 +4831,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
   ButtonClick: {fileID: 0}
+  ButtonHover: {fileID: 0}
 --- !u!114 &2176418595245742946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5591,6 +5398,7 @@ MonoBehaviour:
   NoMonetos: {fileID: 11400000, guid: 8ced28ab65a6c8549a86cffe1927b859, type: 2}
   positiveUpgrade: {fileID: 11400000, guid: f3f596e6881909446abe23a1f2622da2, type: 2}
   negativeUpgrade: {fileID: 11400000, guid: a112171d13d3fea43a858b7e5ee1704e, type: 2}
+  DragBegin: {fileID: 0}
   Cost: 0
 --- !u!114 &4547725019989334081
 MonoBehaviour:
@@ -6542,6 +6350,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityUpgradeObj: {fileID: 7597039996449589668}
   OpenUpgradeMenu: {fileID: 0}
+  ButtonHover: {fileID: 0}
   soundEffect: {fileID: 0}
 --- !u!114 &2220697376328809849
 MonoBehaviour:
@@ -8408,8 +8217,6 @@ Transform:
   m_Children:
   - {fileID: 4538530394698957694}
   - {fileID: 2084078839426327038}
-  - {fileID: 927935221}
-  - {fileID: 1533552353}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10814,6 +10621,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityUpgradeObj: {fileID: 7597039996449589668}
   OpenUpgradeMenu: {fileID: 11400000, guid: 1357d80d6949ce849b193457ac84f26d, type: 2}
+  ButtonHover: {fileID: 0}
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
 --- !u!114 &1717548340930472074
 MonoBehaviour:
@@ -11145,6 +10953,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
   ButtonClick: {fileID: 0}
+  ButtonHover: {fileID: 0}
 --- !u!114 &7434968591866795615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12667,6 +12476,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
   ButtonClick: {fileID: 0}
+  ButtonHover: {fileID: 0}
 --- !u!1 &6186749681696862492
 GameObject:
   m_ObjectHideFlags: 0
@@ -13694,6 +13504,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
   ButtonClick: {fileID: 0}
+  ButtonHover: {fileID: 0}
 --- !u!114 &1435447427219931125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14087,6 +13898,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
   ButtonClick: {fileID: 0}
+  ButtonHover: {fileID: 0}
 --- !u!1 &6726912585964901025
 GameObject:
   m_ObjectHideFlags: 0
@@ -14887,6 +14699,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
   ButtonClick: {fileID: 0}
+  ButtonHover: {fileID: 0}
 --- !u!114 &5653916155764300747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16261,6 +16074,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
   ButtonClick: {fileID: 0}
+  ButtonHover: {fileID: 0}
 --- !u!1 &7856259337154749581
 GameObject:
   m_ObjectHideFlags: 0
@@ -17936,6 +17750,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
   ButtonClick: {fileID: 0}
+  ButtonHover: {fileID: 0}
 --- !u!224 &6406627812390044836 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5578025478711200740, guid: a44c1eb041d4466479b04104d453d231, type: 3}
@@ -18094,6 +17909,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
   ButtonClick: {fileID: 0}
+  ButtonHover: {fileID: 0}
 --- !u!1001 &6570146836548703650
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18247,3 +18063,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
   ButtonClick: {fileID: 0}
+  ButtonHover: {fileID: 0}
