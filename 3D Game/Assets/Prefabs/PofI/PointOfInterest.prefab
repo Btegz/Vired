@@ -491,6 +491,8 @@ MonoBehaviour:
   Option1: {fileID: 6987966732520203194}
   Option2: {fileID: 7730577884417119884}
   PofI: {fileID: 5944402914717344781}
+  hoverOver: {fileID: 11400000, guid: 9f7946479720944448050e8945364c31, type: 2}
+  soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
 --- !u!114 &7869966187102122973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -503,6 +505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b19911b8687a49b409a8f25ecafd0fec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Highlight: {fileID: 0}
 --- !u!95 &5231845868146579314
 Animator:
   serializedVersion: 5
@@ -1996,6 +1999,7 @@ GameObject:
   - component: {fileID: 1312938935542415594}
   - component: {fileID: 8840946241084547734}
   - component: {fileID: 5523513328054098411}
+  - component: {fileID: 676334236180468964}
   m_Layer: 0
   m_Name: PofI Event2
   m_TagString: Event2
@@ -2123,6 +2127,8 @@ MonoBehaviour:
   Option1: {fileID: 6987966732520203194}
   Option2: {fileID: 7730577884417119884}
   PofI: {fileID: 5944402914717344781}
+  hoverOver: {fileID: 11400000, guid: 9f7946479720944448050e8945364c31, type: 2}
+  soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
 --- !u!114 &1312938935542415594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2135,6 +2141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b19911b8687a49b409a8f25ecafd0fec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Highlight: {fileID: 0}
 --- !u!95 &8840946241084547734
 Animator:
   serializedVersion: 5
@@ -2170,6 +2177,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animation: {fileID: 5231845868146579314}
   AnimationName: IsHovering
+--- !u!114 &676334236180468964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8071779304650245497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3784ed3105d89744593a987d0a95ccd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
+  ButtonClick: {fileID: 11400000, guid: 2c290a756a05eac47ac6e91f29b86cae, type: 2}
 --- !u!1 &8650042922319619107
 GameObject:
   m_ObjectHideFlags: 0

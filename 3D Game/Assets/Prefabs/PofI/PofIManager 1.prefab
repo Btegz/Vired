@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc0c0ebe847d84d4f9ffe3589e8b3564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pofiTile: {fileID: 0}
+  pofiPrefab: {fileID: 0}
   event1: {fileID: 0}
   pofi1: 0
   pofi2: 0
@@ -53,8 +55,11 @@ MonoBehaviour:
   gS_PofI: {fileID: 11400000, guid: 9ec617689cbf9844aa63007fd32415cb, type: 2}
   extraMovement: 0
   posSwitch: {fileID: 0}
-  soundEffect: {fileID: 0}
+  soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
   PofISelect: {fileID: 11400000, guid: 3e2743f56ec3cc1488741828ee8e4ce3, type: 2}
+  PofiFly: {fileID: 11400000, guid: 3f0cfd561a350b049ad573a2ba052da5, type: 2}
   SkillPoints: {fileID: 0}
   NewResource: {fileID: 5779522450981827884, guid: 4f74716fb565ed849bb674571ddf9382, type: 3}
   Movement: {fileID: 0}
+  parent: {fileID: 0}
+  newResource: {fileID: 0}

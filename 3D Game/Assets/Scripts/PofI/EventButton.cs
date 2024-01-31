@@ -5,13 +5,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using static PofIManager;
+using UnityEngine.Audio;
 
-public class EventButton : MonoBehaviour
+public class EventButton : MonoBehaviour, IPointerEnterHandler
 {
     public Button Option1;
     public Button Option2;
     public PofIManager PofI;
+    public AudioData hoverOver;
+    public AudioMixerGroup soundEffect;
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        AudioManager.Instance.PlaySoundAtLocation(hoverOver, soundEffect, null);
+    }
 
     private void Start()
     {

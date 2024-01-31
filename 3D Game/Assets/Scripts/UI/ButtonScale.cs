@@ -5,12 +5,15 @@ using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.EventSystems;
 using UnityEngine.Animations;
+using UnityEngine.Audio;
 
 public class ButtonScale : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public GameObject Highlight; 
+    
     public void OnPointerEnter(PointerEventData eventData)
     {
+
 
         
         if (TutorialManager.Instance != null)

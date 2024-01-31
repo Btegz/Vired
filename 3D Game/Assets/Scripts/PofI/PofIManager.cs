@@ -21,10 +21,12 @@ public class PofIManager : MonoBehaviour
 
     [SerializeField] public AudioMixerGroup soundEffect;
     [SerializeField] public AudioData PofISelect;
+    [SerializeField] public AudioData PofiFly;
 
     public GameObject SkillPoints, NewResource, Movement;
 
     public GameObject parent;
+    public NewResource newResource;
 
 
 
@@ -69,6 +71,7 @@ public class PofIManager : MonoBehaviour
                 AudioManager.Instance.PlaySoundAtLocation(PofISelect, soundEffect, null);
                 Destroy(gS_PofI.pofi.gameObject);
                 PlayerManager.Instance.SkillPoints += 2;
+               
                 break;
 
             case PofI.PofI_NewResource:
@@ -89,8 +92,11 @@ public class PofIManager : MonoBehaviour
                 PlayerManager.Instance.extraMovement += 3;
                 break;
         }
-        pofiPrefab.FlyAway();
         pofiTile.ChangeCurrentState(GridManager.Instance.gS_Neutral);
+        AudioManager.Instance.PlaySoundAtLocation(PofiFly, soundEffect, null);
+
+        pofiPrefab.FlyAway();
+
 
         PlayerManager.Instance.move = true;
     }

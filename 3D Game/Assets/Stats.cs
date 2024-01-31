@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
+using UnityEngine.Audio;
 
 public class Stats : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -17,16 +18,21 @@ public class Stats : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public Enemy enemy;
     private int amount;
 
+
+
     private int resourceCount;
     private int negativityCount;
     public void OnPointerEnter(PointerEventData eventData)
     {
         StatsCanvas.SetActive(true);
-        GridStats();
+        GridStats();   
+  
+    
 
-    }
 
-    public void OnPointerExit(PointerEventData eventData)
+}
+
+public void OnPointerExit(PointerEventData eventData)
     {
         StatsCanvas.SetActive(false);
     }

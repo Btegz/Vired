@@ -14,6 +14,7 @@ public class RessourceSwitch : MonoBehaviour
     public Button RessourceB;
     public Button RessourceC;
     public Button RessourceD;
+    public GameObject pofiPrefab;
 
     void Start()
     {
@@ -22,6 +23,9 @@ public class RessourceSwitch : MonoBehaviour
         RessourceC.onClick.AddListener(() => Switch(2));
         RessourceD.onClick.AddListener(() => Switch(3));
     }
+
+
+   
 
     // Update is called once per frame
     // Why are u adding 20???
@@ -32,7 +36,7 @@ public class RessourceSwitch : MonoBehaviour
             case 0:
                 Debug.Log(gameObject);
                 Destroy(gameObject);
-                PlayerManager.Instance.RessourceAInventory += 5;
+                PlayerManager.Instance.RessourceAInventory += 5; 
                 break;
 
             case 1:
@@ -45,6 +49,7 @@ public class RessourceSwitch : MonoBehaviour
                 PlayerManager.Instance.RessourceDInventory += 5;
                 break;
         }
+       
         Destroy(gameObject);
 
     }

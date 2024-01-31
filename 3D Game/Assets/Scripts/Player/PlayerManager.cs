@@ -200,7 +200,10 @@ public Player selectedPlayer;
                     {
                         selectedPlayer.gameObject.transform.GetChild(0).transform.DOComplete();
                         selectedPlayer.gameObject.transform.GetChild(0).transform.DOPunchRotation(new Vector3(10f, 2f), 1f);
-                        AudioManager.Instance.PlaySoundAtLocation(noMovementSound, soundEffect, null);
+                        if (!noMovementSound.audioPlaying)
+                        {
+                            AudioManager.Instance.PlaySoundAtLocation(noMovementSound, soundEffect, null);
+                        }
                     }
                     // saves the Grid Tile Location that was clicked
 
@@ -225,7 +228,10 @@ public Player selectedPlayer;
                             {
                                 selectedPlayer.gameObject.transform.GetChild(0).transform.DOComplete();
                                 selectedPlayer.gameObject.transform.GetChild(0).transform.DOPunchRotation(new Vector3(10f, 2f), .5f);
-                                AudioManager.Instance.PlaySoundAtLocation(noMovementSound, soundEffect, null);
+                                if (!noMovementSound.audioPlaying)
+                                {
+                                    AudioManager.Instance.PlaySoundAtLocation(noMovementSound, soundEffect, null);
+                                }
                             }
 
                         }
@@ -573,7 +579,11 @@ public Player selectedPlayer;
     }
     public void Audio(Player player)
     {
+        if(!movementSound.audioPlaying)
+        {
         AudioManager.Instance.PlaySoundAtLocation(movementSound, soundEffect, null);
+
+        }
     }
 
 

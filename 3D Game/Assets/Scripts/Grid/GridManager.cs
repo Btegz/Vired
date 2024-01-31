@@ -427,7 +427,6 @@ public class GridManager : MonoBehaviour
     public void EndTurn()
     {
         TurnCounter+=1;
-        AudioManager.Instance.PlaySoundAtLocation(NextTurn, soundEffect, null);
 
        
 

@@ -29,6 +29,7 @@ public class UpgradeHex : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     public AudioData NoMonetos;
     public AudioData positiveUpgrade;
     public AudioData negativeUpgrade;
+    public AudioData DragBegin;
 
 
     public int Cost;
@@ -54,6 +55,7 @@ public class UpgradeHex : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        AudioManager.Instance.PlaySoundAtLocation(DragBegin, soundEffect, null);
         // hier könntest du auch den On MouseEnter Particle Effect stoppen
         if (PlayerManager.Instance.SkillPoints >= Cost)
         {
@@ -79,6 +81,7 @@ public class UpgradeHex : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     {
         try
         {
+            
             if(PlayerManager.Instance.SkillPoints > Cost)
             switch(effect)
             {
