@@ -129,6 +129,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         this.tileInfo = tileInfo;
         this.withWalls = withWalls;
+        name = $"GridTile{coordinate.x},{coordinate.y}";
         meshCollider = GetComponent<MeshCollider>();
         meshFilter = GetComponent<MeshFilter>();
         mesh = new Mesh();
