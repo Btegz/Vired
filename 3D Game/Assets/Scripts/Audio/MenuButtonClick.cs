@@ -8,11 +8,13 @@ using UnityEngine.Audio;
 public class MenuButtonClick : MonoBehaviour, IPointerClickHandler
 {
     public AudioMixerGroup soundEffect;
-    public AudioData UIClick;
+    public AudioData ButtonClick;
+   
     public void OnPointerClick(PointerEventData eventData)
     {
-        AudioManager.Instance.PlaySoundAtLocation(UIClick, soundEffect, null);
-       
-
+        AudioManager.Instance.PlaySoundAtLocation(ButtonClick, soundEffect, null);
     }
+
+
+
 }

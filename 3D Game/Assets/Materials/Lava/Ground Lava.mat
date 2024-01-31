@@ -92,7 +92,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AlphaAdd: 0
+    - _AlphaAdd: 0.01
     - _AlphaClip: 0
     - _AlphaFactor: 1
     - _Blend: 0
@@ -121,12 +121,15 @@ Material:
     - _GlossyReflections: 0
     - _Metallic: 0.1
     - _Mode: 0
+    - _MovementAmplitude: 1
     - _MovementFactor: 0.002
     - _MovementFactorMax: 0.003
     - _MovementFactorMin: 0.002
     - _MovementFreq: 0.25
+    - _MovementFreqMax: 0.003
+    - _MovementFreqmin: 0.001
     - _NOISETYPE: 0
-    - _NoiseScale: 7000
+    - _NoiseScale: 750
     - _OcclusionStrength: 1
     - _OpacityFactor: 1
     - _Parallax: 0.005

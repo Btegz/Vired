@@ -9,8 +9,8 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
 {
     CanvasGroup canvasGroup;
 
-    [SerializeField] GridLayoutGroup originalParent;
-    [SerializeField] GridLayoutGroup currentParent;
+    [SerializeField] HorizontalLayoutGroup originalParent;
+    [SerializeField] HorizontalLayoutGroup currentParent;
     [SerializeField] GridLayoutGroup AOption;
     public AbilityLoadoutButton a;
     public Sprite Nope;
@@ -121,7 +121,7 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
 
     
 
-    public void Setup(Ability ability, GridLayoutGroup fatherrrr)
+    public void Setup(Ability ability, HorizontalLayoutGroup fatherrrr)
     {
         Debug.Log(ability);
         ability.StarterAbility();

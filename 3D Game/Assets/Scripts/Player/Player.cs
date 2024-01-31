@@ -18,8 +18,8 @@ public class Player : MonoBehaviour, IPointerClickHandler
     public Vector2Int CoordinatePosition;
 
     public Vector2Int SpawnPoint;
- 
 
+    public Sprite pic;
 
     [SerializeField] CinemachineVirtualCamera PlayerCam;
 

@@ -93,6 +93,8 @@ public class RessourceVisuals : MonoBehaviour
     [SerializeField] List<EnemyMassLayer> EnemyMassLayers;
     List<int> enemyMassLayersActive;
 
+    public int negativeNeighbors;
+
     Dictionary<Direction, TerrainFeature> CurrentKlopse;
     List<GameObject> CurrentEnemyMasses;
 
@@ -433,14 +435,7 @@ public class RessourceVisuals : MonoBehaviour
         {
             foreach (EnemyMassLayer layer in EnemyMassLayers)
             {
-                int negativeNeighbors = 0;
-                foreach (GridTile neighbor in myTile.myNeighbors)
-                {
-                    if (neighbor.currentGridState.StateValue() < 0)
-                    {
-                        negativeNeighbors++;
-                    }
-                }
+                UpdateNegativeNeighbors();
                 if (layer.MassNeighborThreshold > negativeNeighbors)
                 {
                     continue;
@@ -467,7 +462,7 @@ public class RessourceVisuals : MonoBehaviour
                     float zScale = Random.Range(layer.ZScaleFromTo.x, layer.ZScaleFromTo.y);
                     float yScale = (xScale + zScale) / 2f;
 
-                    newEnemyMass.transform.localScale = new Vector3(xScale,yScale,zScale);
+                    newEnemyMass.transform.localScale = new Vector3(xScale, yScale, zScale);
                     newEnemyMass.transform.DOMove(goalPosition, TweenDuration).From(goalPosition + Vector3.down * .5f).OnComplete(() => newEnemyMass.transform.DOPunchScale(newEnemyMass.transform.localScale * .25f, TweenDuration / 2f));
 
                 }
@@ -480,6 +475,18 @@ public class RessourceVisuals : MonoBehaviour
         catch
         {
 
+        }
+    }
+
+    public void UpdateNegativeNeighbors()
+    {
+        negativeNeighbors = 0;
+        foreach (GridTile neighbor in myTile.myNeighbors)
+        {
+            if (neighbor.currentGridState.StateValue() < 0)
+            {
+                negativeNeighbors++;
+            }
         }
     }
 

@@ -175,7 +175,7 @@ MonoBehaviour:
   propabilityRock: 0.45
   KlopseA:
   - {fileID: 1029664303015648350, guid: 0099413d9f2cafd4b8f721e3f68af590, type: 3}
-  howManyKlopseAFromTo: {x: 0, y: 1}
+  howManyKlopseAFromTo: {x: 0, y: 0}
   randomXOffsetAFromTo: {x: 0, y: 0}
   randomZOffsetAFromTo: {x: 0, y: 0}
   randomRotationAFromTo: {x: 0, y: 0}
@@ -234,6 +234,7 @@ MonoBehaviour:
     ZScaleFromTo: {x: 0.1, y: 0.2}
     YOffsetFromTo: {x: -0.75, y: 0}
     MassNeighborThreshold: 3
+  negativeNeighbors: 0
   EnemyMassBurst: {fileID: 0}
   OuterBurst: {fileID: 0}
   currentOuter: 0

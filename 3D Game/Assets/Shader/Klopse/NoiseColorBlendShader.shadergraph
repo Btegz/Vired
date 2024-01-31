@@ -38,6 +38,9 @@
         },
         {
             "m_Id": "8b502f501e9d49bdb14267b47ec0ad66"
+        },
+        {
+            "m_Id": "5ac4a89c1a5045ecaab1ca418bb537e3"
         }
     ],
     "m_Keywords": [
@@ -174,6 +177,9 @@
         },
         {
             "m_Id": "1c7b3a07070348149acc400913db496e"
+        },
+        {
+            "m_Id": "76677f6ea196451c81691bae1d0268e0"
         }
     ],
     "m_GroupDatas": [],
@@ -434,6 +440,20 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
+                    "m_Id": "76677f6ea196451c81691bae1d0268e0"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "e8afb51327384214bb6354b94b9fb719"
+                },
+                "m_SlotId": 2
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
                     "m_Id": "7d75765b1cf3494299523d8bea4f329f"
                 },
                 "m_SlotId": 0
@@ -553,6 +573,20 @@
             "m_InputSlot": {
                 "m_Node": {
                     "m_Id": "6583effc2da8448eabe2b880e8358833"
+                },
+                "m_SlotId": 1
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "cc4e61f1911c4d919b6f45ad5734cf8d"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "e8afb51327384214bb6354b94b9fb719"
                 },
                 "m_SlotId": 1
             }
@@ -1978,6 +2012,33 @@
 }
 
 {
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
+    "m_ObjectId": "5ac4a89c1a5045ecaab1ca418bb537e3",
+    "m_Guid": {
+        "m_GuidSerialized": "26d4c0b1-c14a-4d89-9056-a4efc2e9352c"
+    },
+    "m_Name": "MovementFreqMax",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "MovementFreqMax",
+    "m_DefaultReferenceName": "_MovementFreqMax",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": 0.5,
+    "m_FloatType": 0,
+    "m_RangeValues": {
+        "x": 0.0,
+        "y": 1.0
+    }
+}
+
+{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
     "m_ObjectId": "5b960a85f85d4ce69f91959f6f3e02be",
@@ -2128,6 +2189,9 @@
     "m_ChildObjectList": [
         {
             "m_Id": "8b502f501e9d49bdb14267b47ec0ad66"
+        },
+        {
+            "m_Id": "5ac4a89c1a5045ecaab1ca418bb537e3"
         },
         {
             "m_Id": "7fc3a56e1f7b48909922b67de800df04"
@@ -2436,6 +2500,41 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
+    "m_ObjectId": "76677f6ea196451c81691bae1d0268e0",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Property",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -3735.000244140625,
+            "y": 171.99998474121095,
+            "width": 176.0,
+            "height": 34.00001525878906
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "f2ddf4fac21749debe3a828308d04337"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Property": {
+        "m_Id": "5ac4a89c1a5045ecaab1ca418bb537e3"
+    }
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.BlockNode",
     "m_ObjectId": "786579ef2a1f42fa9f4516feb14b1f5b",
     "m_Group": {
@@ -2646,10 +2745,10 @@
     "m_Guid": {
         "m_GuidSerialized": "491166c6-7102-403d-ba56-3a916862c465"
     },
-    "m_Name": "MovementFactor",
+    "m_Name": "MovementAmplitude",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "MovementFactor",
-    "m_DefaultReferenceName": "_MovementFactor",
+    "m_RefNameGeneratedByDisplayName": "MovementAmplitude",
+    "m_DefaultReferenceName": "_MovementAmplitude",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -2789,10 +2888,10 @@
     "m_Guid": {
         "m_GuidSerialized": "a646461c-2f68-4cc3-922a-ad83aed36c16"
     },
-    "m_Name": "MovementFreq",
+    "m_Name": "MovementFreqmin",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "MovementFreq",
-    "m_DefaultReferenceName": "_MovementFreq",
+    "m_RefNameGeneratedByDisplayName": "MovementFreqmin",
+    "m_DefaultReferenceName": "_MovementFreqmin",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -2801,7 +2900,7 @@
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
-    "m_Value": 0.5,
+    "m_Value": 0.25,
     "m_FloatType": 0,
     "m_RangeValues": {
         "x": 0.0,
@@ -3625,7 +3724,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "c8750b09859846db8683fa072c54cdba",
     "m_Id": 0,
-    "m_DisplayName": "MovementFreq",
+    "m_DisplayName": "MovementFreqmin",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -3754,10 +3853,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -3253.151611328125,
-            "y": 515.5765991210938,
-            "width": 0.0,
-            "height": 0.0
+            "x": -3717.000244140625,
+            "y": 78.99999237060547,
+            "width": 173.0,
+            "height": 34.00001525878906
         }
     },
     "m_Slots": [
@@ -4118,7 +4217,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "dd7be1cb948d4c8dbe7c40bab84665d7",
     "m_Id": 0,
-    "m_DisplayName": "MovementFactor",
+    "m_DisplayName": "MovementAmplitude",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -4380,6 +4479,21 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "f2ddf4fac21749debe3a828308d04337",
+    "m_Id": 0,
+    "m_DisplayName": "MovementFreqMax",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
 }
 
 {
