@@ -41,7 +41,7 @@ public class Burst : MonoBehaviour
                 component.SetFloat("_Bubble", component.GetFloat("_Bubble") + rate);
 
             }
-            if(enemyMassChildren[1].GetFloat("_Bubble") >20)
+            if(enemyMassChildren[0].GetFloat("_Bubble") >20)
             { 
                 break;
             }

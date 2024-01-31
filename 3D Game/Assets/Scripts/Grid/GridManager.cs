@@ -82,7 +82,10 @@ public class GridManager : MonoBehaviour
         PlayerManager.Instance.abilityLoadout.amountToChoose = 3;
         PlayerManager.Instance.abilityLoadout.gameObject.SetActive(true);
 
-        
+        foreach(KeyValuePair<Vector2Int,GridTile> kvp in Grid)
+        {
+            kvp.Value.GetComponent<RessourceVisuals>().UpdateNegativeNeighbors();
+        }
 
         //GenerateGrid();
 
