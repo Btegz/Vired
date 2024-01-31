@@ -227,6 +227,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "fancyyy",
+            "id": "64d46bc7-069e-430b-bbe2-f97fc22071eb",
+            "actions": [
+                {
+                    "name": "MouseClickAndRelease",
+                    "type": "Button",
+                    "id": "8abb862a-4ffa-41e9-a1f3-32b4c657d50a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MouseDown",
+                    "type": "Button",
+                    "id": "7ae76e5d-d25d-4618-a6f2-f3b95daa0bd7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "88092e1c-0775-4794-a617-e5b278b15428",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseClickAndRelease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a33f9123-d8e6-4da5-a953-faa97a6b4b18",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
