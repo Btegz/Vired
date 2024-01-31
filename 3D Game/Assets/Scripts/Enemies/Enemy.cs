@@ -8,7 +8,7 @@ using UnityEngine.Audio;
 
 public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    MeshRenderer mr; 
+    [SerializeField ]MeshRenderer mr; 
     [HideInInspector] public Ressource ressource;
     [HideInInspector] public Vector2Int axialLocation;
     [HideInInspector] public int currentHealth;
@@ -97,7 +97,6 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         //transform.position = tile.transform.position;
         //transform.parent = tile.transform;
         transform.SetParent(tile.gameObject.transform);
-        mr = GetComponentInChildren<MeshRenderer>();
 
 
         //transform.DOScale(transform.localScale, 0.5f).From(Vector3.one * 0.3f);
@@ -114,24 +113,26 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         }
 
-
-
-        mr = GetComponentInChildren<MeshRenderer>();
-        switch (ressource)
+        if (mr != null)
         {
-            case Ressource.ressourceA:
-                mr.materials = new Material[] { AMAterial, AOutlineMAterial };
-                break;
-            case Ressource.ressourceB:
-                mr.materials = new Material[] { BMAterial, BOutlineMAterial };
-                break;
-            case Ressource.ressourceC:
-                mr.materials = new Material[] { CMAterial, COutlineMAterial };
-                break;
-            case Ressource.ressourceD:
-                mr.materials = new Material[] { DMAterial, DOutlineMAterial };
-                break;
+            switch (ressource)
+            {
+                case Ressource.ressourceA:
+                    mr.materials = new Material[] { AMAterial, AOutlineMAterial };
+                    break;
+                case Ressource.ressourceB:
+                    mr.materials = new Material[] { BMAterial, BOutlineMAterial };
+                    break;
+                case Ressource.ressourceC:
+                    mr.materials = new Material[] { CMAterial, COutlineMAterial };
+                    break;
+                case Ressource.ressourceD:
+                    mr.materials = new Material[] { DMAterial, DOutlineMAterial };
+                    break;
+            }
         }
+
+        
 
         foreach(Image img in GetComponentsInChildren<Image>())
         {
