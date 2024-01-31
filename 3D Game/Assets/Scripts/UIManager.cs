@@ -120,8 +120,7 @@ public class UIManager : MonoBehaviour
                 negativeFillBar.fillAmount = (float)negativeTiles.Count / (((float)GridManager.Instance.Grid.Count * 2) / 3);
                 if (negativeFillBar.fillAmount >= 1)
                 {
-                    //
-                    // ();
+                    GameOver();
                 }
             }
 

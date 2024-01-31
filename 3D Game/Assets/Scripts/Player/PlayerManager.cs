@@ -554,19 +554,19 @@ public Player selectedPlayer;
         //CameraRotation.Instance.Playercam.Follow = PlayerManager.Instance.selectedPlayer.transform;
         // CameraRotation.Instance.SwitchToPlayer();
 
-        if (selectedPlayer == Players[0])
+        if (player == Players[0])
         {
             AudioManager.Instance.PlaySoundAtLocation(switchPlayer, soundEffect, "Player1");
 
         }
 
-        else if (selectedPlayer == Players[1])
+        else if (player == Players[1])
         {
             Debug.Log("HI 2");
             AudioManager.Instance.PlaySoundAtLocation(switchPlayer, soundEffect, "Player2");
         }
 
-        else if (selectedPlayer == Players[2])
+        else if (player == Players[2])
         {
             Debug.Log("HI 3");
 

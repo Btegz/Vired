@@ -229,6 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac40004989043c74bac78dc94d695d48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mr: {fileID: 7561819642903762512}
   ressource: 1
   axialLocation: {x: 0, y: 0}
   currentHealth: 2
@@ -415,6 +416,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f752723e988ec7498bdc0dbaa27a22f, type: 3}
+--- !u!23 &7561819642903762512 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 3f752723e988ec7498bdc0dbaa27a22f, type: 3}
+  m_PrefabInstance: {fileID: 9165229069363251924}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8699782649973468479 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3f752723e988ec7498bdc0dbaa27a22f, type: 3}
