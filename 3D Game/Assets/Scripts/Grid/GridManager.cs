@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 using Random = UnityEngine.Random;
 
 /// <summary>
@@ -52,6 +53,10 @@ public class GridManager : MonoBehaviour
     [SerializeField] public List<Enemy> StartEnemyPrefabs;
     [SerializeField] int startEnemyCount;
     [SerializeField] public Boss StartBossPrefab;
+
+    [Header("Audio")]
+    [SerializeField] public AudioData NextTurn;
+    [SerializeField] public AudioMixerGroup soundEffect; 
 
 
     [HideInInspector] public int TurnCounter;
@@ -421,6 +426,8 @@ public class GridManager : MonoBehaviour
     public void EndTurn()
     {
         TurnCounter+=1;
+        AudioManager.Instance.PlaySoundAtLocation(NextTurn, soundEffect, null);
+
        
 
     }
