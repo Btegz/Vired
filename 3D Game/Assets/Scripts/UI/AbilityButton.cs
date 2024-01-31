@@ -208,7 +208,7 @@ public class AbilityButton : MonoBehaviour
         playerHex.transform.localPosition = new Vector2(playerWorldPos.x, playerWorldPos.z) + centerDelta;
         playerHex.coordinate = Vector2Int.zero;
         UIGrid.Add(Vector2Int.zero, playerHex);
-        UIGrid[Vector2Int.zero].Fill(PlayerHexSprite, "Player");
+        UIGrid[Vector2Int.zero].Fill(PlayerHexSprite, "");
         try
         {
             CostText.text = ability.MyCostAmount.ToString();
@@ -236,19 +236,19 @@ public class AbilityButton : MonoBehaviour
                 text = "";
                 return EmptyHexSprite;
             case Effect.Negative100:
-                text = "100";
+                text = "1";
                 return DamageHexSprite;
             case Effect.Negative200:
-                text = "200";
+                text = "2";
                 return DamageHexSprite;
             case Effect.Negative300:
-                text = "300";
+                text = "3";
                 return DamageHexSprite;
             case Effect.Negative400:
-                text = "400";
+                text = "4";
                 return DamageHexSprite;
             case Effect.Negative500:
-                text = "500";
+                text = "5";
                 return DamageHexSprite;
             default:
                 text = "";

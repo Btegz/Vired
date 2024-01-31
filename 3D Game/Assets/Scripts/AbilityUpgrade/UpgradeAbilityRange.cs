@@ -32,7 +32,7 @@ public class UpgradeAbilityRange : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if(upgradeHexGrid.loadedAbility != null)
+        if(PlayerManager.Instance.selectedPlayer.AbilityInventory.Count>0)
         {
             if (PlayerManager.Instance.SkillPoints >= UpgradeCost && upgradeHexGrid.loadedAbility.MyTierLevel <= upgradeHexGrid.loadedAbility.MyMaxTierLevel)
             {

@@ -58,7 +58,7 @@ public class Boss : Enemy
     public override void Setup(GridTile tile)
     {
         base.Setup(tile);
-        SkinnedMeshRenderer.material = GetComponentInChildren<MeshRenderer>().material;
+        SkinnedMeshRenderer.material = GetComponentInChildren<SkinnedMeshRenderer>().material;
         tile.ChangeCurrentState(GridManager.Instance.gS_Boss);
         BossNeighbors();
         //EventManager.OnEndTurnEvent += BossNeighbors;
