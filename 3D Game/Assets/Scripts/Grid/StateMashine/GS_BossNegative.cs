@@ -15,7 +15,13 @@ public class GS_BossNegative : GridState
     {
         parent.GetComponent<RessourceVisuals>().CleanUpKlopse();
         parent.GetComponent<RessourceVisuals>().SpawnEnemyMass();
-
+        foreach (GridTile neighbor in parent.myNeighbors)
+        {
+            if (neighbor.currentGridState.StateValue() ==-1)
+            {
+                neighbor.GetComponent<RessourceVisuals>().SpawnEnemyMass();
+            }
+        }
         //parent.meshRenderer.material = parent.gridTileSO.negativeMaterial;
         parent.transform.DOComplete();
         //parent.transform.DOPunchRotation(Vector3.one * TweenScale, .5f);

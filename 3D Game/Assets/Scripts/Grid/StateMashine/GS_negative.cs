@@ -21,6 +21,13 @@ public class GS_negative : GridState
         parent.GetComponent<RessourceVisuals>().CleanUpKlopse();
 
         parent.GetComponent<RessourceVisuals>().SpawnEnemyMass();
+        foreach(GridTile neighbor in parent.myNeighbors)
+        {
+            if (neighbor.currentGridState.StateValue() == -1)
+            {
+                neighbor.GetComponent<RessourceVisuals>().SpawnEnemyMass();
+            }
+        }
 
         //parent.transform.DOPunchRotation(Vector3.one*TweenScale,.5f);
         AudioManager.Instance.PlaySoundAtLocation(SpreadNegativity, soundEffect, null);
