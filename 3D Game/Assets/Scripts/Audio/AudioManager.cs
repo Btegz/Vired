@@ -76,11 +76,13 @@ public class AudioManager : MonoBehaviour
                     audioSource.outputAudioMixerGroup = output;
                     data.audioPlaying = true;
 
+                  
+
+
                 }
             }
             
-
-            Destroy(audioPlayer.gameObject, data.audioClip.length);
+        Destroy(audioPlayer.gameObject, audioSource.clip.length);
             
 
 

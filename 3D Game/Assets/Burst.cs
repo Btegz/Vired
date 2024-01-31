@@ -18,7 +18,6 @@ public class Burst : MonoBehaviour
         foreach (SkinnedMeshRenderer rend in GetComponentsInChildren<SkinnedMeshRenderer>())
         {
             enemyMassChildren.Add(rend.material);
-
         }
        
 
@@ -50,10 +49,9 @@ public class Burst : MonoBehaviour
         try
         {
             Instantiate(BubbleBurstParticle, gameObject.transform.position, Quaternion.identity);
-              foreach (Material component in enemyMassChildren)
-        {
-            component.SetFloat("_Bubble", -20);
-        }
+              foreach (Material component in enemyMassChildren) 
+           component.SetFloat("_Bubble", -20);
+
             Destroy(gameObject);
 
         }

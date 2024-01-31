@@ -27,7 +27,7 @@ Material:
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -49,15 +49,18 @@ Material:
     m_Floats:
     - _AmbientOcclusionAdd: 0.368
     - _AmbientOcclusionMult: 0.2
+    - _BOOLEAN: 0
+    - _BOOLEAN_1: 0
     - _Bubble: -9.01
     - _Color1Mult: 1.17
     - _Deform: 0
     - _EMISSION: 0
+    - _FLOAT: 0
     - _MetallicMultiply: 0
     - _NormalMax: 2
     - _NormalMin: -1.335
     - _NormalStrength: 0.101
-    - _QueueControl: 0
+    - _QueueControl: 1
     - _QueueOffset: 0
     - _SmoothnessAdditive: 0.076
     - _SmoothnessMultiply: 0.225
