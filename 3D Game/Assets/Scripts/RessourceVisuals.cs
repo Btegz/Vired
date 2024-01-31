@@ -34,11 +34,11 @@ public class RessourceVisuals : MonoBehaviour
     [Header("-------------------------------------")]
 
     [Header("Aesthetic MeshesGeneration")]
-    [SerializeField] List<TerrainFeature> BäumeFeatures;
-    [SerializeField] Vector2 BäumeNoiseValueFromTo;
-    [SerializeField] Vector2 CenterLerpBäumeFromTo;
-    [SerializeField] Vector2Int BäumeAmountFromTo;
-    [SerializeField] float propabilityBäume;
+    [SerializeField] List<TerrainFeature> BÃ¤umeFeatures;
+    [SerializeField] Vector2 BÃ¤umeNoiseValueFromTo;
+    [SerializeField] Vector2 CenterLerpBÃ¤umeFromTo;
+    [SerializeField] Vector2Int BÃ¤umeAmountFromTo;
+    [SerializeField] float propabilityBÃ¤ume;
 
 
     [SerializeField] List<TerrainFeature> SpikeFeatures;
@@ -163,9 +163,9 @@ public class RessourceVisuals : MonoBehaviour
         float randomSpikeNumber = Random.Range(0f, 1f);
         float randomRockNumber = Random.Range(0f, 1f);
 
-        if (myTile.tileInfo.noiseValue >= BäumeNoiseValueFromTo.x && myTile.tileInfo.noiseValue <= BäumeNoiseValueFromTo.y && randomBaumNumber >= propabilityBäume)
+        if (myTile.tileInfo.noiseValue >= BÃ¤umeNoiseValueFromTo.x && myTile.tileInfo.noiseValue <= BÃ¤umeNoiseValueFromTo.y && randomBaumNumber >= propabilityBÃ¤ume)
         {
-            int randomBaumAmount = Random.Range(BäumeAmountFromTo.x, BäumeAmountFromTo.y);
+            int randomBaumAmount = Random.Range(BÃ¤umeAmountFromTo.x, BÃ¤umeAmountFromTo.y);
             for (int i = 0; i < randomBaumAmount; i++)
             {
                 Direction randomDirection;
@@ -174,10 +174,10 @@ public class RessourceVisuals : MonoBehaviour
                 //{
                 //    randomDirection = Direction.C;
                 //}
-                TerrainFeature newBaum = Instantiate(BäumeFeatures[Random.Range(0, BäumeFeatures.Count)], transform);
+                TerrainFeature newBaum = Instantiate(BÃ¤umeFeatures[Random.Range(0, BÃ¤umeFeatures.Count)], transform);
                 Vector3 goalPosition = transform.position;
                 goalPosition += myTile.Points[randomDirection];
-                goalPosition = Vector3.Lerp(goalPosition, myTile.Points[Direction.C] + transform.position, Random.Range(CenterLerpBäumeFromTo.x, CenterLerpBäumeFromTo.y));
+                goalPosition = Vector3.Lerp(goalPosition, myTile.Points[Direction.C] + transform.position, Random.Range(CenterLerpBÃ¤umeFromTo.x, CenterLerpBÃ¤umeFromTo.y));
                 newBaum.transform.position = goalPosition;
                 newBaum.transform.rotation = Quaternion.Euler(Vector3.up * Random.Range(0, 360));
             }
@@ -416,10 +416,9 @@ public class RessourceVisuals : MonoBehaviour
             StopEnemyMassParticles();
             foreach (GameObject enemyMass in CurrentEnemyMasses)
             {
-
-                Destroy(enemyMass);
-                // enemyMass.GetComponent<Burst>().Bursting();
-
+                enemyMass.GetComponent<Burst>().Bursting();
+               // Destroy(enemyMass);
+                
             }
         }
         catch
