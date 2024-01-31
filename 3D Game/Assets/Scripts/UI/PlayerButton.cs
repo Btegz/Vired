@@ -10,7 +10,9 @@ public class PlayerButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     [SerializeField] public Player player;
     public PlayerButton MainPlayerButton;
     public Image Background;
-    public Image PlayerModel; 
+    public Image PlayerModel;
+
+    [SerializeField] Image playerPic;
 
     public void Start()
     {
@@ -28,7 +30,8 @@ public class PlayerButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     public void Setup(Player player)
     {
         this.player = player;
-        GetComponentInChildren<TMP_Text>().text = player.name;
+        //GetComponentInChildren<TMP_Text>().text = player.name;
+        playerPic.sprite = player.pic;
         //if (PlayerManager.Instance.selectedPlayer == player)
         //{
         //    EventManager.OnSelectPlayer(player);

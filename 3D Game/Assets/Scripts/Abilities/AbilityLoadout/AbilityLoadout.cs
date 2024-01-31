@@ -21,10 +21,10 @@ public class AbilityLoadout : MonoBehaviour
 
     [SerializeField] public int amountToChoose;
 
-    [SerializeField] GridLayoutGroup BlueAbilityLayout;
-    [SerializeField] GridLayoutGroup OrangeAbilityLayout;
-    [SerializeField] GridLayoutGroup RedAbilityLayout;
-    [SerializeField] GridLayoutGroup GreenAbilityLayout;
+    [SerializeField] HorizontalLayoutGroup BlueAbilityLayout;
+    [SerializeField] HorizontalLayoutGroup OrangeAbilityLayout;
+    [SerializeField] HorizontalLayoutGroup RedAbilityLayout;
+    [SerializeField] HorizontalLayoutGroup GreenAbilityLayout;
 
     [SerializeField] Button ConfirmButton;
 

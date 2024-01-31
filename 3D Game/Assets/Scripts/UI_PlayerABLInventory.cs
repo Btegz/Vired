@@ -7,7 +7,7 @@ using System;
 
 public class UI_PlayerABLInventory : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] public GridLayoutGroup InventoryArea;
+    [SerializeField] public HorizontalLayoutGroup InventoryArea;
 
     [SerializeField] public Player player;
 

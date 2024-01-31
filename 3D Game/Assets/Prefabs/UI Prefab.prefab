@@ -3128,7 +3128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7437161571816270240}
-  - component: {fileID: 775882204162757872}
+  - component: {fileID: 7105432820575176092}
   m_Layer: 5
   m_Name: D_Options
   m_TagString: Untagged
@@ -3157,7 +3157,7 @@ RectTransform:
   m_AnchoredPosition: {x: 1413, y: -740}
   m_SizeDelta: {x: 425, y: 215}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &775882204162757872
+--- !u!114 &7105432820575176092
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3166,7 +3166,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1340936339588439985}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
@@ -3175,12 +3175,14 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_StartCorner: 0
-  m_StartAxis: 0
-  m_CellSize: {x: 90, y: 90}
-  m_Spacing: {x: 17, y: 17}
-  m_Constraint: 0
-  m_ConstraintCount: 2
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &1417270208607467332
 GameObject:
   m_ObjectHideFlags: 0
@@ -5628,7 +5630,7 @@ GameObject:
   - component: {fileID: 3108126066563711396}
   - component: {fileID: 502091266352086616}
   - component: {fileID: 1807418351102163454}
-  - component: {fileID: 4088730372546938276}
+  - component: {fileID: 6063888819859768044}
   m_Layer: 0
   m_Name: Loadout
   m_TagString: Untagged
@@ -5694,7 +5696,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4088730372546938276
+--- !u!114 &6063888819859768044
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5703,7 +5705,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2356074926666702885}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
@@ -5712,12 +5714,14 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_StartCorner: 0
-  m_StartAxis: 0
-  m_CellSize: {x: 100, y: 100}
-  m_Spacing: {x: 0, y: 0}
-  m_Constraint: 0
-  m_ConstraintCount: 2
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &2466459511547538262
 GameObject:
   m_ObjectHideFlags: 0
@@ -5803,7 +5807,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6675442019648347746}
-  - component: {fileID: 1637680297478191344}
+  - component: {fileID: 6070086421013314306}
   m_Layer: 5
   m_Name: A_Options
   m_TagString: Untagged
@@ -5832,7 +5836,7 @@ RectTransform:
   m_AnchoredPosition: {x: 513, y: -740}
   m_SizeDelta: {x: 425, y: 215}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1637680297478191344
+--- !u!114 &6070086421013314306
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5841,7 +5845,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2475348500138720103}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
@@ -5850,12 +5854,14 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_StartCorner: 0
-  m_StartAxis: 0
-  m_CellSize: {x: 90, y: 90}
-  m_Spacing: {x: 17, y: 17}
-  m_Constraint: 0
-  m_ConstraintCount: 2
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &2623660313058627498
 GameObject:
   m_ObjectHideFlags: 0
@@ -7625,7 +7631,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4326647920856463140}
-  - component: {fileID: 6588411883697216820}
+  - component: {fileID: 6353912542932383755}
   m_Layer: 5
   m_Name: C_Options
   m_TagString: Untagged
@@ -7654,7 +7660,7 @@ RectTransform:
   m_AnchoredPosition: {x: 1112.9999, y: -740}
   m_SizeDelta: {x: 425, y: 215}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &6588411883697216820
+--- !u!114 &6353912542932383755
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7663,7 +7669,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3574262850753220346}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
@@ -7672,12 +7678,14 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_StartCorner: 0
-  m_StartAxis: 0
-  m_CellSize: {x: 90, y: 90}
-  m_Spacing: {x: 17, y: 17}
-  m_Constraint: 0
-  m_ConstraintCount: 2
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &3638491443773895973
 GameObject:
   m_ObjectHideFlags: 0
@@ -8289,7 +8297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fd6d1635d57c2c49b0b79e7e185937b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InventoryArea: {fileID: 5214910827113382524}
+  InventoryArea: {fileID: 2762072510948142182}
   player: {fileID: 0}
   PlayerPortrait: {fileID: 7021460205085410769}
   Playerindex: 0
@@ -8725,7 +8733,7 @@ GameObject:
   - component: {fileID: 3671797833460739201}
   - component: {fileID: 2243172791973942141}
   - component: {fileID: 55078893692327131}
-  - component: {fileID: 2407321335703447681}
+  - component: {fileID: 6622323375962902521}
   m_Layer: 0
   m_Name: Loadout
   m_TagString: Untagged
@@ -8791,7 +8799,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2407321335703447681
+--- !u!114 &6622323375962902521
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8800,7 +8808,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4135682377403600128}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
@@ -8809,12 +8817,14 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_StartCorner: 0
-  m_StartAxis: 0
-  m_CellSize: {x: 100, y: 100}
-  m_Spacing: {x: 0, y: 0}
-  m_Constraint: 0
-  m_ConstraintCount: 2
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &4410542375394195493
 GameObject:
   m_ObjectHideFlags: 0
@@ -9309,6 +9319,7 @@ RectTransform:
   - {fileID: 6637861437971860566}
   - {fileID: 5684012179690507996}
   - {fileID: 4054571447010276983}
+  - {fileID: 587271898154323956}
   m_Father: {fileID: 1396180682763605625}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9395,6 +9406,7 @@ MonoBehaviour:
   ReassuranceMainMenu: {fileID: 8598903712680498204}
   TopDownButton: {fileID: 1478681669833290167}
   WorldButton: {fileID: 7840630070105772994}
+  BlackScreen: {fileID: 0}
 --- !u!114 &4538530394698957695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11212,7 +11224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fd6d1635d57c2c49b0b79e7e185937b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InventoryArea: {fileID: 4088730372546938276}
+  InventoryArea: {fileID: 6063888819859768044}
   player: {fileID: 0}
   PlayerPortrait: {fileID: 1265581326489354761}
   Playerindex: 2
@@ -12362,7 +12374,7 @@ GameObject:
   - component: {fileID: 6612211590203033212}
   - component: {fileID: 8509210649741605248}
   - component: {fileID: 7634795653551046182}
-  - component: {fileID: 5214910827113382524}
+  - component: {fileID: 2762072510948142182}
   m_Layer: 0
   m_Name: Loadout
   m_TagString: Untagged
@@ -12428,7 +12440,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5214910827113382524
+--- !u!114 &2762072510948142182
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12437,7 +12449,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5788100725896652797}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
@@ -12446,12 +12458,14 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_StartCorner: 0
-  m_StartAxis: 0
-  m_CellSize: {x: 100, y: 100}
-  m_Spacing: {x: 0, y: 0}
-  m_Constraint: 0
-  m_ConstraintCount: 2
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &5856971954178105845
 GameObject:
   m_ObjectHideFlags: 0
@@ -12516,10 +12530,10 @@ MonoBehaviour:
   NewAbilityLoadoutButton: {fileID: 0}
   ChosenAbilitiesLayout: {fileID: 0}
   amountToChoose: 0
-  BlueAbilityLayout: {fileID: 1637680297478191344}
-  OrangeAbilityLayout: {fileID: 743903533543351815}
-  RedAbilityLayout: {fileID: 6588411883697216820}
-  GreenAbilityLayout: {fileID: 775882204162757872}
+  BlueAbilityLayout: {fileID: 6070086421013314306}
+  OrangeAbilityLayout: {fileID: 7518733348355317522}
+  RedAbilityLayout: {fileID: 6353912542932383755}
+  GreenAbilityLayout: {fileID: 7105432820575176092}
   ConfirmButton: {fileID: 4436657991584350382}
   PlayerInventoryAreas:
   - {fileID: 5813970510499897924}
@@ -14236,7 +14250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fd6d1635d57c2c49b0b79e7e185937b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InventoryArea: {fileID: 2407321335703447681}
+  InventoryArea: {fileID: 6622323375962902521}
   player: {fileID: 0}
   PlayerPortrait: {fileID: 596356546658856748}
   Playerindex: 1
@@ -14910,7 +14924,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7625399773306996589}
-  - component: {fileID: 743903533543351815}
+  - component: {fileID: 7518733348355317522}
   m_Layer: 5
   m_Name: B_Options
   m_TagString: Untagged
@@ -14939,7 +14953,7 @@ RectTransform:
   m_AnchoredPosition: {x: 812.99994, y: -740}
   m_SizeDelta: {x: 425, y: 215}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &743903533543351815
+--- !u!114 &7518733348355317522
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -14948,7 +14962,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7239753639452211297}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
@@ -14957,12 +14971,14 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_StartCorner: 0
-  m_StartAxis: 0
-  m_CellSize: {x: 90, y: 90}
-  m_Spacing: {x: 17, y: 17}
-  m_Constraint: 0
-  m_ConstraintCount: 2
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &7327653526768357787
 GameObject:
   m_ObjectHideFlags: 0
