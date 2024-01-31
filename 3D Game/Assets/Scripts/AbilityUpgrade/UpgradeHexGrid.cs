@@ -192,20 +192,19 @@ public class UpgradeHexGrid : MonoBehaviour
                 text = "";
                 return EmptyHexSprite;
             case Effect.Negative100:
-                text = "100";
+                text = "1";
                 return DamageHexSprite;
             case Effect.Negative200:
-                text = "200";
+                text = "2";
                 return DamageHexSprite;
             case Effect.Negative300:
-                text = "300";
-
+                text = "3";
                 return DamageHexSprite;
             case Effect.Negative400:
-                text = "400";
+                text = "4";
                 return DamageHexSprite;
             case Effect.Negative500:
-                text = "500";
+                text = "5";
                 return DamageHexSprite;
             default:
                 text = "";
