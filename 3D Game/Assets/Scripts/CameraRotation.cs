@@ -169,7 +169,7 @@ public class CameraRotation : MonoBehaviour
             }
         }
         //Debug.Log($"minX: {minX}, maxX: {maxX}, minZ: {minZ}, maxZ: {maxZ}");
-        //jetzt ham wa die gr��en Distanzen
+        //jetzt ham wa die grääen Distanzen
 
 
     }
@@ -374,7 +374,7 @@ public class CameraRotation : MonoBehaviour
 
             //Wir erstellen uns ein Quad das auf 0 liegt und nach x und z sich ausdehnt(das ist der Boden)
 
-            // wir schie�en einen Ray von Cam durch Screenmittelpunkt
+            // wir schieäen einen Ray von Cam durch Screenmittelpunkt
 
             // wir holen uns den Punkt wo der Ray das Quad trifft und rotieren um diesen Punkt yo
 
@@ -486,7 +486,7 @@ public class CameraRotation : MonoBehaviour
     }
     /// <summary>
     /// Priority Switch der einzelnen Kameras 
-    /// Kamera mit der h�chsten Priority wird angezeigt 
+    /// Kamera mit der hächsten Priority wird angezeigt 
     /// </summary>
     public void SwitchtoMain()
     {
