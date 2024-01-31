@@ -121,17 +121,20 @@ Material:
     - _GlossyReflections: 0
     - _Metallic: 0.1
     - _Mode: 0
-    - _MovementFactor: 0.005
+    - _MovementFactor: 0.002
+    - _MovementFactorMax: 0.003
+    - _MovementFactorMin: 0.002
+    - _MovementFreq: 0.25
     - _NOISETYPE: 0
-    - _NoiseScale: 900
+    - _NoiseScale: 7000
     - _OcclusionStrength: 1
-    - _OpacityFactor: -0.29
+    - _OpacityFactor: 1
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: -49
     - _ReceiveShadows: 0
     - _SampleGI: 0
-    - _Smoothness: 0.01
+    - _Smoothness: 0.001
     - _SmoothnessTextureChannel: 0
     - _SoftParticlesEnabled: 0
     - _SoftParticlesFarFadeDistance: 1
@@ -142,7 +145,7 @@ Material:
     - _VoronoiAngleOffset: 10
     - _WorkflowMode: 1
     - _ZWrite: 0
-    - _metallic: 0.71
+    - _metallic: 0.001
     - _normalStrength: 0
     m_Colors:
     - _BaseColor: {r: 0.6603774, g: 0.43921328, b: 0.43921328, a: 0.29803923}
