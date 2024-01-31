@@ -406,9 +406,8 @@ public class RessourceVisuals : MonoBehaviour
             StopEnemyMassParticles();
             foreach (GameObject enemyMass in CurrentEnemyMasses)
             {
-
-                Destroy(enemyMass);
-                // enemyMass.GetComponent<Burst>().Bursting();
+                enemyMass.GetComponent<Burst>().Bursting();
+               // Destroy(enemyMass);
                 
             }
         }

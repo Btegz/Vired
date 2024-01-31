@@ -11,6 +11,7 @@ public class Burst : MonoBehaviour
     public float rate;
     public float secondsToWait;
     public List<Material> enemyMassChildren;
+    public ParticleSystem BubbleBurstParticle;
     void OnEnable()
     {
         enemyMassChildren = new List<Material>();
@@ -19,11 +20,7 @@ public class Burst : MonoBehaviour
             enemyMassChildren.Add(rend.material);
 
         }
-        foreach(Material component in enemyMassChildren)
-        {
-            component.SetFloat("_Bubble", -30);
-
-        }
+       
 
     }
 
@@ -52,6 +49,11 @@ public class Burst : MonoBehaviour
         }
         try
         {
+            Instantiate(BubbleBurstParticle, gameObject.transform.position, Quaternion.identity);
+              foreach (Material component in enemyMassChildren)
+        {
+            component.SetFloat("_Bubble", -20);
+        }
             Destroy(gameObject);
 
         }
@@ -68,5 +70,10 @@ public class Burst : MonoBehaviour
     {
         StartCoroutine(BubblyBurst());
 
+    }
+
+    public void OnDestroy()
+    {
+      
     }
 }
