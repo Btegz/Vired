@@ -34,6 +34,7 @@ public class GS_Pofl : GridState
         pofi = Instantiate(PointOfInterest, PointOfInterest.transform.position, Quaternion.identity);
         pofi.GetComponentInChildren<PofIManager>().pofiTile = parent;
         pofi.GetComponentInChildren<PofIManager>().pofiPrefab = parent.GetComponentInChildren<PofIVisuals>();
+       
         //parent.ChangeCurrentState(GridManager.Instance.gS_Neutral);
         //Destroy(parent.gameObject.GetComponentInChildren<PofIVisuals>().gameObject);
 

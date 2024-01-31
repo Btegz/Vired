@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.Audio; 
 
 public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler, IBeginDragHandler, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler
 {
@@ -14,6 +15,10 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
     [SerializeField] GridLayoutGroup AOption;
     public AbilityLoadoutButton a;
     public Sprite Nope;
+
+    public AudioData StartDrag;
+    public AudioData EndDrag;
+    public AudioMixerGroup soundEffect;
 
 
 
@@ -27,6 +32,7 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
     public bool inPlayerArea = false;
     public void OnBeginDrag(PointerEventData eventData)
     {
+        AudioManager.Instance.PlaySoundAtLocation(StartDrag, soundEffect, null);
 
         if (currentState != ButtonState.newInLoadout)
         {
@@ -60,6 +66,8 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
 
     public void OnEndDrag(PointerEventData eventData)
     {
+                    AudioManager.Instance.PlaySoundAtLocation(EndDrag, soundEffect, null);
+
         if (currentState != ButtonState.newInLoadout)
         {
             return;
@@ -67,7 +75,9 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
         GameObject pointedObj = eventData.pointerCurrentRaycast.gameObject;
         inPlayerArea = false;
         if (pointedObj.GetComponentInParent<UI_PlayerABLInventory>())
+
         {
+            
             UI_PlayerABLInventory playerArea = pointedObj.GetComponentInParent<UI_PlayerABLInventory>();
             // if (!playerArea.player.AbilityInventory.Contains(ability))
             {

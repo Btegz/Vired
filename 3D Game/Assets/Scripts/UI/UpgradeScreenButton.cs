@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.EventSystems;
 
-public class UpgradeScreenButton : MonoBehaviour, IPointerClickHandler
+public class UpgradeScreenButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
 {
     [SerializeField] UpgradeManager AbilityUpgradeObj;
     public AudioData OpenUpgradeMenu;
+    public AudioData ButtonHover;
     public AudioMixerGroup soundEffect;
     
     public void OnPointerClick(PointerEventData eventData)
@@ -36,5 +37,10 @@ public class UpgradeScreenButton : MonoBehaviour, IPointerClickHandler
         }
 
 
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        AudioManager.Instance.PlaySoundAtLocation(ButtonHover, soundEffect, null);
     }
 }
