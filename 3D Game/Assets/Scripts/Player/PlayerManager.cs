@@ -57,6 +57,7 @@ public Player selectedPlayer;
     [SerializeField] AudioData selectedAbility;
     [SerializeField] AudioData AbilityCanceled;
     [SerializeField] AudioSource hovern;
+    [SerializeField] AudioSource enemyHovern;
     [SerializeField] AudioMixerGroup soundEffect;
 
      public bool abilityLoadoutTutorial = false;
@@ -125,6 +126,7 @@ public Player selectedPlayer;
     {
 
         AudioManager.Instance.PlayMusic(hovern);
+        AudioManager.Instance.PlayMusic(enemyHovern);
         if (!AbilityLoadoutActive)
         {
             // takes mouse positition
@@ -537,15 +539,35 @@ public Player selectedPlayer;
     {
         
         CameraRotation.Instance.MainCam = true;
-        AudioManager.Instance.PlaySoundAtLocation(switchPlayer, soundEffect, null);
+       
         PlayerManager.Instance.selectedPlayer = player/*PlayerManager.Instance.Players[(int)keyPressed]*/;
         // EventManager.OnSelectPlayer(selectedPlayer);
 
 
-       // CameraRotation.Instance.Playercam.LookAt = PlayerManager.Instance.selectedPlayer.transform;
+        // CameraRotation.Instance.Playercam.LookAt = PlayerManager.Instance.selectedPlayer.transform;
         //CameraRotation.Instance.Playercam.Follow = PlayerManager.Instance.selectedPlayer.transform;
         // CameraRotation.Instance.SwitchToPlayer();
 
+        if (selectedPlayer == Players[0])
+        {
+            AudioManager.Instance.PlaySoundAtLocation(switchPlayer, soundEffect, "Player1");
+
+        }
+
+        else if (selectedPlayer == Players[1])
+        {
+            Debug.Log("HI 2");
+            AudioManager.Instance.PlaySoundAtLocation(switchPlayer, soundEffect, "Player2");
+        }
+
+        else if (selectedPlayer == Players[2])
+        {
+            Debug.Log("HI 3");
+
+            AudioManager.Instance.PlaySoundAtLocation(switchPlayer, soundEffect, "Player3");
+        }
+
+        else return;
 
 
     }

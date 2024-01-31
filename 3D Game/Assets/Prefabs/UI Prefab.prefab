@@ -595,7 +595,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
-  UIClick: {fileID: 11400000, guid: 2c290a756a05eac47ac6e91f29b86cae, type: 2}
+  ButtonClick: {fileID: 0}
 --- !u!114 &1273193005351259779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -833,7 +833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
-  UIClick: {fileID: 11400000, guid: 2c290a756a05eac47ac6e91f29b86cae, type: 2}
+  ButtonClick: {fileID: 0}
 --- !u!1 &199171459788731747
 GameObject:
   m_ObjectHideFlags: 0
@@ -2973,7 +2973,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
-  UIClick: {fileID: 11400000, guid: 2c290a756a05eac47ac6e91f29b86cae, type: 2}
+  ButtonClick: {fileID: 0}
 --- !u!114 &296319462968151748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3612,7 +3612,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
-  UIClick: {fileID: 11400000, guid: 2c290a756a05eac47ac6e91f29b86cae, type: 2}
+  ButtonClick: {fileID: 0}
 --- !u!1 &1479617205234261283
 GameObject:
   m_ObjectHideFlags: 0
@@ -3900,7 +3900,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
-  UIClick: {fileID: 11400000, guid: 2c290a756a05eac47ac6e91f29b86cae, type: 2}
+  ButtonClick: {fileID: 0}
 --- !u!114 &1817323840229167230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5024,7 +5024,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
-  UIClick: {fileID: 11400000, guid: 2c290a756a05eac47ac6e91f29b86cae, type: 2}
+  ButtonClick: {fileID: 0}
 --- !u!114 &2176418595245742946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10295,7 +10295,6 @@ GameObject:
   - component: {fileID: 1239626426}
   - component: {fileID: 2039975451528054993}
   - component: {fileID: 1239626427}
-  - component: {fileID: 8980282787538819898}
   m_Layer: 5
   m_Name: TriggerPhaseButton
   m_TagString: Untagged
@@ -10483,20 +10482,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8980282787538819898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4538530396214441110}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3784ed3105d89744593a987d0a95ccd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
-  UIClick: {fileID: 11400000, guid: 2c290a756a05eac47ac6e91f29b86cae, type: 2}
 --- !u!1 &4538530396338077439
 GameObject:
   m_ObjectHideFlags: 0
@@ -11159,7 +11144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
-  UIClick: {fileID: 11400000, guid: 2c290a756a05eac47ac6e91f29b86cae, type: 2}
+  ButtonClick: {fileID: 0}
 --- !u!114 &7434968591866795615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12681,7 +12666,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
-  UIClick: {fileID: 11400000, guid: 2c290a756a05eac47ac6e91f29b86cae, type: 2}
+  ButtonClick: {fileID: 0}
 --- !u!1 &6186749681696862492
 GameObject:
   m_ObjectHideFlags: 0
@@ -13708,7 +13693,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
-  UIClick: {fileID: 11400000, guid: 2c290a756a05eac47ac6e91f29b86cae, type: 2}
+  ButtonClick: {fileID: 0}
 --- !u!114 &1435447427219931125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14101,7 +14086,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
-  UIClick: {fileID: 11400000, guid: 2c290a756a05eac47ac6e91f29b86cae, type: 2}
+  ButtonClick: {fileID: 0}
 --- !u!1 &6726912585964901025
 GameObject:
   m_ObjectHideFlags: 0
@@ -14901,7 +14886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
-  UIClick: {fileID: 11400000, guid: 2c290a756a05eac47ac6e91f29b86cae, type: 2}
+  ButtonClick: {fileID: 0}
 --- !u!114 &5653916155764300747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16275,7 +16260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
-  UIClick: {fileID: 11400000, guid: 2c290a756a05eac47ac6e91f29b86cae, type: 2}
+  ButtonClick: {fileID: 0}
 --- !u!1 &7856259337154749581
 GameObject:
   m_ObjectHideFlags: 0
@@ -17950,7 +17935,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
-  UIClick: {fileID: 11400000, guid: 2c290a756a05eac47ac6e91f29b86cae, type: 2}
+  ButtonClick: {fileID: 0}
 --- !u!224 &6406627812390044836 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5578025478711200740, guid: a44c1eb041d4466479b04104d453d231, type: 3}
@@ -18108,7 +18093,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
-  UIClick: {fileID: 11400000, guid: 2c290a756a05eac47ac6e91f29b86cae, type: 2}
+  ButtonClick: {fileID: 0}
 --- !u!1001 &6570146836548703650
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18261,4 +18246,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
-  UIClick: {fileID: 11400000, guid: 2c290a756a05eac47ac6e91f29b86cae, type: 2}
+  ButtonClick: {fileID: 0}

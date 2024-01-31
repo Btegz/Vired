@@ -11,7 +11,6 @@ public class AudioManager : MonoBehaviour
     //  [SerializeField] AudioSource audioPlayerPrefab;
     new Object[] audios;
     new AudioData audio;
-    public AudioSource EnemyHovern;
 
 
 
@@ -38,8 +37,11 @@ public class AudioManager : MonoBehaviour
             try
             {
                 audios = Resources.LoadAll(path, typeof(AudioData));
+              
 
                 audio = (AudioData)audios[Random.Range(0, audios.Length)];
+                Debug.Log(audio);
+
                 audioSource.clip = audio.audioClip;
                 if (PlayerManager.Instance.AbilityLoadoutActive)
                     audioSource.volume = 0;
@@ -64,15 +66,23 @@ public class AudioManager : MonoBehaviour
                 }
             }
 
-            Destroy(audioPlayer.gameObject, data.audioClip.length);
+       //     Destroy(audioPlayer.gameObject, data.audioClip.length);
         }
     }
     public void PlayMusic(AudioSource _audioSource)
     {
-       // if (!PlayerManager.Instance.AbilityLoadoutActive)
-        
-            if (_audioSource.isPlaying) return;
+        // if (!PlayerManager.Instance.AbilityLoadoutActive)
+
+        if (_audioSource.isPlaying)
+        {
+            return;
+        }
+         
+        else
+        {
             _audioSource.Play();
+
+        }
         
     }
 
