@@ -27,7 +27,7 @@ public class PlayerVisuals : MonoBehaviour
     {
         EventManager.OnMoveEvent += Movement;
         EventManager.OnSelectPlayerEvent += PlayerSelection;
-        EventManager.OnAbilityCastEvent += AbilityCast;
+        //EventManager.OnAbilityCastEvent += AbilityCast;
 
     }
 

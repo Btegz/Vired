@@ -40,10 +40,14 @@ public class UpgradeHexGrid : MonoBehaviour
         if (PlayerManager.Instance.selectedPlayer != null)
         {
             Player selectedPlayer = PlayerManager.Instance.selectedPlayer;
-           // EventManager.OnSelectPlayerEvent += CancelAbilityUpgrade;
+            // EventManager.OnSelectPlayerEvent += CancelAbilityUpgrade;
             EventManager.OnSelectPlayerEvent += UpdateLoadedAbilityFromPlayerSwitch;
-            
+
             EventManager.OnAbilityButtonEvent += MakeAbilityToGrid;
+            if (selectedPlayer.AbilityInventory.Count == 0)
+            {
+                return;
+            }
             if (selectedPlayer.AbilityInventory[0] != null)
             {
                 MakeAbilityToGrid(selectedPlayer.AbilityInventory[0]);
@@ -58,18 +62,18 @@ public class UpgradeHexGrid : MonoBehaviour
     private void OnDisable()
     {
         EventManager.OnAbilityButtonEvent -= MakeAbilityToGrid;
-        EventManager.OnSelectPlayerEvent -=  UpdateLoadedAbilityFromPlayerSwitch;
-       // EventManager.OnSelectPlayerEvent -= CancelAbilityUpgrade;
+        EventManager.OnSelectPlayerEvent -= UpdateLoadedAbilityFromPlayerSwitch;
+        // EventManager.OnSelectPlayerEvent -= CancelAbilityUpgrade;
     }
 
     public void UpdateLoadedAbilityFromPlayerSwitch(Player player)
     {
-        if(player.AbilityInventory.Count>0)
+        if (player.AbilityInventory.Count > 0)
         {
             CancelAbilityUpgrade();
-            NoAbilitySelected.enabled = false;
+            NoAbilitySelected.gameObject.SetActive(false);
             LoadAbility(player.AbilityInventory[0]);
-            
+
         }
         else
         {
@@ -85,16 +89,15 @@ public class UpgradeHexGrid : MonoBehaviour
             {
                 Grid = new Dictionary<Vector2Int, UpgradeGridHex>();
             }
-
-            NoAbilitySelected.enabled = true;
+            NoAbilitySelected.gameObject.SetActive(true);
         }
     }
 
     public void MakeGrid(int radius)
     {
-        if(Grid != null)
+        if (Grid != null)
         {
-            foreach(KeyValuePair <Vector2Int,UpgradeGridHex> kvp in Grid)
+            foreach (KeyValuePair<Vector2Int, UpgradeGridHex> kvp in Grid)
             {
                 Destroy(kvp.Value.gameObject);
             }
@@ -120,11 +123,11 @@ public class UpgradeHexGrid : MonoBehaviour
 
     public void UpdateGrid()
     {
-        if(Grid == null)
+        if (Grid == null)
         {
             return;
         }
-        foreach(Vector2Int coordinate in HexGridUtil.Ring(Vector3Int.zero, loadedAbility.MyTierLevel))
+        foreach (Vector2Int coordinate in HexGridUtil.Ring(Vector3Int.zero, loadedAbility.MyTierLevel))
         {
             UpgradeGridHex newHex = Instantiate(upgradeHexPrefab, this.transform);
             Vector3 wordPos = HexGridUtil.AxialHexToPixel(coordinate, 50);
@@ -134,7 +137,7 @@ public class UpgradeHexGrid : MonoBehaviour
         }
     }
 
-    public void MakeAbilityToGrid(Ability ability,AbilityButton button)
+    public void MakeAbilityToGrid(Ability ability, AbilityButton button)
     {
         //pointsSpent = 0;
         //TierUPgrades = 0;
@@ -153,7 +156,7 @@ public class UpgradeHexGrid : MonoBehaviour
             return;
         }
         MakeGrid(ability.MyTierLevel);
-        if(AbilityGrid != null)
+        if (AbilityGrid != null)
         {
             AbilityGrid.Clear();
         }
@@ -246,7 +249,7 @@ public class UpgradeHexGrid : MonoBehaviour
         //{
         //    ConfirmAbilityUpgrade();
         //}
-        if(loadedAbility == ability)
+        if (loadedAbility == ability)
         {
             return;
         }
@@ -260,7 +263,7 @@ public class UpgradeHexGrid : MonoBehaviour
         {
             foreach (KeyValuePair<Vector2Int, Effect> upgradedAbilityGrid in AbilityGrid)
             {
-                if(upgradedAbilityGrid.Value == Effect.Neutral)
+                if (upgradedAbilityGrid.Value == Effect.Neutral)
                 {
                     continue;
                 }
@@ -272,25 +275,25 @@ public class UpgradeHexGrid : MonoBehaviour
                 else
                 {
                     int index = loadedAbility.Coordinates.IndexOf(upgradedAbilityGrid.Key);
-                    if(upgradedAbilityGrid.Value != loadedAbility.Effects[index])
+                    if (upgradedAbilityGrid.Value != loadedAbility.Effects[index])
                     {
                         loadedAbility.Effects[index] = upgradedAbilityGrid.Value;
                     }
                 }
             }
             loadedAbility.RecalculatePreviewMesh(AbilityGrid);
-            EventManager.OnAbilityChange(Grid,loadedAbility);
+            EventManager.OnAbilityChange(Grid, loadedAbility);
             AudioManager.Instance.PlaySoundAtLocation(ConfirmUpgrade, soundEffect, null);
 
-      
-            
-                
+
+
+
 
         }
 
-        if(TutorialManager.Instance != null)
+        if (TutorialManager.Instance != null)
         {
-            if(loadedAbility != null)
+            if (loadedAbility != null)
             {
                 foreach (KeyValuePair<Vector2Int, Effect> upgradedAbilityGrid in AbilityGrid)
                 {
@@ -321,10 +324,10 @@ public class UpgradeHexGrid : MonoBehaviour
         }
         //loadedAbility = null;
     }
-    
+
     public void CancelAbilityUpgrade()
     {
-        if(loadedAbility != null)
+        if (PlayerManager.Instance.selectedPlayer.AbilityInventory.Count > 0)
         {
             PlayerManager.Instance.SkillPoints += pointsSpent;
             loadedAbility.MyTierLevel -= TierUPgrades;
@@ -332,16 +335,12 @@ public class UpgradeHexGrid : MonoBehaviour
             TierUPgrades = 0;
             MakeAbilityToGrid(loadedAbility);
             AudioManager.Instance.PlaySoundAtLocation(CancelUpgrade, soundEffect, null);
-
-
         }
     }
 
     public void CancelAbilityUpgrade(Player player)
     {
-        Debug.Log(loadedAbility.name);
-
-        if (loadedAbility != null)
+        if (PlayerManager.Instance.selectedPlayer.AbilityInventory.Count > 0)
         {
             PlayerManager.Instance.SkillPoints += pointsSpent;
             loadedAbility.MyTierLevel -= TierUPgrades;
