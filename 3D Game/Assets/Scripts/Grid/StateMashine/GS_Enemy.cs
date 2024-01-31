@@ -13,6 +13,13 @@ public class GS_Enemy : GridState
     public override void EnterState(GridTile parent)
     {
         //parent.meshRenderer.material = parent.gridTileSO.negativeMaterial;
+        foreach(GridTile neighbor in parent.myNeighbors)
+        {
+            if (neighbor.currentGridState.StateValue() == -1)
+            {
+                neighbor.GetComponent<RessourceVisuals>().SpawnEnemyMass();
+            }
+        }
     }
 
     public override void ExitState(GridTile parent)

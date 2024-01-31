@@ -12,7 +12,14 @@ public class GS_Boss : GridState
 
     public override void EnterState(GridTile parent)
     {
-        parent.GetComponent<RessourceVisuals>().SpawnEnemyMass(); 
+        parent.GetComponent<RessourceVisuals>().SpawnEnemyMass();
+        foreach (GridTile neighbor in parent.myNeighbors)
+        {
+            if (neighbor.currentGridState.StateValue() == -1)
+            {
+                neighbor.GetComponent<RessourceVisuals>().SpawnEnemyMass();
+            }
+        }
     }
 
     public override void ExitState(GridTile parent)

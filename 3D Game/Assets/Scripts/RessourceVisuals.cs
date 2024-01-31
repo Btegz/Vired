@@ -4,6 +4,19 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using UnityEngine;
 
+[System.Serializable]
+public class EnemyMassLayer
+{
+    [SerializeField] public GameObject MassPrefab;
+    [SerializeField] public Vector2Int AmountFromTo;
+    [SerializeField] public Vector2 YRotationFromTo;
+    [SerializeField] public Vector2 XScaleFromTo;
+    [SerializeField] public Vector2 ZScaleFromTo;
+    [SerializeField] public Vector2 YOffsetFromTo;
+    [SerializeField][Range(0, 6)] public int MassNeighborThreshold;
+}
+
+
 public class RessourceVisuals : MonoBehaviour
 {
     [Header("TileRessourceParticleSystems")]
@@ -21,11 +34,11 @@ public class RessourceVisuals : MonoBehaviour
     [Header("-------------------------------------")]
 
     [Header("Aesthetic MeshesGeneration")]
-    [SerializeField] List<TerrainFeature> BäumeFeatures;
-    [SerializeField] Vector2 BäumeNoiseValueFromTo;
-    [SerializeField] Vector2 CenterLerpBäumeFromTo;
-    [SerializeField] Vector2Int BäumeAmountFromTo;
-    [SerializeField] float propabilityBäume;
+    [SerializeField] List<TerrainFeature> BÃ¤umeFeatures;
+    [SerializeField] Vector2 BÃ¤umeNoiseValueFromTo;
+    [SerializeField] Vector2 CenterLerpBÃ¤umeFromTo;
+    [SerializeField] Vector2Int BÃ¤umeAmountFromTo;
+    [SerializeField] float propabilityBÃ¤ume;
 
 
     [SerializeField] List<TerrainFeature> SpikeFeatures;
@@ -77,15 +90,11 @@ public class RessourceVisuals : MonoBehaviour
     [Header("-------------------------------------")]
 
     [Header("Enemy Mass")]
-    [SerializeField] List<GameObject> EnemyMassKlopse;
-    [SerializeField] Vector2Int howManyEnemyMassKlopseFromTo;
-    [SerializeField] Vector2 EnemyMassrandomRotationFromTo;
-    [SerializeField] Vector2 EnemyMassrandomYOffsetFromTo;
-
-
+    [SerializeField] List<EnemyMassLayer> EnemyMassLayers;
+    List<int> enemyMassLayersActive;
 
     Dictionary<Direction, TerrainFeature> CurrentKlopse;
-    public List<GameObject> CurrentEnemyMasses;
+    List<GameObject> CurrentEnemyMasses;
 
     [SerializeField] public Burst EnemyMassBurst;
     [SerializeField] Material OuterBurst;
@@ -109,6 +118,7 @@ public class RessourceVisuals : MonoBehaviour
     {
         myTile = GetComponent<GridTile>();
         CurrentEnemyMasses = new List<GameObject>();
+        enemyMassLayersActive = new List<int>();
     }
 
     public void Setup(GridTile myTile)
@@ -149,37 +159,37 @@ public class RessourceVisuals : MonoBehaviour
                 break;
         }
 
-        float randomBaumNumber = Random.Range(0f,1f);
+        float randomBaumNumber = Random.Range(0f, 1f);
         float randomSpikeNumber = Random.Range(0f, 1f);
         float randomRockNumber = Random.Range(0f, 1f);
 
-        if (myTile.tileInfo.noiseValue >= BäumeNoiseValueFromTo.x && myTile.tileInfo.noiseValue <= BäumeNoiseValueFromTo.y && randomBaumNumber >= propabilityBäume)
+        if (myTile.tileInfo.noiseValue >= BÃ¤umeNoiseValueFromTo.x && myTile.tileInfo.noiseValue <= BÃ¤umeNoiseValueFromTo.y && randomBaumNumber >= propabilityBÃ¤ume)
         {
-            int randomBaumAmount = Random.Range(BäumeAmountFromTo.x, BäumeAmountFromTo.y);
-            for(int i = 0; i < randomBaumAmount; i++)
+            int randomBaumAmount = Random.Range(BÃ¤umeAmountFromTo.x, BÃ¤umeAmountFromTo.y);
+            for (int i = 0; i < randomBaumAmount; i++)
             {
                 Direction randomDirection;
-                    randomDirection = (Direction)Random.Range(0, 7);
+                randomDirection = (Direction)Random.Range(0, 7);
                 //else
                 //{
                 //    randomDirection = Direction.C;
                 //}
-                TerrainFeature newBaum = Instantiate(BäumeFeatures[Random.Range(0, BäumeFeatures.Count)], transform);
+                TerrainFeature newBaum = Instantiate(BÃ¤umeFeatures[Random.Range(0, BÃ¤umeFeatures.Count)], transform);
                 Vector3 goalPosition = transform.position;
                 goalPosition += myTile.Points[randomDirection];
-                goalPosition = Vector3.Lerp(goalPosition, myTile.Points[Direction.C] + transform.position, Random.Range(CenterLerpBäumeFromTo.x, CenterLerpBäumeFromTo.y));
+                goalPosition = Vector3.Lerp(goalPosition, myTile.Points[Direction.C] + transform.position, Random.Range(CenterLerpBÃ¤umeFromTo.x, CenterLerpBÃ¤umeFromTo.y));
                 newBaum.transform.position = goalPosition;
                 newBaum.transform.rotation = Quaternion.Euler(Vector3.up * Random.Range(0, 360));
             }
         }
 
-        if(myTile.tileInfo.noiseValue >= SpikeNoiseValueFromTo.x && myTile.tileInfo.noiseValue <= SpikeNoiseValueFromTo.y && randomSpikeNumber >= propabilitySpike && myTile.ressource != Ressource.ressourceD)
+        if (myTile.tileInfo.noiseValue >= SpikeNoiseValueFromTo.x && myTile.tileInfo.noiseValue <= SpikeNoiseValueFromTo.y && randomSpikeNumber >= propabilitySpike && myTile.ressource != Ressource.ressourceD)
         {
             int randomSpikeAmount = Random.Range(SpikeAmountFromTo.x, SpikeAmountFromTo.y);
             for (int i = 0; i < randomSpikeAmount; i++)
             {
                 Direction randomDirection;
-                    randomDirection = (Direction)Random.Range(0, 7);
+                randomDirection = (Direction)Random.Range(0, 7);
                 //else
                 //{
                 //randomDirection = Direction.C;
@@ -221,7 +231,7 @@ public class RessourceVisuals : MonoBehaviour
         {
             return;
         }
-        foreach(ParticleSystem particle in myRessourceParticles)
+        foreach (ParticleSystem particle in myRessourceParticles)
         {
             particle.Play();
         }
@@ -277,7 +287,7 @@ public class RessourceVisuals : MonoBehaviour
 
     public void StopCleanParticles()
     {
-        if (myCleanParticles== null)
+        if (myCleanParticles == null)
         {
             return;
         }
@@ -293,7 +303,7 @@ public class RessourceVisuals : MonoBehaviour
         switch (myTile.currentGridState.StateValue())
         {
             case <= 0:
-                CleanUpKlopse(); 
+                CleanUpKlopse();
                 StartEnemyMassParticles();
                 break;
             case 1:
@@ -419,23 +429,51 @@ public class RessourceVisuals : MonoBehaviour
 
     public void SpawnEnemyMass()
     {
-       try
-            { 
+        try
+        {
+            foreach (EnemyMassLayer layer in EnemyMassLayers)
+            {
+                int negativeNeighbors = 0;
+                foreach (GridTile neighbor in myTile.myNeighbors)
+                {
+                    if (neighbor.currentGridState.StateValue() < 0)
+                    {
+                        negativeNeighbors++;
+                    }
+                }
+                if (layer.MassNeighborThreshold > negativeNeighbors)
+                {
+                    continue;
+                }
+                if (!enemyMassLayersActive.Contains(EnemyMassLayers.IndexOf(layer)))
+                {
+                    enemyMassLayersActive.Add(EnemyMassLayers.IndexOf(layer));
+                }
+                else
+                {
+                    continue;
+                }
+                int amount = Random.Range(layer.AmountFromTo.x, layer.AmountFromTo.y + 1);
+                for (int i = 0; i < amount; i++)
+                {
+                    GameObject newEnemyMass = Instantiate(layer.MassPrefab, transform);
+                    Vector3 goalPosition = transform.position;
+                    goalPosition += new Vector3(Random.Range(-.5f, .5f), 0, Random.Range(-.4f, .4f));
+                    goalPosition += new Vector3(0, Random.Range(layer.YOffsetFromTo.x, layer.YOffsetFromTo.y), 0);
+                    newEnemyMass.transform.rotation = Quaternion.Euler(0, Random.Range(layer.YRotationFromTo.x, layer.YRotationFromTo.y), 0);
+                    CurrentEnemyMasses.Add(newEnemyMass);
 
-            int amount = Random.Range(howManyEnemyMassKlopseFromTo.x, howManyEnemyMassKlopseFromTo.y + 1);
+                    float xScale = Random.Range(layer.XScaleFromTo.x, layer.XScaleFromTo.y);
+                    float zScale = Random.Range(layer.ZScaleFromTo.x, layer.ZScaleFromTo.y);
+                    float yScale = (xScale + zScale) / 2f;
+
+                    newEnemyMass.transform.localScale = new Vector3(xScale,yScale,zScale);
+                    newEnemyMass.transform.DOMove(goalPosition, TweenDuration).From(goalPosition + Vector3.down * .5f).OnComplete(() => newEnemyMass.transform.DOPunchScale(newEnemyMass.transform.localScale * .25f, TweenDuration / 2f));
+
+                }
+            }
             StopRessourceParticles();
             StopCleanParticles();
-            for (int i = 0; i < amount; i++)
-            {
-                GameObject newEnemyMass = Instantiate(EnemyMassKlopse[Random.Range(0, EnemyMassKlopse.Count)], transform);
-                Vector3 goalPosition = transform.position;
-                goalPosition += new Vector3(Random.Range(-.5f, .5f), 0, Random.Range(-.4f, .4f));
-                goalPosition -= new Vector3(0, Random.Range(EnemyMassrandomYOffsetFromTo.x, EnemyMassrandomYOffsetFromTo.y), 0);
-                newEnemyMass.transform.rotation = Quaternion.Euler(0, Random.Range(getRotation().x, getRotation().y), 0);
-                CurrentEnemyMasses.Add(newEnemyMass);
-                newEnemyMass.transform.DOMove(goalPosition, TweenDuration).From(goalPosition + Vector3.down * .5f).OnComplete(() => newEnemyMass.transform.DOPunchScale(newEnemyMass.transform.localScale * .25f, TweenDuration / 2f));
-
-            }
             StartEnemyMassParticles();
         }
 
@@ -443,7 +481,6 @@ public class RessourceVisuals : MonoBehaviour
         {
 
         }
-
     }
 
     private Vector2Int getHowMany()

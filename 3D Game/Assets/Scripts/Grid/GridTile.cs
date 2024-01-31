@@ -64,7 +64,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     const float outerRadius = 1f;
     const float innerRadius = outerRadius * 0.866025404f;
 
-    List<GridTile> myNeighbors;
+    public List<GridTile> myNeighbors;
 
 
     List<Vector3> corners = new List<Vector3>()
