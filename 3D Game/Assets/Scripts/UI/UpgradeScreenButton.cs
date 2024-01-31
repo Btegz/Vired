@@ -12,6 +12,10 @@ public class UpgradeScreenButton : MonoBehaviour, IPointerClickHandler
     
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (PlayerManager.Instance.abilityActivated)
+        {
+            return;
+        }
         if (!AbilityUpgradeObj.gameObject.activeSelf)
         {
             AbilityUpgradeObj.gameObject.SetActive(true);

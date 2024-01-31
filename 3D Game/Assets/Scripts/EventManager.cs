@@ -57,6 +57,10 @@ public class EventManager
 
     public static void OnSelectPlayer(Player player)
     {
+        if (PlayerManager.Instance.abilityActivated)
+        {
+            return;
+        }
         OnSelectPlayerEvent?.Invoke(player);
     }
     
