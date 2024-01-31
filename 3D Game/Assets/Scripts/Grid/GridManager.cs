@@ -391,6 +391,7 @@ public class GridManager : MonoBehaviour
             pofi = Instantiate(PofIPrefab);
             pofi.transform.parent = targetLocation.transform;
             pofi.transform.position = new Vector3(targetLocation.transform.position.x, pofIOffset, targetLocation.transform.position.z);
+            pofi.transform.rotation = Quaternion.Euler(Vector3.up * Random.Range(0, 360));
 
 
         }
