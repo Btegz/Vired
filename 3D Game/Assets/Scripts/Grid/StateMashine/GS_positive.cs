@@ -62,22 +62,22 @@ public class GS_positive : GridState
         {
             case Ressource.ressourceA:
                 PlayerManager.Instance.RessourceAInventory++;
-                goalPoint = UIManager.Instance.ressourceAText.transform.position;
+                goalPoint = UIManager.Instance.ressourceAImage.transform.position;
                 res = Ressource.ressourceA;
                 break;
             case Ressource.ressourceB:
                 PlayerManager.Instance.RessourceBInventory++;
-                goalPoint = UIManager.Instance.ressourceBText.transform.position;
+                goalPoint = UIManager.Instance.ressourceBImage.transform.position;
                 res = Ressource.ressourceB;
                 break;
             case Ressource.ressourceC:
                 PlayerManager.Instance.RessourceCInventory++;
-                goalPoint = UIManager.Instance.ressourceCText.transform.position;
+                goalPoint = UIManager.Instance.ressourceCImage.transform.position;
                 res = Ressource.ressourceC;
                 break;
             case Ressource.ressourceD:
                 PlayerManager.Instance.RessourceDInventory++;
-                goalPoint = UIManager.Instance.ressourceDText.transform.position;
+                goalPoint = UIManager.Instance.ressourceDImage.transform.position;
                 res = Ressource.ressourceD;
                 break;
         }
