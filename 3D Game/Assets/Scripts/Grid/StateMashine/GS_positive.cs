@@ -53,7 +53,7 @@ public class GS_positive : GridState
             TutorialManager.Instance.UpgradeTrack.Play();
         }
         RessourceGainEffect rsg = Instantiate(PlayerManager.Instance.ressourceGainEffect,UIManager.Instance.transform);
-        AudioManager.Instance.PlaySoundAtLocation(ResourceCollected, soundEffect, null);
+        AudioManager.Instance.PlaySoundAtLocation(ResourceCollected, soundEffect, null, true);
         SaveManager.Instance.TotalResources++;
         Ressource res = Ressource.ressourceD;
         Vector2 startPoint = Camera.main.WorldToScreenPoint(parent.transform.position);

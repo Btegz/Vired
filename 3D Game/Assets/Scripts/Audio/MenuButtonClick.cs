@@ -13,11 +13,11 @@ public class MenuButtonClick : MonoBehaviour, IPointerClickHandler, IPointerEnte
    
     public void OnPointerClick(PointerEventData eventData)
     {
-        AudioManager.Instance.PlaySoundAtLocation(ButtonClick, soundEffect, null);
+        AudioManager.Instance.PlaySoundAtLocation(ButtonClick, soundEffect, null,true);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        AudioManager.Instance.PlaySoundAtLocation(ButtonHover, soundEffect, null);
+        AudioManager.Instance.PlaySoundAtLocation(ButtonHover, soundEffect, null, true);
     }
 }

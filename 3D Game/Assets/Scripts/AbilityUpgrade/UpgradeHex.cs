@@ -55,7 +55,7 @@ public class UpgradeHex : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        AudioManager.Instance.PlaySoundAtLocation(DragBegin, soundEffect, null);
+        AudioManager.Instance.PlaySoundAtLocation(DragBegin, soundEffect, null, true);
         // hier könntest du auch den On MouseEnter Particle Effect stoppen
         if (PlayerManager.Instance.SkillPoints >= Cost)
         {
@@ -85,8 +85,8 @@ public class UpgradeHex : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
             if(PlayerManager.Instance.SkillPoints > Cost)
             switch(effect)
             {
-                case Effect.Positive: AudioManager.Instance.PlaySoundAtLocation(positiveUpgrade, soundEffect, null); break; 
-                case Effect.Negative100: AudioManager.Instance.PlaySoundAtLocation(negativeUpgrade, soundEffect, null); break; 
+                case Effect.Positive: AudioManager.Instance.PlaySoundAtLocation(positiveUpgrade, soundEffect, null, true); break; 
+                case Effect.Negative100: AudioManager.Instance.PlaySoundAtLocation(negativeUpgrade, soundEffect, null, true); break; 
 
             }
             gridHex.Place();
@@ -129,7 +129,7 @@ public class UpgradeHex : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
             image.rectTransform.DOComplete();
             image.rectTransform.DOPunchRotation(Vector3.back * 30, .25f).SetEase(Ease.OutExpo);
             if(AbilityUpgrade.gameObject.activeSelf)
-            AudioManager.Instance.PlaySoundAtLocation(NoMonetos, soundEffect, null);
+            AudioManager.Instance.PlaySoundAtLocation(NoMonetos, soundEffect, null, true);
         }
     }
 

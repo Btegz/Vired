@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.Audio; 
+using UnityEngine.Audio;
 
 public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler, IBeginDragHandler, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler
 {
@@ -18,6 +18,8 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
 
     public AudioData StartDrag;
     public AudioData EndDrag;
+    public AudioData ButtonHover;
+    public AudioData ButtonClick;
     public AudioMixerGroup soundEffect;
 
 
@@ -32,7 +34,7 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
     public bool inPlayerArea = false;
     public void OnBeginDrag(PointerEventData eventData)
     {
-        AudioManager.Instance.PlaySoundAtLocation(StartDrag, soundEffect, null);
+        AudioManager.Instance.PlaySoundAtLocation(StartDrag, soundEffect, null, false);
 
         if (currentState != ButtonState.newInLoadout)
         {
@@ -66,7 +68,7 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
 
     public void OnEndDrag(PointerEventData eventData)
     {
-                    AudioManager.Instance.PlaySoundAtLocation(EndDrag, soundEffect, null);
+        AudioManager.Instance.PlaySoundAtLocation(EndDrag, soundEffect, null, false);
 
         if (currentState != ButtonState.newInLoadout)
         {
@@ -77,7 +79,7 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
         if (pointedObj.GetComponentInParent<UI_PlayerABLInventory>())
 
         {
-            
+
             UI_PlayerABLInventory playerArea = pointedObj.GetComponentInParent<UI_PlayerABLInventory>();
             // if (!playerArea.player.AbilityInventory.Contains(ability))
             {
@@ -122,14 +124,15 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
 
         if (TutorialManager.Instance != null)
         {
-            
-                TutorialManager.Instance.confirmText.SetActive(true);
-                TutorialManager.Instance.chooseAbilityText.SetActive(false);
-            
+
+            TutorialManager.Instance.confirmText.SetActive(true);
+            TutorialManager.Instance.chooseAbilityText.SetActive(false);
+
         }
+
     }
 
-    
+
 
     public void Setup(Ability ability, HorizontalLayoutGroup fatherrrr)
     {
@@ -138,7 +141,7 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
         RectData();
         this.ability = ability;
         //MakeAbilityToGrid();
-       
+
         CorrectResource();
         Button b = GetComponent<Button>();
         originalParent = fatherrrr;
@@ -155,16 +158,16 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
         if (currentState == ButtonState.selectedInLoadOut)
         {
             GetComponent<Image>().sprite = Nope;
+            AudioManager.Instance.PlaySoundAtLocation(ButtonHover, soundEffect, null, false);
         }
+    }
 
-    }  
-    
     public void OnPointerExit(PointerEventData eventData)
     {
         if (currentState == ButtonState.selectedInLoadOut)
         {
             GetComponent<Image>().sprite = A_Background;
-            
+
             switch (ability.MyCostRessource)
             {
                 case Ressource.ressourceA:
@@ -190,12 +193,12 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
     {
         if (currentState == ButtonState.selectedInLoadOut)
         {
+            AudioManager.Instance.PlaySoundAtLocation(ButtonClick, soundEffect, null, false);
             switch (ability.MyCostRessource)
             {
                 case Ressource.ressourceA:
                     if (!PlayerManager.Instance.abilityLoadout.AbilitiesA.Contains(ability))
                     {
-                        Debug.Log(ability);
                         PlayerManager.Instance.abilityLoadout.AbilitiesA.Add(ability);
                         EventManager.OnLoadoutAbilityChoiceRemove(this);
                     }
@@ -229,4 +232,6 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
 
         }
     }
+
+
 }

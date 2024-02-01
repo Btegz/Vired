@@ -8,8 +8,10 @@ public class AudioDestroy : MonoBehaviour
     AudioData audiodata; 
     private void OnDestroy()
     {
-        audiodata.audioPlaying = false;
-
+        if (audiodata != null)
+        {
+            audiodata.audioPlaying = false;
+        }
     }
 
     public void Start()

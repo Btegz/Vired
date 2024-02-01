@@ -17,7 +17,7 @@ public class EventButton : MonoBehaviour, IPointerEnterHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        AudioManager.Instance.PlaySoundAtLocation(hoverOver, soundEffect, null);
+        AudioManager.Instance.PlaySoundAtLocation(hoverOver, soundEffect, null, true);
     }
 
     private void Start()

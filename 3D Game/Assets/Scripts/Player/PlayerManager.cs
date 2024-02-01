@@ -87,8 +87,9 @@ public Player selectedPlayer;
             }
 
             selectedPlayer = Players[0];
-        
-        
+        PlayerPrefs.SetFloat("HoverVolume", hovern.volume);
+
+
 
 
         EventManager.OnEndTurnEvent += resetMovementPoints;
@@ -202,7 +203,7 @@ public Player selectedPlayer;
                         selectedPlayer.gameObject.transform.GetChild(0).transform.DOPunchRotation(new Vector3(10f, 2f), 1f);
                         if (!noMovementSound.audioPlaying)
                         {
-                            AudioManager.Instance.PlaySoundAtLocation(noMovementSound, soundEffect, null);
+                            AudioManager.Instance.PlaySoundAtLocation(noMovementSound, soundEffect, null, true);
                         }
                     }
                     // saves the Grid Tile Location that was clicked
@@ -230,7 +231,7 @@ public Player selectedPlayer;
                                 selectedPlayer.gameObject.transform.GetChild(0).transform.DOPunchRotation(new Vector3(10f, 2f), .5f);
                                 if (!noMovementSound.audioPlaying)
                                 {
-                                    AudioManager.Instance.PlaySoundAtLocation(noMovementSound, soundEffect, null);
+                                    AudioManager.Instance.PlaySoundAtLocation(noMovementSound, soundEffect, null, true);
                                 }
                             }
 
@@ -300,7 +301,8 @@ public Player selectedPlayer;
     /// <returns></returns>
     IEnumerator Move(Vector2Int moveTo)
     {
-        AudioManager.Instance.StopMusic(hovern);
+        hovern.volume = Mathf.Lerp(hovern.volume, hovern.volume * 1.5f, 0.5f);
+            Debug.Log(hovern.volume);
 
         target = GridManager.Instance.Grid[moveTo];
         if (((movementAction == 0) && (extraMovement > 0)))
@@ -322,6 +324,9 @@ public Player selectedPlayer;
         
         selectedPlayer.CoordinatePosition = moveTo;
         SaveManager.Instance.totalMovement++;
+
+        yield return new WaitForSeconds(2f);
+        hovern.volume = PlayerPrefs.GetFloat("HoverVolume");
 
         yield return null;
     }
@@ -518,7 +523,7 @@ public Player selectedPlayer;
         move = true;
         EventManager.OnAbilityCastEvent -= AbilityCasted;
         cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice;
-        AudioManager.Instance.PlaySoundAtLocation(AbilityCanceled, soundEffect, null);
+        AudioManager.Instance.PlaySoundAtLocation(AbilityCanceled, soundEffect, null, true);
     }
 
     public void CancelAbilityChoice()
@@ -527,7 +532,7 @@ public Player selectedPlayer;
         move = true;
         EventManager.OnAbilityCastEvent -= AbilityCasted;
         cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice;
-        AudioManager.Instance.PlaySoundAtLocation(AbilityCanceled, soundEffect, null);
+        AudioManager.Instance.PlaySoundAtLocation(AbilityCanceled, soundEffect, null, true);
 
     }
 
@@ -556,21 +561,19 @@ public Player selectedPlayer;
 
         if (player == Players[0])
         {
-            AudioManager.Instance.PlaySoundAtLocation(switchPlayer, soundEffect, "Player1");
+            AudioManager.Instance.PlaySoundAtLocation(switchPlayer, soundEffect, "Player1", true);
 
         }
 
         else if (player == Players[1])
         {
-            Debug.Log("HI 2");
-            AudioManager.Instance.PlaySoundAtLocation(switchPlayer, soundEffect, "Player2");
+            AudioManager.Instance.PlaySoundAtLocation(switchPlayer, soundEffect, "Player2", true);
         }
 
         else if (player == Players[2])
         {
-            Debug.Log("HI 3");
 
-            AudioManager.Instance.PlaySoundAtLocation(switchPlayer, soundEffect, "Player3");
+            AudioManager.Instance.PlaySoundAtLocation(switchPlayer, soundEffect, "Player3", true);
         }
 
         else return;
@@ -581,7 +584,7 @@ public Player selectedPlayer;
     {
         if(!movementSound.audioPlaying)
         {
-        AudioManager.Instance.PlaySoundAtLocation(movementSound, soundEffect, null);
+        AudioManager.Instance.PlaySoundAtLocation(movementSound, soundEffect, null, true);
 
         }
     }

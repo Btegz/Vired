@@ -236,7 +236,7 @@ public class AbilityObjScript : MonoBehaviour
 
     public void rotateClockwise()
     {
-        AudioManager.Instance.PlaySoundAtLocation(rotato, soundEffect, null);
+        AudioManager.Instance.PlaySoundAtLocation(rotato, soundEffect, null, true);
         transform.RotateAround(GridManager.Instance.Grid[AbilityShapeLocation[0]].transform.position, new Vector3(0, 1, 0), 60);
         AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeClockwise(HexGridUtil.AxialToCubeCoord(AbilityShapeLocation[0]), HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), 1));
 
@@ -244,7 +244,7 @@ public class AbilityObjScript : MonoBehaviour
 
     public void rotateCounterClockwise()
     {
-        AudioManager.Instance.PlaySoundAtLocation(rotato, soundEffect, null);
+        AudioManager.Instance.PlaySoundAtLocation(rotato, soundEffect, null, true);
 
         transform.RotateAround(GridManager.Instance.Grid[AbilityShapeLocation[0]].transform.position, new Vector3(0, -1, 0), 60);
         AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeCounterClockwise(HexGridUtil.AxialToCubeCoord(AbilityShapeLocation[0]), HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), 1));
@@ -253,7 +253,7 @@ public class AbilityObjScript : MonoBehaviour
 
     public void rotateClockwisePlayerCenter()
     {
-        AudioManager.Instance.PlaySoundAtLocation(rotato, soundEffect, null);
+        AudioManager.Instance.PlaySoundAtLocation(rotato, soundEffect, null, true);
 
         transform.rotation *= Quaternion.Euler(0, 60, 0);
         AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeClockwise(HexGridUtil.AxialToCubeCoord(PlayerManager.Instance.selectedPlayer.CoordinatePosition), HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), 1));
@@ -261,7 +261,7 @@ public class AbilityObjScript : MonoBehaviour
 
     public void rotateCounterClockwisePlayerCenter()
     {
-        AudioManager.Instance.PlaySoundAtLocation(rotato, soundEffect, null);
+        AudioManager.Instance.PlaySoundAtLocation(rotato, soundEffect, null, true);
 
         transform.rotation *= Quaternion.Euler(0, -60, 0);
         AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.RotateRangeCounterClockwise(HexGridUtil.AxialToCubeCoord(PlayerManager.Instance.selectedPlayer.CoordinatePosition), HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), 1));
@@ -404,7 +404,7 @@ public class AbilityObjScript : MonoBehaviour
         PlayerManager.Instance.selectedPlayer.AbilityCastButton.onClick.RemoveAllListeners();
         PlayerManager.Instance.selectedPlayer.CloseAbilityCastCanvas();
         Payment();
-        AudioManager.Instance.PlaySoundAtLocation(abilityCast, soundEffect, null);
+        AudioManager.Instance.PlaySoundAtLocation(abilityCast, soundEffect, null, true);
         foreach (AbilityPreviewTile tile in abilityPreviewInstances)
         {
             tile.Shoot();

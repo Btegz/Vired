@@ -141,7 +141,7 @@ public class Boss : Enemy
            
             return;
         }
-            AudioManager.Instance.PlaySoundAtLocation(BossDeath, soundEffect, null);
+            AudioManager.Instance.PlaySoundAtLocation(BossDeath, soundEffect, null, true);
 
         PlayerManager.Instance.abilityLoadout.amountToChoose = AbilityLoadoutReward;
         PlayerManager.Instance.abilityLoadout.gameObject.SetActive(true);
@@ -213,7 +213,7 @@ public class Boss : Enemy
                     GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].ChangeCurrentState(GridManager.Instance.gS_BossNegative);
 
                     BossNegative++;
-                    AudioManager.Instance.PlaySoundAtLocation(BossNegativity, soundEffect, null);
+                    AudioManager.Instance.PlaySoundAtLocation(BossNegativity, soundEffect, null, true);
                 }
             }
         }

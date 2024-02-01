@@ -170,7 +170,7 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
 
     public void OnPointerClick(PointerEventData eventData)
     { 
-       AudioManager.Instance.PlaySoundAtLocation(AbilitySelect, soundEffect, null);
+       AudioManager.Instance.PlaySoundAtLocation(AbilitySelect, soundEffect, null, true);
         
         clicked();
         
