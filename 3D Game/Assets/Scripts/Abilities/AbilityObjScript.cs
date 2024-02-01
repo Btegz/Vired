@@ -403,7 +403,7 @@ public class AbilityObjScript : MonoBehaviour
         CancelAbilityInputActionReference.action.performed -= KillYourSelf;
         rotationInputActionReference.action.performed -= rotateAbility;
         PlayerManager.Instance.cancelAbilityInputActionReference.action.performed -= PlayerManager.Instance.CancelAbilityChoice;
-        shooting = true;
+        shooting = abilityPreviewInstances.Count>0? true:false;
         PlayerManager.Instance.selectedPlayer.AbilityCastButton.onClick.RemoveAllListeners();
         PlayerManager.Instance.selectedPlayer.CloseAbilityCastCanvas();
         Payment();
