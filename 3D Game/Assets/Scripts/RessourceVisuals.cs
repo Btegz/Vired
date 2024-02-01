@@ -419,7 +419,7 @@ public class RessourceVisuals : MonoBehaviour
             foreach (GameObject enemyMass in CurrentEnemyMasses)
             {
                 enemyMass.GetComponent<Burst>().Bursting();
-               // Destroy(enemyMass);
+               //Destroy(enemyMass);
                 
             }
         }
