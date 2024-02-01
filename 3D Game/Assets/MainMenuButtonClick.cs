@@ -10,6 +10,7 @@ public class MainMenuButtonClick : MonoBehaviour, IPointerClickHandler
     public AudioMixerGroup soundEffect;
     public void OnPointerClick(PointerEventData eventData)
     {
+        Debug.Log("click");
         AudioManager.Instance.PlaySoundAtLocation(ButtonClick, soundEffect, null, true);
     }
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 14532910}
   - component: {fileID: 14532909}
   - component: {fileID: 14532913}
+  - component: {fileID: 14532914}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -286,6 +287,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Highlight: {fileID: 0}
+--- !u!114 &14532914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 14532907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0267c925f4994254896de6ee96142dd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ButtonClick: {fileID: 11400000, guid: eac53c084f5caa84799f139772609370, type: 2}
+  soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
 --- !u!114 &29337857 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8971203737283525251, guid: 81ffda2867f57d843b2ff151c7d6ee27, type: 3}
@@ -558,6 +573,7 @@ GameObject:
   - component: {fileID: 249094667}
   - component: {fileID: 249094666}
   - component: {fileID: 249094670}
+  - component: {fileID: 249094671}
   m_Layer: 5
   m_Name: Exit
   m_TagString: Untagged
@@ -707,6 +723,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Highlight: {fileID: 0}
+--- !u!114 &249094671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249094664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0267c925f4994254896de6ee96142dd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ButtonClick: {fileID: 11400000, guid: eac53c084f5caa84799f139772609370, type: 2}
+  soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
 --- !u!114 &255986830 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8971203738918999244, guid: 81ffda2867f57d843b2ff151c7d6ee27, type: 3}
@@ -2422,6 +2452,7 @@ GameObject:
   - component: {fileID: 1294763527}
   - component: {fileID: 1294763526}
   - component: {fileID: 1294763529}
+  - component: {fileID: 1294763532}
   m_Layer: 5
   m_Name: RestartButton
   m_TagString: Untagged
@@ -2572,6 +2603,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0.0000019073, y: -405}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1294763532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294763525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0267c925f4994254896de6ee96142dd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ButtonClick: {fileID: 11400000, guid: eac53c084f5caa84799f139772609370, type: 2}
+  soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
 --- !u!1 &1365677215
 GameObject:
   m_ObjectHideFlags: 0
@@ -2961,6 +3006,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1658182810}
   m_CullTransparentMesh: 1
+--- !u!1001 &1748216726
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1572230070853581192, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
+      propertyPath: m_Name
+      value: AudioPlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 4318362013714721105, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4318362013714721105, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.2221737
+      objectReference: {fileID: 0}
+    - target: {fileID: 4318362013714721105, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.1182203
+      objectReference: {fileID: 0}
+    - target: {fileID: 4318362013714721105, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.4392033
+      objectReference: {fileID: 0}
+    - target: {fileID: 4318362013714721105, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4318362013714721105, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4318362013714721105, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4318362013714721105, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4318362013714721105, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4318362013714721105, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4318362013714721105, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 848cf96d762e90344b7c88c30c1dae47, type: 3}
 --- !u!224 &1807727807 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8971203737958771089, guid: 81ffda2867f57d843b2ff151c7d6ee27, type: 3}
