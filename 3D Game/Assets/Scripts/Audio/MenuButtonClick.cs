@@ -18,6 +18,7 @@ public class MenuButtonClick : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        
         AudioManager.Instance.PlaySoundAtLocation(ButtonHover, soundEffect, null, true);
     }
 }

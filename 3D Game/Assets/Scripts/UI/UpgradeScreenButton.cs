@@ -11,7 +11,7 @@ public class UpgradeScreenButton : MonoBehaviour, IPointerClickHandler, IPointer
     public AudioData OpenUpgradeMenu;
     public AudioData ButtonHover;
     public AudioMixerGroup soundEffect;
-    public Button NextTurn;
+    public GameObject NextTurnBlock;
     public void OnPointerClick(PointerEventData eventData)
     {
         if (PlayerManager.Instance.abilityActivated)
@@ -24,7 +24,7 @@ public class UpgradeScreenButton : MonoBehaviour, IPointerClickHandler, IPointer
             EventManager.OnAbilityUpgrade(ButtonState.inUpgrade);
             CameraRotation.Instance.AbilityLoadOut();
             AudioManager.Instance.PlaySoundAtLocation(OpenUpgradeMenu, soundEffect, null, true);
-            NextTurn.interactable = false;
+            NextTurnBlock.GetComponent<Image>().enabled = true;
         }
 
         else
@@ -36,7 +36,7 @@ public class UpgradeScreenButton : MonoBehaviour, IPointerClickHandler, IPointer
             CameraRotation.Instance.Worldcam.Priority = PlayerPrefs.GetInt("World");
             CameraRotation.Instance.AbilityUpgradeCam.Priority = PlayerPrefs.GetInt("AbilityLoadOut");
             CameraRotation.Instance.TopDownCam.Priority = PlayerPrefs.GetInt("Topdown");
-            NextTurn.interactable = true;
+            NextTurnBlock.GetComponent<Image>().enabled = false;
 
 
         }
