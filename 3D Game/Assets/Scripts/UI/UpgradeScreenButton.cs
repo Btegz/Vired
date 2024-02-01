@@ -57,12 +57,13 @@ public class UpgradeScreenButton : MonoBehaviour, IPointerClickHandler, IPointer
     public void OnPointerEnter(PointerEventData eventData)
     {
         AudioManager.Instance.PlaySoundAtLocation(ButtonHover, soundEffect, null, true);
-        animator.SetBool("isHovering", true);
+        Debug.Log("Enter");
+      //  animator.SetBool("IsGlitching", true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         
-        animator.SetBool("isHovering", false);
+       // animator.SetBool("IsGlitching", false);
     }
 }

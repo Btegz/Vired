@@ -90,12 +90,21 @@ public class PlayerVisuals : MonoBehaviour
     {
         StartCoroutine(AnimationCoroutine(moveDuration, "IsMoving"));
 
-        StopParticles(hoverEffect);
+        if(GridManager.Instance.Grid[player.CoordinatePosition].currentGridState.StateValue() == 1)
+        {
+            StopParticles(hoverEffect);
+        }
         yield return new WaitForSeconds(moveDuration);
-        PlayParticles(SuckEffect);
+        if (GridManager.Instance.Grid[player.CoordinatePosition].currentGridState.StateValue() == 1)
+        {
+            PlayParticles(SuckEffect);
+        }
         GridManager.Instance.Grid[player.CoordinatePosition].currentGridState.PlayerEnters(GridManager.Instance.Grid[player.CoordinatePosition]);
         yield return new WaitForSeconds(0.35f);
-        PlayParticles(hoverEffect);
+        if (GridManager.Instance.Grid[player.CoordinatePosition].currentGridState.StateValue() == 1)
+        {
+            PlayParticles(hoverEffect);
+        }
     }
 
     public IEnumerator AnimationCoroutine(float duration, string animation)
