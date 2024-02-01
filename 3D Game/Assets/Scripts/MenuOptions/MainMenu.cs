@@ -178,6 +178,11 @@ public class MainMenu : MonoBehaviour
         Application.OpenURL("https://itch.io/");
     }
 
+
+    public void OpenSurvey()
+    {
+        Application.OpenURL("https://itch.io/");
+    }
     public IEnumerator LoadASync()
     {
        Color color = Fade.color;

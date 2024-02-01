@@ -12,6 +12,7 @@ public class Burst : MonoBehaviour
     public float secondsToWait;
     public List<Material> enemyMassChildren;
     public ParticleSystem BubbleBurstParticle;
+    private Material EnemyMass; 
     void OnEnable()
     {
         enemyMassChildren = new List<Material>();
@@ -19,14 +20,14 @@ public class Burst : MonoBehaviour
         {
             enemyMassChildren.Add(rend.material);
         }
+
+        EnemyMass = new Material(Shader.Find("EnemyMass_")); 
+
+     
        
 
     }
 
-    void Update()
-    {
-
-    }
 
     public IEnumerator BubblyBurst()
     {
