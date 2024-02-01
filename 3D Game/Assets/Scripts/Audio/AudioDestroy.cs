@@ -12,8 +12,6 @@ public class AudioDestroy : MonoBehaviour
         {
             audiodata.audioPlaying = false;
         }
-        
-
     }
 
     public void Start()

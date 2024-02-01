@@ -284,7 +284,7 @@ public class UpgradeHexGrid : MonoBehaviour
             }
             loadedAbility.RecalculatePreviewMesh(AbilityGrid);
             EventManager.OnAbilityChange(Grid, loadedAbility);
-            AudioManager.Instance.PlaySoundAtLocation(ConfirmUpgrade, soundEffect, null);
+            AudioManager.Instance.PlaySoundAtLocation(ConfirmUpgrade, soundEffect, null, true);
 
 
 
@@ -318,7 +318,7 @@ public class UpgradeHexGrid : MonoBehaviour
                 }
                 loadedAbility.RecalculatePreviewMesh(AbilityGrid);
                 EventManager.OnAbilityChange(Grid, loadedAbility);
-                AudioManager.Instance.PlaySoundAtLocation(ConfirmUpgrade, soundEffect, null);
+                AudioManager.Instance.PlaySoundAtLocation(ConfirmUpgrade, soundEffect, null, true);
                 TutorialManager.Instance.EnemyTrack.Play();
 
             }
@@ -335,7 +335,7 @@ public class UpgradeHexGrid : MonoBehaviour
             pointsSpent = 0;
             TierUPgrades = 0;
             MakeAbilityToGrid(loadedAbility);
-            AudioManager.Instance.PlaySoundAtLocation(CancelUpgrade, soundEffect, null);
+            AudioManager.Instance.PlaySoundAtLocation(CancelUpgrade, soundEffect, null, true);
         }
     }
 

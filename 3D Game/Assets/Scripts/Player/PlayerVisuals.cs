@@ -13,8 +13,10 @@ public class PlayerVisuals : MonoBehaviour
     public Material Outline;
 
     [SerializeField] float shootDuraiton;
-    [SerializeField] float moveDuration;
+    [SerializeField] public float moveDuration;
 
+    [SerializeField] List<ParticleSystem> hoverEffect;
+    [SerializeField] List<ParticleSystem> SuckEffect;
 
     Animator animator;
 
@@ -55,7 +57,7 @@ public class PlayerVisuals : MonoBehaviour
                 //ParticleSystem landingCloud = GetComponentInChildren<ParticleSystem>();
                 //transform.DOLocalJump(Vector3.up * 0.45f, 2, 1, .25f);
                 //transform.DOPunchScale(Vector3.one * .1f, .25f).OnComplete(landingCloud.Play);
-                StartCoroutine(AnimationCoroutine(moveDuration, "IsMoving"));
+                StartCoroutine(MovementCoroutine(player));
             }
 
         }
@@ -64,6 +66,36 @@ public class PlayerVisuals : MonoBehaviour
 
         }
 
+    }
+
+    private void StopParticles(List<ParticleSystem> parts)
+    {
+        foreach(ParticleSystem part in parts)
+        {
+            part.Stop();
+        }
+    }
+
+    private void PlayParticles(List<ParticleSystem> parts)
+    {
+        foreach (ParticleSystem part in parts)
+        {
+            part.gameObject.SetActive(true);
+            part.Play();
+        }
+    }
+
+
+    public IEnumerator MovementCoroutine(Player player)
+    {
+        StartCoroutine(AnimationCoroutine(moveDuration, "IsMoving"));
+
+        StopParticles(hoverEffect);
+        yield return new WaitForSeconds(moveDuration);
+        PlayParticles(SuckEffect);
+        GridManager.Instance.Grid[player.CoordinatePosition].currentGridState.PlayerEnters(GridManager.Instance.Grid[player.CoordinatePosition]);
+        yield return new WaitForSeconds(0.35f);
+        PlayParticles(hoverEffect);
     }
 
     public IEnumerator AnimationCoroutine(float duration, string animation)

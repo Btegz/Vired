@@ -10,15 +10,15 @@ public class RessourceHighlight : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        startPosition = transform.position;
+        //startPosition = transform.position;
         //transform.DOPunchScale(Vector3.one*1.2f,.25f);
 
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(transform.DOMove(startPosition + Vector3.up * 50, 1f));
-        sequence.Append(transform.DOMove(startPosition, 1f));
+        //sequence.Append(transform.DOMove(startPosition + Vector3.up * 50, 1f));
+        //sequence.Append(transform.DOMove(startPosition, 1f));
 
-        sequence.SetLoops(-1);
-        sequence.Play();
+        //sequence.SetLoops(-1);
+        //sequence.Play();
 
     }
 }

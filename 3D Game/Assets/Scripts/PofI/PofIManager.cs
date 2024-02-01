@@ -68,14 +68,14 @@ public class PofIManager : MonoBehaviour
         switch (pofi)
         {
             case PofI.PofI_SkillPoints:
-                AudioManager.Instance.PlaySoundAtLocation(PofISelect, soundEffect, null);
+                AudioManager.Instance.PlaySoundAtLocation(PofISelect, soundEffect, null, true);
                 Destroy(gS_PofI.pofi.gameObject);
                 PlayerManager.Instance.SkillPoints += 2;
                
                 break;
 
             case PofI.PofI_NewResource:
-                AudioManager.Instance.PlaySoundAtLocation(PofISelect, soundEffect, null);
+                AudioManager.Instance.PlaySoundAtLocation(PofISelect, soundEffect, null, true);
                 Destroy(gS_PofI.pofi.gameObject);
                 Instantiate(NewResource, NewResource.transform.position, Quaternion.identity);
                 break;
@@ -86,14 +86,14 @@ public class PofIManager : MonoBehaviour
                 break;*/
 
             case PofI.PofI_MovementPoints:
-                AudioManager.Instance.PlaySoundAtLocation(PofISelect, soundEffect, null);
+                AudioManager.Instance.PlaySoundAtLocation(PofISelect, soundEffect, null, true);
                 Destroy(gS_PofI.pofi.gameObject);
                 EventManager.OnBonusMovementPointGain(3);
                 PlayerManager.Instance.extraMovement += 3;
                 break;
         }
         pofiTile.ChangeCurrentState(GridManager.Instance.gS_Neutral);
-        AudioManager.Instance.PlaySoundAtLocation(PofiFly, soundEffect, null);
+        AudioManager.Instance.PlaySoundAtLocation(PofiFly, soundEffect, null, true);
 
         pofiPrefab.FlyAway();
 

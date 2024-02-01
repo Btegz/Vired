@@ -290,9 +290,6 @@
             "m_Id": "0c2fc3fc355e469793a135e5d8f7b600"
         },
         {
-            "m_Id": "e631d0a92b5e41a89fb88469178c2b0f"
-        },
-        {
             "m_Id": "c6a54e015ab44eea888e17129337d59c"
         }
     ],
@@ -548,20 +545,6 @@
                     "m_Id": "d11fc848f75143e48f7f9d181876ab4e"
                 },
                 "m_SlotId": 2
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
-                    "m_Id": "3b288e1de40948c98a00a465c856947b"
-                },
-                "m_SlotId": 1
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "e631d0a92b5e41a89fb88469178c2b0f"
-                },
-                "m_SlotId": 0
             }
         },
         {
@@ -1204,9 +1187,6 @@
             },
             {
                 "m_Id": "5a03e833ec624a159313e8946d910cfa"
-            },
-            {
-                "m_Id": "e631d0a92b5e41a89fb88469178c2b0f"
             },
             {
                 "m_Id": "c6a54e015ab44eea888e17129337d59c"
@@ -2259,7 +2239,7 @@
         "m_Id": "3b503e4ad9164346a42ed94892f4bfa7"
     },
     "m_AllowMaterialOverride": false,
-    "m_SurfaceType": 1,
+    "m_SurfaceType": 0,
     "m_ZTestMode": 2,
     "m_ZWriteControl": 0,
     "m_AlphaMode": 0,
@@ -6757,21 +6737,6 @@
 }
 
 {
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
-    "m_ObjectId": "cba005722db04740bc3eb3217634e045",
-    "m_Id": 0,
-    "m_DisplayName": "Alpha",
-    "m_SlotType": 0,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "Alpha",
-    "m_StageCapability": 2,
-    "m_Value": 1.0,
-    "m_DefaultValue": 1.0,
-    "m_Labels": []
-}
-
-{
     "m_SGVersion": 1,
     "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
     "m_ObjectId": "cc009288037c4002b3b23795fd3fd3f1",
@@ -7449,39 +7414,6 @@
         "z": 0.0,
         "w": 0.0
     }
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.BlockNode",
-    "m_ObjectId": "e631d0a92b5e41a89fb88469178c2b0f",
-    "m_Group": {
-        "m_Id": ""
-    },
-    "m_Name": "SurfaceDescription.Alpha",
-    "m_DrawState": {
-        "m_Expanded": true,
-        "m_Position": {
-            "serializedVersion": "2",
-            "x": 0.0,
-            "y": 0.0,
-            "width": 0.0,
-            "height": 0.0
-        }
-    },
-    "m_Slots": [
-        {
-            "m_Id": "cba005722db04740bc3eb3217634e045"
-        }
-    ],
-    "synonyms": [],
-    "m_Precision": 0,
-    "m_PreviewExpanded": true,
-    "m_PreviewMode": 0,
-    "m_CustomColors": {
-        "m_SerializableColors": []
-    },
-    "m_SerializedDescriptor": "SurfaceDescription.Alpha"
 }
 
 {

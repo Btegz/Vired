@@ -175,9 +175,14 @@ public class MainMenu : MonoBehaviour
 
     public void OpenLink()
     {
-        Application.OpenURL("https://itch.io/");
+        Application.OpenURL("https://moka-maceli.itch.io/vired");
     }
 
+
+    public void OpenSurvey()
+    {
+        Application.OpenURL("https://itch.io/");
+    }
     public IEnumerator LoadASync()
     {
        Color color = Fade.color;

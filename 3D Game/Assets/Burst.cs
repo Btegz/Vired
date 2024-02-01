@@ -12,28 +12,30 @@ public class Burst : MonoBehaviour
     public float secondsToWait;
     public List<Material> enemyMassChildren;
     public ParticleSystem BubbleBurstParticle;
+    private Material EnemyMass; 
     void OnEnable()
     {
-        enemyMassChildren = new List<Material>();
-        foreach (SkinnedMeshRenderer rend in GetComponentsInChildren<SkinnedMeshRenderer>())
-        {
-            enemyMassChildren.Add(rend.material);
-        }
+        //enemyMassChildren = new List<Material>();
+        //foreach (SkinnedMeshRenderer rend in GetComponentsInChildren<SkinnedMeshRenderer>())
+        //{
+        //    enemyMassChildren.Add(rend.material);
+        //}
+
+  
+
+     
        
 
     }
 
-    void Update()
-    {
-
-    }
 
     public IEnumerator BubblyBurst()
     {
-        
-        transform.DOScale(0.5f, 2f);
+        Instantiate(BubbleBurstParticle, gameObject.transform.position, Quaternion.identity);
+        transform.DOScale(transform.localScale+Vector3.one*0.5f, 1f).OnComplete(() => Destroy(gameObject)).SetEase(Ease.OutExpo);
 
-        while (true)
+
+      /*  while (true)
         {
             foreach (Material component in enemyMassChildren)
             {
@@ -45,22 +47,9 @@ public class Burst : MonoBehaviour
                 break;
             }
             yield return new WaitForSeconds(secondsToWait);
-        }
-        try
-        {
-            Instantiate(BubbleBurstParticle, gameObject.transform.position, Quaternion.identity);
-              foreach (Material component in enemyMassChildren) 
-           component.SetFloat("_Bubble", -20);
-
-            Destroy(gameObject);
-
-        }
-
-        catch
-        {
-            Debug.Log("I JUST COULDNT HANDLE DESTORYING MY EnemyMass IM SORRY");
-
-        }
+        }*/
+   
+        yield return null;
     }
 
 

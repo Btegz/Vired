@@ -20,6 +20,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] public TMP_Text ressourceBText;
     [SerializeField] public TMP_Text ressourceCText;
     [SerializeField] public TMP_Text ressourceDText;
+    
+    [SerializeField] public Image ressourceAImage;
+    [SerializeField] public Image ressourceBImage;
+    [SerializeField] public Image ressourceCImage;
+    [SerializeField] public Image ressourceDImage;
+
+
 
     [SerializeField] GameObject AbilitiesInventory;
 

@@ -16,6 +16,8 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
     public AudioMixerGroup soundEffect;
     [SerializeField] Image ressourceIconImage;
 
+    List<RessourceHighlight> livingHighlights;
+
 
     public void OnEnable()
     {
@@ -109,7 +111,7 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
     void Start()
     {
         color = AbilityButtonImage.GetComponent<Image>().color;
-       
+        livingHighlights = new List<RessourceHighlight>();
         RectData();
         currentState = ButtonState.inMainScene;
         EventManager.AbilityUpgradeEvent += ChangeCurrentState;
@@ -170,7 +172,7 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
 
     public void OnPointerClick(PointerEventData eventData)
     { 
-       AudioManager.Instance.PlaySoundAtLocation(AbilitySelect, soundEffect, null);
+       AudioManager.Instance.PlaySoundAtLocation(AbilitySelect, soundEffect, null, true);
         
         clicked();
         
@@ -186,26 +188,28 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
         {
             return;
         }
-        GameObject currentRessourceTextHighlight = UIManager.Instance.ressourceAText.gameObject;
-        switch (ability.MyCostRessource)
+        GameObject currentRessourceTextHighlight = UIManager.Instance.ressourceAImage.gameObject;
+        //switch (ability.MyCostRessource)
+        //{
+        //    case Ressource.ressourceA:
+        //        currentRessourceTextHighlight = UIManager.Instance.ressourceAImage.gameObject;
+        //        break;
+        //    case Ressource.ressourceB:
+        //        currentRessourceTextHighlight = UIManager.Instance.ressourceBImage.gameObject;
+        //        break;
+        //    case Ressource.ressourceC:
+        //        currentRessourceTextHighlight = UIManager.Instance.ressourceCImage.gameObject;
+        //        break;
+        //    case Ressource.ressourceD:
+        //        currentRessourceTextHighlight = UIManager.Instance.ressourceDImage.gameObject;
+        //        break;
+        //}
+        foreach (RessourceHighlight rsh in livingHighlights)
         {
-            case Ressource.ressourceA:
-                currentRessourceTextHighlight = UIManager.Instance.ressourceAText.gameObject;
-                break;
-            case Ressource.ressourceB:
-                currentRessourceTextHighlight = UIManager.Instance.ressourceBText.gameObject;
-                break;
-            case Ressource.ressourceC:
-                currentRessourceTextHighlight = UIManager.Instance.ressourceCText.gameObject;
-                break;
-            case Ressource.ressourceD:
-                currentRessourceTextHighlight = UIManager.Instance.ressourceDText.gameObject;
-                break;
-        }
-        foreach (RessourceHighlight rsh in currentRessourceTextHighlight.GetComponentsInChildren<RessourceHighlight>())
-        {
+            Debug.Log("Ich sollte eigentlich sachen zerstören hmmm");
             Destroy(rsh.gameObject);
         }
+        livingHighlights.Clear();
         AbilityPreview.gameObject.SetActive(false);
     }
 
@@ -223,23 +227,23 @@ public class AbilityCastButton : AbilityButton, IPointerClickHandler, IPointerEn
         switch (ability.MyCostRessource)
         {
             case Ressource.ressourceA:
-                RessourceHighlight.transform.position = UIManager.Instance.ressourceAText.transform.position;
-                RessourceHighlight.transform.SetParent(UIManager.Instance.ressourceAText.transform);
+                RessourceHighlight.transform.position = UIManager.Instance.ressourceAImage.transform.position;
+                RessourceHighlight.transform.SetParent(UIManager.Instance.ressourceAImage.transform);
                 break;
             case Ressource.ressourceB:
-                RessourceHighlight.transform.position = UIManager.Instance.ressourceBText.transform.position;
-                RessourceHighlight.transform.SetParent(UIManager.Instance.ressourceBText.transform);
+                RessourceHighlight.transform.position = UIManager.Instance.ressourceBImage.transform.position;
+                RessourceHighlight.transform.SetParent(UIManager.Instance.ressourceBImage.transform);
                 break;
             case Ressource.ressourceC:
-                RessourceHighlight.transform.position = UIManager.Instance.ressourceCText.transform.position;
-                RessourceHighlight.transform.SetParent(UIManager.Instance.ressourceCText.transform);
+                RessourceHighlight.transform.position = UIManager.Instance.ressourceCImage.transform.position;
+                RessourceHighlight.transform.SetParent(UIManager.Instance.ressourceCImage.transform);
                 break;
             case Ressource.ressourceD:
-                RessourceHighlight.transform.position = UIManager.Instance.ressourceDText.transform.position;
-                RessourceHighlight.transform.SetParent(UIManager.Instance.ressourceDText.transform);
+                RessourceHighlight.transform.position = UIManager.Instance.ressourceDImage.transform.position;
+                RessourceHighlight.transform.SetParent(UIManager.Instance.ressourceDImage.transform);
                 break;
         }
-
+        livingHighlights.Add(RessourceHighlight);
 
         AbilityPreview.gameObject.SetActive(true);
         
