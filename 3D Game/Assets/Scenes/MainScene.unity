@@ -420,6 +420,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a3345c49af53054dac3c3cd74321bb6, type: 3}
+--- !u!198 &205309787 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7428953854530143051, guid: 8a3345c49af53054dac3c3cd74321bb6, type: 3}
+  m_PrefabInstance: {fileID: 205309786}
+  m_PrefabAsset: {fileID: 0}
 --- !u!198 &249204639 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 414466163492351476, guid: 60277128aa0020c409dc7a5faa7a63c6, type: 3}
@@ -536,7 +541,7 @@ MonoBehaviour:
   shootDuraiton: 0.3
   moveDuration: 0.15
   hoverEffect: {fileID: 190666180}
-  SuckEffect: {fileID: 942137474}
+  SuckEffect: {fileID: 205309787}
 --- !u!1 &304472110 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7112587372867198801, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
