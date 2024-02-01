@@ -175,7 +175,7 @@ public class MainMenu : MonoBehaviour
 
     public void OpenLink()
     {
-        Application.OpenURL("https://itch.io/");
+        Application.OpenURL("https://moka-maceli.itch.io/vired");
     }
 
 

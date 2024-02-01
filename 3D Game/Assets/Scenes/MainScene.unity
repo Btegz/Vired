@@ -6838,6 +6838,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1599682046098552672, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
   m_PrefabInstance: {fileID: 1239626424}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1152506065 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5568520416206616920, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
+  m_PrefabInstance: {fileID: 1239626424}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1164763040 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2002894708632550060, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
@@ -7234,6 +7239,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2903596695620864942, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
+      propertyPath: CamBlock
+      value: 
+      objectReference: {fileID: 1152506065}
+    - target: {fileID: 2903596695620864942, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
       propertyPath: NextTurn
       value: 
       objectReference: {fileID: 1653122041}
@@ -7604,6 +7613,14 @@ PrefabInstance:
     - target: {fileID: 4054571447010276983, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
       propertyPath: m_RootOrder
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4244677542670525545, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 180.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4244677542670525545, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 77.84
       objectReference: {fileID: 0}
     - target: {fileID: 4326647920856463140, guid: 10817d3c3e0361e4d99466f79d802c58, type: 3}
       propertyPath: m_SizeDelta.x
