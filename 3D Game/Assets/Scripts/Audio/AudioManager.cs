@@ -13,6 +13,7 @@ public class AudioManager : MonoBehaviour
     new AudioData audio;
     public AudioData audiodata;
     AudioSource audioSource;
+    public GameObject AbilityLoadOut;
 
 
 
@@ -34,53 +35,54 @@ public class AudioManager : MonoBehaviour
     }
     public void PlaySoundAtLocation(AudioData data, AudioMixerGroup output, string path, bool InGame)
     {
+        
+            GameObject audioPlayer = new GameObject();
+            AudioSource audioSource = audioPlayer.AddComponent<AudioSource>();
 
-        GameObject audioPlayer = new GameObject();
-        AudioSource audioSource = audioPlayer.AddComponent<AudioSource>();
+            audioPlayer.AddComponent<AudioDestroy>();
 
-        audioPlayer.AddComponent<AudioDestroy>();
-
-        audiodata = data;
-
-
-        try
-        {
-            audios = Resources.LoadAll(path, typeof(AudioData));
+            audiodata = data;
 
 
-            audio = (AudioData)audios[Random.Range(0, audios.Length)];
-
-
-            audioSource.clip = audio.audioClip;
-
-            audioSource.volume = audio.volume;
-            if (PlayerManager.Instance.AbilityLoadoutActive && InGame)
-                audioSource.volume = 0;
-            audioSource.Play();
-            audioSource.outputAudioMixerGroup = output;
-            data.audioPlaying = true;
-
-
-
-        }
-        catch
-        {
-
-            if (audioSource != null)
+            try
             {
-                audioSource.clip = data.audioClip;
-                audioSource.volume = data.volume;
-                if (PlayerManager.Instance.AbilityLoadoutActive && InGame)
-                    audioSource.volume = 0;
+                audios = Resources.LoadAll(path, typeof(AudioData));
 
+
+                audio = (AudioData)audios[Random.Range(0, audios.Length)];
+
+
+                audioSource.clip = audio.audioClip;
+
+                audioSource.volume = audio.volume;
+                if (AbilityLoadOut != null && PlayerManager.Instance.AbilityLoadoutActive && InGame)
+                    audioSource.volume = 0;
                 audioSource.Play();
                 audioSource.outputAudioMixerGroup = output;
                 data.audioPlaying = true;
+
+
+
             }
+            catch
+            {
+
+                if (audioSource != null)
+                {
+                    audioSource.clip = data.audioClip;
+                    audioSource.volume = data.volume;
+                    if (AbilityLoadOut != null && PlayerManager.Instance.abilityLoadout != null &&PlayerManager.Instance.AbilityLoadoutActive && InGame)
+                        audioSource.volume = 0;
+
+                    audioSource.Play();
+                    audioSource.outputAudioMixerGroup = output;
+                    data.audioPlaying = true;
+                }
 
 
 
-        }
+            
+        
 
 
 
@@ -89,7 +91,7 @@ public class AudioManager : MonoBehaviour
         Destroy(audioPlayer.gameObject, audioSource.clip.length);
 
 
-
+}
 
 
     }
