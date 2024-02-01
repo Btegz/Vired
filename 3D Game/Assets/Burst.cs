@@ -21,7 +21,7 @@ public class Burst : MonoBehaviour
             enemyMassChildren.Add(rend.material);
         }
 
-        EnemyMass = new Material(Shader.Find("EnemyMass_")); 
+  
 
      
        
