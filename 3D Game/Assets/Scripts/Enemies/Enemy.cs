@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     [SerializeField] GameObject HealthPointsLayout;
     [SerializeField] Image HealthpointPrefab;
-    List<Image> healthpoints;
+    public List<Image> healthpoints;
 
     [SerializeField] AnimationCurve SpawnJumpAnimationCurve;
     [SerializeField] GameObject Particle_EnemyDeath;
@@ -167,6 +167,9 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             Death();
            
         }
+
+   
+    
         else
         {
             for (int i = 0; i < damage; i++)
@@ -179,10 +182,13 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                     SaveManager.Instance.DamageDealt++;
                 }
                 else
+                {
                     AudioManager.Instance.PlaySoundAtLocation(EnemyDamage, soundEffect, null, true);
-                 hp = healthpoints[healthpoints.Count - 1];
-                healthpoints.RemoveAt(healthpoints.Count - 1);
-                SaveManager.Instance.DamageDealt++;
+
+                    hp = healthpoints[healthpoints.Count - 1];
+                    healthpoints.RemoveAt(healthpoints.Count - 1);
+                    SaveManager.Instance.DamageDealt++;
+                }
 
 
                 Destroy(hp.gameObject);
