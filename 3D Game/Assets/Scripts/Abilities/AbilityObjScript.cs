@@ -416,6 +416,7 @@ public class AbilityObjScript : MonoBehaviour
 
     public IEnumerator AbilityCastCoroutine()
     {
+        PlayerManager.Instance.cancelAbilityInputActionReference.action.performed -= PlayerManager.Instance.CancelAbilityChoice;
         while (shooting)
         {
             yield return null;

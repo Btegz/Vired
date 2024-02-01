@@ -18,7 +18,7 @@ public class PlayerManager : MonoBehaviour
     [Header("The Boring Stuff")]
     public Camera cam;
     public AbilityLoadout abilityLoadout; 
-    [SerializeField] InputActionReference cancelAbilityInputActionReference;
+    [SerializeField] public InputActionReference cancelAbilityInputActionReference;
     public AbilityObjScript abilityObj;
     [HideInInspector] public List<Ability> abilitInventory;
     /*[HideInInspector]*/ public bool abilityActivated = false;
