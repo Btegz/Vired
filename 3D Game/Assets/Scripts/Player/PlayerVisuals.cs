@@ -15,8 +15,8 @@ public class PlayerVisuals : MonoBehaviour
     [SerializeField] float shootDuraiton;
     [SerializeField] public float moveDuration;
 
-    [SerializeField] ParticleSystem hoverEffect;
-    [SerializeField] ParticleSystem SuckEffect;
+    [SerializeField] List<ParticleSystem> hoverEffect;
+    [SerializeField] List<ParticleSystem> SuckEffect;
 
     Animator animator;
 
@@ -68,18 +68,34 @@ public class PlayerVisuals : MonoBehaviour
 
     }
 
+    private void StopParticles(List<ParticleSystem> parts)
+    {
+        foreach(ParticleSystem part in parts)
+        {
+            part.Stop();
+        }
+    }
+
+    private void PlayParticles(List<ParticleSystem> parts)
+    {
+        foreach (ParticleSystem part in parts)
+        {
+            part.gameObject.SetActive(true);
+            part.Play();
+        }
+    }
+
+
     public IEnumerator MovementCoroutine(Player player)
     {
         StartCoroutine(AnimationCoroutine(moveDuration, "IsMoving"));
 
-        hoverEffect.Stop();
+        StopParticles(hoverEffect);
         yield return new WaitForSeconds(moveDuration);
-        SuckEffect.gameObject.SetActive(true);
-        SuckEffect.Play();
-
+        PlayParticles(SuckEffect);
         GridManager.Instance.Grid[player.CoordinatePosition].currentGridState.PlayerEnters(GridManager.Instance.Grid[player.CoordinatePosition]);
-
-        yield return null;
+        yield return new WaitForSeconds(0.35f);
+        PlayParticles(hoverEffect);
     }
 
     public IEnumerator AnimationCoroutine(float duration, string animation)
