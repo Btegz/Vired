@@ -83,9 +83,6 @@ public class GS_positive : GridState
         }
         parent.ChangeCurrentState(GridManager.Instance.gS_Neutral);
         rsg.Initialize(res, startPoint, goalPoint);
-        
-
-
     }
 
     public override int StateValue()

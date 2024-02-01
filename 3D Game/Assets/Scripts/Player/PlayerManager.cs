@@ -13,6 +13,7 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager Instance;
 
+    public float moveTime;
 
     [Header("The Boring Stuff")]
     public Camera cam;
@@ -301,8 +302,11 @@ public Player selectedPlayer;
     /// <returns></returns>
     IEnumerator Move(Vector2Int moveTo)
     {
+        selectedPlayer.CoordinatePosition = moveTo;
         hovern.volume = Mathf.Lerp(hovern.volume, hovern.volume * 1.5f, 0.5f);
             Debug.Log(hovern.volume);
+
+        move = false;
 
         target = GridManager.Instance.Grid[moveTo];
         if (((movementAction == 0) && (extraMovement > 0)))
@@ -315,19 +319,19 @@ public Player selectedPlayer;
             movementAction--; 
             MovePoints[movementAction].GetComponent<MovePointsDoTween>().Away();
         }
-       
-        PlayerManager.Instance.target.currentGridState.PlayerEnters(PlayerManager.Instance.target);
-
-        selectedPlayer.transform.DOMove(target.transform.position, .25f);
+        
+        selectedPlayer.transform.DOMove(target.transform.position, selectedPlayer.GetComponentInChildren<PlayerVisuals>().moveDuration);
+        
+        //PlayerManager.Instance.target.currentGridState.PlayerEnters(PlayerManager.Instance.target));
 
         
         
-        selectedPlayer.CoordinatePosition = moveTo;
+        
         SaveManager.Instance.totalMovement++;
 
         yield return new WaitForSeconds(2f);
         hovern.volume = PlayerPrefs.GetFloat("HoverVolume");
-
+        move = true;
         yield return null;
     }
 
