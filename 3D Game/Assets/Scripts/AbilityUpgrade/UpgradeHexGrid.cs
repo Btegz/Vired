@@ -46,11 +46,13 @@ public class UpgradeHexGrid : MonoBehaviour
             EventManager.OnAbilityButtonEvent += MakeAbilityToGrid;
             if (selectedPlayer.AbilityInventory.Count == 0)
             {
+                NoAbilitySelected.gameObject.SetActive(true);
                 return;
             }
             if (selectedPlayer.AbilityInventory[0] != null)
             {
                 MakeAbilityToGrid(selectedPlayer.AbilityInventory[0]);
+                NoAbilitySelected.gameObject.SetActive(false);
             }
             else
             {
@@ -326,7 +328,7 @@ public class UpgradeHexGrid : MonoBehaviour
 
     public void CancelAbilityUpgrade()
     {
-        if (PlayerManager.Instance.selectedPlayer.AbilityInventory.Count > 0)
+        if (PlayerManager.Instance.selectedPlayer.AbilityInventory.Count > 0 && loadedAbility != null)
         {
             PlayerManager.Instance.SkillPoints += pointsSpent;
             loadedAbility.MyTierLevel -= TierUPgrades;

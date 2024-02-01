@@ -385,8 +385,8 @@ MonoBehaviour:
   BossDamage: {fileID: 11400000, guid: 15029cb6a9d3f364bab1829314b09ae8, type: 2}
   spawn: {fileID: 11400000, guid: cf068642af0e61e4c879e07d4cb7df86, type: 2}
   SpreadBar: {fileID: 11400000, guid: cd4ed078263463b4aa7804eedf17a1b2, type: 2}
-  EnemySpawn: {fileID: 0}
-  BossSpread: {fileID: 0}
+  EnemySpawn: {fileID: 11400000, guid: 3577be059975a5c4fbd48208ea080dc9, type: 2}
+  BossSpread: {fileID: 11400000, guid: 192480326dc29db44bc0c2827c0d5bb8, type: 2}
   soundEffect: {fileID: 6418912426891094151, guid: f968f047218700b4eb7d423e27558171, type: 2}
   FirstAndLast: 1
   location: []
@@ -396,7 +396,7 @@ MonoBehaviour:
   enemyPrefabPool:
   - {fileID: 3100616434115519233, guid: b3a08cba775c46641afbdca0440b242a, type: 3}
   enemySpawnSpreadBehaviours: []
-  NegativeRange: 0
+  NegativeRange: 3
   BossNegative: 0
   NextBosses:
   - {fileID: 727153629572622436, guid: adae6f1edd881fd44b02aa0c21f0b6b1, type: 3}
