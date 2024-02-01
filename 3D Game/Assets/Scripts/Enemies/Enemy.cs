@@ -97,7 +97,7 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         //transform.position = tile.transform.position;
         //transform.parent = tile.transform;
         transform.SetParent(tile.gameObject.transform);
-
+        transform.rotation = Quaternion.Euler(Vector3.up * Random.Range(0, 360));
 
         //transform.DOScale(transform.localScale, 0.5f).From(Vector3.one * 0.3f);
         //transform.DOPunchScale(Vector3.one * Random.Range(0.5f, 1), 1f);
