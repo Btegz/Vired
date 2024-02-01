@@ -17,7 +17,9 @@ public class LoadScene : MonoBehaviour
     public GameObject LoadingScreenAnimation;
     public float steps;
     public ToggleObj TutorialObj;
-
+    public string scene;
+    public GameObject confetti;
+    public GameObject icons;
 
 
 
@@ -28,6 +30,13 @@ public class LoadScene : MonoBehaviour
         DontDestroyOnLoad(LoadingScreenImage);
 
         Loading.speed = 0.2f;
+        if(confetti != null && icons != null)
+        {
+        confetti.SetActive(true);
+        icons.SetActive(true);
+        }
+        
+
     }
 
     public IEnumerator SoundFade()
@@ -64,7 +73,7 @@ public class LoadScene : MonoBehaviour
     public IEnumerator LoadingScreen()
     {
 
-        AsyncOperation async = SceneManager.LoadSceneAsync("MainScene");
+        AsyncOperation async = SceneManager.LoadSceneAsync(scene);
 
         while (!async.isDone)
         {
@@ -108,7 +117,15 @@ public class LoadScene : MonoBehaviour
 
         public void Sound()
         {
-            StartCoroutine(Wait());
+        if (confetti != null)
+        {
+            confetti.SetActive(false);
+        }
+        if(icons != null)
+        {
+            icons.SetActive(false);
+        }
+        StartCoroutine(Wait());
 
 
         }

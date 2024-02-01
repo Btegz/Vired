@@ -32,7 +32,9 @@ public class RestartButton : MonoBehaviour
 
     public void Restart()
     {
+       
         SceneManager.LoadScene("MainScene");
+
     }
 
     public void Exit()
@@ -44,4 +46,6 @@ public class RestartButton : MonoBehaviour
     {
         SceneManager.LoadScene("StartScreen");
     }
+
+   
 }
