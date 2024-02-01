@@ -5,7 +5,7 @@ using UnityEngine.Audio;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UpgradeScreenButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
+public class UpgradeScreenButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] UpgradeManager AbilityUpgradeObj;
     public AudioData OpenUpgradeMenu;
@@ -13,6 +13,10 @@ public class UpgradeScreenButton : MonoBehaviour, IPointerClickHandler, IPointer
     public AudioMixerGroup soundEffect;
     public GameObject NextTurnBlock;
     public GameObject CamBlock;
+
+    public Animator animator;
+
+    
     public void OnPointerClick(PointerEventData eventData)
     {
         if (PlayerManager.Instance.abilityActivated)
@@ -28,6 +32,7 @@ public class UpgradeScreenButton : MonoBehaviour, IPointerClickHandler, IPointer
             NextTurnBlock.GetComponent<Image>().enabled = true;
             CamBlock.GetComponent<Image>().enabled = true;
 
+            
         }
 
         else
@@ -42,7 +47,7 @@ public class UpgradeScreenButton : MonoBehaviour, IPointerClickHandler, IPointer
             NextTurnBlock.GetComponent<Image>().enabled = false;
             CamBlock.GetComponent<Image>().enabled = false;
 
-
+            
 
         }
 
@@ -52,5 +57,13 @@ public class UpgradeScreenButton : MonoBehaviour, IPointerClickHandler, IPointer
     public void OnPointerEnter(PointerEventData eventData)
     {
         AudioManager.Instance.PlaySoundAtLocation(ButtonHover, soundEffect, null, true);
+        Debug.Log("Enter");
+      //  animator.SetBool("IsGlitching", true);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        
+       // animator.SetBool("IsGlitching", false);
     }
 }

@@ -32,7 +32,7 @@ public class Burst : MonoBehaviour
     public IEnumerator BubblyBurst()
     {
         Instantiate(BubbleBurstParticle, gameObject.transform.position, Quaternion.identity);
-        transform.DOScale(0.5f, 2f).OnComplete(() => Destroy(gameObject));
+        transform.DOScale(transform.localScale+Vector3.one*0.5f, 1f).OnComplete(() => Destroy(gameObject)).SetEase(Ease.OutExpo);
 
 
       /*  while (true)
