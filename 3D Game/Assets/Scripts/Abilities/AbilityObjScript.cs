@@ -400,6 +400,9 @@ public class AbilityObjScript : MonoBehaviour
     //}
     public void CastAbility()
     {
+        CancelAbilityInputActionReference.action.performed -= KillYourSelf;
+        rotationInputActionReference.action.performed -= rotateAbility;
+        PlayerManager.Instance.cancelAbilityInputActionReference.action.performed -= PlayerManager.Instance.CancelAbilityChoice;
         shooting = true;
         PlayerManager.Instance.selectedPlayer.AbilityCastButton.onClick.RemoveAllListeners();
         PlayerManager.Instance.selectedPlayer.CloseAbilityCastCanvas();
@@ -416,7 +419,6 @@ public class AbilityObjScript : MonoBehaviour
 
     public IEnumerator AbilityCastCoroutine()
     {
-        PlayerManager.Instance.cancelAbilityInputActionReference.action.performed -= PlayerManager.Instance.CancelAbilityChoice;
         while (shooting)
         {
             yield return null;
