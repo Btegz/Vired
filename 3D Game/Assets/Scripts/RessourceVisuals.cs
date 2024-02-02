@@ -415,6 +415,7 @@ public class RessourceVisuals : MonoBehaviour
     {
         try
         {
+            enemyMassLayersActive.Clear();
             StopEnemyMassParticles();
             foreach (GameObject enemyMass in CurrentEnemyMasses)
             {

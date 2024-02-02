@@ -46,7 +46,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
 
     public void CloseAbilityCastCanvas()
     {
-        circle.Pause();
+        circle.Stop();
 
         AbilityCastCanvas.enabled = false;
     }
