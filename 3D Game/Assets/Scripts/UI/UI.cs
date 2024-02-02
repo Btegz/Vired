@@ -17,6 +17,11 @@ public class UI : MonoBehaviour
     private void Start()
     {
         BlackScreen.GetComponentInChildren<Image>().DOFade(0f, 2f).OnComplete(() => BlackScreen.SetActive(false));
+
+        if(TutorialManager.Instance != null )
+        {
+            TutorialManager.Instance.Tutorial.SetActive(true);
+        }
     }
     public void Settings()
     {

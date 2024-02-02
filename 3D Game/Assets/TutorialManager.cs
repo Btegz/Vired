@@ -69,6 +69,7 @@ public class TutorialManager : MonoBehaviour
 
     private Vector3 DroneStart;
     public static TutorialManager Instance;
+    public GameObject Tutorial;
     public List<Vector2Int> Preview;
     public List<Vector2Int> EnemyTut;
     public bool enemySpawnt = false;
@@ -98,7 +99,7 @@ public class TutorialManager : MonoBehaviour
     void OnEnable()
     {
         //BottomText.GetComponent<TextMeshProUGUI>().text = chooseAbilityText;
-
+        
         tutorial = true;
         PlayerArea1.SetActive(false);
         PlayerArea2.SetActive(false);

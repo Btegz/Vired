@@ -44,15 +44,7 @@ public class LoadScene : MonoBehaviour
         //if (PlayerPrefs.HasKey("Volume"))
         //          FirstSecond.volume=  PlayerPrefs.GetFloat("Volume");
 
-        if (TutorialObj.tutorial == true)
-        {
-            SceneManager.LoadScene("Tutorial");
-        }
-        else
-        {
-            //   StartCoroutine(Wait());
-
-        }
+    
 
         for (int i = 1; i <= (int)steps; i++)
         {
@@ -72,6 +64,15 @@ public class LoadScene : MonoBehaviour
     }
     public IEnumerator LoadingScreen()
     {
+      
+        if (TutorialObj.tutorial)
+            scene = "Tutorial";
+
+        else if (TutorialObj.tutorial == false)
+            scene = "MainScene";
+
+        else
+            scene = scene;
 
         AsyncOperation async = SceneManager.LoadSceneAsync(scene);
 
