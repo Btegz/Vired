@@ -358,6 +358,7 @@ MonoBehaviour:
   DOutlineMAterial: {fileID: 2100000, guid: 6173ca4e58dac184cb84f54d5a8bf33c, type: 2}
   HealthPointsLayout: {fileID: 2703274353667822884}
   HealthpointPrefab: {fileID: 4546101371875049633, guid: 653162b7ccefd14408d3d51e5851e964, type: 3}
+  healthpoints: []
   SpawnJumpAnimationCurve:
     serializedVersion: 2
     m_Curve: []
@@ -365,8 +366,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   Particle_EnemyDeath: {fileID: 726535386845715946, guid: 005fc7e0d2c6e1247b7b8880e93a8099, type: 3}
-  maxHealth: 5
-  SkillPointReward: 2
+  maxHealth: 8
+  SkillPointReward: 0
   SpreadAmount: 2
   everyXTurns: 2
   spreadbehaviours:
@@ -383,7 +384,7 @@ MonoBehaviour:
   location: []
   AliveCounter: 0
   SkinnedMeshRenderer: {fileID: 3924706753847999319}
-  EnemiesEveryXTurns: 0
+  EnemiesEveryXTurns: 1
   enemyPrefabPool:
   - {fileID: 2148683299467376766, guid: 7b2a05b03fda7394f878b492db6e56de, type: 3}
   enemySpawnSpreadBehaviours: []
@@ -508,43 +509,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d61650735e307e24cb1536dadde65a75, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.39
+      value: -0.079
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d61650735e307e24cb1536dadde65a75, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.04054618
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d61650735e307e24cb1536dadde65a75, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.65
+      value: -0.633
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d61650735e307e24cb1536dadde65a75, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9946873
+      value: 0.9996822
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d61650735e307e24cb1536dadde65a75, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.10294196
+      value: 0.024396202
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d61650735e307e24cb1536dadde65a75, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000014901159
+      value: -0.003392443
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d61650735e307e24cb1536dadde65a75, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000018626449
+      value: 0.005382692
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d61650735e307e24cb1536dadde65a75, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -11.817
+      value: 2.798
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d61650735e307e24cb1536dadde65a75, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -0.374
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d61650735e307e24cb1536dadde65a75, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 0.608
       objectReference: {fileID: 0}
     - target: {fileID: -176330451285856252, guid: d61650735e307e24cb1536dadde65a75, type: 3}
       propertyPath: m_Materials.Array.data[0]
