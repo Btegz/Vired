@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using DG.Tweening;
 using Unity.VisualScripting;
+using System.Linq;
 
 public class AbilityLoadout : MonoBehaviour
 {
@@ -226,28 +227,40 @@ public class AbilityLoadout : MonoBehaviour
                 switch (abilityLoadoutButton.ability.MyCostRessource)
                 {
                     case Ressource.ressourceA:
-                        NewAbility = AbilitiesA[0];
-                        AbilitiesA.RemoveAt(0);
-                        NewAbilityLoadoutButton = Instantiate(abloadoutButton, BlueAbilityLayout.transform);
-                        NewAbilityLoadoutButton.Setup(NewAbility, BlueAbilityLayout);
+                        if(BlueAbilityLayout.GetComponentsInChildren<AbilityLoadoutButton>().Length == 0)
+                        {
+                            NewAbility = AbilitiesA[0];
+                            AbilitiesA.RemoveAt(0);
+                            NewAbilityLoadoutButton = Instantiate(abloadoutButton, BlueAbilityLayout.transform);
+                            NewAbilityLoadoutButton.Setup(NewAbility, BlueAbilityLayout);
+                        }
                         break;
                     case Ressource.ressourceB:
-                        NewAbility = AbilitiesB[0];
-                        AbilitiesB.RemoveAt(0);
-                         NewAbilityLoadoutButton = Instantiate(abloadoutButton, OrangeAbilityLayout.transform);
-                        NewAbilityLoadoutButton.Setup(NewAbility, OrangeAbilityLayout);
+                        if (OrangeAbilityLayout.GetComponentsInChildren<AbilityLoadoutButton>().Length == 0)
+                        {
+                            NewAbility = AbilitiesB[0];
+                            AbilitiesB.RemoveAt(0);
+                            NewAbilityLoadoutButton = Instantiate(abloadoutButton, OrangeAbilityLayout.transform);
+                            NewAbilityLoadoutButton.Setup(NewAbility, OrangeAbilityLayout);
+                        }
                         break;
                     case Ressource.ressourceC:
-                        NewAbility = AbilitiesC[0];
-                        AbilitiesC.RemoveAt(0);
-                         NewAbilityLoadoutButton = Instantiate(abloadoutButton, RedAbilityLayout.transform);
-                        NewAbilityLoadoutButton.Setup(NewAbility, RedAbilityLayout);
+                        if (RedAbilityLayout.GetComponentsInChildren<AbilityLoadoutButton>().Length == 0)
+                        {
+                            NewAbility = AbilitiesC[0];
+                            AbilitiesC.RemoveAt(0);
+                            NewAbilityLoadoutButton = Instantiate(abloadoutButton, RedAbilityLayout.transform);
+                            NewAbilityLoadoutButton.Setup(NewAbility, RedAbilityLayout);
+                        }
                         break;
                     case Ressource.ressourceD:
-                        NewAbility = AbilitiesD[0]; 
-                        AbilitiesD.RemoveAt(0);
-                        NewAbilityLoadoutButton = Instantiate(abloadoutButton, GreenAbilityLayout.transform);
-                        NewAbilityLoadoutButton.Setup(NewAbility, GreenAbilityLayout);
+                        if (GreenAbilityLayout.GetComponentsInChildren<AbilityLoadoutButton>().Length == 0)
+                        {
+                            NewAbility = AbilitiesD[0];
+                            AbilitiesD.RemoveAt(0);
+                            NewAbilityLoadoutButton = Instantiate(abloadoutButton, GreenAbilityLayout.transform);
+                            NewAbilityLoadoutButton.Setup(NewAbility, GreenAbilityLayout);
+                        }
                         break;
                     default: NewAbilityLoadoutButton = null; break;
                 }
