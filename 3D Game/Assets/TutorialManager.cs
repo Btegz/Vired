@@ -355,6 +355,7 @@ public class TutorialManager : MonoBehaviour
 
         Enemy enemy = Instantiate(GridManager.Instance.StartEnemyPrefabs[Random.Range(0, GridManager.Instance.StartEnemyPrefabs.Count)], HexGridUtil.AxialToCubeCoord(EnemyTut[Random.RandomRange(0, EnemyTut.Count)]), Quaternion.identity);
         enemy.Setup(neighborTile);
+        Debug.Log(neighborTile);
         enemySpawnt = true;
         AbilityBlock.SetActive(false);
        
