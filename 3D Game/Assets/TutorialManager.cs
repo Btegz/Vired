@@ -305,7 +305,7 @@ public class TutorialManager : MonoBehaviour
     {
         foreach (TileHighlight tileHighlightInstance in gridManager.GetComponentsInChildren<TileHighlight>())
         {
-
+            Debug.Log("Destroy");
             Destroy(tileHighlightInstance.gameObject);
         }
         PlayerManager.Instance.movementAction = 1;
