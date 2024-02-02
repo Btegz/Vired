@@ -37,7 +37,7 @@ public class Spred2TilesAwayFromNegative : Spreadbehaviours
                 Vector2Int axTile = HexGridUtil.CubeToAxialCoord(tile);
                 if (grid.ContainsKey(axTile))
                 {
-                    if (grid[axTile].currentGridState == GridManager.Instance.gS_Negative || grid[axTile].currentGridState == GridManager.Instance.gS_Enemy || grid[axTile].currentGridState == GridManager.Instance.gS_Boss || grid[axTile].currentGridState == GridManager.Instance.gS_BossNegative)
+                    if (grid[axTile].currentGridState == GridManager.Instance.gS_Negative || grid[axTile].currentGridState == GridManager.Instance.gS_Enemy || grid[axTile].currentGridState == GridManager.Instance.gS_Boss || grid[axTile].currentGridState == GridManager.Instance.gS_BossNegative || grid[axTile].currentGridState == GridManager.Instance.gS_PofI)
                     {
                         stillvalid = false;
                         break; // ends the loop
