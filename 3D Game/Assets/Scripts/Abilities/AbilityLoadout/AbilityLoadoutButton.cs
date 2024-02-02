@@ -74,21 +74,27 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
         {
             return;
         }
+
+
+
+
         GameObject pointedObj = eventData.pointerCurrentRaycast.gameObject;
         inPlayerArea = false;
         if (pointedObj.GetComponentInParent<UI_PlayerABLInventory>())
 
         {
-
-            UI_PlayerABLInventory playerArea = pointedObj.GetComponentInParent<UI_PlayerABLInventory>();
-            // if (!playerArea.player.AbilityInventory.Contains(ability))
+            if (pointedObj.GetComponentInParent<UI_PlayerABLInventory>().player.AbilityInventory.Count < 3)
             {
-                inPlayerArea = true;
-                //playerArea.player.AbilityInventory.Add(ability);
-                transform.SetParent(playerArea.InventoryArea.transform);
-                EventManager.OnAbilityChosen(this, playerArea.player);
-                currentParent = playerArea.InventoryArea;
-                currentState = ButtonState.selectedInLoadOut;
+                UI_PlayerABLInventory playerArea = pointedObj.GetComponentInParent<UI_PlayerABLInventory>();
+                // if (!playerArea.player.AbilityInventory.Contains(ability))
+                {
+                    inPlayerArea = true;
+                    //playerArea.player.AbilityInventory.Add(ability);
+                    transform.SetParent(playerArea.InventoryArea.transform);
+                    EventManager.OnAbilityChosen(this, playerArea.player);
+                    currentParent = playerArea.InventoryArea;
+                    currentState = ButtonState.selectedInLoadOut;
+                }
             }
 
         }

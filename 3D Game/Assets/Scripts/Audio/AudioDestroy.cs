@@ -5,7 +5,7 @@ using UnityEngine;
 public class AudioDestroy : MonoBehaviour
 {
     bool AudioPlaying;
-    AudioData audiodata; 
+    AudioData audiodata;
     private void OnDestroy()
     {
         if (audiodata != null)
@@ -21,7 +21,10 @@ public class AudioDestroy : MonoBehaviour
 
     public void SetData()
     {
-        audiodata = AudioManager.Instance.audiodata;
+        if (AudioManager.Instance.audiodata != null)
+        {
+            audiodata = AudioManager.Instance.audiodata;
+        }
     }
 
 

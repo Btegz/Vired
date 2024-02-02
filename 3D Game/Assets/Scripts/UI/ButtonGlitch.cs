@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems ;
+using UnityEngine.EventSystems;
 
 public class ButtonGlitch : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -25,8 +25,12 @@ public class ButtonGlitch : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     IEnumerator GlitchCorroutine()
     {
-        animation.SetBool(AnimationName, true);
-        yield return new WaitForSeconds(0.5f);
-        animation.SetBool(AnimationName, false);
+        if (animation != null)
+        {
+            animation.SetBool(AnimationName, true);
+            yield return new WaitForSeconds(0.5f);
+            animation.SetBool(AnimationName, false);
+        }
+        yield return null;
     }
 }

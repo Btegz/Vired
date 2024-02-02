@@ -144,7 +144,7 @@ public class MainMenu : MonoBehaviour
 
     public void OpenSurvey()
     {
-        Application.OpenURL("https://itch.io/");
+        Application.OpenURL("https://docs.google.com/forms/d/e/1FAIpQLSfnQNGLuM9T29VjpL54FPPSlZJIb2X9sCEUejPXU7SHwiTivw/viewform");
     }
   /*  public IEnumerator LoadASync()
     {

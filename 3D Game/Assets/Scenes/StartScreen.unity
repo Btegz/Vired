@@ -2290,7 +2290,6 @@ GameObject:
   - component: {fileID: 338558018}
   - component: {fileID: 338558022}
   - component: {fileID: 338558023}
-  - component: {fileID: 338558024}
   - component: {fileID: 338558025}
   m_Layer: 5
   m_Name: MainMenuCanvas
@@ -2449,20 +2448,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &338558024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 338558017}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0267c925f4994254896de6ee96142dd2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ButtonClick: {fileID: 0}
-  soundEffect: {fileID: 0}
 --- !u!114 &338558025
 MonoBehaviour:
   m_ObjectHideFlags: 0

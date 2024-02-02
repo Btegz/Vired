@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6834,7 +6834,7 @@ MonoBehaviour:
   movementPointsPerTurn: 8
   movementAction: 8
   totalSteps: 0
-  SkillPoints: 100
+  SkillPoints: 5
   extraMovement: 0
   selectedPlayer: {fileID: 0}
   target: {fileID: 0}
@@ -6844,10 +6844,10 @@ MonoBehaviour:
   PlayerSpawnPoint: {x: 0, y: 0}
   collisionPoint: {x: 0, y: 0}
   playerPosition: {x: 0, y: 0}
-  RessourceAInventory: 100
-  RessourceBInventory: 100
-  RessourceCInventory: 100
-  RessourceDInventory: 100
+  RessourceAInventory: 3
+  RessourceBInventory: 3
+  RessourceCInventory: 3
+  RessourceDInventory: 3
   ressourceGainEffect: {fileID: 597970138054513854, guid: 3252c3ee4ee1a7a459e954aa47b08cc8, type: 3}
   movementSound: {fileID: 11400000, guid: 747ce51dff9e2c141bdf123f88d190e4, type: 2}
   noMovementSound: {fileID: 11400000, guid: 1513b2a68a429c54eb2e10e397e5448d, type: 2}

@@ -11,13 +11,22 @@ public class CursorVFXxd : MonoBehaviour
     private void Start()
     {
         clickActionReference.action.Enable();
+        
+    }
+    private void OnEnable()
+    {
         clickActionReference.action.performed += TheClickVFX;
     }
-
     // Update is called once per frame
     void Update()
     {
         transform.position = Pointer.current.position.ReadValue();
+    }
+
+    private void OnDisable()
+    {
+        clickActionReference.action.performed -= TheClickVFX;
+        StopAllCoroutines();
     }
 
     public void TheClickVFX(InputAction.CallbackContext obj)

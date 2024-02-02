@@ -39,7 +39,7 @@ public class PofIVisuals : MonoBehaviour
         }
         transform.DOPunchRotation(rotationPunch, tweenDuration, 50, 1).SetEase(RotationCurve);
         tweenSequence.Append(transform.DOMoveY(transform.position.y + Elevation, tweenDuration).SetEase(ElevationCurve));
-        tweenSequence.Append(transform.DOMoveY(100, 5).OnComplete(() => Destroy(gameObject)));
+        tweenSequence.Append(transform.DOMoveY(200, 10).OnComplete(() => Destroy(gameObject)));
 
     }
 }
