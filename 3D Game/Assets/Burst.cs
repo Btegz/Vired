@@ -16,7 +16,7 @@ public class Burst : MonoBehaviour
     void OnEnable()
     {
         //enemyMassChildren = new List<Material>();
-        //foreach (SkinnedMeshRenderer rend in GetComponentsInChildren<SkinnedMeshRenderer>())
+        //foreach (MeshRenderer rend in GetComponentsInChildren<MeshRenderer>())
         //{
         //    enemyMassChildren.Add(rend.material);
         //}
@@ -31,24 +31,33 @@ public class Burst : MonoBehaviour
 
     public IEnumerator BubblyBurst()
     {
-        Instantiate(BubbleBurstParticle, gameObject.transform.position, Quaternion.identity);
-        transform.DOScale(transform.localScale+Vector3.one*0.5f, 1f).OnComplete(() => Destroy(gameObject)).SetEase(Ease.OutExpo);
+        //Instantiate(BubbleBurstParticle, gameObject.transform.position, Quaternion.identity);
+
+        Sequence burstSequence = DOTween.Sequence();
+        burstSequence.Append(transform.DOScale(transform.localScale - Vector3.one * 0.5f, .25f).SetEase(Ease.OutExpo).OnComplete(()=> Instantiate(BubbleBurstParticle, gameObject.transform.position, Quaternion.identity)));
+        burstSequence.Append(transform.DOScale(transform.localScale + Vector3.one * 0.5f, .5f).SetEase(Ease.OutExpo));
+
+        burstSequence.OnComplete(()=> Destroy(gameObject));
+        burstSequence.Play();
+        
+        
+        //OnComplete(() => Destroy(gameObject));
 
 
-      /*  while (true)
-        {
-            foreach (Material component in enemyMassChildren)
-            {
-                component.SetFloat("_Bubble", component.GetFloat("_Bubble") + rate);
+        //while (true)
+        //{
+        //    foreach (Material component in enemyMassChildren)
+        //    {
+        //        component.SetFloat("_Bubble", component.GetFloat("_Bubble") + rate);
 
-            }
-            if(enemyMassChildren[0].GetFloat("_Bubble") >20)
-            { 
-                break;
-            }
-            yield return new WaitForSeconds(secondsToWait);
-        }*/
-   
+        //    }
+        //    if(enemyMassChildren[0].GetFloat("_Bubble") >20)
+        //    { 
+        //        break;
+        //    }
+        //    yield return new WaitForSeconds(secondsToWait);
+        //}
+        //Destroy(gameObject);
         yield return null;
     }
 
