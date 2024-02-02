@@ -323,6 +323,8 @@ MonoBehaviour:
   steps: 7
   TutorialObj: {fileID: 11400000, guid: b26883afc847138448253bde9e9a7be4, type: 2}
   scene: StartScreen
+  confetti: {fileID: 0}
+  icons: {fileID: 0}
 --- !u!114 &29337857 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8971203737283525251, guid: 81ffda2867f57d843b2ff151c7d6ee27, type: 3}
@@ -2648,9 +2650,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1294763533}
-        m_TargetAssemblyTypeName: LoadScene, Assembly-CSharp
-        m_MethodName: Sound
+      - m_Target: {fileID: 1294763526}
+        m_TargetAssemblyTypeName: RestartButton, Assembly-CSharp
+        m_MethodName: Restart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2768,6 +2770,8 @@ MonoBehaviour:
   steps: 7
   TutorialObj: {fileID: 11400000, guid: b26883afc847138448253bde9e9a7be4, type: 2}
   scene: MainScene
+  confetti: {fileID: 0}
+  icons: {fileID: 0}
 --- !u!1 &1365677215
 GameObject:
   m_ObjectHideFlags: 0
