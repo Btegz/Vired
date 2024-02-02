@@ -207,18 +207,18 @@ MonoBehaviour:
   randomDCenterLerpFrmoTo: {x: 0.1, y: 0.8}
   EnemyMassLayers:
   - MassPrefab: {fileID: 3058822576872186802, guid: bf0fef95ae512a849bb2e0a79dff7928, type: 3}
-    AmountFromTo: {x: 2, y: 5}
+    AmountFromTo: {x: 4, y: 5}
     YRotationFromTo: {x: 0, y: 360}
-    XScaleFromTo: {x: 0.5, y: 0.75}
-    ZScaleFromTo: {x: 0.5, y: 0.75}
-    YOffsetFromTo: {x: -1.5, y: -0.75}
+    XScaleFromTo: {x: 0.25, y: 0.5}
+    ZScaleFromTo: {x: 0.25, y: 0.5}
+    YOffsetFromTo: {x: -0.65, y: -0.4}
     MassNeighborThreshold: 0
   - MassPrefab: {fileID: 3058822576872186802, guid: cbecde31c0037f646a06c25ad45a061f, type: 3}
     AmountFromTo: {x: 1, y: 3}
     YRotationFromTo: {x: 0, y: 360}
     XScaleFromTo: {x: 0.25, y: 0.5}
     ZScaleFromTo: {x: 0.25, y: 0.5}
-    YOffsetFromTo: {x: -0.75, y: -0.25}
+    YOffsetFromTo: {x: -0.65, y: -0.4}
     MassNeighborThreshold: 0
   - MassPrefab: {fileID: 3058822576872186802, guid: bf0fef95ae512a849bb2e0a79dff7928, type: 3}
     AmountFromTo: {x: 1, y: 3}
