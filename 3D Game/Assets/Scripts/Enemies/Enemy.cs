@@ -154,9 +154,11 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
+       currentHealth -= damage;
         if (currentHealth <= 0)
         {
+            Death();
+
             SaveManager.Instance.TotalKills++;
             if (GetComponent<Boss>() != null)
             {
@@ -164,7 +166,6 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             
             }
       
-            Death();
            
         }
 
@@ -180,14 +181,17 @@ public class Enemy : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                     hp = healthpoints[healthpoints.Count - 1];
                     healthpoints.RemoveAt(healthpoints.Count - 1);
                     SaveManager.Instance.DamageDealt++;
+                    
                 }
-                else
+                else if(GetComponent<Boss>() == null)
                 {
                     AudioManager.Instance.PlaySoundAtLocation(EnemyDamage, soundEffect, null, true);
 
                     hp = healthpoints[healthpoints.Count - 1];
                     healthpoints.RemoveAt(healthpoints.Count - 1);
                     SaveManager.Instance.DamageDealt++;
+                    
+
                 }
 
 
