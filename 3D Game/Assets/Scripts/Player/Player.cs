@@ -22,6 +22,7 @@ public class Player : MonoBehaviour, IPointerClickHandler
     public Sprite pic;
 
     [SerializeField] CinemachineVirtualCamera PlayerCam;
+    public ParticleSystem circle;
 
 
 
@@ -39,11 +40,14 @@ public class Player : MonoBehaviour, IPointerClickHandler
     public void OpenAbilityCastCanvas()
     {
         AbilityCastCanvas.enabled = true;
+        circle.Play();
         AbilityCastCanvas.transform.DOMove(AbilityCastCanvas.transform.position,0.2f).From(transform.position).OnComplete(()=> AbilityCastCanvas.transform.DOPunchScale(Vector3.one, 0.2f));
     }
 
     public void CloseAbilityCastCanvas()
     {
+        circle.Pause();
+
         AbilityCastCanvas.enabled = false;
     }
 
