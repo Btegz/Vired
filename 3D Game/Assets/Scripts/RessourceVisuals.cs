@@ -413,21 +413,30 @@ public class RessourceVisuals : MonoBehaviour
 
     public void DestroyEnemyMasses()
     {
-        try
+        foreach(Burst enemyMass in GetComponentsInChildren<Burst>())
         {
+            enemyMass.Bursting(); 
             enemyMassLayersActive.Clear();
             StopEnemyMassParticles();
-            foreach (GameObject enemyMass in CurrentEnemyMasses)
-            {
-                enemyMass.GetComponent<Burst>().Bursting();
-               //Destroy(enemyMass);
+        }
+
+
+
+        //try
+        //{
+        //    enemyMassLayersActive.Clear();
+        //    StopEnemyMassParticles();
+        //    foreach (GameObject enemyMass in CurrentEnemyMasses)
+        //    {
+        //        enemyMass.GetComponent<Burst>().Bursting();
+        //       //Destroy(enemyMass);
                 
-            }
-        }
-        catch
-        {
-            Debug.Log("I JUST COULDNT HANDLE DESTORYING MY EnemyMass IM SORRY");
-        }
+        //    }
+        //}
+        //catch
+        //{
+        //    Debug.Log("I JUST COULDNT HANDLE DESTORYING MY EnemyMass IM SORRY");
+        //}
     }
 
     public void SpawnEnemyMass()

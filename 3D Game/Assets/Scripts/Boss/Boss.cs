@@ -171,6 +171,7 @@ public class Boss : Enemy
 
         foreach (Boss b in NextBosses)
         {
+            
             if (nextBossSpawnPattern == null)
             {
                 Boss newBoss = Instantiate(b);

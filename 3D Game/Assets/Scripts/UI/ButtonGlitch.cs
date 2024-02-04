@@ -10,17 +10,31 @@ public class ButtonGlitch : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public string AnimationName;
     public void Start()
     {
-        animation = GetComponent<Animator>();
+        try
+        {
+            animation = GetComponent<Animator>();
+        }
+        catch
+        {
+
+        }
+        
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-
-        StartCoroutine(GlitchCorroutine());
+        if (animation != null)
+        {
+            StartCoroutine(GlitchCorroutine());
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        animation.SetBool(AnimationName, false);
+        if(animation != null)
+        {
+            animation.SetBool(AnimationName, false);
+        }
+        
     }
 
     IEnumerator GlitchCorroutine()

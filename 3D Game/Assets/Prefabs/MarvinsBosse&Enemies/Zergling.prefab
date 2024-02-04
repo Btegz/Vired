@@ -307,6 +307,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8254572460369654827}
   - component: {fileID: 3100616434115519233}
+  - component: {fileID: 6839948475676482352}
   m_Layer: 0
   m_Name: Zergling
   m_TagString: Untagged
@@ -386,6 +387,19 @@ MonoBehaviour:
   FirstAndLast: 1
   isFirstZergling: 1
   zerglingPrefab: {fileID: 3100616434115519233}
+--- !u!65 &6839948475676482352
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8254572460369654823}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.1217201, z: 0.92180574}
+  m_Center: {x: 4.0353965e-10, y: 0.55931926, z: 0.039097145}
 --- !u!1001 &1079976580004952893
 PrefabInstance:
   m_ObjectHideFlags: 0

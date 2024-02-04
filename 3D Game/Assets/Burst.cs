@@ -31,14 +31,21 @@ public class Burst : MonoBehaviour
 
     public IEnumerator BubblyBurst()
     {
-        //Instantiate(BubbleBurstParticle, gameObject.transform.position, Quaternion.identity);
+        
 
-        Sequence burstSequence = DOTween.Sequence();
-        burstSequence.Append(transform.DOScale(transform.localScale - Vector3.one * 0.5f, .25f).SetEase(Ease.OutExpo).OnComplete(()=> Instantiate(BubbleBurstParticle, gameObject.transform.position, Quaternion.identity)));
-        burstSequence.Append(transform.DOScale(transform.localScale + Vector3.one * 0.5f, .5f).SetEase(Ease.OutExpo));
 
-        burstSequence.OnComplete(()=> Destroy(gameObject));
-        burstSequence.Play();
+        try
+        {
+            Sequence burstSequence = DOTween.Sequence();
+            burstSequence.Append(transform.DOScale(transform.localScale - Vector3.one * 0.5f, .25f).SetEase(Ease.OutExpo).OnComplete(() => Instantiate(BubbleBurstParticle, gameObject.transform.position, Quaternion.Euler(Vector3.zero))));
+            burstSequence.Append(transform.DOScale(transform.localScale + Vector3.one * 0.5f, .5f).SetEase(Ease.OutExpo));
+            burstSequence.OnComplete(() => Destroy(gameObject));
+            burstSequence.Play();
+        }
+        catch
+        {
+
+        }
         
         
         //OnComplete(() => Destroy(gameObject));
