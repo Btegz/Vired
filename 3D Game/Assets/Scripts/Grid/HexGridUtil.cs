@@ -84,7 +84,6 @@ public static class HexGridUtil
         new Vector3Int(1,0,-1), new Vector3Int(1,-1,0), new Vector3Int(0,-1,1),
         new Vector3Int(-1,0,1), new Vector3Int(-1,1,0), new Vector3Int(0,1,-1)
     };
-
     /// <summary>
     /// Adds two Vectors.
     /// </summary>
@@ -95,12 +94,10 @@ public static class HexGridUtil
     {
         return new Vector3Int(a.x + b.x, a.y + b.y, a.z + b.z);
     }
-
     public static Vector2Int CubeAdd(Vector2Int a, Vector2Int b)
     {
         return new Vector2Int(a.x + b.x, a.y + b.y);
     }
-
     /// <summary>
     /// Addas one Vector to every Vector in a List
     /// </summary>
@@ -116,12 +113,10 @@ public static class HexGridUtil
         }
         return result;
     }
-
     public static List<Vector2Int> AxialAddRange(List<Vector2Int> range, Vector2Int b)
     {
         return CubeToAxialCoord(CubeAddRange(AxialToCubeCoord(range), AxialToCubeCoord(b)));
     }
-
     /// <summary>
     /// Substracts two Vectors.
     /// </summary>
@@ -135,9 +130,7 @@ public static class HexGridUtil
         int resZ = a.z - b.z;
         return new Vector3Int(resX, resY, resZ);
     }
-
     // INTERACTING BETWEEN COORDS --------------------------------------------------------------------------------------------------------
-
     /// <summary>
     /// Returns a List of every 6 Coordinate Vectors that are ajacent to given Coordinate Vector.
     /// <br>THIS DOES NOT TAKE IN ACCOUNT WHETHER THE COORDINATES HAVE A TILE OR NOT - beware of null reference Errors</br>
@@ -153,7 +146,6 @@ public static class HexGridUtil
         }
         return neighbors;
     }
-
     /// <summary>
     /// Array of Direction Vectors for every Diagonal.
     /// </summary>
@@ -162,7 +154,6 @@ public static class HexGridUtil
         new Vector3Int(2,-1,-1),new Vector3Int(1,-2,1), new Vector3Int(-1,-1,2),
         new Vector3Int(-2,1,1), new Vector3Int(-1,2,-1),new Vector3Int(1,1,-2)
     };
-
     /// <summary>
     /// Returns a List of every 6 Corrdinate Vectors that are diagonally to given Coordinate Vector.
     /// <br>THIS DOES NOT TAKE IN ACCOUNT WHETHER THE COORDINATES HAVE A TILE OR NOT - beware of null reference Errors</br>
@@ -179,7 +170,6 @@ public static class HexGridUtil
         }
         return diagonals;
     }
-
     /// <summary>
     /// Calculates the Distance between two Coordinate Vectors.
     /// </summary>
@@ -191,7 +181,6 @@ public static class HexGridUtil
         Vector3Int distance = CubeSubstract(a, b);
         return (Mathf.Abs(distance.x) + Mathf.Abs(distance.y) + Mathf.Abs(distance.z)) / 2;
     }
-
     /// <summary>
     /// Its just a Lerp function
     /// </summary>
@@ -204,7 +193,6 @@ public static class HexGridUtil
         float result = a + (b - a) * t;
         return result;
     }
-
     /// <summary>
     /// It's just Lerps but for 2 Vector3Int's.
     /// </summary>
@@ -219,7 +207,6 @@ public static class HexGridUtil
                               Lerp(a.z, b.z, t)
                               );
     }
-
     /// <summary>
     /// Could Draw a Line between Coordinate "a" and "b".
     /// </summary>
@@ -237,7 +224,6 @@ public static class HexGridUtil
         }
         return result;
     }
-
     /// <summary>
     /// Rounds a Vector3 to Vector3Int.
     /// <br>It also takes care of rounding issues that could result in a Vector3Int thats not viable for an cubic Axial Grid.</br>
@@ -268,7 +254,6 @@ public static class HexGridUtil
         }
         return new Vector3Int((int)x, (int)y, (int)z);
     }
-
     /// <summary>
     /// Gives a List of Coordinates, reachable within a Range.
     /// <br>DOES NOT CONSIDER WHETHER THE COORDINATE ACTUALLY EXISTS - beware of Null reference Exceptions.</br>
@@ -297,9 +282,7 @@ public static class HexGridUtil
         }
         return result;
     }
-
     // PATHFINDING ------------------------------------------------------------------------------------------------------------------------
-
     /// <summary>
     /// Searches for every Coordinate, reachable from "startingCoord" within "range".
     /// <br>STILL NEED TO ADD A WAY OF CHECKING FOR BLOCKED TILES</br>
@@ -402,9 +385,7 @@ public static class HexGridUtil
         }
         return result;
     }
-
     // ROTATION ----------------------------------------------------------------------------------------------------------------------------
-
     /// <summary>
     /// Rotates a Coordinate around a center. 60� Clockwise.
     /// </summary>
@@ -424,7 +405,6 @@ public static class HexGridUtil
         return result;
 
     }
-
     /// <summary>
     /// Rotates a Coordinate around a Center. 60� Counter-Clockwise.
     /// </summary>
@@ -445,7 +425,6 @@ public static class HexGridUtil
 
         return result;
     }
-
     /// <summary>
     /// Rotates a List of Coordinates Clockwise around a given Center
     /// </summary>
@@ -461,7 +440,6 @@ public static class HexGridUtil
         }
         return result;
     }
-
     /// <summary>
     /// Rotates a List of Coordinates Counter-Clockwise around a given Center
     /// </summary>
@@ -477,7 +455,6 @@ public static class HexGridUtil
         }
         return result;
     }
-
     /// <summary>
     /// Converts a Hex Coordinate into a Worldposition with y=0
     /// </summary>
@@ -496,7 +473,6 @@ public static class HexGridUtil
         //result.z = -x -y;
         return result;
     }
-
     public static Vector2Int PixelToHexCoord2D(Vector2 pixel, float size)
     {
         Vector2Int result = new Vector2Int();
@@ -511,9 +487,7 @@ public static class HexGridUtil
 
         return result;
     }
-
     // COMBINE ----------------------------------------------------------------------------------------------------------------------------
-
     /// <summary>
     /// Combines Coordinates of two Cubic Grids into one along the given Axis.
     /// </summary>
@@ -536,7 +510,6 @@ public static class HexGridUtil
         movedGrid = movedGridB;
         return combine;
     }
-
     /// <summary>
     /// Combines Coordinates of two Axial Coordinate Grids into one along the given Axis.
     /// </summary>
@@ -552,7 +525,6 @@ public static class HexGridUtil
         movedGrid = CubeToAxialCoord(movedPart);
         return CubeToAxialCoord(combine);
     }
-
     /// <summary>
     /// Checks whether two given Lists of coordinates have duplicates.
     /// </summary>
@@ -570,9 +542,7 @@ public static class HexGridUtil
         }
         return false;
     }
-
     // SHAPES --------------------------------------------------------------------------------------------------------------------------------
-
     public static List<Vector2Int> GenerateRombusShapedGrid(int qSize, int rSize)
     {
         List<Vector2Int> result = new List<Vector2Int>();
@@ -592,7 +562,6 @@ public static class HexGridUtil
         }
         return result;
     }
-
     public static List<Vector2Int> GenerateRectangleShapedGrid(int qSize, int rSize)
     {
         List<Vector2Int> result = new List<Vector2Int>();
@@ -612,7 +581,6 @@ public static class HexGridUtil
         }
         return result;
     }
-
     public static List<Vector2Int> GenerateHexagonalShapedGrid(int radius)
     {
         List<Vector2Int> result = new List<Vector2Int>();
@@ -629,7 +597,6 @@ public static class HexGridUtil
         }
         return result;
     }
-
     public static List<Vector3Int> BreadthFIrstPathfinding(Vector3Int start, Vector3Int goal, List<Vector3Int> Grid)
     {
         List<Vector3Int> path = new List<Vector3Int>();
@@ -671,7 +638,6 @@ public static class HexGridUtil
         path.Reverse();
         return path;
     }
-
     public static List<Vector3Int> HeuristicPathfind(Vector3Int start, Vector3Int goal, List<Vector3Int> grid)
     {
         List<Vector3Int> path = new List<Vector3Int>();
@@ -729,7 +695,6 @@ public static class HexGridUtil
 
         return path;
     }
-
     public static List<Vector3Int> CostHeuristicPathFind(Vector3Int start, Vector3Int goal, Dictionary<Vector2Int, GridTile> gridWithCost, out int pathCost)
     {
         List<Vector3Int> path = new List<Vector3Int>();
@@ -807,13 +772,11 @@ public static class HexGridUtil
 
         return path;
     }
-
     public static Vector3Int CubeScale(Vector3Int hex, int factor)
     {
         Vector3Int cube = new Vector3Int(hex.x * factor, hex.y * factor, hex.z * factor);
         return cube;
     }
-
     public static List<Vector2Int> Ring(Vector3Int center, int radius)
     {
         List<Vector2Int> cubeRing = new List<Vector2Int>();
@@ -831,7 +794,6 @@ public static class HexGridUtil
 
         return cubeRing;
     }
-
     public static List<Vector2Int> Ring(Vector3Int center, int radius, Dictionary<Vector2Int, GridTile> Grid)
     {
         List<Vector2Int> cubeRing = new List<Vector2Int>();
@@ -854,7 +816,6 @@ public static class HexGridUtil
 
         return cubeRing;
     }
-
     public static List<Vector2Int> AxialNeighbors(List<Vector2Int> coordinates)
     {
         List<Vector2Int> neighbors = new List<Vector2Int>();
@@ -871,7 +832,6 @@ public static class HexGridUtil
         }
         return neighbors;
     }
-
     public static List<Vector2Int> AxialNeighbors(Vector2Int coordinate)
     {
         List<Vector2Int> result = new List<Vector2Int>();
@@ -879,7 +839,6 @@ public static class HexGridUtil
         result = CubeToAxialCoord(CubeNeighbors(cubeInput));
         return result;
     }
-
     public static List<Vector2Int> GetOuterBorderSorted(List<Vector2Int> grid)
     {
         List<Vector2Int> result = new List<Vector2Int>();
@@ -894,13 +853,11 @@ public static class HexGridUtil
 
         return result;
     }
-
     public static List<Vector3Int> GetOuterBoarderSorted(List<Vector3Int> grid)
     {
         List<Vector3Int> border = new List<Vector3Int>();
         return border;
     }
-
     public static List<Vector2Int> GetOuterBorderUnSorted(List<Vector2Int> grid)
     {
         List<Vector2Int> init = grid;
@@ -918,7 +875,6 @@ public static class HexGridUtil
 
         return border;
     }
-
     public static List<Vector3Int> GetCouterBorderUnsorted(List<Vector3Int> grid)
     {
         return AxialToCubeCoord(GetOuterBorderUnSorted(CubeToAxialCoord(grid)));

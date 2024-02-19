@@ -12,14 +12,11 @@ using Random = UnityEngine.Random;
 public class GridManager : MonoBehaviour
 {
     public static GridManager Instance;
-
     [HideInInspector] public Vector2Int BossSpawn;
-
     // Vector2Int holds the coordinate and GridTile is the GameObject in the Coordinate.
     // It is a Vector2Int instead of Vector3Int because this makes accessing the tiles much easier.
     // If you want the cubic Coordinate you cann access HexGridUtil.AxialToCubeCoord.
     [SerializeField] public Dictionary<Vector2Int, GridTile> Grid;
-
     [Header("The Boring Stuff")]
     [SerializeField] GridTile GridTilePrefab;
     public GS_positive gS_Positive;
@@ -29,16 +26,13 @@ public class GridManager : MonoBehaviour
     public GS_Boss gS_Boss;
     public GS_BossNegative gS_BossNegative;
     public GS_Pofl gS_PofI;
-
     [Header("Map")]
     [SerializeField] public MapSettings mapSettings;
-
     //[Header("Tile Presets")]
     //[SerializeField, Tooltip("should be smaller then outerSize. If Hex should be filled this will be 0.")] float innerSize;
     //[SerializeField, Tooltip("The Size of a Hex tile. Size represents the radius and not the diameter of the Hex. If outerSize is 1, the Hex will have a width of 2.")] float outerSize;
     //[SerializeField, Tooltip("The y Position of the tile")] float height;
     //[SerializeField] List<GridTileSO> gridTileSOs;
-
     [Header("PofIs")]
     [SerializeField] public GameObject PofIPrefab;
     [SerializeField][HideInInspector] public GameObject pofi;
@@ -46,22 +40,14 @@ public class GridManager : MonoBehaviour
     private int randomPofI;
     public int pofIOffset;
     [SerializeField] int PofiSpawnCount;
-
-
-
     [Header("Enemies")]
     [SerializeField] public List<Enemy> StartEnemyPrefabs;
     [SerializeField] int startEnemyCount;
     [SerializeField] public Boss StartBossPrefab;
-
     [Header("Audio")]
     [SerializeField] public AudioData NextTurn;
     [SerializeField] public AudioMixerGroup soundEffect; 
-
-
     [HideInInspector] public int TurnCounter;
-
-
     private void Awake()
     {
         if (Instance == null)
@@ -78,8 +64,6 @@ public class GridManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    // Start is called before the first frame update
     void Start()
     {
         EventManager.OnEndTurnEvent += EndTurn;
@@ -126,17 +110,14 @@ public class GridManager : MonoBehaviour
         //}
 
     }
-
     private void OnDestroy()
     {
         EventManager.OnEndTurnEvent -= EndTurn;
     }
-
     public void GameWon()
     {
         SceneManager.LoadScene("GameWonScene");
     }
-
     public void TransferGridSOData()
     {
         if (mapSettings == null)
@@ -231,8 +212,6 @@ public class GridManager : MonoBehaviour
             SpawnPofIs();
         }
     }
-
-
     private void SpawnEnemy()
     {
         Enemy enemy = Instantiate(StartEnemyPrefabs[Random.Range(0, StartEnemyPrefabs.Count)]);
@@ -353,8 +332,6 @@ public class GridManager : MonoBehaviour
 
 
     }
-
-
     private void SpawnPofIs()
     {
         List<Vector2Int> possibleTiles = new List<Vector2Int>();
@@ -396,8 +373,6 @@ public class GridManager : MonoBehaviour
 
         }
     }
-
-
     /// <summary>
     /// Generates a Grid
     /// </summary>
@@ -423,7 +398,6 @@ public class GridManager : MonoBehaviour
 
 
     //}
-
     public void EndTurn()
     {
         TurnCounter+=1;
@@ -431,13 +405,10 @@ public class GridManager : MonoBehaviour
        
 
     }
-
     //public void TriggerPhase()
     //{
     //    currentPhase.TriggerPhaseEffects(TurnCounter, this);
     //}
-
-
     /// <summary>
     /// Picks a random tile from the Grid
     /// </summary>
@@ -453,7 +424,6 @@ public class GridManager : MonoBehaviour
 
         return tileCollection[Random.Range(0, tileCollection.Count)];
     }
-
     public List<GridTile> GetTilesWithState(GridState state)
     {
         List<GridTile> enemies = new List<GridTile>();
@@ -466,7 +436,6 @@ public class GridManager : MonoBehaviour
         }
         return enemies;
     }
-
     //public void PhaseTransition()
     //{
     //    phases.RemoveAt(0);

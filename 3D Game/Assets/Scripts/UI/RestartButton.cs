@@ -12,11 +12,6 @@ public class RestartButton : MonoBehaviour
     public Button restartButton;
     [SerializeField] private TextMeshProUGUI restartTMP;
     // Start is called before the first frame update
-    void Awake()
-    {
-       // restartButton.onClick.AddListener(Restart);
-        //restartTMP = GetComponent<TextMeshProUGUI>();
-    }
 
     private void Start()
     {
@@ -24,11 +19,6 @@ public class RestartButton : MonoBehaviour
         restartTMP.DOFade(1f, 1f).SetDelay(1.5f);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void Restart()
     {

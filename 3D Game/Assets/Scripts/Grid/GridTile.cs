@@ -43,30 +43,17 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [Header("World Edge")]
     [SerializeField] float EdgeFalloff;
     [Header("----------------------------------")]
-
-
     [SerializeField] float Rampigkeit;
-
-
     public ProceduralTileInfo tileInfo;
-
-
     public Color SplatMapColor1;
     public Color SplatMapColor2;
     public Color SplatMapColor3;
-
-
     public GridTileSO gridTileSO;
     public Vector2Int AxialCoordinate;
-
-    // vvvv new World
     const float bufferRadius = 0.75f;
     const float outerRadius = 1f;
     const float innerRadius = outerRadius * 0.866025404f;
-
     public List<GridTile> myNeighbors;
-
-
     List<Vector3> corners = new List<Vector3>()
     {
         new Vector3(outerRadius*.5f,0,innerRadius),     // upper right corner
@@ -76,55 +63,37 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         new Vector3(-outerRadius,0,0),                  // left Corner
         new Vector3(-outerRadius*.5f,0,innerRadius)     // upper left corner
     };
-
-
     List<Vector3> vertices;
     List<int> triangles;
     List<Vector3> uvs;
     List<Color> vertexColors;
-
     public Dictionary<Direction, Vector3> Points;
-
-    // ^^^^
-
     [HideInInspector] public float innerSize = 0;
     [HideInInspector] public float outerSize = 1;
     [HideInInspector] public float height = 0;
     Mesh mesh;
-    MeshFilter meshFilter;
-    //public MeshRenderer meshRenderer;
     MeshCollider meshCollider;
     List<Face> faces;
-
     bool withWalls = false;
-
     [Header("Tile Statestuff")]
     public GridState currentGridState;
     public Ressource ressource;
     public TileHighlight moveTileHighlightPrefab;
     public TileHighlight enemySpreadTileHighlightPrefab;
-
     public int neutralTurnCounter = 0;
     public int NeutralRegenerationTime;
-
     private void Start()
     {
         EventManager.OnEndTurnEvent += neutralRegeneration;
     }
-
     private void OnDestroy()
     {
         EventManager.OnEndTurnEvent -= neutralRegeneration;
     }
-
-
-
     public void HighlightEnemySpreadPrediction()
     {
         Instantiate(enemySpreadTileHighlightPrefab, transform.localPosition, Quaternion.identity, transform);
     }
-
-
     public void Setup(Vector2Int coordinate, Ressource ressource, bool withWalls, ProceduralTileInfo tileInfo)
     {
         this.tileInfo = tileInfo;
@@ -142,9 +111,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         //meshFilter.mesh = DrawMesh();
 
     }
-
     // STATE MASHINE STUFF ----------------------------------------------------------------------------------------------------------
-
     /// <summary>
     /// Just changes the current State of this Tile.
     /// </summary>
@@ -183,9 +150,7 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
 
     }
-
     // UTILITY STUFF ----------------------------------------------------------------------------------------------------------------
-
     /// <summary>
     /// Spawns an Enemy on this Tile.
     /// </summary>
@@ -200,7 +165,6 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             newEnemy.transform.localPosition = transform.localPosition;
         }
     }
-
     // MESH TILE STUFF --------------------------------------------------------------------------------------------------------------
 
     // vvvv new World
@@ -486,7 +450,6 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         GetComponent<RessourceVisuals>().Setup(this);
     }
-
     public void RecalculateTerrain()
     {
         mesh = new Mesh();
@@ -619,8 +582,6 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         mesh.RecalculateNormals();
         GetComponent<MeshFilter>().mesh = mesh;
     }
-
-
     public void AddTriangle(Vector3 a, Vector3 b, Vector3 c)
     {
         int vertexIndex = vertices.Count;
@@ -636,12 +597,10 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         //uvs.Add(new Vector3(c.x,c.y, c.z) + transform.localPosition);
 
     }
-
     public void AddTerrainIndexes(Ressource resA, Ressource resB, Ressource resC)
     {
         AddTriangleTerrainTypes(getTerrainIndex(resA), getTerrainIndex(resB), getTerrainIndex(resC));
     }
-
     public void AddTerrainIndexes(GridTile tileA, GridTile tileB, GridTile tileC)
     {
         try
@@ -657,7 +616,6 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             AddTriangleTerrainTypes(getTerrainIndex(ressource), getTerrainIndex(ressource), getTerrainIndex(ressource));
         }
     }
-
     public int getTerrainIndexWithDesat(GridTile tile)
     {
         if (tile.currentGridState.StateValue() < 0)
@@ -673,7 +631,6 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             return getTerrainIndex(tile.ressource);
         }
     }
-
     public int getTerrainIndex(Ressource ressource)
     {
         switch (ressource)
@@ -684,14 +641,12 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             default: return 3;
         }
     }
-
     public void AddTriangleTerrainTypes(int a, int b, int c)
     {
         uvs.Add(new Vector3((float)a, (float)b, (float)c));
         uvs.Add(new Vector3((float)a, (float)b, (float)c));
         uvs.Add(new Vector3((float)a, (float)b, (float)c));
     }
-
     public Vector2 Remap(Vector2 input)
     {
         Vector3 result = new Vector3();
@@ -701,7 +656,6 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         return result;
     }
-
     public void pertulate(MapSettings mapsettings)
     {
         for (int i = 0; i < vertices.Count; i++)
@@ -717,7 +671,6 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         }
     }
-
     public void AddTriangleColors(Color colorA, Color colorB, Color colorC)
     {
         vertexColors.Add(colorA);
@@ -727,7 +680,6 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         //uvs.Add(Vector3.one* 2);
         //uvs.Add(Vector3.one* 2);
     }
-
     public Color GetColor(Ressource res)
     {
         if (currentGridState == null)
@@ -758,7 +710,6 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
         return gridTileSO.neutralColor;
     }
-
     public Color AverageColor(Color[] colors)
     {
         Color avgColor = new Color();
@@ -770,8 +721,6 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         avgColor /= colors.Length;
         return avgColor;
     }
-    // ^^^^
-
     /// <summary>
     /// Function DrawMesh is called, to generate the Mesh of this GridCell.
     /// </summary>
@@ -795,7 +744,6 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         return mesh;
     }
-
     /// <summary>
     /// Function DrawFaces Generates faces for a Hexagonal Shape.
     /// </summary>
@@ -822,7 +770,6 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         return localFaces;
     }
-
     /// <summary>
     /// Function CombineFaces combines the Faces of this GridCell to one Mesh.
     /// <br>See also: <seealso cref="Face"/></br>
@@ -857,7 +804,6 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         return meh;
     }
-
     /// <summary>
     /// Function CreateFace creates a Face with 2 triangles.
     /// </summary>
@@ -915,7 +861,6 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         return new Face(vertices, triangles, uvs);
     }
-
     /// <summary>
     /// returns the Vertex for one Face of the Hexagon.
     /// </summary>
@@ -936,7 +881,6 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         // the z coordinate needs to multiply sin of the radial angle with size.
         return new Vector3((size * Mathf.Cos(angle_rad)), height, size * Mathf.Sin(angle_rad));
     }
-
     public void OnPointerEnter(PointerEventData eventData)
     {
         if ((PlayerManager.Instance.movementAction > 0 || PlayerManager.Instance.extraMovement > 0) && (!PlayerManager.Instance.abilityActivated && currentGridState.StateValue() >= 0))
@@ -950,7 +894,6 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             }
         }
     }
-
     public void OnPointerExit(PointerEventData eventData)
     {
         //if (TutorialManager.Instance != null)
@@ -974,7 +917,6 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
 
     }
-
     public void neutralRegeneration()
     {
         if (currentGridState == GridManager.Instance.gS_Neutral)
@@ -987,7 +929,6 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             }
         }
     }
-
     public void UpdateMyNeighbors()
     {
         myNeighbors = new List<GridTile>();

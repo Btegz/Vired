@@ -5,43 +5,30 @@ using UnityEngine;
 [CreateAssetMenu]
 public class PE_MiniEnemySpawn : PhaseEffect
 {
-
     [SerializeField] public List<Spreadbehaviours> SpreadBehaviours;
-
     [SerializeField] private List<EnemySO> enemySOs;
     [SerializeField] private List<Vector3Int> Zerklings;
     [SerializeField] private List<Vector3Int> ZerklingNeighbor;
     [SerializeField] private List<Vector3Int> possibleTiles;
     [SerializeField] private List<Vector3Int> possibleNeighbors;
     [SerializeField] private List<Vector3Int> ZerklingSpawn;
-
-
-
-
-
-
     public List<EnemySO> myEnemySoList
     {
         get { return enemySOs; }
         set { enemySOs = value; }
     }
-
     [SerializeField] private Enemy enemyPrefab;
-
     public Enemy myEnemyPrefab
     {
         get { return enemyPrefab; }
         set { enemyPrefab = value; }
     }
-
     [SerializeField] private int amount;
-
     public int MyAmount
     {
         get { return amount; }
         set { amount = value; }
     }
-
     public override void TriggerPhaseEffect(int turnCounter, GridManager gridManager)
     {
         if (turnCounter % everyXRounds == 0)

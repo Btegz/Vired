@@ -7,7 +7,7 @@ using DG.Tweening;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UnityEngine.Audio; 
+using UnityEngine.Audio;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -17,11 +17,11 @@ public class PlayerManager : MonoBehaviour
 
     [Header("The Boring Stuff")]
     public Camera cam;
-    public AbilityLoadout abilityLoadout; 
+    public AbilityLoadout abilityLoadout;
     [SerializeField] public InputActionReference cancelAbilityInputActionReference;
     public AbilityObjScript abilityObj;
     [HideInInspector] public List<Ability> abilitInventory;
-    /*[HideInInspector]*/ public bool abilityActivated = false;
+    public bool abilityActivated = false;
     [HideInInspector] private bool abilityUsable = true;
     [HideInInspector] public bool AbilityLoadoutActive;
 
@@ -30,11 +30,11 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] public List<Player> Players;
     public List<Sprite> PlayerSprites;
     [SerializeField] int movementPointsPerTurn;
-    [HideInInspector]public int movementAction = 4;
+    [HideInInspector] public int movementAction = 4;
     [HideInInspector] public int totalSteps;
     public int SkillPoints;
     [HideInInspector] public int extraMovement;
-public Player selectedPlayer;
+    public Player selectedPlayer;
     [HideInInspector] public GridTile target;
     [HideInInspector] public bool move = true;
     [HideInInspector] public Vector3 mouse_pos;
@@ -61,9 +61,7 @@ public Player selectedPlayer;
     [SerializeField] AudioSource enemyHovern;
     [SerializeField] AudioMixerGroup soundEffect;
 
-     public bool abilityLoadoutTutorial = false;
-  
-
+    public bool abilityLoadoutTutorial = false;
     private void Awake()
     {
         if (Instance == null)
@@ -76,18 +74,17 @@ public Player selectedPlayer;
             Destroy(gameObject);
         }
     }
-
     void Start()
     {
 
-        
-            foreach (Player p in Players)
-            {
-                p.transform.position = GridManager.Instance.Grid[p.SpawnPoint].transform.position;
-                p.CoordinatePosition = GridManager.Instance.Grid[p.SpawnPoint].AxialCoordinate;
-            }
 
-            selectedPlayer = Players[0];
+        foreach (Player p in Players)
+        {
+            p.transform.position = GridManager.Instance.Grid[p.SpawnPoint].transform.position;
+            p.CoordinatePosition = GridManager.Instance.Grid[p.SpawnPoint].AxialCoordinate;
+        }
+
+        selectedPlayer = Players[0];
         PlayerPrefs.SetFloat("HoverVolume", hovern.volume);
 
 
@@ -106,24 +103,21 @@ public Player selectedPlayer;
 
 
     }
-
     public void startMoveCoroutine(Player player)
     {
         StartCoroutine(Move(clickedTile));
     }
-
     private void OnDestroy()
     {
         StopAllCoroutines();
         EventManager.OnEndTurnEvent -= resetMovementPoints;
-        EventManager.OnAbilityButtonEvent -= AbilityClicked; 
+        EventManager.OnAbilityButtonEvent -= AbilityClicked;
         EventManager.OnEndTurnEvent -= resetMovementPoints;
         EventManager.OnAbilityButtonEvent -= AbilityClicked;
         EventManager.OnSelectPlayerEvent -= PlayerSelect;
         EventManager.OnMoveEvent -= startMoveCoroutine;
         EventManager.OnMoveEvent -= Audio;
     }
-
     private void Update()
     {
 
@@ -247,8 +241,6 @@ public Player selectedPlayer;
         }
 
     }
-
-
     /// <summary>
     /// Used to determin the GridTile the Mouse is on right now
     /// </summary>
@@ -290,11 +282,6 @@ public Player selectedPlayer;
         return false;
 
     }
-
-
-
-
-
     /// <summary>
     /// Coroutine to Move Player to a Coordinate
     /// </summary>
@@ -304,7 +291,7 @@ public Player selectedPlayer;
     {
         selectedPlayer.CoordinatePosition = moveTo;
         hovern.volume = Mathf.Lerp(hovern.volume, hovern.volume * 1.5f, 0.5f);
-            Debug.Log(hovern.volume);
+        Debug.Log(hovern.volume);
 
         move = false;
 
@@ -316,17 +303,17 @@ public Player selectedPlayer;
         }
         else if (movementAction > 0)
         {
-            movementAction--; 
+            movementAction--;
             MovePoints[movementAction].GetComponent<MovePointsDoTween>().Away();
         }
-        
+
         selectedPlayer.transform.DOMove(target.transform.position, selectedPlayer.GetComponentInChildren<PlayerVisuals>().moveDuration);
-        
+
         //PlayerManager.Instance.target.currentGridState.PlayerEnters(PlayerManager.Instance.target));
 
-        
-        
-        
+
+
+
         SaveManager.Instance.totalMovement++;
 
         yield return new WaitForSeconds(0.35f);
@@ -334,8 +321,6 @@ public Player selectedPlayer;
         move = true;
         yield return null;
     }
-
-
     /// <summary>
     /// Used to reset Movementpoints of the Player
     /// </summary>
@@ -352,7 +337,6 @@ public Player selectedPlayer;
         //MovePoints[2].GetComponent<MovePointsDoTween>().SpriteReset();
         //MovePoints[3].GetComponent<MovePointsDoTween>().SpriteReset();
     }
-
     public void ChooseAbilityWithIndex(Ability ability, Vector3Int selectedPoint, Vector3Int playerPos)
     {
         Debug.Log("I CHOSE AN ABILITY");
@@ -360,18 +344,16 @@ public Player selectedPlayer;
         AbilityObjScript AbilityPreview = Instantiate(abilityObj);
         AbilityPreview.ShowMesh(chosenAbility, selectedPoint, playerPos, selectedPlayer);
     }
-
     public void AbilityClicked(Ability ability, AbilityButton button)
     {
         if (button.currentState == ButtonState.inMainScene)
         {
-           
-            
+
+
             AbilityClicked(ability);
-            
+
         }
     }
-
     /// <summary>
     /// Called in OnClick of an AbilityButton.
     /// determins whether player has enough Ressources for the Ability
@@ -385,7 +367,7 @@ public Player selectedPlayer;
         if (abilityActivated == false && InventoryCheck(ability, selectedPlayer))
         {
             move = false;
-           // AudioManager.Instance.PlaySoundAtLocation(selectedAbility, soundEffect, null);
+            // AudioManager.Instance.PlaySoundAtLocation(selectedAbility, soundEffect, null);
 
             cancelAbilityInputActionReference.action.performed += CancelAbilityChoice;
             abilityActivated = true;
@@ -402,7 +384,6 @@ public Player selectedPlayer;
             //indicatorPrefabClone = Instantiate(indicatorPrefab, selectedPlayer.transform.position, indicatorRotation);
         }
     }
-
     public bool InventoryCheck(Ability ability, Player player)
     {
         try
@@ -454,7 +435,6 @@ public Player selectedPlayer;
             return false;
         }
     }
-
     /// <summary>
     /// Coroutine to Wait for Player to choose the Abilities Location after it was chosen
     /// </summary>
@@ -499,8 +479,6 @@ public Player selectedPlayer;
 
     //    yield return null;
     //}
-
-
     public void AbilityCasted(Player player)
     {
         StartCoroutine(AbilityCastCoroutine());
@@ -508,19 +486,17 @@ public Player selectedPlayer;
         //cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice; 
         //abilityActivated = false;
         //Destroy(indicatorPrefabClone);
-        
-    }
 
+    }
     public IEnumerator AbilityCastCoroutine()
     {
         EventManager.OnAbilityCastEvent -= AbilityCasted;
         cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice;
-        yield return new WaitForEndOfFrame(); 
+        yield return new WaitForEndOfFrame();
         move = true;
         abilityActivated = false;
         yield return null;
     }
-
     public void CancelAbilityChoice(InputAction.CallbackContext actionCallBackContext)
     {
         abilityActivated = false;
@@ -529,7 +505,6 @@ public Player selectedPlayer;
         cancelAbilityInputActionReference.action.performed -= CancelAbilityChoice;
         AudioManager.Instance.PlaySoundAtLocation(AbilityCanceled, soundEffect, null, true);
     }
-
     public void CancelAbilityChoice()
     {
         abilityActivated = false;
@@ -539,7 +514,6 @@ public Player selectedPlayer;
         AudioManager.Instance.PlaySoundAtLocation(AbilityCanceled, soundEffect, null, true);
 
     }
-
     public List<Vector2Int> PlayerPositions()
     {
         List<Vector2Int> positions = new List<Vector2Int>();
@@ -549,12 +523,11 @@ public Player selectedPlayer;
         }
         return positions;
     }
-
     public void PlayerSelect(Player player)
     {
-        
+
         CameraRotation.Instance.MainCam = true;
-       
+
         PlayerManager.Instance.selectedPlayer = player/*PlayerManager.Instance.Players[(int)keyPressed]*/;
         // EventManager.OnSelectPlayer(selectedPlayer);
 
@@ -586,9 +559,9 @@ public Player selectedPlayer;
     }
     public void Audio(Player player)
     {
-        if(!movementSound.audioPlaying)
+        if (!movementSound.audioPlaying)
         {
-        AudioManager.Instance.PlaySoundAtLocation(movementSound, soundEffect, null, true);
+            AudioManager.Instance.PlaySoundAtLocation(movementSound, soundEffect, null, true);
 
         }
     }

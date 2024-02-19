@@ -21,9 +21,5 @@ public class UILoseScreen : MonoBehaviour
         //LoseTMP.DOColor("FF0003", 0.05f);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }

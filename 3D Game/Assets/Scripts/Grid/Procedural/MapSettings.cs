@@ -38,13 +38,11 @@ public class ProceduralTileInfo : IComparable<ProceduralTileInfo>
         noiseDistanceFactor = Mathf.Abs(worldNoise) * (float)distance;
         valid = true;
     }
-
     public int CompareTo(ProceduralTileInfo other)
     {
         return this.noiseDistanceFactor.CompareTo(other.noiseDistanceFactor);
     }
 }
-
 [CreateAssetMenu(fileName = "MapSettings", menuName = "MapSettings")]
 public class MapSettings : ScriptableObject
 {
@@ -52,154 +50,112 @@ public class MapSettings : ScriptableObject
     FastNoiseLite noise2 = new FastNoiseLite();
     FastNoiseLite worldNoise = new FastNoiseLite();
     FastNoiseLite hillNoise = new FastNoiseLite();
-
     FastNoiseLite irregularityNoise1 = new FastNoiseLite();
     FastNoiseLite irregularityNoise2 = new FastNoiseLite();
     FastNoiseLite irregularityNoise3 = new FastNoiseLite();
-
     public float IrregularityFrequency;
-
     public float IrregularityFactor;
-
     public float constantHeighVarianceFactor;
-
-
-
     [Header("General")]
-
     [SerializeField] private int mySeed;
-
     public int MySeed
     {
         get { return mySeed; }
         set { mySeed = value; }
     }
-
     [SerializeField] private bool myGenerateRandomSeed;
-
     public bool MyGenerateRandomSeed
     {
         get { return myGenerateRandomSeed; }
         set { myGenerateRandomSeed = value; }
     }
-
     [SerializeField] private int myTileCount;
-
     public int MyTileCount
     {
         get { return myTileCount; }
         set { myTileCount = value; }
     }
-
-
-
     [Header("Ressource Noise Settings")]
-
     [SerializeField] private FastNoiseLite.NoiseType noiseType1;
-
     public FastNoiseLite.NoiseType NoiseType1
     {
         get { return noiseType1; }
         set { noiseType1 = value; }
     }
-
     [SerializeField] private FastNoiseLite.NoiseType noiseType2;
-
     public FastNoiseLite.NoiseType NoiseType2
     {
         get { return noiseType2; }
         set { noiseType2 = value; }
     }
-
     [SerializeField][Range(0.001f, 1f)] private float frequency;
     public float Frequency
     {
         get { return frequency; }
         set { frequency = value; }
     }
-
     [Header("Cellular noise Settings")]
     [SerializeField] private FastNoiseLite.CellularDistanceFunction myCellularDistanceFunction;
-
     public FastNoiseLite.CellularDistanceFunction MyCellularDistanceFunction
     {
         get { return myCellularDistanceFunction; }
         set { myCellularDistanceFunction = value; }
     }
-
     [SerializeField] private FastNoiseLite.CellularReturnType myCellularReturnType;
-
     public FastNoiseLite.CellularReturnType MyCellulareReturnType
     {
         get { return myCellularReturnType; }
         set { myCellularReturnType = value; }
     }
-
     [SerializeField] private float myJitter;
-
     public float MyJitter
     {
         get { return myJitter; }
         set { myJitter = value; }
     }
-
     [Header("World-Shape Noise Settings")]
-
     [SerializeField] private Vector2Int noiseDataSize;
-
     public Vector2Int NoiseDataSize
     {
         get { return noiseDataSize; }
         set { noiseDataSize = value; }
     }
-
     [SerializeField] private FastNoiseLite.NoiseType m_noiseType1;
-
     public FastNoiseLite.NoiseType M_NoiseType1
     {
         get { return m_noiseType1; }
         set { m_noiseType1 = value; }
     }
-
     [SerializeField][Range(0.001f, 1f)] private float m_frequency;
-
     public float M_Frequency
     {
         get { return m_frequency; }
         set { m_frequency = value; }
     }
-
     [SerializeField] float m_distanceThreshold;
-
     public float M_DistanceThreshold
     {
         get { return m_distanceThreshold; }
         set { m_distanceThreshold = value; }
     }
-
     [SerializeField] private FastNoiseLite.NoiseType m_HillNoiseType;
     public FastNoiseLite.NoiseType M_HillNoiseType
     {
         get { return m_HillNoiseType; }
         set { m_HillNoiseType = value; }
     }
-
     [SerializeField][Range(0.001f, 1f)] float m_HillFrequency;
-
     public float M_HillFrequency
     {
         get { return m_HillFrequency; }
         set { m_HillFrequency = value; }
     }
-
     [SerializeField] Vector2 m_HillnoiseThresholds;
-
     public Vector2 M_HillNoiseThresholds
     {
         get { return m_HillnoiseThresholds; }
         set { m_HillnoiseThresholds = value; }
     }
-
     public Dictionary<Vector2Int, ProceduralTileInfo> NoiseData(FastNoiseLite.NoiseType noiseType, float frequency)
     {
         List<ProceduralTileInfo> tiles = MakeTiles();
@@ -234,7 +190,6 @@ public class MapSettings : ScriptableObject
         //}
         return result;
     }
-
     public List<ProceduralTileInfo> NoiseData()
     {
         List<ProceduralTileInfo> tiles = MakeTilesWithCorrectAmount();
@@ -242,7 +197,6 @@ public class MapSettings : ScriptableObject
         //FixUnreachableTiles(tiles);
         return tiles;
     }
-
     public Dictionary<Vector2Int, ProceduralTileInfo> NoiseData(FastNoiseLite.NoiseType noiseType, float frequency, FastNoiseLite.DomainWarpType domainWarpType, float domainWarpAmplitude)
     {
         Dictionary<Vector2Int, ProceduralTileInfo> result = NoiseData(noiseType, frequency);
@@ -258,14 +212,12 @@ public class MapSettings : ScriptableObject
         }
         return resultresult;
     }
-
     public void GenerateIrregultarityNoiseData()
     {
         irregularityNoise1.SetNoiseType(FastNoiseLite.NoiseType.Perlin);
         irregularityNoise2.SetNoiseType(FastNoiseLite.NoiseType.Perlin);
         irregularityNoise3.SetNoiseType(FastNoiseLite.NoiseType.Perlin);
     }
-
     public Vector3 GetIrregularityNoiseData(Vector3 position)
     {
         Vector3 result = new Vector3();
@@ -274,7 +226,6 @@ public class MapSettings : ScriptableObject
         result.z = irregularityNoise3.GetNoise(position.x, position.z);
         return result;
     }
-
     public List<ProceduralTileInfo> MakeTiles()
     {
         SetTheNoises();
@@ -293,7 +244,6 @@ public class MapSettings : ScriptableObject
         //}
         return result;
     }
-
     public List<ProceduralTileInfo> MakeTilesWithCorrectAmount()
     {
         SetTheNoises();
@@ -320,7 +270,6 @@ public class MapSettings : ScriptableObject
 
         return result;
     }
-
     public List<ProceduralTileInfo> neighbors(List<ProceduralTileInfo> input)
     {
         List<Vector2Int> originals = new List<Vector2Int>();
@@ -339,7 +288,6 @@ public class MapSettings : ScriptableObject
         }
         return newNeighbors;
     }
-
     public List<Vector2Int> GetOuterBorder(List<ProceduralTileInfo> input)
     {
         List<Vector2Int> result = new List<Vector2Int>();
@@ -360,7 +308,6 @@ public class MapSettings : ScriptableObject
         }
         return result;
     }
-
     public void SetTheNoises()
     {
         noise1.SetNoiseType(noiseType1);
@@ -409,7 +356,6 @@ public class MapSettings : ScriptableObject
         irregularityNoise2.SetFrequency(IrregularityFrequency);
         irregularityNoise3.SetFrequency(IrregularityFrequency);
     }
-
     public List<ProceduralTileInfo> FixTileCount(List<ProceduralTileInfo> tiles)
     {
         List<ProceduralTileInfo> fixedList = tiles;
@@ -423,8 +369,6 @@ public class MapSettings : ScriptableObject
         //Debug.Log("TileCount: " + fixedList.Count);
         return fixedList;
     }
-
-
     public void FixUnreachableTiles(List<ProceduralTileInfo> tiles)
     {
         // takes every valid tiles coordinate into "tileCoords" List.
@@ -553,7 +497,6 @@ public class MapSettings : ScriptableObject
         }
         //Debug.Log("I now have " + validNumber + " valid Tiles that should be attached to each other");
     }
-
     public bool GetTileFromCoord(Vector2Int coord, List<ProceduralTileInfo> input, out ProceduralTileInfo result)
     {
         foreach (ProceduralTileInfo pti in input)
@@ -567,7 +510,6 @@ public class MapSettings : ScriptableObject
         result = input[0];
         return false;
     }
-
     public List<ProceduralTileInfo> FindIslandOfTile(ProceduralTileInfo tile, List<ProceduralTileInfo> input)
     {
         // List of Coordinates starting with the "tile" the function is called with.

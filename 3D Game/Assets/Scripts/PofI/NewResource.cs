@@ -23,10 +23,6 @@ public class RessourceSwitch : MonoBehaviour
         RessourceC.onClick.AddListener(() => Switch(2));
         RessourceD.onClick.AddListener(() => Switch(3));
     }
-
-
-   
-
     // Update is called once per frame
     // Why are u adding 20???
     void Switch(int buttonNo)

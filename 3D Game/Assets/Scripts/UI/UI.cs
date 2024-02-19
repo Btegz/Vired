@@ -27,12 +27,10 @@ public class UI : MonoBehaviour
     {
         SettingsCanvas.SetActive(true);
     }
-
     public void CloseSettings()
     {
         SettingsCanvas.SetActive(false);
     }
-
     public void SettingsQuit()
     {
         Reassurance.SetActive(true);
@@ -40,19 +38,15 @@ public class UI : MonoBehaviour
 
 
     }
-
-
     public void QuitGame()
     {
         Application.Quit();
     }
-
     public void CancelQuitGame()
     {
         Reassurance.SetActive(false);
         SettingsCanvas.SetActive(true);
     }
-
     public void ReassuranceMain()
     {
         ReassuranceMainMenu.SetActive(true);
@@ -60,24 +54,20 @@ public class UI : MonoBehaviour
 
 
     }
-
     public void MainMenu()
     {
         SceneManager.LoadScene("StartScreen");
     }
-
     public void CancelMain()
     {
         ReassuranceMainMenu.SetActive(false);
         SettingsCanvas.SetActive(true);
 
     }
-
     public void CancelSettings()
     {
         SettingsCanvas.SetActive(false);
     }
-
     public void SwitchToMain()
     {
         if (CameraRotation.Instance.AbilityUpgradeCam.Priority != 2)
@@ -87,7 +77,6 @@ public class UI : MonoBehaviour
             CameraRotation.Instance.SwitchtoMain();
         }
     }
-
     public void SwitchToTopdown()
     {
         if (CameraRotation.Instance.AbilityUpgradeCam.Priority != 2)
@@ -97,9 +86,4 @@ public class UI : MonoBehaviour
             CameraRotation.Instance.SwitchToTopDown();
         }
     }
-
-    
-
-
-    
 }
