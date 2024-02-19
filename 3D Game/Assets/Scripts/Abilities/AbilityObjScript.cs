@@ -52,7 +52,6 @@ public class AbilityObjScript : MonoBehaviour
 
     private void OnDestroy()
     {
-        //castAbiltyInputActionReference.action.performed -= CastAbility;
         CancelAbilityInputActionReference.action.performed -= KillYourSelf;
         rotationInputActionReference.action.performed -= rotateAbility;
     }
@@ -67,12 +66,10 @@ public class AbilityObjScript : MonoBehaviour
         AbilityShapeLocation = ability.Coordinates;
         List<Vector3Int> CubeAbilityShapeLocation = HexGridUtil.CubeAddRange(HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), playerPos);
         List<Vector3> AbilityWorldLocations = new List<Vector3>();
-
         for (int i = 0; i < AbilityShapeLocation.Count; i++)
         {
             Vector2Int newCoord = HexGridUtil.CubeAdd(axialPlayerPos, AbilityShapeLocation[i]);
             AbilityWorldLocations.Add(HexGridUtil.AxialHexToPixel(newCoord, 1));
-
             switch (ability.Effects[i])
             {
                 case Effect.Positive:
@@ -111,33 +108,7 @@ public class AbilityObjScript : MonoBehaviour
                     abilityPreviewInstances.Add(tile);
                     break;
             }
-            //GameObject EffectObj = Instantiate((ability.Effects[i] == Effect.Positive ? PositiveEffectPrefab : DamageEffectPrefab), HexGridUtil.AxialHexToPixel(newCoord, 1),Quaternion.identity,transform);
-
         }
-
-        //meshFilter = GetComponentInChildren<MeshFilter>();
-        //meshRenderer = GetComponentInChildren<MeshRenderer>();
-        //meshFilter.mesh = ability.previewShape;
-        //Material[] materials = new Material[ability.Effects.Count];
-        //for (int i = 0; i < ability.Effects.Count; i++)
-        //{
-        //    switch (ability.Effects[i])
-        //    {
-        //        case Effect.Positive:
-        //            materials[i] = positiveMaterial;
-        //            break;
-
-        //        case Effect.Movement:
-        //            materials[i] = movementMaterial;
-        //            break;
-
-        //        default:
-        //            materials[i] = negativeMaterial;
-        //            break;
-        //    }
-        //}
-        //meshRenderer.materials = materials;
-
         Vector3Int selectedDirection = HexGridUtil.CubeSubstract(SpawnPoint, playerPos);
 
         Vector3Int[] lol = HexGridUtil.cubeDirectionVectors;
@@ -147,18 +118,11 @@ public class AbilityObjScript : MonoBehaviour
         {
             dumm.Add(i);
         }
-
         AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(HexGridUtil.CubeAddRange(HexGridUtil.RotateRangeClockwise(playerPos, HexGridUtil.AxialToCubeCoord(AbilityShapeLocation), dumm.IndexOf(selectedDirection)), playerPos));
         CubeAbilityShapeLocation = HexGridUtil.RotateRangeClockwise(playerPos, CubeAbilityShapeLocation, dumm.IndexOf(selectedDirection));
-
         transform.rotation *= Quaternion.Euler(0, dumm.IndexOf(selectedDirection) * 60, 0);
-
-
         AbilityShapeLocation = HexGridUtil.CubeToAxialCoord(CubeAbilityShapeLocation);
-
         SetPositionToGridCoord(HexGridUtil.CubeToAxialCoord(playerPos));
-
-        //castAbiltyInputActionReference.action.performed += CastAbility;
         player.OpenAbilityCastCanvas();
         player.AbilityCastButton.onClick.AddListener(CastAbility);
     }
@@ -168,7 +132,6 @@ public class AbilityObjScript : MonoBehaviour
         transform.position = GridManager.Instance.Grid[coord].transform.position;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         shooting = false;
@@ -176,29 +139,6 @@ public class AbilityObjScript : MonoBehaviour
         inputAction.Enable();
         rotationInputActionReference.action.performed += rotateAbility;
         CancelAbilityInputActionReference.action.performed += KillYourSelf;
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //Vector2 mouse_pos = Mouse.current.position.ReadValue();
-        //Debug.Log(mouse_pos); 
-
-        //Ray ray = cam.ScreenPointToRay(mouse_pos);
-        //RaycastHit hit;
-
-        //if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-        //{
-        //    //GridTile tile;
-        //    //hit.collider.TryGetComponent<GridTile>(out tile);
-
-        //    Vector2Int gridCoord = hit.collider.GetComponent<GridTile>().AxialCoordinate;
-        //    if(gridCoord != null)
-        //    {
-        //        SetPositionToGridCoord(gridCoord);
-        //    }
-        //}
     }
 
     public void rotateAbility(InputAction.CallbackContext action)

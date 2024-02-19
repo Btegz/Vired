@@ -22,7 +22,6 @@ public class EventButton : MonoBehaviour, IPointerEnterHandler
 
     private void Start()
     {
-
         if (CompareTag("Event1"))
         {
             Option1.onClick.AddListener(() => PofI.PofIEvent(PofI.pofiEvent1));
@@ -35,7 +34,4 @@ public class EventButton : MonoBehaviour, IPointerEnterHandler
             gameObject.transform.GetChild(PofI.pofi2).gameObject.SetActive(true);
         }
     }
-
-
-
 }

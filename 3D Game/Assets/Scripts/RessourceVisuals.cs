@@ -39,30 +39,26 @@ public class RessourceVisuals : MonoBehaviour
     [SerializeField] Vector2 CenterLerpBäumeFromTo;
     [SerializeField] Vector2Int BäumeAmountFromTo;
     [SerializeField] float propabilityBäume;
-
-
     [SerializeField] List<TerrainFeature> SpikeFeatures;
     [SerializeField] Vector2 SpikeNoiseValueFromTo;
     [SerializeField] Vector2 CenterLerpSpikeFromTo;
     [SerializeField] Vector2Int SpikeAmountFromTo;
     [SerializeField] float propabilitySpike;
-
     [SerializeField] List<TerrainFeature> RockFeatures;
     [SerializeField] Vector2 RockNoiseValueFromTo;
     [SerializeField] Vector2 CenterLerpRockFromTo;
     [SerializeField] Vector2Int RockAmountFromTo;
     [SerializeField] float propabilityRock;
 
-
     [Header("Klopse")]
     [SerializeField] List<TerrainFeature> KlopseA;
     [SerializeField] Vector2Int howManyKlopseAFromTo;
-    //[SerializeField] float randomRadius;
     [SerializeField] Vector2 randomXOffsetAFromTo;
     [SerializeField] Vector2 randomZOffsetAFromTo;
     [SerializeField] Vector2 randomRotationAFromTo;
     [SerializeField] Vector2 randomYOffsetAFromTo;
     [SerializeField] Vector2 randomACenterLerpFrmoTo;
+
     [Header("-------------------------------------")]
     [SerializeField] List<TerrainFeature> KlopseB;
     [SerializeField] Vector2Int howManyKlopseBFromTo;
@@ -71,6 +67,7 @@ public class RessourceVisuals : MonoBehaviour
     [SerializeField] Vector2 randomRotationBFromTo;
     [SerializeField] Vector2 randomYOffsetBFromTo;
     [SerializeField] Vector2 randomBCenterLerpFrmoTo;
+
     [Header("-------------------------------------")]
     [SerializeField] List<TerrainFeature> KlopseC;
     [SerializeField] Vector2Int howManyKlopseCFromTo;
@@ -79,6 +76,7 @@ public class RessourceVisuals : MonoBehaviour
     [SerializeField] Vector2 randomRotationCFromTo;
     [SerializeField] Vector2 randomYOffsetCFromTo;
     [SerializeField] Vector2 randomCCenterLerpFrmoTo;
+
     [Header("-------------------------------------")]
     [SerializeField] List<TerrainFeature> KlopseD;
     [SerializeField] Vector2Int howManyKlopseDFromTo;
@@ -92,16 +90,12 @@ public class RessourceVisuals : MonoBehaviour
     [Header("Enemy Mass")]
     [SerializeField] List<EnemyMassLayer> EnemyMassLayers;
     List<int> enemyMassLayersActive;
-
     public int negativeNeighbors;
-
     Dictionary<Direction, TerrainFeature> CurrentKlopse;
     List<GameObject> CurrentEnemyMasses;
-
     [SerializeField] public Burst EnemyMassBurst;
     [SerializeField] Material OuterBurst;
     [SerializeField] float currentOuter;
-
     List<TerrainFeature> myKlopse;
     Material myKlopseMat;
     GridTile myTile;
@@ -110,12 +104,8 @@ public class RessourceVisuals : MonoBehaviour
     public List<ParticleSystem> myRessourceParticles;
     public List<ParticleSystem> myCleanParticles;
     public List<ParticleSystem> myEnemyParticles;
-
-
-
     [SerializeField] float TweenDuration;
 
-    // Start is called before the first frame update
     void Awake()
     {
         myTile = GetComponent<GridTile>();
@@ -132,32 +122,25 @@ public class RessourceVisuals : MonoBehaviour
                 myRessourceParticles = PondRessourceParticleSystems;
                 myCleanParticles = PondCleanParticleSystems;
                 myEnemyParticles = EnemyMassParticleSystems;
-
                 myKlopse = KlopseA;
-
                 break;
             case Ressource.ressourceB:
                 myRessourceParticles = CocoonRessourceParticleSystems;
                 myCleanParticles = CocoonCleanParticleSystems;
                 myEnemyParticles = EnemyMassParticleSystems;
-
-
                 myKlopse = KlopseB;
-
                 break;
             case Ressource.ressourceC:
                 myRessourceParticles = SpikesRessourceParticleSystems;
                 myCleanParticles = SpikesCleanParticleSystems;
                 myEnemyParticles = EnemyMassParticleSystems;
                 myKlopse = KlopseC;
-
                 break;
             case Ressource.ressourceD:
                 myRessourceParticles = MossRessourceParticleSystems;
                 myCleanParticles = MossCleanParticleSystems;
                 myEnemyParticles = EnemyMassParticleSystems;
                 myKlopse = KlopseD;
-
                 break;
         }
 
@@ -172,10 +155,6 @@ public class RessourceVisuals : MonoBehaviour
             {
                 Direction randomDirection;
                 randomDirection = (Direction)Random.Range(0, 7);
-                //else
-                //{
-                //    randomDirection = Direction.C;
-                //}
                 TerrainFeature newBaum = Instantiate(BäumeFeatures[Random.Range(0, BäumeFeatures.Count)], transform);
                 Vector3 goalPosition = transform.position;
                 goalPosition += myTile.Points[randomDirection];
@@ -192,10 +171,6 @@ public class RessourceVisuals : MonoBehaviour
             {
                 Direction randomDirection;
                 randomDirection = (Direction)Random.Range(0, 7);
-                //else
-                //{
-                //randomDirection = Direction.C;
-                //}
                 TerrainFeature newSpike = Instantiate(SpikeFeatures[Random.Range(0, SpikeFeatures.Count)], transform);
                 Vector3 goalPosition = transform.position;
                 goalPosition += myTile.Points[randomDirection];
@@ -212,10 +187,6 @@ public class RessourceVisuals : MonoBehaviour
             {
                 Direction randomDirection;
                 randomDirection = (Direction)Random.Range(0, 7);
-                //else
-                //{
-                //randomDirection = Direction.C;
-                //}
                 TerrainFeature newRock = Instantiate(RockFeatures[Random.Range(0, RockFeatures.Count)], transform);
                 Vector3 goalPosition = transform.position;
                 goalPosition += myTile.Points[randomDirection];
@@ -224,7 +195,6 @@ public class RessourceVisuals : MonoBehaviour
                 newRock.transform.rotation = Quaternion.Euler(Vector3.up * Random.Range(0, 360));
             }
         }
-
     }
 
     public void StartRessourceParticles()
@@ -317,7 +287,6 @@ public class RessourceVisuals : MonoBehaviour
                 StartCleanParticles();
                 break;
         }
-
     }
 
     public void SpawnKlopse()
@@ -342,24 +311,16 @@ public class RessourceVisuals : MonoBehaviour
                 {
                     randomDirection = Direction.C;
                 }
-
-
                 TerrainFeature newKlops = Instantiate(myKlopse[Random.Range(0, myKlopse.Count)], transform);
                 Vector3 goalPosition = transform.position;
                 goalPosition += myTile.Points[randomDirection];
                 goalPosition = Vector3.Lerp(goalPosition, myTile.Points[Direction.C] + transform.position, Random.Range(getCenterLerp().x, getCenterLerp().y));
-                //goalPosition += new Vector3(Random.Range(getXOffset().x, getXOffset().y), 0, Random.Range(getZOffset().x, getZOffset().y));
-                //goalPosition -= new Vector3(0, Random.Range(getOffset().x, getOffset().y), 0);
                 newKlops.transform.rotation = Quaternion.Euler(0, Random.Range(getRotation().x, getRotation().y), 0);
-                //newKlops.GetComponentInChildren<MeshRenderer>().material = myKlopseMat;
                 CurrentKlopse.Add(randomDirection, newKlops);
                 newKlops.transform.DOMove(goalPosition, TweenDuration).From(goalPosition + Vector3.down * .5f).OnComplete(() => newKlops.transform.DOPunchScale(newKlops.transform.localScale * .25f, TweenDuration / 2f));
-                //newKlops.CleanUp();
             }
         }
     }
-
-
 
     private void getMyKlopse()
     {
@@ -407,7 +368,6 @@ public class RessourceVisuals : MonoBehaviour
         }
         catch
         {
-            Debug.Log("I JUST COULDNT HANDLE DESTORYING MY KLOPSE IM SORRY");
         }
     }
 
@@ -419,24 +379,6 @@ public class RessourceVisuals : MonoBehaviour
             enemyMassLayersActive.Clear();
             StopEnemyMassParticles();
         }
-
-
-
-        //try
-        //{
-        //    enemyMassLayersActive.Clear();
-        //    StopEnemyMassParticles();
-        //    foreach (GameObject enemyMass in CurrentEnemyMasses)
-        //    {
-        //        enemyMass.GetComponent<Burst>().Bursting();
-        //       //Destroy(enemyMass);
-                
-        //    }
-        //}
-        //catch
-        //{
-        //    Debug.Log("I JUST COULDNT HANDLE DESTORYING MY EnemyMass IM SORRY");
-        //}
     }
 
     public void SpawnEnemyMass()
@@ -467,24 +409,19 @@ public class RessourceVisuals : MonoBehaviour
                     goalPosition += new Vector3(0, Random.Range(layer.YOffsetFromTo.x, layer.YOffsetFromTo.y), 0);
                     newEnemyMass.transform.rotation = Quaternion.Euler(0, Random.Range(layer.YRotationFromTo.x, layer.YRotationFromTo.y), 0);
                     CurrentEnemyMasses.Add(newEnemyMass);
-
                     float xScale = Random.Range(layer.XScaleFromTo.x, layer.XScaleFromTo.y);
                     float zScale = Random.Range(layer.ZScaleFromTo.x, layer.ZScaleFromTo.y);
                     float yScale = (xScale + zScale) / 2f;
-
                     newEnemyMass.transform.localScale = new Vector3(xScale, yScale, zScale);
                     newEnemyMass.transform.DOMove(goalPosition, TweenDuration).From(goalPosition + Vector3.down * .5f).OnComplete(() => newEnemyMass.transform.DOPunchScale(newEnemyMass.transform.localScale * .25f, TweenDuration / 2f));
-
                 }
             }
             StopRessourceParticles();
             StopCleanParticles();
             StartEnemyMassParticles();
         }
-
         catch
         {
-
         }
     }
 
@@ -535,7 +472,6 @@ public class RessourceVisuals : MonoBehaviour
         {
             myTile = GetComponent<GridTile>();
         }
-
         switch (myTile.ressource)
         {
             case Ressource.ressourceA:
@@ -592,6 +528,4 @@ public class RessourceVisuals : MonoBehaviour
                 return randomZOffsetDFromTo;
         }
     }
-
-
 }

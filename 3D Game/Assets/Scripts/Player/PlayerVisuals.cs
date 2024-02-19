@@ -29,8 +29,6 @@ public class PlayerVisuals : MonoBehaviour
     {
         EventManager.OnMoveEvent += Movement;
         EventManager.OnSelectPlayerEvent += PlayerSelection;
-        //EventManager.OnAbilityCastEvent += AbilityCast;
-
     }
 
     private void OnDestroy()
@@ -47,25 +45,19 @@ public class PlayerVisuals : MonoBehaviour
         }
     }
 
-
     public void Movement(Player player)
     {
         try
         {
             if (player == playwer)
             {
-                //ParticleSystem landingCloud = GetComponentInChildren<ParticleSystem>();
-                //transform.DOLocalJump(Vector3.up * 0.45f, 2, 1, .25f);
-                //transform.DOPunchScale(Vector3.one * .1f, .25f).OnComplete(landingCloud.Play);
                 StartCoroutine(MovementCoroutine(player));
             }
-
         }
         catch
         {
 
         }
-
     }
 
     private void StopParticles(List<ParticleSystem> parts)
@@ -84,7 +76,6 @@ public class PlayerVisuals : MonoBehaviour
             part.Play();
         }
     }
-
 
     public IEnumerator MovementCoroutine(Player player)
     {
@@ -115,10 +106,8 @@ public class PlayerVisuals : MonoBehaviour
         yield return null;
     }
 
-
     public void PlayerSelection(Player player)
     {
-
         if (player == playwer)
         {
 
@@ -132,24 +121,18 @@ public class PlayerVisuals : MonoBehaviour
             {
                 mr2.materials = PlayerVisuals;
             }
-            
         }
-
         else
         {
             Material[] PlayerVisual =
             {
                     PlayerMaterial
             };
-
             MeshRenderer[] mr = GetComponentsInChildren<MeshRenderer>();
             foreach (MeshRenderer mr2 in mr)
             {
                 mr2.materials = PlayerVisual;
             }
         }
-            
-
-        
     }
 }

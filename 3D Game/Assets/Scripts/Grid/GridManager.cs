@@ -17,6 +17,7 @@ public class GridManager : MonoBehaviour
     // It is a Vector2Int instead of Vector3Int because this makes accessing the tiles much easier.
     // If you want the cubic Coordinate you cann access HexGridUtil.AxialToCubeCoord.
     [SerializeField] public Dictionary<Vector2Int, GridTile> Grid;
+
     [Header("The Boring Stuff")]
     [SerializeField] GridTile GridTilePrefab;
     public GS_positive gS_Positive;
@@ -26,8 +27,10 @@ public class GridManager : MonoBehaviour
     public GS_Boss gS_Boss;
     public GS_BossNegative gS_BossNegative;
     public GS_Pofl gS_PofI;
+
     [Header("Map")]
     [SerializeField] public MapSettings mapSettings;
+
     //[Header("Tile Presets")]
     //[SerializeField, Tooltip("should be smaller then outerSize. If Hex should be filled this will be 0.")] float innerSize;
     //[SerializeField, Tooltip("The Size of a Hex tile. Size represents the radius and not the diameter of the Hex. If outerSize is 1, the Hex will have a width of 2.")] float outerSize;
@@ -40,14 +43,17 @@ public class GridManager : MonoBehaviour
     private int randomPofI;
     public int pofIOffset;
     [SerializeField] int PofiSpawnCount;
+
     [Header("Enemies")]
     [SerializeField] public List<Enemy> StartEnemyPrefabs;
     [SerializeField] int startEnemyCount;
     [SerializeField] public Boss StartBossPrefab;
+
     [Header("Audio")]
     [SerializeField] public AudioData NextTurn;
     [SerializeField] public AudioMixerGroup soundEffect; 
     [HideInInspector] public int TurnCounter;
+
     private void Awake()
     {
         if (Instance == null)

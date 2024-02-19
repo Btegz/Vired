@@ -61,14 +61,12 @@ public class Boss : Enemy
         SkinnedMeshRenderer.material = GetComponentInChildren<SkinnedMeshRenderer>().material;
         tile.ChangeCurrentState(GridManager.Instance.gS_Boss);
         BossNeighbors();
-        //EventManager.OnEndTurnEvent += BossNeighbors;
     }
 
     public override int AmountSpreadNextTurn()
     {
         if ((GridManager.Instance.TurnCounter + 1) % everyXTurns == 0)
-        {
-           
+        {           
             return BossNegative;
         }
         return 0;
@@ -86,66 +84,29 @@ public class Boss : Enemy
                 {
                     for(int i = spreads; i < SpreadAmount && i < targets.Count; i++, spreads++)
                     {
-                        Debug.Log("i" + i);
-                        Debug.Log("targets" + targets.Count + "SpreadAmount" + SpreadAmount + "Spreads" + spreads);
                         Vector3Int target = targets[Random.Range(0, targets.Count)];
                         Enemy newEnemy = Instantiate(enemyPrefabPool[Random.Range(0, enemyPrefabPool.Count)], GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)].transform);
-
                         Vector3 goalPosition = newEnemy.transform.position;
-                        newEnemy.Setup(GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)]);
-
-                        
+                        newEnemy.Setup(GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(target)]);                        
                         newEnemy.transform.DOMove(goalPosition, 3).From(goalPosition + Vector3.down * .5f);
-
                         targets.Remove(target);
                     }
                 }
             }
         }
-
-        //if (AliveCounter % everyXTurns == 0)
-        //{
-        //    if (spreadbehaviours != null)
-        //    {
-        //        if (spreadbehaviours.Count > 0)
-        //        {
-        //            foreach (Spreadbehaviours sb in spreadbehaviours)
-        //            {
-        //                if (sb.TargetTiles(HexGridUtil.AxialToCubeCoord(axialLocation), out List<Vector3Int> targets, FindClosestPlayer().CoordinatePosition))
-        //                {
-        //                    foreach (Vector3Int coord in targets)
-        //                    {
-        //                        Vector2Int c = HexGridUtil.CubeToAxialCoord(coord);
-        //                        if (GridManager.Instance.Grid.ContainsKey(c))
-        //                        {
-        //                            if (GridManager.Instance.Grid[c].currentGridState.StateValue() >= 0 && GridManager.Instance.Grid[c].currentGridState.StateValue() < 4)
-        //                            {
-        //                                GridManager.Instance.Grid[c].ChangeCurrentState(GridManager.Instance.gS_Negative);
-        //                            }
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
     }
 
     public override void Death()
     {
-        Debug.Log("I have died");
-
         if (NextBosses == null || NextBosses.Count == 0)
         {
             GridManager.Instance.GameWon();
            
             return;
         }
-            AudioManager.Instance.PlaySoundAtLocation(BossDeath, soundEffect, null, true);
-
+        AudioManager.Instance.PlaySoundAtLocation(BossDeath, soundEffect, null, true);
         PlayerManager.Instance.abilityLoadout.amountToChoose = AbilityLoadoutReward;
         PlayerManager.Instance.abilityLoadout.gameObject.SetActive(true);
-
         foreach (Vector3Int neighbor in BossReachableTiles)
         {
             GridManager.Instance.Grid[axialLocation].ChangeCurrentState(GridManager.Instance.gS_Positive);
@@ -154,24 +115,13 @@ public class Boss : Enemy
                 GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].ChangeCurrentState(GridManager.Instance.gS_Positive);
             }
         }
-
         if (GridManager.Instance.transform.GetComponentsInChildren<Boss>().Length > 1)
         {
             base.Death();
             return;
         }
-
-        //    foreach (KeyValuePair<Vector2Int, GridTile> kvp in GridManager.Instance.Grid)
-        //{
-        //    if(kvp.Value.gameObject.GetComponentsInChildren<Boss>().Length >0)
-        //    {
-
-        //    }
-        //}
-
         foreach (Boss b in NextBosses)
         {
-            
             if (nextBossSpawnPattern == null)
             {
                 Boss newBoss = Instantiate(b);
@@ -184,24 +134,11 @@ public class Boss : Enemy
                 newBoss.Setup(GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(targets[Random.Range(0, targets.Count)])]);
             }
         }
-
-
-
         base.Death();
     }
 
-    //public void Spawn(Vector2Int location, GameObject boss)
-    //{
-
-    //    boss.transform.parent = GridManager.Instance.Grid[location].transform;
-    //    boss.transform.position = GridManager.Instance.Grid[location].transform.position;
-    //    GridManager.Instance.Grid[location].ChangeCurrentState(GridManager.Instance.gS_Boss);
-    //}
-
     public void BossNeighbors()
     {
-        //    foreach (Vector2Int loc in location)
-        //    {
         BossReachableTiles = HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(axialLocation), NegativeRange, HexGridUtil.AxialToCubeCoord(GridManager.Instance.Grid.Keys.ToList<Vector2Int>()));
         BossReachableTiles.Remove(HexGridUtil.AxialToCubeCoord(axialLocation));
 
@@ -218,63 +155,7 @@ public class Boss : Enemy
                 }
             }
         }
-        //}
     }
-
-    //public void BossDeath(Vector2Int location)
-    //{
-    //    if (GetComponent<Enemy>().currentHealth <= 0)
-    //    {
-    //        BossTiles = HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(location), SpawnRange, HexGridUtil.AxialToCubeCoord(GridManager.Instance.Grid.Keys.ToList<Vector2Int>()));
-    //        BossTiles.Remove(HexGridUtil.AxialToCubeCoord(location));
-
-    //        foreach (Vector3Int neighbor in BossTiles)
-    //        {
-    //            if (GridManager.Instance.Grid.ContainsKey(HexGridUtil.CubeToAxialCoord(neighbor)))
-    //            {
-    //                GridManager.Instance.Grid[HexGridUtil.CubeToAxialCoord(neighbor)].ChangeCurrentState(GridManager.Instance.gS_Positive);
-
-    //            }
-    //        }
-
-    //    }
-    //    //if (GetComponent<Enemy>().FirstAndLast)
-    //    //{
-    //    //    EventManager.OnPhaseChange();
-    //    //}
-    //    PlayerManager.Instance.SkillPoints += 2;
-    //    EventManager.OnEndTurnEvent -= BossNeighbors;
-
-    //}
-
-
-    /* public void BossEnemyPhase2(Vector2Int location)
-     {
-
-         ReachableTiles = HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(location), 5, HexGridUtil.AxialToCubeCoord(GridManager.Instance.Grid.Keys.ToList<Vector2Int>()));
-
-
-         foreach(KeyValuePair<Vector2Int,GridTile> kvp in GridManager.Instance.Grid)
-         {
-             if (kvp.Value.currentGridState == GridManager.Instance.gS_Enemy)
-                 GridEnemies.Add(kvp.Value);
-         }
-
-         foreach(GridTile enemytile in GridEnemies)
-         {
-            Destroy(enemytile.transform.GetChild(1).gameObject);
-            Instantiate(Enemy2Prefab);
-             GridTile targetLocation = enemytile;
-
-             GetComponent<Enemy>().Setup(GridManager.Instance.enemySOs[Random.Range(0, GridManager.Instance.enemySOs.Count)], targetLocation);
-             targetLocation.ChangeCurrentState(GridManager.Instance.gS_Enemy);
-             GetComponent<Enemy>().transform.parent = targetLocation.transform;
-             GetComponent<Enemy>().transform.position = targetLocation.transform.position;
-         }
-
-
-     }*/
-
 
     public void BossParticle(GameObject boss)
     {

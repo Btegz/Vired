@@ -43,8 +43,6 @@ public class PofIManager : MonoBehaviour
     {
         randomPofI();
         SaveManager.Instance.PofIscollected++;
-     
-
     }
 
     public void randomPofI()
