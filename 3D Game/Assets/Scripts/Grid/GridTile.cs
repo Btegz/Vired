@@ -809,6 +809,11 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         // the z coordinate needs to multiply sin of the radial angle with size.
         return new Vector3((size * Mathf.Cos(angle_rad)), height, size * Mathf.Sin(angle_rad));
     }
+
+
+    /// <summary>
+    /// When pointer enters.
+    /// </summary>
     public void OnPointerEnter(PointerEventData eventData)
     {
         if ((PlayerManager.Instance.movementAction > 0 || PlayerManager.Instance.extraMovement > 0) && (!PlayerManager.Instance.abilityActivated && currentGridState.StateValue() >= 0))
@@ -822,6 +827,10 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             }
         }
     }
+
+    /// <summary>
+    /// When pointer exits.
+    /// </summary>
     public void OnPointerExit(PointerEventData eventData)
     {
         if (TutorialManager.Instance != null && TutorialManager.Instance.tutorial == true)
@@ -839,6 +848,10 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             }
         }
     }
+
+    /// <summary>
+    /// After x turns the neutral tiles will be regenerated
+    /// </summary>
     public void neutralRegeneration()
     {
         if (currentGridState == GridManager.Instance.gS_Neutral)
@@ -852,6 +865,9 @@ public class GridTile : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
     }
 
+    /// <summary>
+    /// Updating neighbor coords
+    /// </summary>
     public void UpdateMyNeighbors()
     {
         myNeighbors = new List<GridTile>();
