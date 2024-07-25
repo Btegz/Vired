@@ -18,7 +18,7 @@ public class GridManager : MonoBehaviour
     // If you want the cubic Coordinate you cann access HexGridUtil.AxialToCubeCoord.
     [SerializeField] public Dictionary<Vector2Int, GridTile> Grid;
 
-    [Header("The Boring Stuff")]
+    [Header("Tiles")]
     [SerializeField] GridTile GridTilePrefab;
     public GS_positive gS_Positive;
     public GS_neutral gS_Neutral;
@@ -54,21 +54,25 @@ public class GridManager : MonoBehaviour
     [SerializeField] public AudioMixerGroup soundEffect; 
     [HideInInspector] public int TurnCounter;
 
+
+    /// <summary>
+    /// Generating world/ grid and elements on it
+    /// </summary>
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
             TransferGridSOData();
-            //currentPhase = phases[0];
-            //currentPhase.myPhaseTransition.InitPhaseTransitionCheck();
-            //TriggerPhase();
-
+            FillMap();
         }
+
         else
         {
             Destroy(gameObject);
         }
+
+   
     }
     void Start()
     {
@@ -81,49 +85,23 @@ public class GridManager : MonoBehaviour
         {
             kvp.Value.GetComponent<RessourceVisuals>().UpdateNegativeNeighbors();
         }
-
-        //GenerateGrid();
-
-        // Das ist nur spielerei.
-        //GridTile tileA = PickRandomTile();
-        //GridTile tileB = PickRandomTile();
-
-        //Vector3Int coordTileA = HexGridUtil.AxialToCubeCoord(tileA.AxialCoordinate);
-        //Vector3Int coordTileB = HexGridUtil.AxialToCubeCoord(tileB.AxialCoordinate);
-
-        //int distance = HexGridUtil.CubeDistance(HexGridUtil.AxialToCubeCoord(tileA.AxialCoordinate), HexGridUtil.AxialToCubeCoord(tileB.AxialCoordinate));
-
-        //List<Vector3Int> OnLineCube = HexGridUtil.CubeLineDraw(coordTileA,coordTileB);
-
-        //List<Vector2Int> OnLine = new List<Vector2Int>();
-
-        //foreach(Vector3Int coord in OnLineCube)
-        //{
-        //    OnLine.Add(HexGridUtil.CubeToAxialCoord(coord));
-        //}
-
-        //foreach (Vector2Int coord in OnLine)
-        //{
-        //    Grid[coord].transform.position += Vector3.up;
-        //}
-
-        //List<Vector3Int> path = HexGridUtil.BreadthFIrstPathfinding(new Vector3Int(-2, -4, 6), new Vector3Int(0, -2,2),HexGridUtil.AxialToCubeCoord(Grid.Keys.ToList<Vector2Int>()));
-        //foreach(Vector3Int p in path)
-        //{
-        //    Vector2Int pp = HexGridUtil.CubeToAxialCoord(p);
-
-        //    Grid[pp].gameObject.transform.position += Vector3.up * 3;
-        //}
-
     }
-    private void OnDestroy()
-    {
-        EventManager.OnEndTurnEvent -= EndTurn;
-    }
+
+
+    /// <summary>
+    /// Loading winning scene
+    /// </summary>
     public void GameWon()
     {
         SceneManager.LoadScene("GameWonScene");
     }
+
+
+
+    /// <summary>
+    /// Checks if map settings are given, if so transfers noise data 
+    /// GridTiles will then be instantiated, setup and noise value will be used to determine resources per tile
+    /// </summary>
     public void TransferGridSOData()
     {
         if (mapSettings == null)
@@ -179,18 +157,11 @@ public class GridManager : MonoBehaviour
                     Grid.Add(tileinfo.coord, newTile);
                 }
             }            
-            
-
-
 
             foreach (KeyValuePair<Vector2Int, GridTile> kvp in Grid)
             {
                 kvp.Value.Triangulate();
                 kvp.Value.UpdateMyNeighbors();
-                //if (mapSettings != null)
-                //{
-                //    kvp.Value.pertulate(mapSettings);
-                //}
             }
 
             Texture2D cellTexture = new Texture2D(200, 200, TextureFormat.RGBA32, false, true)
@@ -206,99 +177,68 @@ public class GridManager : MonoBehaviour
             "_HexCellData_TexelSize",
             new Vector4(1f / 200, 1f / 200, 200, 200));
 
-            // Fill Map with Things
-            List<Vector2Int> border = HexGridUtil.GetOuterBorderUnSorted(Grid.Keys.ToList<Vector2Int>());
-            SpawnBossAndPlayer(border);
-
-
-            for (int i = 0; i < startEnemyCount; i++)
-            {
-                SpawnEnemy();
-            }
-            SpawnPofIs();
         }
     }
+
+
+    /// <summary>
+    /// Spawns all elements on the grid (Enemies, Boss, Player and Point of interest)
+    /// </summary>
+    public void FillMap()
+    {
+        List<Vector2Int> border = HexGridUtil.GetOuterBorderUnSorted(Grid.Keys.ToList<Vector2Int>());
+        SpawnBossAndPlayer(border);
+
+
+        for (int i = 0; i < startEnemyCount; i++)
+        {
+            SpawnEnemy();
+        }
+        SpawnPofIs();
+    }
+
+
+    /// <summary>
+    /// Clears out forbiddenTiles(Boss & Player location) and spawns enemy
+    /// </summary>
     private void SpawnEnemy()
     {
         Enemy enemy = Instantiate(StartEnemyPrefabs[Random.Range(0, StartEnemyPrefabs.Count)]);
 
         List<GridTile> reachableTiles = new List<GridTile>();
 
-        List<Vector2Int> unerlaubteFelder = new List<Vector2Int>();
+        List<Vector2Int> forbiddenTile = new List<Vector2Int>();
         foreach (Player p in PlayerManager.Instance.Players)
         {
-            unerlaubteFelder.Add(p.CoordinatePosition);
+            forbiddenTile.Add(p.CoordinatePosition);
         }
-        unerlaubteFelder.Add(BossSpawn);
+        forbiddenTile.Add(BossSpawn);
         foreach (Vector2Int coordinate in HexGridUtil.CoordinatesReachable(HexGridUtil.AxialToCubeCoord(BossSpawn), 3))
         {
-            unerlaubteFelder.Add(coordinate);
+            forbiddenTile.Add(coordinate);
         }
-
-
         reachableTiles = GridManager.Instance.GetTilesWithState(gS_Positive);
 
         GridTile targetLocation = reachableTiles[Random.Range(0, reachableTiles.Count)];
-        while (unerlaubteFelder.Contains(targetLocation.AxialCoordinate))
+        while (forbiddenTile.Contains(targetLocation.AxialCoordinate))
         {
             targetLocation = reachableTiles[Random.Range(0, reachableTiles.Count)];
         }
-        enemy.Setup(/*enemySOs[Random.Range(0, enemySOs.Count)], */targetLocation);
+        enemy.Setup(targetLocation);
         targetLocation.ChangeCurrentState(gS_Enemy);
         enemy.transform.parent = targetLocation.transform;
         enemy.transform.position = targetLocation.transform.position;
     }
+
+
+    /// <summary>
+    /// Creates spawn point for player and boss & spawns boss
+    /// </summary>
     private void SpawnBossAndPlayer(List<Vector2Int> Border)
     {
-        //Vector3Int maxX = new Vector3Int();
-        //Vector3Int maxY = new Vector3Int();
-        //Vector3Int maxZ = new Vector3Int();
-        //Vector3Int minX = new Vector3Int();
-        //Vector3Int minY = new Vector3Int();
-        //Vector3Int minZ = new Vector3Int();
-
-        //List<Vector3Int> CubeCoords = HexGridUtil.AxialToCubeCoord(Grid.Keys.ToList<Vector2Int>());
-
-        //foreach (Vector3Int coord in CubeCoords)
-        //{
-        //    if (coord.x > maxX.x)
-        //    {
-        //        maxX = coord;
-        //    }
-
-        //    if (coord.x < minX.x)
-        //    {
-        //        minX = coord;
-        //    }
-
-        //    if (coord.y > maxY.y)
-        //    {
-        //        maxY = coord;
-        //    }
-
-        //    if (coord.y < minY.y)
-        //    {
-        //        minY = coord;
-        //    }
-
-        //    if (coord.z > maxZ.z)
-        //    {
-        //        maxZ = coord;
-        //    }
-
-        //    if ((coord.z < minZ.z))
-        //    {
-        //        minZ = coord;
-        //    }
-        //}
-
-        //Vector3Int[] coords = { minY, minX, minZ };
-        //random = Random.Range(0, coords.Length);
-        //BossSpawn = Border[0];
         List<Player> players = PlayerManager.Instance.Players;
         try
         {
-        
         players[0].SpawnPoint = Border[Border.Count / 4 * 1];
         players[1].SpawnPoint = Border[Border.Count / 4 * 2];
         players[2].SpawnPoint = Border[Border.Count / 4 * 3];
@@ -311,33 +251,21 @@ public class GridManager : MonoBehaviour
         catch
         {
             players[0].SpawnPoint = Border[Border.Count / 4 * 1];
-       
-
             players[0].CoordinatePosition = Border[Border.Count / 4 * 1];
      
         }
        
-        
-
         Boss newBoss = Instantiate(StartBossPrefab);
         List<Vector2Int> newBossTiles = HexGridUtil.AxialNeighbors(Border[0]);
         BossSpawn = Border[0];
-        //foreach (Vector2Int coordinate in newBossTiles)
-        //{
-        //    if (!Grid.ContainsKey(coordinate))
-        //    {
-        //        GridTile newTile = Instantiate(GridTilePrefab);
-        //        newTile.Setup(coordinate, (Ressource)Random.Range(0, 4), true);
-        //        newTile.transform.parent = transform;
-        //        newTile.transform.position = HexGridUtil.AxialHexToPixel(coordinate, 1);
-        //        newTile.currentGridState = gS_BossNegative;
-        //        Grid.Add(coordinate, newTile);
-        //    }
-        //}
         newBoss.Setup(Grid[Border[0]]);
 
-
     }
+
+    /// <summary>
+    /// Spawns a point of interest on a possible Tile 
+    /// possible Tile = gridtile, without player, enemy, enemy mass or a boss on it 
+    /// </summary>
     private void SpawnPofIs()
     {
         List<Vector2Int> possibleTiles = new List<Vector2Int>();
@@ -375,10 +303,90 @@ public class GridManager : MonoBehaviour
             pofi.transform.parent = targetLocation.transform;
             pofi.transform.position = new Vector3(targetLocation.transform.position.x, pofIOffset, targetLocation.transform.position.z);
             pofi.transform.rotation = Quaternion.Euler(Vector3.up * Random.Range(0, 360));
-
-
         }
     }
+   
+    public void EndTurn()
+    {
+        TurnCounter+=1;
+    }
+
+    /// <summary>
+    /// Picks a random tile from the Grid
+    /// </summary>
+    /// <returns>random Tile from grid.</returns>
+    
+    public GridTile PickRandomTile()
+    {
+        List<GridTile> tileCollection = new List<GridTile>();
+
+        foreach (KeyValuePair<Vector2Int, GridTile> kvp in Grid)
+        {
+            tileCollection.Add(kvp.Value);
+        }
+
+        return tileCollection[Random.Range(0, tileCollection.Count)];
+    }
+
+    /// <summary>
+    /// Collects tiles with defined state in list
+    /// </summary>
+    /// <returns>Tile with state x</returns>
+    public List<GridTile> GetTilesWithState(GridState state)
+    {
+        List<GridTile> Tilestate = new List<GridTile>();
+        foreach (KeyValuePair<Vector2Int, GridTile> kvp in Grid)
+        {
+            if (kvp.Value.currentGridState.StateValue() == state.StateValue())
+            {
+                Tilestate.Add(kvp.Value);
+            }
+        }
+        return Tilestate;
+    }
+
+    /// <summary>
+    /// If destroyed
+    /// </summary>
+    private void OnDestroy()
+    {
+        EventManager.OnEndTurnEvent -= EndTurn;
+    }
+
+
+
+    //Testing:
+    //GridTile tileA = PickRandomTile();
+    //GridTile tileB = PickRandomTile();
+
+    //Vector3Int coordTileA = HexGridUtil.AxialToCubeCoord(tileA.AxialCoordinate);
+    //Vector3Int coordTileB = HexGridUtil.AxialToCubeCoord(tileB.AxialCoordinate);
+
+    //int distance = HexGridUtil.CubeDistance(HexGridUtil.AxialToCubeCoord(tileA.AxialCoordinate), HexGridUtil.AxialToCubeCoord(tileB.AxialCoordinate));
+
+    //List<Vector3Int> OnLineCube = HexGridUtil.CubeLineDraw(coordTileA,coordTileB);
+
+    //List<Vector2Int> OnLine = new List<Vector2Int>();
+
+    //foreach(Vector3Int coord in OnLineCube)
+    //{
+    //    OnLine.Add(HexGridUtil.CubeToAxialCoord(coord));
+    //}
+
+    //foreach (Vector2Int coord in OnLine)
+    //{
+    //    Grid[coord].transform.position += Vector3.up;
+    //}
+
+    //List<Vector3Int> path = HexGridUtil.BreadthFIrstPathfinding(new Vector3Int(-2, -4, 6), new Vector3Int(0, -2,2),HexGridUtil.AxialToCubeCoord(Grid.Keys.ToList<Vector2Int>()));
+    //foreach(Vector3Int p in path)
+    //{
+    //    Vector2Int pp = HexGridUtil.CubeToAxialCoord(p);
+
+    //    Grid[pp].gameObject.transform.position += Vector3.up * 3;
+    //}
+
+
     /// <summary>
     /// Generates a Grid
     /// </summary>
@@ -403,55 +411,5 @@ public class GridManager : MonoBehaviour
     //    }
 
 
-    //}
-    public void EndTurn()
-    {
-        TurnCounter+=1;
-
-       
-
-    }
-    //public void TriggerPhase()
-    //{
-    //    currentPhase.TriggerPhaseEffects(TurnCounter, this);
-    //}
-    /// <summary>
-    /// Picks a random tile from the Grid
-    /// </summary>
-    /// <returns>random Tile from grid.</returns>
-    public GridTile PickRandomTile()
-    {
-        List<GridTile> tileCollection = new List<GridTile>();
-
-        foreach (KeyValuePair<Vector2Int, GridTile> kvp in Grid)
-        {
-            tileCollection.Add(kvp.Value);
-        }
-
-        return tileCollection[Random.Range(0, tileCollection.Count)];
-    }
-    public List<GridTile> GetTilesWithState(GridState state)
-    {
-        List<GridTile> enemies = new List<GridTile>();
-        foreach (KeyValuePair<Vector2Int, GridTile> kvp in Grid)
-        {
-            if (kvp.Value.currentGridState.StateValue() == state.StateValue())
-            {
-                enemies.Add(kvp.Value);
-            }
-        }
-        return enemies;
-    }
-    //public void PhaseTransition()
-    //{
-    //    phases.RemoveAt(0);
-    //    if (phases.Count <= 0)
-    //    {
-    //        //GameWon();
-    //        return;
-    //    }
-    //    currentPhase = phases[0];
-    //    currentPhase.myPhaseTransition.InitPhaseTransitionCheck();
-    //    currentPhase.TriggerPhaseEffects(TurnCounter, this);
     //}
 }

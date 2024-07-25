@@ -13,14 +13,11 @@ public class AbilityMenuClick : MonoBehaviour, IPointerClickHandler, IPointerEnt
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("Click");
         AudioManager.Instance.PlaySoundAtLocation(ButtonClick, soundEffect, null, false);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("Enter");
-
-        AudioManager.Instance.PlaySoundAtLocation(ButtonHover, soundEffect, null, false);
+              AudioManager.Instance.PlaySoundAtLocation(ButtonHover, soundEffect, null, false);
     }
 }

@@ -78,7 +78,6 @@ public class AbilityButton : MonoBehaviour
                 GetComponent<Image>().sprite = A_Background;
                 break;
             case Ressource.ressourceB:
-                Debug.Log(ability);
                 GetComponent<Image>().sprite = B_Background;
 
                 break;
@@ -101,7 +100,7 @@ public class AbilityButton : MonoBehaviour
                     ResourceButton.GetComponent<Image>().sprite = A_Background;
                     break;
                 case Ressource.ressourceB:
-                    Debug.Log(ability);
+                   
                     ResourceButton.GetComponent<Image>().sprite = B_Background;
 
                     break;
@@ -258,7 +257,7 @@ public class AbilityButton : MonoBehaviour
 
     public void ResetButton()
     {
-        Debug.Log("reset Button is beeing called. This is destroying my Ability Preview");
+      //  Debug.Log("reset Button is beeing called. This is destroying my Ability Preview");
         UpgradeGridHex[] children = GetComponentsInChildren<UpgradeGridHex>();
         foreach (UpgradeGridHex rt in children)
         {

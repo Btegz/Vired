@@ -23,14 +23,6 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
     public AudioMixerGroup soundEffect;
 
 
-
-
-    // /\_/\
-    //((@v@))
-    //():::()
-    // VV-VV
-
-
     public bool inPlayerArea = false;
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -120,10 +112,6 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
         {
             transform.SetParent(currentParent.transform);
 
-            //        / "*._         _
-            //  .- *'`    `*-.._.-' /
-            //< * ))     ,       (
-            //  `*-._`._(__.-- * "`.\
         }
         canvasGroup.blocksRaycasts = true;
         eventData.hovered.Clear();
@@ -142,7 +130,7 @@ public class AbilityLoadoutButton : AbilityButton, IDragHandler, IEndDragHandler
 
     public void Setup(Ability ability, HorizontalLayoutGroup fatherrrr)
     {
-        Debug.Log(ability);
+      
         ability.StarterAbility();
         RectData();
         this.ability = ability;

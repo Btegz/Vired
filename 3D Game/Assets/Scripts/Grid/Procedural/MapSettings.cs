@@ -250,17 +250,24 @@ public class MapSettings : ScriptableObject
         List<ProceduralTileInfo> result = new List<ProceduralTileInfo>();
         result.Add(new ProceduralTileInfo(Vector2Int.zero, noise1.GetNoise(0, 0), noise2.GetNoise(0, 0), worldNoise.GetNoise(0, 0)));
 
-        for (int i = 1; i <= myTileCount; i++)
+        for (int i = 1; i <= MyTileCount; i++)
         {
             List<ProceduralTileInfo> newNeighbors = neighbors(result);
             newNeighbors.Sort();
+            
+
             //Debug.Log("----------------------------------------------------------------------------");
             //foreach (ProceduralTileInfo tile in newNeighbors)
             //{
             //    Debug.Log(tile.noiseDistanceFactor);
             //}
-            result.Add(newNeighbors[0]);
+        
+     
+        result.Add(newNeighbors[0]);
+         
+
         }
+
 
         foreach (ProceduralTileInfo tile in result)
         {
@@ -285,7 +292,11 @@ public class MapSettings : ScriptableObject
             Vector3 worldPos = HexGridUtil.AxialHexToPixel(neighborCoord, 1f);
             ProceduralTileInfo newTileInfo = new ProceduralTileInfo(neighborCoord, noise1.GetNoise(worldPos.x, worldPos.z), noise2.GetNoise(worldPos.x, worldPos.z), worldNoise.GetNoise(worldPos.x, worldPos.z));
             newNeighbors.Add(newTileInfo);
+           
+
+
         }
+
         return newNeighbors;
     }
     public List<Vector2Int> GetOuterBorder(List<ProceduralTileInfo> input)
