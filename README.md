@@ -4,12 +4,12 @@
 
 
 ## Description 
-V;red was developed as a third-year student project at the DE:HIVE. It presents a turn-based strategy game wherein players navigate three drones through a hazardous environment plagued by lethal parasites decimating the terrain. Players maneuver their drones across the world to collect resources, which are essential for using unique modules to combat parasites and revitalize the lands. As the players progress they can enhance their abilities. The game's distinctive appeal lies in its procedural world generation, offering a fresh experience with each playthrough, paired with the ability to modify every module.
+V;red was developed as a third semester student project at the DE:HIVE. It presents a turn-based strategy game wherein players navigate three drones through a hazardous environment plagued by lethal parasites decimating the terrain. Players maneuver their drones across the world to collect resources, which are essential for using unique modules to combat parasites and revitalize the lands. As the players progress they can enhance their abilities. The game's distinctive appeal lies in its procedural world generation, offering a fresh experience with each playthrough, paired with the ability to modify every module.
 
 <br />
 
 ## Procedural World
-The procedural generation of thE world involves the utilization of **'FastNoise Lite'** (https://github.com/Auburn/FastNoiseLite), an open-source noise generation library. The values used for the noise generation are provided by a Scriptable Object (SO) of the MapSettings class, which contains noise types, frequency, a tile count, and other parameters. These values are subsequently used for grid generation and resource distribution.
+The procedural generation of the world involves the utilization of **'FastNoise Lite'** (https://github.com/Auburn/FastNoiseLite), an open-source noise generation library. The values used for the noise generation are provided by a Scriptable Object (SO) of the MapSettings class, which contains noise types, frequency, a tile count, and other parameters. These values are subsequently used for grid generation and resource distribution.
 For each hexagonal **'GridTile'** of the predetermined amount specified in the **'MapSettings'**, the **'ProceduralTileInfo'** is an information container. Holding information such as coordinates and the two noise values, the container was used to assign a numerical value to each **'GridTile'** according to its predefined noises. According to this value, the resource distribution will then be determined.
 
 <br />
